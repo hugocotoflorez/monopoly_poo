@@ -17,11 +17,21 @@ public class Casilla {
     private float hipoteca; //Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares; //Avatares que están situados en la casilla.
 
+    /* check return if x is true, else print message to stderr and raise an error */
     private void check(Boolean x, String msg)
     {
         if (!x)
         {
         System.err.println(msg);
+        System.exit(1);
+        }
+    }
+
+/* check return if x is true, else raise an error */
+    private void check(Boolean x)
+    {
+        if (!x)
+        {
         System.exit(1);
         }
     }
@@ -111,6 +121,8 @@ public class Casilla {
     @Override
     public String toString()
     {
+        /* Esta funcion se usa para obtener los datos de la casilla al pintar
+         * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1 */
         return String.format("%s%s", this.tipo, "");
     }
 
