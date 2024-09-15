@@ -28,6 +28,7 @@ public class Casilla {
 
     //Constructores:
     public Casilla() {
+        this.tipo= "Vacio"; // DEBUG
     }//Parámetros vacíos
 
     /*Constructor para casillas tipo Solar, Servicios o Transporte:
@@ -105,6 +106,12 @@ public class Casilla {
      * Valor devuelto: texto con esa información.
      */
     public String casEnVenta() {
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.format("%s%s", this.tipo, "");
     }
 
 }

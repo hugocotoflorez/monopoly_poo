@@ -17,11 +17,15 @@ public class Menu {
     private boolean tirado; //Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
     private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.
 
+    public Menu(){
+    tablero = new Tablero(banca);
+    System.out.println(tablero.toString());
+    }
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
     }
-    
+
     /*Método que interpreta el comando introducido y toma la accion correspondiente.
     * Parámetro: cadena de caracteres (el comando).
     */
@@ -56,7 +60,7 @@ public class Menu {
     private void comprar(String nombre) {
     }
 
-    //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
+    //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'.
     private void salirCarcel() {
     }
 
