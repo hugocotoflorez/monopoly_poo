@@ -50,7 +50,7 @@ public class Tablero {
     private void insertarLadoSur() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
         Casilla c;
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 10; i++)
         {
             c = new Casilla();
             lado.add(c);
@@ -102,6 +102,44 @@ public class Tablero {
         ret += '\n';
         // 2
         for (Casilla c : posiciones.get(0))
+            ret += borderChar + String.format("%s", c.toString());
+        ret += borderChar;
+        ret += '\n';
+        // 3
+        ret += String.valueOf(borderChar).repeat(casillaWidth*10+1);
+        ret += '\n';
+        /**
+         * Pinta los dos laterales a la vez (8 casillas)
+         */
+        for (int i = 0; i < 8; i++)
+        {
+            ret += borderChar + String.format("%s", posiciones.get(1).get(i).toString());
+            ret += '#';
+            ret += String.valueOf(' ').repeat(casillaWidth*8-1);
+            ret += borderChar + String.format("%s", posiciones.get(2).get(i).toString());
+            ret += '#';
+            ret += '\n';
+            if (i != 7){
+                ret += String.valueOf(borderChar).repeat(casillaWidth+1);
+                ret += String.valueOf(' ').repeat(casillaWidth*8-1);
+                ret += String.valueOf(borderChar).repeat(casillaWidth+1);
+                ret += '\n';
+            }
+
+        }
+        /* Ultima parte: Lado sur
+         * El lado sur contiene las 10 primeras casillas del tablero
+         *
+         * Routine
+         * 1) Se pinta el borde superior del tamano necesario
+         * 2) Se pinta cada casilla de la parte superior
+         * 3) Se pinta el borde inferior
+         */
+        // 1
+        ret += String.valueOf(borderChar).repeat(casillaWidth*10+1);
+        ret += '\n';
+        // 2
+        for (Casilla c : posiciones.get(3))
             ret += borderChar + String.format("%s", c.toString());
         ret += borderChar;
         ret += '\n';

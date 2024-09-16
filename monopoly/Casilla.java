@@ -38,7 +38,7 @@ public class Casilla {
 
     //Constructores:
     public Casilla() {
-        this.tipo= "Vacio"; // DEBUG
+        this.nombre= "Vacio"; // DEBUG
     }//Parámetros vacíos
 
     /*Constructor para casillas tipo Solar, Servicios o Transporte:
@@ -123,7 +123,7 @@ public class Casilla {
     {
         /* Esta funcion se usa para obtener los datos de la casilla al pintar
          * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1 */
-        return String.format("%s%s", this.tipo, "");
+        return String.format("%s%s", this.nombre, "");
     }
 
 }
