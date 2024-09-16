@@ -18,8 +18,8 @@ public class Menu {
     private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.
 
     public Menu(){
-    tablero = new Tablero(banca);
-    System.out.println(tablero.toString());
+        tablero = new Tablero(banca);
+        System.out.println(tablero.toString());
     }
 
     // Método para inciar una partida: crea los jugadores y avatares.

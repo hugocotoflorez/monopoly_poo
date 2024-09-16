@@ -12,4 +12,9 @@ public class Dado {
         return valor;
     }
 
+    public int getValor()
+    {
+        return this.valor;
+    }
+
 }
