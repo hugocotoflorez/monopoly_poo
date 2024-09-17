@@ -1,5 +1,5 @@
 package monopoly;
-
+// hola soy guille
 import partida.*;
 import java.util.ArrayList;
 
