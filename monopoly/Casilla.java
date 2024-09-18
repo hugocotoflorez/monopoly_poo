@@ -113,8 +113,12 @@ public class Casilla {
         float fortuna_solicitante = solicitante.getFortuna();
         float fortuna_banca = banca.getFortuna();
         if(fortuna_solicitante >= this.valor){
-        solicitante.setFortuna(fortuna_solicitante- this.valor);
-        banca.setFortuna(fortuna_banca+ this.valor);
+        solicitante.setFortuna(fortuna_solicitante - this.valor);
+        banca.setFortuna(fortuna_banca + this.valor);
+        System.out.println("El jugador" + solicitante.getNombre()+"ha comprado la casilla"+this.nombre);
+        }
+        else{ //TODO
+            System.out.println("No tienes suficiente cash POBRE");
         }
     }
 
