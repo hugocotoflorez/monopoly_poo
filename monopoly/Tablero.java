@@ -28,16 +28,16 @@ public class Tablero {
     private void generarCasillas() {
         this.posiciones= new ArrayList<ArrayList<Casilla>>();
         this.insertarLadoNorte();
-        this.insertarLadoOeste();
         this.insertarLadoEste();
         this.insertarLadoSur();
+        this.insertarLadoOeste();
     }
 
     // Método para insertar las casillas del lado norte.
     private void insertarLadoNorte() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
         Casilla c;
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 9; i++)
         {
             c = new Casilla();
             lado.add(c);
@@ -50,20 +50,7 @@ public class Tablero {
     private void insertarLadoSur() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
         Casilla c;
-        for (int i = 0; i < 10; i++)
-        {
-            c = new Casilla();
-            lado.add(c);
-        }
-        posiciones.add(lado);
-        /* Se anade en el indice 3 */
-    }
-
-    // Método que inserta casillas del lado oeste.
-    private void insertarLadoOeste() {
-        ArrayList<Casilla> lado = new ArrayList<Casilla>();
-        Casilla c;
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 9; i++)
         {
             c = new Casilla();
             lado.add(c);
@@ -72,11 +59,11 @@ public class Tablero {
         /* Se anade en el indice 2 */
     }
 
-    // Método que inserta las casillas del lado este.
-    private void insertarLadoEste() {
+    // Método que inserta casillas del lado oeste.
+    private void insertarLadoOeste() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
         Casilla c;
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 9; i++)
         {
             c = new Casilla();
             lado.add(c);
@@ -85,38 +72,42 @@ public class Tablero {
         /* Se anade en el indice 3 */
     }
 
+    // Método que inserta las casillas del lado este.
+    private void insertarLadoEste() {
+        ArrayList<Casilla> lado = new ArrayList<Casilla>();
+        Casilla c;
+        for (int i = 0; i < 9; i++)
+        {
+            c = new Casilla();
+            lado.add(c);
+        }
+        posiciones.add(lado);
+        /* Se anade en el indice 1 */
+    }
+
     // Para imprimir el tablero, modificamos el método toString().
     @Override
     public String toString() {
-        /* Primera parte: Lado norte
-         * El lado norte contiene las 10 primeras casillas del tablero
-         *
-         * Routine
-         * 1) Se pinta el borde superior del tamano necesario
-         * 2) Se pinta cada casilla de la parte superior
-         * 3) Se pinta el borde inferior
-         */
-        // 1
         String ret = new String();
         ret += String.valueOf(borderChar).repeat(casillaWidth*10+1);
         ret += '\n';
-        // 2
+
         for (Casilla c : posiciones.get(0))
             ret += borderChar + String.format("%s", c.toString());
+
+        ret += borderChar + String.format("%s", posiciones.get(1).get(0).toString());
         ret += borderChar;
         ret += '\n';
-        // 3
+
         ret += String.valueOf(borderChar).repeat(casillaWidth*10+1);
         ret += '\n';
-        /**
-         * Pinta los dos laterales a la vez (8 casillas)
-         */
+
         for (int i = 0; i < 8; i++)
         {
-            ret += borderChar + String.format("%s", posiciones.get(1).get(i).toString());
+            ret += borderChar + String.format("%s", posiciones.get(1).get(i+1).toString());
             ret += '#';
             ret += String.valueOf(' ').repeat(casillaWidth*8-1);
-            ret += borderChar + String.format("%s", posiciones.get(2).get(i).toString());
+            ret += borderChar + String.format("%s", posiciones.get(3).get(i+1).toString());
             ret += '#';
             ret += '\n';
             if (i != 7){
@@ -127,23 +118,16 @@ public class Tablero {
             }
 
         }
-        /* Ultima parte: Lado sur
-         * El lado sur contiene las 10 primeras casillas del tablero
-         *
-         * Routine
-         * 1) Se pinta el borde superior del tamano necesario
-         * 2) Se pinta cada casilla de la parte superior
-         * 3) Se pinta el borde inferior
-         */
-        // 1
+
         ret += String.valueOf(borderChar).repeat(casillaWidth*10+1);
         ret += '\n';
-        // 2
-        for (Casilla c : posiciones.get(3))
+
+        ret += borderChar + String.format("%s", posiciones.get(3).get(0).toString());
+        for (Casilla c : posiciones.get(2))
             ret += borderChar + String.format("%s", c.toString());
         ret += borderChar;
         ret += '\n';
-        // 3
+
         ret += String.valueOf(borderChar).repeat(casillaWidth*10+1);
         ret += '\n';
         return ret;
