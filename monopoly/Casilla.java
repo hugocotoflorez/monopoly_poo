@@ -106,7 +106,12 @@ public class Casilla {
     * - Jugador que solicita la compra de la casilla.
     * - Banca del monopoly (es el dueño de las casillas no compradas aún).*/
     public void comprarCasilla(Jugador solicitante, Jugador banca) {
-        solicitante
+        float fortuna_solicitante = solicitante.getFortuna();
+        float fortuna_banca = banca.getFortuna();
+        if(fortuna_solicitante >= this.valor){
+        solicitante.setFortuna(fortuna_solicitante- this.valor);
+        banca.setFortuna(fortuna_banca+ this.valor);
+        }
     }
 
     /*Método para añadir valor a una casilla. Utilidad:
