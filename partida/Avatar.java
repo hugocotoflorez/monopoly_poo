@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import monopoly.*;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 
 public class Avatar {
 
@@ -24,11 +27,13 @@ public class Avatar {
         return (x == "Sombrero" || x == "Esfinge" || x == "Pelota" || x == "Coche");
     }
     public Avatar(String tipo, Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
-        if (checkAvatar(tipo)){ 
-        this.tipo= tipo;
-        }
+        if(tipo == "Sombrero" || tipo == "Esfinge" || tipo == "Pelota" || tipo == "Coche"){
+            this.tipo = tipo;
+        };
         this.jugador= jugador;
-        this.lugar = lugar;
+        this.lugar= lugar;
+        generarId(avCreados);        
+    
     }
 
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
@@ -43,9 +48,21 @@ public class Avatar {
     * - Un arraylist de los avatares ya creados, con el objetivo de evitar que se generen dos ID iguales.
      */
     private void generarId(ArrayList<Avatar> avCreados) {
+        Random rnd = new Random();
+        String letra = String.valueOf((char) ('A' + rnd.nextInt(26)));
+        int aseguradodistinto = 0,i = 0,encontradoigual = 0; 
+        while (aseguradodistinto == 0){
+            for(Avatar A:avCreados){
+                if(A.id == letra){
+                    letra = String.valueOf((char) ('A' + rnd.nextInt(26)));
+                    break;
+                }
+                aseguradodistinto =1;
+            }
+        }
+        this.id = letra;
+        }
         
-        Random random = new Random();
-        this.id = (String)("a" + random.nextInt(26));
-
+        
     }
 }
