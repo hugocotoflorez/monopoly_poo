@@ -16,6 +16,7 @@ public class Casilla {
     private float impuesto; //Cantidad a pagar por caer en la casilla: el alquiler en solares/servicios/transportes o impuestos.
     private float hipoteca; //Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares; //Avatares que están situados en la casilla.
+    private static Valor val;
 
     /* check return if x is true, else print message to stderr and raise an error */
     private void check(Boolean x, String msg)
@@ -143,11 +144,10 @@ public class Casilla {
     @Override
     public String toString()
     {
-        Termctl term = new Termctl();
         /* Esta funcion se usa para obtener los datos de la casilla al pintar
          * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1 */
-        return term.set_color(term.Green) +
-        String.format("%s%s", this.nombre, "")+term.set_color(term.Reset);
+        return this.grupo.getColor() +
+        String.format("%s%s", this.nombre, "") + val.RESET;
     }
 
 }
