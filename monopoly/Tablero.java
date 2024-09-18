@@ -89,9 +89,12 @@ public class Tablero {
     @Override
     public String toString() {
         String ret = new String();
+
+        // borde superior del tablero
         ret += String.valueOf(borderChar).repeat(casillaWidth*10+1);
         ret += '\n';
 
+        // casillas del lado norte
         for (Casilla c : posiciones.get(0))
             ret += borderChar + String.format("%s", c.toString());
 
@@ -99,9 +102,11 @@ public class Tablero {
         ret += borderChar;
         ret += '\n';
 
+        // borde inferior del lado norte
         ret += String.valueOf(borderChar).repeat(casillaWidth*10+1);
         ret += '\n';
 
+        // casillas del lado este y oeste
         for (int i = 0; i < 8; i++)
         {
             ret += borderChar + String.format("%s", posiciones.get(1).get(i+1).toString());
@@ -119,17 +124,22 @@ public class Tablero {
 
         }
 
+        // borde superior del lado sur
         ret += String.valueOf(borderChar).repeat(casillaWidth*10+1);
         ret += '\n';
 
+        // lado sur
         ret += borderChar + String.format("%s", posiciones.get(3).get(0).toString());
         for (Casilla c : posiciones.get(2))
             ret += borderChar + String.format("%s", c.toString());
         ret += borderChar;
         ret += '\n';
 
+        // borde inferor del tablero
         ret += String.valueOf(borderChar).repeat(casillaWidth*10+1);
         ret += '\n';
+
+        // ret contiene todo el tablero
         return ret;
     }
 
