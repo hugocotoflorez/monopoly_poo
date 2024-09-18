@@ -1,7 +1,6 @@
 package partida;
 
 import java.util.ArrayList;
-
 import monopoly.*;
 
 
@@ -51,6 +50,13 @@ public class Jugador {
     /*Método para establecer al jugador en la cárcel. 
     * Se requiere disponer de las casillas del tablero para ello (por eso se pasan como parámetro).*/
     public void encarcelar(ArrayList<ArrayList<Casilla>> pos) {
+    }
+    public float getFortuna(){
+        return this.fortuna;
+    }
+    public void setFortuna(float fortuna){
+        this.fortuna = fortuna;
+        
     }
 
 }
