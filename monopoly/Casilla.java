@@ -146,7 +146,7 @@ public class Casilla {
     public String casEnVenta() {
     }
 
-    public String printtablero()
+    public String printTablero()
     {
         /* Esta funcion se usa para obtener los datos de la casilla al pintar
          * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1 */
