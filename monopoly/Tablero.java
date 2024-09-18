@@ -20,6 +20,7 @@ public class Tablero {
     // Constructor: únicamente le pasamos el jugador banca (que se creará desde el
     // menú).
     public Tablero(Jugador banca) {
+        this.banca = banca;
         generarCasillas();
     }
 
@@ -145,6 +146,7 @@ public class Tablero {
 
     // Método usado para buscar la casilla con el nombre pasado como argumento:
     public Casilla encontrar_casilla(String nombre) {
+        // Solucion O(n) (busqueda lineal)
         for (ArrayList<Casilla> arr : posiciones)
         {
             for (Casilla c : arr)
