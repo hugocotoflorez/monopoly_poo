@@ -97,9 +97,9 @@ public class Tablero {
 
         // casillas del lado norte
         for (Casilla c : posiciones.get(0))
-            ret += borderChar + String.format("%s", c.toString());
+            ret += borderChar + String.format("%s", c.printTablero());
 
-        ret += borderChar + String.format("%s", posiciones.get(1).get(0).toString());
+        ret += borderChar + String.format("%s", posiciones.get(1).get(0).printTablero());
         ret += borderChar;
         ret += '\n';
 
@@ -110,10 +110,10 @@ public class Tablero {
         // casillas del lado este y oeste
         for (int i = 0; i < 8; i++)
         {
-            ret += borderChar + String.format("%s", posiciones.get(1).get(i+1).toString());
+            ret += borderChar + String.format("%s", posiciones.get(1).get(i+1).printTablero());
             ret += '#';
             ret += String.valueOf(' ').repeat(casillaWidth*8-1);
-            ret += borderChar + String.format("%s", posiciones.get(3).get(i+1).toString());
+            ret += borderChar + String.format("%s", posiciones.get(3).get(i+1).printTablero());
             ret += '#';
             ret += '\n';
             if (i != 7){
@@ -130,9 +130,9 @@ public class Tablero {
         ret += '\n';
 
         // lado sur
-        ret += borderChar + String.format("%s", posiciones.get(3).get(0).toString());
+        ret += borderChar + String.format("%s", posiciones.get(3).get(0).printTablero());
         for (Casilla c : posiciones.get(2))
-            ret += borderChar + String.format("%s", c.toString());
+            ret += borderChar + String.format("%s", c.printTablero());
         ret += borderChar;
         ret += '\n';
 
