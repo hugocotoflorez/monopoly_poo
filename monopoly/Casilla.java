@@ -84,10 +84,12 @@ public class Casilla {
 
     //Método utilizado para añadir un avatar al array de avatares en casilla.
     public void anhadirAvatar(Avatar av) {
+        this.avatares.add(av);
     }
 
     //Método utilizado para eliminar un avatar del array de avatares en casilla.
     public void eliminarAvatar(Avatar av) {
+        this.avatares.remove(av);
     }
 
     /*Método para evaluar qué hacer en una casilla concreta. Parámetros:
