@@ -35,4 +35,9 @@ public class Termctl {
             System.out.print("\033[7m");
     }
 
+    public void apply(int color)
+    {
+        System.out.print("\033["+(color+30)+"m");
+    }
+
 }
