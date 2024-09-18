@@ -2,21 +2,21 @@ package monopoly;
 
 public class Termctl {
     // colors
-    public static final int Black = 0;
-    public static final int Red = 1;
-    public static final int Green = 2;
-    public static final int Yellow = 3;
-    public static final int Blue = 4;
-    public static final int Magenta = 5;
-    public static final int Cyan = 6;
-    public static final int White = 7;
+    public  final int Black = 0;
+    public  final int Red = 1;
+    public  final int Green = 2;
+    public  final int Yellow = 3;
+    public  final int Blue = 4;
+    public  final int Magenta = 5;
+    public  final int Cyan = 6;
+    public  final int White = 7;
     // styles
-    public static final int Normal = 1 << 0;
-    public static final int Bold = 1 << 1;
-    public static final int Italic = 1 << 2;
-    public static final int Faint = 1 << 3;
-    public static final int Underline = 1 << 4;
-    public static final int Inverse = 1 << 5;
+    public  final int Normal = 1 << 0;
+    public  final int Bold = 1 << 1;
+    public  final int Italic = 1 << 2;
+    public  final int Faint = 1 << 3;
+    public  final int Underline = 1 << 4;
+    public  final int Inverse = 1 << 5;
 
     public void apply(int color, int style)
     {
