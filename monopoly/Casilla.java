@@ -129,10 +129,8 @@ public class Casilla {
         Termctl term = new Termctl();
         /* Esta funcion se usa para obtener los datos de la casilla al pintar
          * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1 */
-        term.apply(term.Green);
-        String ret = String.format("%s%s", this.nombre, "");
-        term.reset();
-        return ret;
+        return term.set_color(term.Green) +
+        String.format("%s%s", this.nombre, "")+term.set_color(term.Reset);
     }
 
 }

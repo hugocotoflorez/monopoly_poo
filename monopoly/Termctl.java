@@ -10,6 +10,7 @@ public class Termctl {
     public  final int Magenta = 5;
     public  final int Cyan = 6;
     public  final int White = 7;
+    public final int Reset = -30;
     // styles
     public  final int Normal = 1 << 0;
     public  final int Bold = 1 << 1;
@@ -35,9 +36,9 @@ public class Termctl {
             System.out.print("\033[7m");
     }
 
-    public void apply(int color)
+    public String set_color(int color)
     {
-        System.out.print("\033["+(color+30)+"m");
+        return "\033["+(color+30)+"m";
     }
 
     public void reset()
