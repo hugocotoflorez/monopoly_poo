@@ -1,6 +1,17 @@
 package monopoly;
 
 public class Termctl {
+    /**
+     * Esta implementacion esta adaptada del codigo en C
+     * termstuff (github.com/hugocotoflorez/termstuff)
+     *
+     * No esta implementada siguiendo los convenios de la
+     * programacion orientada a objetos, por lo que deberia
+     * ser rescrita en algun momento.
+     *
+     * Hugo Coto Florez se hace responsable de la siguiente
+     * implementacion. Gracias.
+     */
     // colors
     public  final int Black = 0;
     public  final int Red = 1;
