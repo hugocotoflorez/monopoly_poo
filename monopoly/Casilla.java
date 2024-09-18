@@ -1,5 +1,5 @@
 package monopoly;
-//soy imbecil
+//soy imbecilsadf
 import partida.*;
 import java.util.ArrayList;
 
