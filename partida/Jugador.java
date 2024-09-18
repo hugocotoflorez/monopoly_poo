@@ -18,6 +18,16 @@ public class Jugador {
 
     //Constructor vacío. Se usará para crear la banca.
     public Jugador() {
+        
+        this.fortuna = 100000; // Valor elevado para que la banca nunca se quede sin dinero
+        this.avatar = null;
+        this.nombre = null;
+        this.gastos = 0;
+        this.enCarcel = False;
+        this.tiradasCarcel = 0;
+        this.tiradasCarcel = 0;
+        this.vueltas = 0;
+        this.propiedades = null;
     }
 
     /*Constructor principal. Requiere parámetros:
@@ -26,11 +36,16 @@ public class Jugador {
     * que dos avatares tengan mismo ID). Desde este constructor también se crea el avatar.
      */
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
+
+        this.nombre = nombre;
+        //this.avatar = new Avatar(tipoAvatar,) TODO 
+        
     }
 
     //Otros métodos:
     //Método para añadir una propiedad al jugador. Como parámetro, la casilla a añadir.
     public void anhadirPropiedad(Casilla casilla) {
+        this.propiedades.add(casilla);
     }
 
     //Método para eliminar una propiedad del arraylist de propiedades de jugador.
@@ -40,11 +55,14 @@ public class Jugador {
     //Método para añadir fortuna a un jugador
     //Como parámetro se pide el valor a añadir. Si hay que restar fortuna, se pasaría un valor negativo.
     public void sumarFortuna(float valor) {
+        this.fortuna += valor;
     }
+
 
     //Método para sumar gastos a un jugador.
     //Parámetro: valor a añadir a los gastos del jugador (será el precio de un solar, impuestos pagados...).
     public void sumarGastos(float valor) {
+        this.gastos += valor;
     }
 
     /*Método para establecer al jugador en la cárcel. 

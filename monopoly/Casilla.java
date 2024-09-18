@@ -115,7 +115,7 @@ public class Casilla {
     /*Método usado para comprar una casilla determinada. Parámetros:
     * - Jugador que solicita la compra de la casilla.
     * - Banca del monopoly (es el dueño de las casillas no compradas aún).*/
-    public void comprarCasilla(Jugador solicitante, Jugador banca) {
+    public void comprarCasilla(Jugador solicitante, Jugador banca) { //TODO
         float fortuna_solicitante = solicitante.getFortuna();
         float fortuna_banca = banca.getFortuna();
         if(fortuna_solicitante >= this.valor){
@@ -150,10 +150,14 @@ public class Casilla {
     {
         /* Esta funcion se usa para obtener los datos de la casilla al pintar
          * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1 */
-        return this.grupo.getColor() +
+        return ((this.grupo!=null)? this.grupo.getColor() : val.WHITE) +
         String.format("%s%s", this.nombre, "") + val.RESET;
     }
-    public String getInfo(){
-        return this.toString();
+    public void setPosicion(int pos){
+        this.posicion = pos;
+    }
+    public int getPosicion(){
+
+        return this.posicion;
     }
 }
