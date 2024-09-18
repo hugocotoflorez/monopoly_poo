@@ -36,6 +36,11 @@ public class Casilla {
         }
     }
 
+    public String getNombre()
+    {
+        return this.nombre;
+    }
+
     //Constructores:
     public Casilla() {
         this.nombre= "Vacio"; // DEBUG
