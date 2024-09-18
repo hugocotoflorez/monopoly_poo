@@ -37,6 +37,11 @@ public class Casilla {
         }
     }
 
+    public void setGrupo(Grupo grupo)
+    {
+        this.grupo = grupo;
+    }
+
     public String getNombre()
     {
         return this.nombre;
