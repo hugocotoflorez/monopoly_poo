@@ -41,6 +41,10 @@ public class Casilla {
         return this.nombre;
     }
 
+    public Jugador getDuenho()
+    {
+        return this.duenho;
+    }
     //Constructores:
     public Casilla() {
         this.nombre= "Vacio"; // DEBUG
