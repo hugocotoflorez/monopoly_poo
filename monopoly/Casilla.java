@@ -109,7 +109,7 @@ public class Casilla {
     * Valor devuelto: true en caso de ser solvente (es decir, de cumplir las deudas), y false
     * en caso de no cumplirlas.*/
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
-
+        //TODO
     }
 
     /*Método usado para comprar una casilla determinada. Parámetros:
@@ -146,13 +146,14 @@ public class Casilla {
     public String casEnVenta() {
     }
 
-    @Override
-    public String toString()
+    public String printtablero()
     {
         /* Esta funcion se usa para obtener los datos de la casilla al pintar
          * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1 */
         return this.grupo.getColor() +
         String.format("%s%s", this.nombre, "") + val.RESET;
     }
-
+    public String getInfo(){
+        return this.toString();
+    }
 }
