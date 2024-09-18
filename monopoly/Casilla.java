@@ -130,8 +130,9 @@ public class Casilla {
         /* Esta funcion se usa para obtener los datos de la casilla al pintar
          * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1 */
         term.apply(term.Green);
-        return String.format("%s%s", this.nombre, "");
+        String ret = String.format("%s%s", this.nombre, "");
         term.reset();
+        return ret;
     }
 
 }
