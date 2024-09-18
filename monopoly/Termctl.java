@@ -21,17 +21,17 @@ public class Termctl {
     public void apply(int color, int style)
     {
         System.out.print("\033["+(color+30)+"m");
-        if ((style & normal)!= 0)
+        if ((style & Normal)!= 0)
             System.out.print("\033[0m");
-        if ((style & bold)!= 0)
+        if ((style & Bold)!= 0)
             System.out.print("\033[1m");
-        if ((style & italic)!= 0)
+        if ((style & Italic)!= 0)
             System.out.print("\033[3m");
-        if ((style & faint)!= 0)
+        if ((style & Faint)!= 0)
             System.out.print("\033[2m");
-        if ((style & underline)!= 0)
+        if ((style & Underline)!= 0)
             System.out.print("\033[4m");
-        if ((style & inverse)!= 0)
+        if ((style & Inverse)!= 0)
             System.out.print("\033[7m");
     }
 
