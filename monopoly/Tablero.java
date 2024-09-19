@@ -1,4 +1,5 @@
 package monopoly;
+
 //
 import partida.*;
 import java.util.Iterator;
@@ -13,9 +14,17 @@ public class Tablero {
                                            // color del grupo).
     private Jugador banca; // Un jugador que será la banca.
 
-    private int casillaWidth = 6;
-    private int casillaHeight = 2;
-    private char borderChar = '#';
+    private char top_left = '┏';
+    private char top_right = '┓';
+    private char bottom_left = '┗';
+    private char bottom_right = '┛';
+    private char vertical = '┃';
+    private char horizontal = '━';
+    private char vertical_right = '┣';
+    private char vertical_left = '┫';
+    private char horizontal_up = '┻';
+    private char horizontal_down = '┳';
+    private char full_intersection = '╋';
 
     // Constructor: únicamente le pasamos el jugador banca (que se creará desde el
     // menú).
@@ -27,7 +36,7 @@ public class Tablero {
     // Método para crear todas las casillas del tablero. Formado a su vez por cuatro
     // métodos (1/lado).
     private void generarCasillas() {
-        this.posiciones= new ArrayList<ArrayList<Casilla>>();
+        this.posiciones = new ArrayList<ArrayList<Casilla>>();
         this.insertarLadoNorte();
         this.insertarLadoEste();
         this.insertarLadoSur();
@@ -38,8 +47,7 @@ public class Tablero {
     private void insertarLadoNorte() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
         Casilla c;
-        for (int i = 0; i < 9; i++)
-        {
+        for (int i = 0; i < 10; i++) {
             c = new Casilla();
             lado.add(c);
         }
@@ -51,8 +59,7 @@ public class Tablero {
     private void insertarLadoSur() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
         Casilla c;
-        for (int i = 0; i < 9; i++)
-        {
+        for (int i = 0; i < 10; i++) {
             c = new Casilla();
             lado.add(c);
         }
@@ -64,8 +71,7 @@ public class Tablero {
     private void insertarLadoOeste() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
         Casilla c;
-        for (int i = 0; i < 9; i++)
-        {
+        for (int i = 0; i < 10; i++) {
             c = new Casilla();
             lado.add(c);
         }
@@ -77,8 +83,7 @@ public class Tablero {
     private void insertarLadoEste() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
         Casilla c;
-        for (int i = 0; i < 9; i++)
-        {
+        for (int i = 0; i < 10; i++) {
             c = new Casilla();
             lado.add(c);
         }
@@ -91,8 +96,10 @@ public class Tablero {
     public String toString() {
         String ret = new String();
 
+        ret += "\033[H\033[2J";
+
         // borde superior del tablero
-        ret += String.valueOf(borderChar).repeat(casillaWidth*10+1);
+        ret += String.valueOf(borderChar).repeat(Casilla.casillaWidth * 11 + 1);
         ret += '\n';
 
         // casillas del lado norte
@@ -104,29 +111,28 @@ public class Tablero {
         ret += '\n';
 
         // borde inferior del lado norte
-        ret += String.valueOf(borderChar).repeat(casillaWidth*10+1);
+        ret += String.valueOf(borderChar).repeat(Casilla.casillaWidth * 11 + 1);
         ret += '\n';
 
         // casillas del lado este y oeste
-        for (int i = 0; i < 8; i++)
-        {
-            ret += borderChar + String.format("%s", posiciones.get(1).get(i+1).printTablero());
+        for (int i = 0; i < 9; i++) {
+            ret += borderChar + String.format("%s", posiciones.get(1).get(i + 1).printTablero());
             ret += '#';
-            ret += String.valueOf(' ').repeat(casillaWidth*8-1);
-            ret += borderChar + String.format("%s", posiciones.get(3).get(i+1).printTablero());
+            ret += String.valueOf(' ').repeat(Casilla.casillaWidth * 9 - 1);
+            ret += borderChar + String.format("%s", posiciones.get(3).get(i + 1).printTablero());
             ret += '#';
             ret += '\n';
-            if (i != 7){
-                ret += String.valueOf(borderChar).repeat(casillaWidth+1);
-                ret += String.valueOf(' ').repeat(casillaWidth*8-1);
-                ret += String.valueOf(borderChar).repeat(casillaWidth+1);
+            if (i != 8) {
+                ret += String.valueOf(borderChar).repeat(Casilla.casillaWidth + 1);
+                ret += String.valueOf(' ').repeat(Casilla.casillaWidth * 9 - 1);
+                ret += String.valueOf(borderChar).repeat(Casilla.casillaWidth + 1);
                 ret += '\n';
             }
 
         }
 
         // borde superior del lado sur
-        ret += String.valueOf(borderChar).repeat(casillaWidth*10+1);
+        ret += String.valueOf(borderChar).repeat(Casilla.casillaWidth * 11 + 1);
         ret += '\n';
 
         // lado sur
@@ -137,7 +143,7 @@ public class Tablero {
         ret += '\n';
 
         // borde inferor del tablero
-        ret += String.valueOf(borderChar).repeat(casillaWidth*10+1);
+        ret += String.valueOf(borderChar).repeat(Casilla.casillaWidth * 11 + 1);
         ret += '\n';
 
         // ret contiene todo el tablero
@@ -147,10 +153,8 @@ public class Tablero {
     // Método usado para buscar la casilla con el nombre pasado como argumento:
     public Casilla encontrar_casilla(String nombre) {
         // Solucion O(n) (busqueda lineal)
-        for (ArrayList<Casilla> arr : posiciones)
-        {
-            for (Casilla c : arr)
-            {
+        for (ArrayList<Casilla> arr : posiciones) {
+            for (Casilla c : arr) {
                 if (c.getNombre() == nombre)
                     return c;
             }
