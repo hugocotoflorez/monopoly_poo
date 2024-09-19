@@ -46,11 +46,16 @@ public class Tablero {
     // Método para insertar las casillas del lado norte.
     private void insertarLadoNorte() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
-        Casilla c;
-        for (int i = 0; i < 10; i++) {
-            c = new Casilla();
-            lado.add(c);
-        }
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
         posiciones.add(lado);
         /* Se anade en el indice 0 */
     }
@@ -58,11 +63,16 @@ public class Tablero {
     // Método para insertar las casillas del lado sur.
     private void insertarLadoSur() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
-        Casilla c;
-        for (int i = 0; i < 10; i++) {
-            c = new Casilla();
-            lado.add(c);
-        }
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
         posiciones.add(lado);
         /* Se anade en el indice 2 */
     }
@@ -70,11 +80,16 @@ public class Tablero {
     // Método que inserta casillas del lado oeste.
     private void insertarLadoOeste() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
-        Casilla c;
-        for (int i = 0; i < 10; i++) {
-            c = new Casilla();
-            lado.add(c);
-        }
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
         posiciones.add(lado);
         /* Se anade en el indice 3 */
     }
@@ -82,11 +97,16 @@ public class Tablero {
     // Método que inserta las casillas del lado este.
     private void insertarLadoEste() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
-        Casilla c;
-        for (int i = 0; i < 10; i++) {
-            c = new Casilla();
-            lado.add(c);
-        }
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
+        lado.add(new Casilla());
         posiciones.add(lado);
         /* Se anade en el indice 1 */
     }
