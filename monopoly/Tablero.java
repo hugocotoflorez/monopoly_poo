@@ -43,19 +43,22 @@ public class Tablero {
         this.insertarLadoOeste();
     }
 
+    // ESTO LO HIZO CHAT-GPT . ESTA MAL!!!!
+
     // Método para insertar las casillas del lado norte.
     private void insertarLadoNorte() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
+        lado.add(new Casilla("Parking", "especial", 21, banca));
+        lado.add(new Casilla("Solar12", "solar", 22, 420000, banca));
+        lado.add(new Casilla("Suerte2", "suerte", 23, banca));
+        lado.add(new Casilla("Solar13", "solar", 24, 440000, banca));
+        lado.add(new Casilla("Solar14", "solar", 25, 460000, banca));
+        lado.add(new Casilla("Trans3", "transporte", 26, 180000, banca));
+        lado.add(new Casilla("Solar15", "solar", 27, 480000, banca));
+        lado.add(new Casilla("Serv2", "serv", 28, 130000, banca));
+        lado.add(new Casilla("Solar16", "solar", 29, 500000, banca));
+        lado.add(new Casilla("Ir a Cárcel", "especial", 30, banca));
+
         posiciones.add(lado);
         /* Se anade en el indice 0 */
     }
@@ -63,16 +66,17 @@ public class Tablero {
     // Método para insertar las casillas del lado sur.
     private void insertarLadoSur() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
+        lado.add(new Casilla("Salida", "especial", 1, banca));
+        lado.add(new Casilla("Solar1", "solar", 2, 200000, banca));
+        lado.add(new Casilla("Caja", "caja", 3, banca));
+        lado.add(new Casilla("Solar2", "solar", 4, 220000, banca));
+        lado.add(new Casilla("Impuesto1", 5, 100000, banca));
+        lado.add(new Casilla("Trans1", "transporte", 6, 150000, banca));
+        lado.add(new Casilla("Solar3", "solar", 7, 240000, banca));
+        lado.add(new Casilla("Suerte1", "suerte", 8, banca));
+        lado.add(new Casilla("Solar4", "solar", 9, 260000, banca));
+        lado.add(new Casilla("Solar5", "solar", 10, 280000, banca));
+
         posiciones.add(lado);
         /* Se anade en el indice 2 */
     }
@@ -80,16 +84,17 @@ public class Tablero {
     // Método que inserta casillas del lado oeste.
     private void insertarLadoOeste() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
+        lado.add(new Casilla("Carcel", "especial", 11, banca));
+        lado.add(new Casilla("Solar6", "solar", 12, 300000, banca));
+        lado.add(new Casilla("Serv1", "serv", 13, 120000, banca));
+        lado.add(new Casilla("Solar7", "solar", 14, 320000, banca));
+        lado.add(new Casilla("Solar8", "solar", 15, 340000, banca));
+        lado.add(new Casilla("Trans2", "transporte", 16, 160000, banca));
+        lado.add(new Casilla("Solar9", "solar", 17, 360000, banca));
+        lado.add(new Casilla("Caja", "caja", 18, banca));
+        lado.add(new Casilla("Solar10", "solar", 19, 380000, banca));
+        lado.add(new Casilla("Solar11", "solar", 20, 400000, banca));
+
         posiciones.add(lado);
         /* Se anade en el indice 3 */
     }
@@ -97,16 +102,17 @@ public class Tablero {
     // Método que inserta las casillas del lado este.
     private void insertarLadoEste() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
-        lado.add(new Casilla());
+        lado.add(new Casilla("Solar17", "solar", 31, 520000, banca));
+        lado.add(new Casilla("Caja", "caja", 32, banca));
+        lado.add(new Casilla("Solar18", "solar", 33, 540000, banca));
+        lado.add(new Casilla("Trans4", "transporte", 34, 200000, banca));
+        lado.add(new Casilla("Suerte3", "suerte", 35, banca));
+        lado.add(new Casilla("Solar19", "solar", 36, 560000, banca));
+        lado.add(new Casilla("Solar20", "solar", 37, 580000, banca));
+        lado.add(new Casilla("Impuesto2", 38, 150000, banca));
+        lado.add(new Casilla("Solar21", "solar", 39, 600000, banca));
+        lado.add(new Casilla("Solar22", "solar", 40, 620000, banca));
+
         posiciones.add(lado);
         /* Se anade en el indice 1 */
     }

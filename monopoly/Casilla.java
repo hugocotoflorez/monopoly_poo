@@ -20,7 +20,7 @@ public class Casilla {
     private ArrayList<Avatar> avatares; // Avatares que están situados en la casilla.
     private static Valor val;
 
-    public static final int casillaWidth = 10;
+    public static final int casillaWidth = 15;
 
     /* check return if x is true, else print message to stderr and raise an error */
     private void check(Boolean x, String msg) {
@@ -49,11 +49,6 @@ public class Casilla {
         return this.duenho;
     }
 
-    // Constructores:
-    public Casilla() {
-        this.nombre = "Vacio"; // DEBUG
-    }// Parámetros vacíos
-
     /*
      * Constructor para casillas tipo Solar, Servicios o Transporte:
      * Parámetros: nombre casilla, tipo (debe ser solar, serv. o transporte),
@@ -61,7 +56,6 @@ public class Casilla {
      */
     public Casilla(String nombre, String tipo, int posicion, float valor, Jugador duenho) {
 
-        check(tipo == "Solar" || tipo == "Servicio" || tipo == "Transporte", "Casilla.tipo unexpected value");
         this.nombre = nombre;
         this.tipo = tipo;
         this.posicion = posicion;
@@ -87,9 +81,6 @@ public class Casilla {
      * en el tablero y dueño.
      */
     public Casilla(String nombre, String tipo, int posicion, Jugador duenho) {
-
-        check(tipo == "Solar" || tipo == "Servicio" || tipo == "Transporte", "Casilla.tipo unexpected value: "+ tipo);
-
         this.nombre = nombre;
         this.tipo = tipo;
         this.posicion = posicion;
