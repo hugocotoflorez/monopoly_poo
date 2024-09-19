@@ -2,7 +2,6 @@ package monopoly;
 
 //
 import partida.*;
-import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,17 +14,17 @@ public class Tablero {
     private Jugador banca; // Un jugador que será la banca.
 
     private static final boolean USAR_NERD_FONT = true;;
-    private char char_top_left = USAR_NERD_FONT? '┏': '+';
-    private char char_top_right = USAR_NERD_FONT? '┓':'+';
-    private char char_bottom_left = USAR_NERD_FONT? '┗':'+';
-    private char char_bottom_right = USAR_NERD_FONT? '┛':'+';
-    private char char_vertical = USAR_NERD_FONT? '┃':'|';
-    private char char_horizontal = USAR_NERD_FONT? '━':'-';
-    private char char_vertical_right = USAR_NERD_FONT? '┣':'|';
-    private char char_vertical_left = USAR_NERD_FONT? '┫':'|';
-    private char char_horizontal_up = USAR_NERD_FONT? '┻':'-';
-    private char char_horizontal_down = USAR_NERD_FONT? '┳':'-';
-    private char char_full_intersection = USAR_NERD_FONT? '╋':'+';
+    private char char_top_left = USAR_NERD_FONT ? '┏' : '+';
+    private char char_top_right = USAR_NERD_FONT ? '┓' : '+';
+    private char char_bottom_left = USAR_NERD_FONT ? '┗' : '+';
+    private char char_bottom_right = USAR_NERD_FONT ? '┛' : '+';
+    private char char_vertical = USAR_NERD_FONT ? '┃' : '|';
+    private char char_horizontal = USAR_NERD_FONT ? '━' : '-';
+    private char char_vertical_right = USAR_NERD_FONT ? '┣' : '|';
+    private char char_vertical_left = USAR_NERD_FONT ? '┫' : '|';
+    private char char_horizontal_up = USAR_NERD_FONT ? '┻' : '-';
+    private char char_horizontal_down = USAR_NERD_FONT ? '┳' : '-';
+    private char char_full_intersection = USAR_NERD_FONT ? '╋' : '+';
 
     // Constructor: únicamente le pasamos el jugador banca (que se creará desde el
     // menú).
@@ -141,7 +140,7 @@ public class Tablero {
             ret += '\n';
             if (i != 8) {
                 ret += char_vertical_right;
-                ret += String.valueOf(char_horizontal).repeat(Casilla.casillaWidth -1);
+                ret += String.valueOf(char_horizontal).repeat(Casilla.casillaWidth - 1);
                 ret += char_vertical_left;
                 ret += String.valueOf(' ').repeat(Casilla.casillaWidth * 9 - 1);
                 ret += char_vertical_right;

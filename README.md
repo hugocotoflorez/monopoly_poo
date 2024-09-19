@@ -7,7 +7,7 @@ Monopoly en Java sin saber java!
 ## Devs
 
 @Guilluuu
-@M
+@ma-r1
 
 ## How to play
 
