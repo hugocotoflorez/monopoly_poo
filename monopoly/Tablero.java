@@ -14,17 +14,18 @@ public class Tablero {
                                            // color del grupo).
     private Jugador banca; // Un jugador que será la banca.
 
-    private char top_left = '┏';
-    private char top_right = '┓';
-    private char bottom_left = '┗';
-    private char bottom_right = '┛';
-    private char vertical = '┃';
-    private char horizontal = '━';
-    private char vertical_right = '┣';
-    private char vertical_left = '┫';
-    private char horizontal_up = '┻';
-    private char horizontal_down = '┳';
-    private char full_intersection = '╋';
+    private static final boolean USAR_NERD_FONT = true;;
+    private char char_top_left = USAR_NERD_FONT? '┏': '+';
+    private char char_top_right = USAR_NERD_FONT? '┓':'+';
+    private char char_bottom_left = USAR_NERD_FONT? '┗':'+';
+    private char char_bottom_right = USAR_NERD_FONT? '┛':'+';
+    private char char_vertical = USAR_NERD_FONT? '┃':'|';
+    private char char_horizontal = USAR_NERD_FONT? '━':'-';
+    private char char_vertical_right = USAR_NERD_FONT? '┣':'|';
+    private char char_vertical_left = USAR_NERD_FONT? '┫':'|';
+    private char char_horizontal_up = USAR_NERD_FONT? '┻':'-';
+    private char char_horizontal_down = USAR_NERD_FONT? '┳':'-';
+    private char char_full_intersection = USAR_NERD_FONT? '╋':'+';
 
     // Constructor: únicamente le pasamos el jugador banca (que se creará desde el
     // menú).
@@ -99,51 +100,86 @@ public class Tablero {
         ret += "\033[H\033[2J";
 
         // borde superior del tablero
-        ret += String.valueOf(borderChar).repeat(Casilla.casillaWidth * 11 + 1);
+        ret += char_top_left;
+        for (int i = 0; i < 11; i++) {
+            ret += String.valueOf(char_horizontal).repeat(Casilla.casillaWidth - 1);
+            if (i < 10)
+                ret += char_horizontal_down;
+        }
+        ret += char_top_right;
         ret += '\n';
 
         // casillas del lado norte
         for (Casilla c : posiciones.get(0))
-            ret += borderChar + String.format("%s", c.printTablero());
+            ret += char_vertical + String.format("%s", c.printTablero());
 
-        ret += borderChar + String.format("%s", posiciones.get(1).get(0).printTablero());
-        ret += borderChar;
+        ret += char_vertical + String.format("%s", posiciones.get(1).get(0).printTablero());
+        ret += char_vertical;
         ret += '\n';
 
         // borde inferior del lado norte
-        ret += String.valueOf(borderChar).repeat(Casilla.casillaWidth * 11 + 1);
+        ret += char_vertical_right;
+        for (int i = 0; i < 11; i++) {
+            ret += String.valueOf(char_horizontal).repeat(Casilla.casillaWidth - 1);
+            if (i == 0)
+                ret += char_full_intersection;
+            else if (i < 9)
+                ret += char_horizontal_up;
+            else if (i == 9)
+                ret += char_full_intersection;
+        }
+        ret += char_vertical_left;
         ret += '\n';
 
         // casillas del lado este y oeste
         for (int i = 0; i < 9; i++) {
-            ret += borderChar + String.format("%s", posiciones.get(1).get(i + 1).printTablero());
-            ret += '#';
+            ret += char_vertical + String.format("%s", posiciones.get(1).get(i + 1).printTablero());
+            ret += char_vertical;
             ret += String.valueOf(' ').repeat(Casilla.casillaWidth * 9 - 1);
-            ret += borderChar + String.format("%s", posiciones.get(3).get(i + 1).printTablero());
-            ret += '#';
+            ret += char_vertical + String.format("%s", posiciones.get(3).get(i + 1).printTablero());
+            ret += char_vertical;
             ret += '\n';
             if (i != 8) {
-                ret += String.valueOf(borderChar).repeat(Casilla.casillaWidth + 1);
+                ret += char_vertical_right;
+                ret += String.valueOf(char_horizontal).repeat(Casilla.casillaWidth -1);
+                ret += char_vertical_left;
                 ret += String.valueOf(' ').repeat(Casilla.casillaWidth * 9 - 1);
-                ret += String.valueOf(borderChar).repeat(Casilla.casillaWidth + 1);
+                ret += char_vertical_right;
+                ret += String.valueOf(char_horizontal).repeat(Casilla.casillaWidth - 1);
+                ret += char_vertical_left;
                 ret += '\n';
             }
 
         }
-
         // borde superior del lado sur
-        ret += String.valueOf(borderChar).repeat(Casilla.casillaWidth * 11 + 1);
+        ret += char_vertical_right;
+        for (int i = 0; i < 11; i++) {
+            ret += String.valueOf(char_horizontal).repeat(Casilla.casillaWidth - 1);
+            if (i == 0)
+                ret += char_full_intersection;
+            else if (i < 9)
+                ret += char_horizontal_down;
+            else if (i == 9)
+                ret += char_full_intersection;
+        }
+        ret += char_vertical_left;
         ret += '\n';
 
         // lado sur
-        ret += borderChar + String.format("%s", posiciones.get(3).get(0).printTablero());
+        ret += char_vertical + String.format("%s", posiciones.get(3).get(0).printTablero());
         for (Casilla c : posiciones.get(2))
-            ret += borderChar + String.format("%s", c.printTablero());
-        ret += borderChar;
+            ret += char_vertical + String.format("%s", c.printTablero());
+        ret += char_vertical;
         ret += '\n';
 
         // borde inferor del tablero
-        ret += String.valueOf(borderChar).repeat(Casilla.casillaWidth * 11 + 1);
+        ret += char_bottom_left;
+        for (int i = 0; i < 11; i++) {
+            ret += String.valueOf(char_horizontal).repeat(Casilla.casillaWidth - 1);
+            if (i < 10)
+                ret += char_horizontal_up;
+        }
+        ret += char_bottom_right;
         ret += '\n';
 
         // ret contiene todo el tablero
