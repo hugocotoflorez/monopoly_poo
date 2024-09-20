@@ -23,11 +23,11 @@ public class Jugador {
         this.avatar = null;
         this.nombre = null;
         this.gastos = 0;
-        this.enCarcel = False;
+        this.enCarcel = false;
         this.tiradasCarcel = 0;
         this.tiradasCarcel = 0;
         this.vueltas = 0;
-        this.propiedades = null;
+        this.propiedades = null; //la banca no tendría que tener al principio todas las propiedades del tablero?
     }
 
     /*Constructor principal. Requiere parámetros:
@@ -55,6 +55,9 @@ public class Jugador {
 
     //Método para eliminar una propiedad del arraylist de propiedades de jugador.
     public void eliminarPropiedad(Casilla casilla) {
+        if(this.propiedades.contains(casilla)){
+            this.propiedades.remove(casilla);
+        }
     }
 
     //Método para añadir fortuna a un jugador
@@ -74,6 +77,7 @@ public class Jugador {
     * Se requiere disponer de las casillas del tablero para ello (por eso se pasan como parámetro).*/
     public void encarcelar(ArrayList<ArrayList<Casilla>> pos) {
     }
+    
     public float getFortuna(){
         return this.fortuna;
     }

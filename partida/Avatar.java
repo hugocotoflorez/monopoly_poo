@@ -73,6 +73,8 @@ public class Avatar {
         }
 
         
+    }
+
         public void setTipo(String tipo){
             this.tipo = tipo;
         }
