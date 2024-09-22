@@ -57,6 +57,7 @@ public class Casilla {
     public Casilla(String nombre, String tipo, int posicion, float valor, Jugador duenho) {
 
         this.nombre = nombre;
+        check(tipo == "Solar" || tipo == "Servicios" || tipo == "Transporte", "casilla.tipo unexpected value\n");
         this.tipo = tipo;
         this.posicion = posicion;
         this.valor = valor;
@@ -69,6 +70,7 @@ public class Casilla {
      */
     public Casilla(String nombre, int posicion, float impuesto, Jugador duenho) {
         this.nombre = nombre;
+        this.tipo = "Impuestos";
         this.posicion = posicion;
         this.impuesto = impuesto;
         this.duenho = duenho;
@@ -82,6 +84,7 @@ public class Casilla {
      */
     public Casilla(String nombre, String tipo, int posicion, Jugador duenho) {
         this.nombre = nombre;
+        check(tipo == "Suerte"||tipo=="Caja de comunidad"||tipo=="Especial","casilla.tipo unexpected value");
         this.tipo = tipo;
         this.posicion = posicion;
         this.duenho = duenho;
@@ -143,8 +146,75 @@ public class Casilla {
      * Método para mostrar información sobre una casilla.
      * Devuelve una cadena con información específica de cada tipo de casilla.
      */
-    public String infoCasilla() {
+    public String infoCasilla() { //TODO --> eliminar aquellos atributos que no tengan sentido para cada tipo de casilla
+        String info = new String();
+        if (this.tipo == "Solar"){
+            info = """
+                {
+                Nombre: %s
+                Tipo: %s
+                Valor: %f
+                Posición en el tablero: %d
+                Dueño: %s
+                Color del grupo: %s
+                Impuestos a pagar: %f
+                Valor de hipoteca: %f
+                }""".formatted(nombre,tipo,posicion,duenho.getNombre(),grupo.getColor(),impuesto,hipoteca);
+        }       
+        if (this.tipo == "Especial"){
+            info = """
+                {
+                Nombre: %s
+                Tipo: %s
+                Valor: %f
+                Posición en el tablero: %d
+                Dueño: %s
+                Color del grupo: %s
+                Impuestos a pagar: %f
+                Valor de hipoteca: %f
+                }""".formatted(nombre,tipo,posicion,duenho.getNombre(),grupo.getColor(),impuesto,hipoteca);
+        }       
+        if (this.tipo == "Transporte"){
+            info = """
+                {
+                Nombre: %s
+                Tipo: %s
+                Valor: %f
+                Posición en el tablero: %d
+                Dueño: %s
+                Color del grupo: %s
+                Impuestos a pagar: %f
+                Valor de hipoteca: %f
+                }""".formatted(nombre,tipo,posicion,duenho.getNombre(),grupo.getColor(),impuesto,hipoteca);
+        }if (this.tipo == "Servicios"){
+            info = """
+                {
+                Nombre: %s
+                Tipo: %s
+                Valor: %f
+                Posición en el tablero: %d
+                Dueño: %s
+                Color del grupo: %s
+                Impuestos a pagar: %f
+                Valor de hipoteca: %f
+                }""".formatted(nombre,tipo,posicion,duenho.getNombre(),grupo.getColor(),impuesto,hipoteca);
+        }
+        if (this.tipo == "Comunidad"){
+            info = """
+                {
+                Nombre: %s
+                Tipo: %s
+                Valor: %f
+                Posición en el tablero: %d
+                Dueño: %s
+                Color del grupo: %s
+                Impuestos a pagar: %f
+                Valor de hipoteca: %f
+                }""".formatted(nombre,tipo,posicion,duenho.getNombre(),grupo.getColor(),impuesto,hipoteca);
+        }
+        return info;
     }
+    
 
     /*
      * Método para mostrar información de una casilla en venta.
