@@ -55,6 +55,7 @@ class Grupo {
         return this.numCasillas;
     }
 
+    public
 
 
     /* Método que añade una casilla al array de casillas miembro de un grupo.

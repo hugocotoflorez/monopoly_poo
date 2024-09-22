@@ -24,7 +24,7 @@ public class Avatar {
         return (x == "Sombrero" || x == "Esfinge" || x == "Pelota" || x == "Coche");
     }
     public Avatar(String tipo, Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
-        if(tipo == "Sombrero" || tipo == "Esfinge" || tipo == "Pelota" || tipo == "Coche"){
+        if(checkAvatar(tipo)){
             this.tipo = tipo;
         };
         this.jugador= jugador;
@@ -59,11 +59,12 @@ public class Avatar {
     private void generarId(ArrayList<Avatar> avCreados) {
         Random rnd = new Random();
         String letra = String.valueOf((char) ('A' + rnd.nextInt(26)));
-        int aseguradodistinto = 0,i = 0,encontradoigual = 0;
+        int aseguradodistinto = 0; 
         while (aseguradodistinto == 0){
             for(Avatar A:avCreados){
                 if(A.id == letra){
                     letra = String.valueOf((char) ('A' + rnd.nextInt(26)));
+                    aseguradodistinto = 0;
                     break;
                 }
                 aseguradodistinto =1;
