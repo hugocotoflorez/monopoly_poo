@@ -14,7 +14,7 @@ public class Tablero {
                                            // color del grupo).
     private Jugador banca; // Un jugador que será la banca.
 
-    private static final boolean USAR_NERD_FONT = true;;
+    private static final boolean USAR_NERD_FONT = true;
     private char char_top_left = USAR_NERD_FONT ? '┏' : '+';
     private char char_top_right = USAR_NERD_FONT ? '┓' : '+';
     private char char_bottom_left = USAR_NERD_FONT ? '┗' : '+';
@@ -77,6 +77,8 @@ public class Tablero {
         lado.add(new Casilla("Suerte", "suerte", 8, banca));
         lado.add(new Casilla("Solar4", "solar", 9, Valor.GRUPO_2, banca));
         lado.add(new Casilla("Solar5", "solar", 10, Valor.GRUPO_2, banca));
+        Grupo("Solar1","Solar2",Valor.BLACK);
+        
 
         posiciones.add(lado);
         /* Se anade en el indice 2 */
