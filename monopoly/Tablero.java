@@ -56,9 +56,9 @@ public class Tablero {
         lado.add(new Casilla("Solar14", "solar", 25, Valor.GRUPO_5, banca));
         lado.add(new Casilla("Trans3", "transporte", 26, Valor.SUMA_VUELTA, banca));
         lado.add(new Casilla("Solar15", "solar", 27, Valor.GRUPO_6, banca));
-        lado.add(new Casilla("Serv2", "serv", 28, 130000, banca));
-        lado.add(new Casilla("Solar16", "solar", 29, Valor.GRUPO_6, banca));
-        lado.add(new Casilla("Ir a Cárcel", "especial", 30, banca));
+        lado.add(new Casilla("Solar16", "solar", 28, Valor.GRUPO_6, banca));
+        lado.add(new Casilla("Serv2", "serv", 29, Valor.SUMA_VUELTA * 0.75f, banca));
+        lado.add(new Casilla("Solar17", "especial",30, Valor.GRUPO_6, banca));
 
         posiciones.add(lado);
         /* Se anade en el indice 0 */
