@@ -32,15 +32,27 @@ public class Avatar {
         };
         this.jugador= jugador;
         this.lugar= lugar;
-        generarId(avCreados);        
-    
+        generarId(avCreados);
+
     }
 
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-
-        this.lugar.setPosicion((this.lugar.getPosicion()+valorTirada)%36);
-        //TODO
-
+        /**
+         * Experimental:
+         * es posible que funcione, pero probable que no
+         *
+         * Como funciona: Pasa la posicion del jugador a un indice [0, 40)
+         * Convierte este indice a un indice del primer array y otro del
+         * segundo array de casillas.
+         */
+        int posi = 0;
+        for (int i = 0; i < 4; i++)
+        if (casillas.get(i).contains(this.lugar)){
+            posi+= casillas.get(i).indexOf(lugar);
+            posi += 10 * i;
+        }
+        posi += valorTirada;
+        lugar = casillas.get(posi/10).get(posi%10);
     }
 
     /*Método que permite generar un ID para un avatar. Sólo lo usamos en esta clase (por ello es privado).
@@ -50,7 +62,7 @@ public class Avatar {
     private void generarId(ArrayList<Avatar> avCreados) {
         Random rnd = new Random();
         String letra = String.valueOf((char) ('A' + rnd.nextInt(26)));
-        int aseguradodistinto = 0,i = 0,encontradoigual = 0; 
+        int aseguradodistinto = 0,i = 0,encontradoigual = 0;
         while (aseguradodistinto == 0){
             for(Avatar A:avCreados){
                 if(A.id == letra){
@@ -62,7 +74,7 @@ public class Avatar {
         }
         this.id = letra;
         }
-        
-        
+
+
     }
 }
