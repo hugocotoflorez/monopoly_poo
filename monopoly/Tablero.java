@@ -58,7 +58,12 @@ public class Tablero {
         lado.add(new Casilla("Solar16", "solar", 28, Valor.GRUPO_6, banca));
         lado.add(new Casilla("Serv2", "serv", 29, Valor.SUMA_VUELTA * 0.75f, banca));
         lado.add(new Casilla("Solar17", "especial",30, Valor.GRUPO_6, banca));
+<<<<<<< HEAD
         new Grupo(lado.get(1), lado.get(3), lado.get(4), Valor.COLOR_G5 );
+=======
+        new Grupo(lado.get(1),lado.get(3),lado.get(4),Valor.COLOR_G5);
+        new Grupo(lado.get(6),lado.get(8),lado.get(9),Valor.COLOR_G6);
+>>>>>>> 72d6f17 (colores tablero)
 
         posiciones.add(lado);
         /* Se anade en el indice 0 */
@@ -77,8 +82,9 @@ public class Tablero {
         lado.add(new Casilla("Suerte", "suerte", 8, banca));
         lado.add(new Casilla("Solar4", "solar", 9, Valor.GRUPO_2, banca));
         lado.add(new Casilla("Solar5", "solar", 10, Valor.GRUPO_2, banca));
-        Grupo("Solar1","Solar2",Valor.BLACK);
-        
+        new Grupo(lado.get(1),lado.get(3),Valor.COLOR_G1);
+        new Grupo(lado.get(6),lado.get(8),lado.get(9),Valor.COLOR_G2);
+
 
         posiciones.add(lado);
         /* Se anade en el indice 2 */
@@ -97,6 +103,8 @@ public class Tablero {
         lado.add(new Casilla("Caja", "caja", 18, banca));
         lado.add(new Casilla("Solar10", "solar", 19, Valor.GRUPO_4, banca));
         lado.add(new Casilla("Solar11", "solar", 20, Valor.GRUPO_4, banca));
+        new Grupo(lado.get(1),lado.get(3),lado.get(5),Valor.COLOR_G3);
+        new Grupo(lado.get(6),lado.get(8),lado.get(9),Valor.COLOR_G4);
 
         posiciones.add(lado);
         /* Se anade en el indice 3 */
@@ -115,6 +123,8 @@ public class Tablero {
         lado.add(new Casilla("Solar21", "solar", 38, Valor.GRUPO_8, banca));
         lado.add(new Casilla("Impuesto2", 39, (Valor.SUMA_VUELTA)/2, banca));
         lado.add(new Casilla("Solar22", "solar", 40, Valor.GRUPO_8, banca));
+        new Grupo(lado.get(1),lado.get(3),lado.get(4),Valor.COLOR_G7);
+        new Grupo(lado.get(7),lado.get(9),Valor.COLOR_G8);
 
         posiciones.add(lado);
         /* Se anade en el indice 1 */
