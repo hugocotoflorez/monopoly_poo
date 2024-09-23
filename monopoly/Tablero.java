@@ -119,7 +119,7 @@ public class Tablero {
         lado.add(new Casilla("Solar21", "solar", 38, Valor.GRUPO_8, banca));
         lado.add(new Casilla("Impuesto2", 39, (Valor.SUMA_VUELTA)/2, banca));
         lado.add(new Casilla("Solar22", "solar", 40, Valor.GRUPO_8, banca));
-        new Grupo(lado.get(1),lado.get(3),lado.get(4),Valor.COLOR_G7);
+        new Grupo(lado.get(1),lado.get(2),lado.get(4),Valor.COLOR_G7);
         new Grupo(lado.get(7),lado.get(9),Valor.COLOR_G8);
 
         posiciones.add(lado);
