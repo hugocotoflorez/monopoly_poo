@@ -26,12 +26,12 @@ public class Valor {
     public static final String CYAN = "\u001B[36m";
     public static final String WHITE = "\u001B[37m";
 
-    public static final String COLOR_G1= "\u001B[30m";
-    public static final String COLOR_G2= "\u001B[31m";
-    public static final String COLOR_G3= "\u001B[32m";
-    public static final String COLOR_G4= "\u001B[33m";
-    public static final String COLOR_G5= "\u001B[34m";
-    public static final String COLOR_G6= "\u001B[35m";
-    public static final String COLOR_G7= "\u001B[36m";
-    public static final String COLOR_G8= "\u001B[37m";
+    public static final String COLOR_G1= BLACK;
+    public static final String COLOR_G2= BLUE;
+    public static final String COLOR_G3= "\u001B[38;2;255;192;203m";
+    public static final String COLOR_G4= "\u001B[38;2;255;255;0m";
+    public static final String COLOR_G5= RED;
+    public static final String COLOR_G6= "\u001B[38;2;128;64;0m";
+    public static final String COLOR_G7= GREEN;
+    public static final String COLOR_G8= BLUE;
 }

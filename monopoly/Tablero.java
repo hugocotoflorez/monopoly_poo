@@ -58,6 +58,7 @@ public class Tablero {
         lado.add(new Casilla("Solar16", "solar", 28, Valor.GRUPO_6, banca));
         lado.add(new Casilla("Serv2", "serv", 29, Valor.SUMA_VUELTA * 0.75f, banca));
         lado.add(new Casilla("Solar17", "especial",30, Valor.GRUPO_6, banca));
+        Grupo(lado.get(1), lado.get(3), lado.get(4), Valor.color_g5 );
 
         posiciones.add(lado);
         /* Se anade en el indice 0 */
