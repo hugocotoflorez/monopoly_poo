@@ -5,6 +5,7 @@ import partida.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 public class Tablero {
     // Atributos.
     private ArrayList<ArrayList<Casilla>> posiciones; // Posiciones del tablero: se define como un arraylist de
@@ -49,14 +50,14 @@ public class Tablero {
     private void insertarLadoNorte() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
         lado.add(new Casilla("Parking", "especial", 21, banca));
-        lado.add(new Casilla("Solar12", "solar", 22, 420000, banca));
+        lado.add(new Casilla("Solar12", "solar", 22, Valor.GRUPO_5, banca));
         lado.add(new Casilla("Suerte2", "suerte", 23, banca));
-        lado.add(new Casilla("Solar13", "solar", 24, 440000, banca));
-        lado.add(new Casilla("Solar14", "solar", 25, 460000, banca));
+        lado.add(new Casilla("Solar13", "solar", 24, Valor.GRUPO_5, banca));
+        lado.add(new Casilla("Solar14", "solar", 25, Valor.GRUPO_5, banca));
         lado.add(new Casilla("Trans3", "transporte", 26, Valor.SUMA_VUELTA, banca));
-        lado.add(new Casilla("Solar15", "solar", 27, 480000, banca));
+        lado.add(new Casilla("Solar15", "solar", 27, Valor.GRUPO_6, banca));
         lado.add(new Casilla("Serv2", "serv", 28, 130000, banca));
-        lado.add(new Casilla("Solar16", "solar", 29, 500000, banca));
+        lado.add(new Casilla("Solar16", "solar", 29, Valor.GRUPO_6, banca));
         lado.add(new Casilla("Ir a Cárcel", "especial", 30, banca));
 
         posiciones.add(lado);
@@ -67,15 +68,15 @@ public class Tablero {
     private void insertarLadoSur() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
         lado.add(new Casilla("Salida", "especial", 1, banca));
-        lado.add(new Casilla("Solar1", "solar", 2, 600000, banca));
+        lado.add(new Casilla("Solar1", "solar", 2, Valor.GRUPO_1, banca));
         lado.add(new Casilla("Caja", "caja", 3, banca));
-        lado.add(new Casilla("Solar2", "solar", 4, 600000, banca));
+        lado.add(new Casilla("Solar2", "solar", 4, Valor.GRUPO_1, banca));
         lado.add(new Casilla("Impt1", 5, Valor.SUMA_VUELTA, banca));
         lado.add(new Casilla("Trans1", "transporte", 6, Valor.SUMA_VUELTA, banca));
-        lado.add(new Casilla("Solar3", "solar", 7, 520000, banca));
+        lado.add(new Casilla("Solar3", "solar", 7, Valor.GRUPO_2, banca));
         lado.add(new Casilla("Suerte", "suerte", 8, banca));
-        lado.add(new Casilla("Solar4", "solar", 9, 520000, banca));
-        lado.add(new Casilla("Solar5", "solar", 10, 520000, banca));
+        lado.add(new Casilla("Solar4", "solar", 9, Valor.GRUPO_2, banca));
+        lado.add(new Casilla("Solar5", "solar", 10, Valor.GRUPO_2, banca));
 
         posiciones.add(lado);
         /* Se anade en el indice 2 */
@@ -85,15 +86,15 @@ public class Tablero {
     private void insertarLadoOeste() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
         lado.add(new Casilla("Carcel", "especial", 11, banca));
-        lado.add(new Casilla("Solar6", "solar", 12, 300000, banca));
-        lado.add(new Casilla("Serv1", "serv", 13, 120000, banca));
-        lado.add(new Casilla("Solar7", "solar", 14, 320000, banca));
-        lado.add(new Casilla("Solar8", "solar", 15, 340000, banca));
+        lado.add(new Casilla("Solar6", "solar", 12, Valor.GRUPO_3, banca));
+        lado.add(new Casilla("Serv1", "serv", 13, Valor.SUMA_VUELTA*0.75f, banca));
+        lado.add(new Casilla("Solar7", "solar", 14, Valor.GRUPO_3, banca));
+        lado.add(new Casilla("Solar8", "solar", 15, Valor.GRUPO_3, banca));
         lado.add(new Casilla("Trans2", "transporte", 16, Valor.SUMA_VUELTA, banca));
-        lado.add(new Casilla("Solar9", "solar", 17, 360000, banca));
+        lado.add(new Casilla("Solar9", "solar", 17, Valor.GRUPO_4, banca));
         lado.add(new Casilla("Caja", "caja", 18, banca));
-        lado.add(new Casilla("Solar10", "solar", 19, 380000, banca));
-        lado.add(new Casilla("Solar11", "solar", 20, 400000, banca));
+        lado.add(new Casilla("Solar10", "solar", 19, Valor.GRUPO_4, banca));
+        lado.add(new Casilla("Solar11", "solar", 20, Valor.GRUPO_4, banca));
 
         posiciones.add(lado);
         /* Se anade en el indice 3 */
