@@ -232,9 +232,3 @@ public class Tablero {
         return null;
     }
 }
-
-/**
- * String pai
- *
- * es Fr *
- */

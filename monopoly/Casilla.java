@@ -136,6 +136,7 @@ public class Casilla {
      * Este método toma como argumento la cantidad a añadir del valor de la casilla.
      */
     public void sumarValor(float suma) {
+        this.valor += suma;
     }
 
     /*
@@ -150,6 +151,7 @@ public class Casilla {
      * Valor devuelto: texto con esa información.
      */
     public String casEnVenta() {
+        return "";
     }
 
     public String printTablero() {
@@ -159,8 +161,8 @@ public class Casilla {
          * Esta funcion se usa para obtener los datos de la casilla al pintar
          * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1
          */
-        return (this.grupo != null ? this.grupo.getColor() : Valor.WHITE )+
-                data +Valor.RESET +" ".repeat(casillaWidth - data.length() - 1) ;
+        return (this.grupo != null ? this.grupo.getColor() : Valor.WHITE) +
+                Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET;
     }
 
     public void setPosicion(int pos) {
