@@ -99,7 +99,7 @@ public class Tablero {
         lado.add(new Casilla("Caja", "caja", 18, banca));
         lado.add(new Casilla("Solar10", "solar", 19, Valor.GRUPO_4, banca));
         lado.add(new Casilla("Solar11", "solar", 20, Valor.GRUPO_4, banca));
-        new Grupo(lado.get(1),lado.get(3),lado.get(5),Valor.COLOR_G3);
+        new Grupo(lado.get(1),lado.get(3),lado.get(4),Valor.COLOR_G3);
         new Grupo(lado.get(6),lado.get(8),lado.get(9),Valor.COLOR_G4);
 
         posiciones.add(lado);
