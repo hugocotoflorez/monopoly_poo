@@ -3,9 +3,9 @@ package monopoly;
 
 public class Valor {
     //Se incluyen una serie de constantes útiles para no repetir valores.
-    public static final float FORTUNA_BANCA = 50000;
-    public static final float FORTUNA_INICIAL = 14000000;
-    public static final float SUMA_VUELTA = 1800000; //Se aproxima a la media de los precios de los solares del tablero.
+    public static final float FORTUNA_BANCA = 500000;
+    public static final float FORTUNA_INICIAL = 9543076.28f;
+    public static final float SUMA_VUELTA = 1301328.584f; //Se aproxima a la media de los precios de los solares del tablero.
     
     //Colores del texto:
     public static final String RESET = "\u001B[0m";
