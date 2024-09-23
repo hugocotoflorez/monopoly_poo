@@ -44,7 +44,6 @@ public class Tablero {
         this.insertarLadoOeste();
     }
 
-    // ESTO LO HIZO CHAT-GPT . ESTA MAL!!!!
 
     // Método para insertar las casillas del lado norte.
     private void insertarLadoNorte() {
