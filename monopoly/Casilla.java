@@ -159,8 +159,8 @@ public class Casilla {
          * Esta funcion se usa para obtener los datos de la casilla al pintar
          * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1
          */
-        return this.grupo != null ? this.grupo.getColor() : Valor.WHITE +
-                data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET;
+        return (this.grupo != null ? this.grupo.getColor() : Valor.WHITE )+
+                data +Valor.RESET +" ".repeat(casillaWidth - data.length() - 1) ;
     }
 
     public void setPosicion(int pos) {
