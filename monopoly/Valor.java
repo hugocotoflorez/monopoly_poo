@@ -14,7 +14,7 @@ public class Valor {
     public static final float GRUPO_6 = 1485172;
     public static final float GRUPO_7 = 1930723.6f;
     public static final float GRUPO_8 = 3764911.02f;
-    
+
     //Colores del texto:
     public static final String RESET = "\u001B[0m";
     public static final String BLACK = "\u001B[30m";
