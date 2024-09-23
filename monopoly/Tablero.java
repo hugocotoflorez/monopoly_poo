@@ -103,16 +103,16 @@ public class Tablero {
     // Método que inserta las casillas del lado este.
     private void insertarLadoEste() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
-        lado.add(new Casilla("Solar17", "solar", 31, 520000, banca));
-        lado.add(new Casilla("Caja", "caja", 32, banca));
-        lado.add(new Casilla("Solar18", "solar", 33, 540000, banca));
-        lado.add(new Casilla("Trans4", "transporte", 34, Valor.SUMA_VUELTA, banca));
-        lado.add(new Casilla("Suerte3", "suerte", 35, banca));
-        lado.add(new Casilla("Solar19", "solar", 36, 560000, banca));
-        lado.add(new Casilla("Solar20", "solar", 37, 580000, banca));
-        lado.add(new Casilla("Impuesto2", 38, (Valor.SUMA_VUELTA)/2, banca));
-        lado.add(new Casilla("Solar21", "solar", 39, 600000, banca));
-        lado.add(new Casilla("Solar22", "solar", 40, 620000, banca));
+        lado.add(new Casilla("IrCarcel", "especial", 31, banca));
+        lado.add(new Casilla("Solar18", "solar", 32, Valor.GRUPO_7, banca));
+        lado.add(new Casilla("Solar19", "solar", 33, Valor.GRUPO_7, banca));
+        lado.add(new Casilla("Caja", "caja", 34, banca));
+        lado.add(new Casilla("Solar20", "solar", 35, Valor.GRUPO_7, banca));
+        lado.add(new Casilla("Trans4", "transporte", 36, Valor.SUMA_VUELTA, banca));
+        lado.add(new Casilla("Suerte3", "suerte", 37, banca));
+        lado.add(new Casilla("Solar21", "solar", 38, Valor.GRUPO_8, banca));
+        lado.add(new Casilla("Impuesto2", 39, (Valor.SUMA_VUELTA)/2, banca));
+        lado.add(new Casilla("Solar22", "solar", 40, Valor.GRUPO_8, banca));
 
         posiciones.add(lado);
         /* Se anade en el indice 1 */
