@@ -33,6 +33,9 @@ public class Tablero {
         this.banca = banca;
         generarCasillas();
     }
+    public Casilla getInicio(){
+        return posiciones.get(2).get(2); //TODO
+    }
 
     // Método para crear todas las casillas del tablero. Formado a su vez por cuatro
     // métodos (1/lado).

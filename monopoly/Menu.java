@@ -26,19 +26,23 @@ public class Menu {
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
 
+        Jugador banca = new Jugador();
+        Tablero tablero = new Tablero(banca);
+        Casilla casilla = tablero.getInicio();
         Scanner scanner = new Scanner(System.in);
-
+        String tipoAvatar = new String("Avatar No Valido");
         System.out.println("Introduce nombre de jugador: ");
         String nombreJugador = scanner.next();
-
+        
+        while (tipoAvatar != "Sombrero" || tipoAvatar != "Esfinge" || tipoAvatar != "Pelota" || tipoAvatar != "Coche"){
         System.out.println("Introduce tu avatar: ");
-        String tipoAvatar = scanner.next();
+        tipoAvatar = scanner.next();
+        }
+        Jugador jugador = new Jugador(nombreJugador,tipoAvatar,casilla,avatares);
+        Avatar avatar = new Avatar(tipoAvatar,jugador,casilla);
 
-        //Jugador jugador = new Jugador(nombreJugador,tipoAvatar);
-        //Avatar avatar = new Avatar(tipoAvatar,jugador,); // NO SE COMO HACER LAS CASILLAS PARA LLAMAR AL CONSTRUCTOR
-
-        //this.jugadores.add(jugador);
-        //this.avatares.add(avatar);
+        this.jugadores.add(jugador);
+        this.avatares.add(avatar);
     }
 
     /*Método que interpreta el comando introducido y toma la accion correspondiente.

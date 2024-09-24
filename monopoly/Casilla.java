@@ -57,7 +57,7 @@ public class Casilla {
     public Casilla(String nombre, String tipo, int posicion, float valor, Jugador duenho) {
 
         this.nombre = nombre;
-        check(tipo == "Solar" || tipo == "Servicios" || tipo == "Transporte", "casilla.tipo unexpected value\n");
+        check(tipo == "solar" || tipo == "serv" || tipo == "transporte", "casilla.tipo unexpected value\n"+tipo);
         this.tipo = tipo;
         this.posicion = posicion;
         this.valor = valor;
@@ -84,7 +84,7 @@ public class Casilla {
      */
     public Casilla(String nombre, String tipo, int posicion, Jugador duenho) {
         this.nombre = nombre;
-        check(tipo == "Suerte"||tipo=="Caja de comunidad"||tipo=="Especial","casilla.tipo unexpected value");
+        check(tipo == "suerte"||tipo=="caja"||tipo=="especial","casilla.tipo unexpected value");
         this.tipo = tipo;
         this.posicion = posicion;
         this.duenho = duenho;
