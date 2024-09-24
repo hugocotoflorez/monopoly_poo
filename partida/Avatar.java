@@ -3,9 +3,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import monopoly.*;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 
 public class Avatar {
 
@@ -75,6 +72,12 @@ public class Avatar {
         this.id = letra;
         }
 
+        
+        public void setTipo(String tipo){
+            this.tipo = tipo;
+        }
+        public void setLugar(Casilla lugar){
+            this.lugar = lugar;
+        }
 
     }
-}

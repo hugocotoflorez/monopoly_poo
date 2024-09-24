@@ -38,7 +38,12 @@ public class Jugador {
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
 
         this.nombre = nombre;
-        //this.avatar = new Avatar(tipoAvatar,) TODO 
+        this.avatar.setTipo(tipoAvatar);
+        this.avatar.setLugar(inicio);
+        this. fortuna = Valor.FORTUNA_INICIAL;
+        this.enCarcel = false;
+        this.tiradasCarcel = 0;
+        this.vueltas = 0;
         
     }
 

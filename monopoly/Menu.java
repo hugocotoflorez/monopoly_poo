@@ -18,15 +18,18 @@ public class Menu {
     private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.
 
     public Menu(){
-        tablero = new Tablero(banca);
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(tablero);
-        String nombre = scanner.next();
+        iniciarPartida();
+        // tablero = new Tablero(banca);
+        // System.out.println(tablero);
         }
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Introduce nombre de jugador: ");
+        String nombre = scanner.next();
+        this.jugadores.add
+        
 
     }
 
