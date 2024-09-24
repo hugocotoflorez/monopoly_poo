@@ -15,6 +15,13 @@ public class Avatar {
     //Constructor vacío
     public Avatar() {
     }
+    public Avatar(String tipo, Jugador jugador, Casilla lugar){
+
+        this.tipo = tipo;
+        this.jugador = jugador;
+        this.lugar = lugar;
+        //this.id = generarId(avCreados);
+    }
 
     /*Constructor principal. Requiere éstos parámetros:
     * Tipo del avatar, jugador al que pertenece, lugar en el que estará ubicado, y un arraylist con los
@@ -26,7 +33,7 @@ public class Avatar {
     public Avatar(String tipo, Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
         if(checkAvatar(tipo)){
             this.tipo = tipo;
-        };
+        }
         this.jugador= jugador;
         this.lugar= lugar;
         generarId(avCreados);
@@ -74,8 +81,6 @@ public class Avatar {
         }
 
         
-    }
-
         public void setTipo(String tipo){
             this.tipo = tipo;
         }
