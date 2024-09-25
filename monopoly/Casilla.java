@@ -18,7 +18,6 @@ public class Casilla {
                             // solares/servicios/transportes o impuestos.
     private float hipoteca; // Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares; // Avatares que están situados en la casilla.
-    private static Valor val;
 
     public static final int casillaWidth = 15;
 

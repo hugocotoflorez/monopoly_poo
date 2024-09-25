@@ -25,7 +25,6 @@ public class Menu {
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
-
         Jugador banca = new Jugador();
         Tablero tablero = new Tablero(banca);
         Casilla casilla = tablero.getInicio();
@@ -33,7 +32,7 @@ public class Menu {
         String tipoAvatar = new String("Avatar No Valido");
         System.out.println("Introduce nombre de jugador: ");
         String nombreJugador = scanner.next();
-        
+
         while (!tipoAvatar.equals("Sombrero") && !tipoAvatar.equals("Esfinge") && !tipoAvatar.equals("Pelota") && !tipoAvatar.equals("Coche")){
         System.out.println("Introduce tu avatar: [Esfinge / Sombrero / Pelota / Coche] ");
         tipoAvatar = scanner.next();

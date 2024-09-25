@@ -41,10 +41,10 @@ public class Tablero {
     // métodos (1/lado).
     private void generarCasillas() {
         this.posiciones = new ArrayList<ArrayList<Casilla>>();
-        this.insertarLadoNorte();
-        this.insertarLadoEste();
         this.insertarLadoSur();
         this.insertarLadoOeste();
+        this.insertarLadoNorte();
+        this.insertarLadoEste();
     }
 
 
@@ -86,7 +86,6 @@ public class Tablero {
 
 
         posiciones.add(lado);
-        /* Se anade en el indice 2 */
     }
 
     // Método que inserta casillas del lado oeste.
@@ -106,7 +105,6 @@ public class Tablero {
         new Grupo(lado.get(6),lado.get(8),lado.get(9),Valor.COLOR_G4);
 
         posiciones.add(lado);
-        /* Se anade en el indice 3 */
     }
 
     // Método que inserta las casillas del lado este.
@@ -126,7 +124,6 @@ public class Tablero {
         new Grupo(lado.get(7),lado.get(9),Valor.COLOR_G8);
 
         posiciones.add(lado);
-        /* Se anade en el indice 1 */
     }
 
     // Para imprimir el tablero, modificamos el método toString().
@@ -147,10 +144,10 @@ public class Tablero {
         ret += '\n';
 
         // casillas del lado norte
-        for (Casilla c : posiciones.get(0))
+        for (Casilla c : posiciones.get(2))
             ret += char_vertical + String.format("%s", c.printTablero());
 
-        ret += char_vertical + String.format("%s", posiciones.get(1).get(0).printTablero());
+        ret += char_vertical + String.format("%s", posiciones.get(3).get(0).printTablero());
         ret += char_vertical;
         ret += '\n';
 
@@ -170,10 +167,10 @@ public class Tablero {
 
         // casillas del lado este y oeste
         for (int i = 0; i < 9; i++) {
-            ret += char_vertical + String.format("%s", posiciones.get(3).get(9-i).printTablero());
+            ret += char_vertical + String.format("%s", posiciones.get(1).get(9-i).printTablero());
             ret += char_vertical;
             ret += String.valueOf(' ').repeat(Casilla.casillaWidth * 9 - 1);
-            ret += char_vertical + String.format("%s", posiciones.get(1).get(i + 1).printTablero());
+            ret += char_vertical + String.format("%s", posiciones.get(3).get(i + 1).printTablero());
             ret += char_vertical;
             ret += '\n';
             if (i != 8) {
@@ -203,8 +200,8 @@ public class Tablero {
         ret += '\n';
 
         // lado sur
-        ret += char_vertical + String.format("%s", posiciones.get(3).get(0).printTablero());
-        for (Casilla c : posiciones.get(2).reversed())
+        ret += char_vertical + String.format("%s", posiciones.get(1).get(0).printTablero());
+        for (Casilla c : posiciones.get(0).reversed())
             ret += char_vertical + String.format("%s", c.printTablero());
         ret += char_vertical;
         ret += '\n';
