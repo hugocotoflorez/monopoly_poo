@@ -227,6 +227,8 @@ public class Casilla {
     public String printCasilla() {
         String data = new String();
         data += this.nombre;
+        for (Avatar av: avatares)
+        data += av.getId();
         /*
          * Esta funcion se usa para obtener los datos de la casilla al pintar
          * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1

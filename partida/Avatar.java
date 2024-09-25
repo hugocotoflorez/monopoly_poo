@@ -46,6 +46,11 @@ public class Avatar {
 
     }
 
+    public String getId()
+    {
+        return this.id;
+    }
+
     public void setJugador(Jugador jugador){
         this.jugador = jugador;
     }
