@@ -59,6 +59,10 @@ public class Avatar {
 
     }
 
+    public Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valorTirada)
+    {
+        return casillas.get(lugar.getPosicion()%10).get(lugar.getPosicion()/10);
+    }
 
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
         this.lugar = obtenerCasilla(casillas, valorTirada);
