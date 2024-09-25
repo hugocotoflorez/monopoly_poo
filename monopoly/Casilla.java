@@ -224,7 +224,7 @@ public class Casilla {
         return "";
     }
 
-    public String printTablero() {
+    public String printCasilla() {
         String data = new String();
         data += this.nombre;
         /*

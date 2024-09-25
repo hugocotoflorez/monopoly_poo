@@ -54,11 +54,6 @@ public class Avatar {
     }
 
 
-    public void setJugador(Jugador jugador) {
-        this.jugador = jugador;
-
-    }
-
     public Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valorTirada)
     {
         return casillas.get(lugar.getPosicion()%10).get(lugar.getPosicion()/10);
