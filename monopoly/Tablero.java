@@ -37,6 +37,10 @@ public class Tablero {
         return posiciones.get(0).get(0); //TODO
     }
 
+    public ArrayList<ArrayList<Casilla>> getPosiciones(){
+        return posiciones;
+    }
+
     // Método para crear todas las casillas del tablero. Formado a su vez por cuatro
     // métodos (1/lado).
     private void generarCasillas() {
@@ -45,6 +49,11 @@ public class Tablero {
         this.insertarLadoOeste();
         this.insertarLadoNorte();
         this.insertarLadoEste();
+    }
+
+    //Dado un entero y las casillas del tablero, devuelve la casilla que está en esa posición
+    public Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int posicion) {
+        return casillas.get(posicion/ 10).get(posicion% 10);
     }
 
 

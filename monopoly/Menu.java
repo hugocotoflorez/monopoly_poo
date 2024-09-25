@@ -29,7 +29,7 @@ public class Menu {
     private void iniciarPartida() {
         Jugador banca = new Jugador();
         Tablero tablero = new Tablero(banca);
-        Casilla casilla = tablero.getInicio();
+        Casilla casilla = tablero.obtenerCasilla(tablero.getPosiciones(), 1);
         Scanner scanner = new Scanner(System.in);
         String tipoAvatar = new String("Avatar No Valido");
         System.out.println("Introduce nombre de jugador: ");
