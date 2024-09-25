@@ -34,7 +34,7 @@ public class Menu {
         System.out.println("Introduce nombre de jugador: ");
         String nombreJugador = scanner.next();
         
-        while (tipoAvatar != "Sombrero" || tipoAvatar != "Esfinge" || tipoAvatar != "Pelota" || tipoAvatar != "Coche"){
+        while (!tipoAvatar.equals("Sombrero") && tipoAvatar.equals("Esfinge") && tipoAvatar.equals("Pelota") && tipoAvatar.equals("Coche")){
         System.out.println("Introduce tu avatar: ");
         tipoAvatar = scanner.next();
         }

@@ -84,7 +84,7 @@ public class Casilla {
      */
     public Casilla(String nombre, String tipo, int posicion, Jugador duenho) {
         this.nombre = nombre;
-        check(tipo == "suerte"||tipo=="caja"||tipo=="especial","casilla.tipo unexpected value");
+        check(tipo == "suerte"||tipo=="caja"||tipo=="especial","casilla.tipo unexpected value"+tipo);
         this.tipo = tipo;
         this.posicion = posicion;
         this.duenho = duenho;
