@@ -76,7 +76,7 @@ public class Avatar {
         Random rnd = new Random();
         String letra = String.valueOf((char) ('A' + rnd.nextInt(26)));
         int aseguradodistinto = 0;
-        while ((aseguradodistinto == 0) &&  (avCreados != null)) {
+        while ((aseguradodistinto == 0) &&  (avCreados.size()==0)) {
             for (Avatar A : avCreados) {
                 if (A.id == letra) {
                     letra = String.valueOf((char) ('A' + rnd.nextInt(26)));
