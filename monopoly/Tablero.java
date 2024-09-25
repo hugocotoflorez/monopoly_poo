@@ -52,8 +52,8 @@ public class Tablero {
     }
 
     //Dado un entero y las casillas del tablero, devuelve la casilla que está en esa posición
-    public Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int posicion) {
-        return casillas.get(posicion/ 10).get(posicion% 10);
+    public Casilla obtenerCasilla(int posicion) {
+        return this.posiciones.get(posicion/ 10).get(posicion% 10);
     }
 
 
