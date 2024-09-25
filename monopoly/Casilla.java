@@ -1,8 +1,8 @@
 package monopoly;
 
 //soy imbecilsadjj
-import partida.*;
 import java.util.ArrayList;
+import partida.*;
 
 public class Casilla {
 
@@ -110,7 +110,7 @@ public class Casilla {
      * en caso de no cumplirlas.
      */
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
-        // TODO
+        return false;
     }
 
     /*
