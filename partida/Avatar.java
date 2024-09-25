@@ -38,6 +38,65 @@ public class Avatar {
         generarId(avCreados);
 
     }
+    public Avatar(String tipo, Casilla lugar, ArrayList<Avatar> avCreados) {
+
+        this.tipo = tipo;
+        this.lugar= lugar;
+        generarId(avCreados);
+
+    }
+
+    public void setJugador(Jugador jugador){
+        this.jugador = jugador;
+    }
+    public Jugador getJugador(Jugador jugador){
+        return this.jugador;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
@@ -60,6 +119,7 @@ public class Avatar {
      * generen dos ID iguales.
      */
     private void generarId(ArrayList<Avatar> avCreados) {
+
         Random rnd = new Random();
         String letra = String.valueOf((char) ('A' + rnd.nextInt(26)));
         int aseguradodistinto = 0;

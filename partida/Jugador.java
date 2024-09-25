@@ -47,6 +47,9 @@ public class Jugador {
         this.vueltas = 0;
         
     }
+    public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
+        
+    }
 
     //Otros métodos:
     //Método para añadir una propiedad al jugador. Como parámetro, la casilla a añadir.

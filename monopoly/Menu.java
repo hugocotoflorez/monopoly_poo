@@ -6,14 +6,13 @@ import partida.*;
 
 public class Menu {
 
-    // Atributos
-    private ArrayList<Jugador> jugadores; // Jugadores de la partida.
-    private ArrayList<Avatar> avatares; // Avatares en la partida.
-    private int turno = 0; // Índice correspondiente a la posición en el arrayList del jugador (y el
-                           // avatar) que tienen el turno
-    private int lanzamientos; // Variable para contar el número de lanzamientos de un jugador en un turno.
-    private Tablero tablero; // Tablero en el que se juega.
-    private Dado dado1; // Dos dados para lanzar y avanzar casillas.
+    //Atributos
+    private ArrayList<Jugador> jugadores; //Jugadores de la partida.
+    private ArrayList<Avatar> avatares; //Avatares en la partida.
+    private int turno = 0; //Índice correspondiente a la posición en el arrayList del jugador (y el avatar) que tienen el turno
+    private int lanzamientos; //Variable para contar el número de lanzamientos de un jugador en un turno.
+    private Tablero tablero; //Tablero en el que se juega.
+    private Dado dado1; //Dos dados para lanzar y avanzar casillas.
     private Dado dado2;
     private Jugador banca; // El jugador banca.
     private boolean tirado; // Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
@@ -35,18 +34,17 @@ public class Menu {
         String tipoAvatar = new String("Avatar No Valido");
         System.out.println("Introduce nombre de jugador: ");
         String nombreJugador = scanner.next();
-
-        while (!tipoAvatar.equals("Sombrero") && !tipoAvatar.equals("Esfinge") && !tipoAvatar.equals("Pelota")
-                && !tipoAvatar.equals("Coche")) {
-            System.out.println("Introduce tu avatar: [Esfinge / Sombrero / Pelota / Coche] ");
-            tipoAvatar = scanner.next();
+        
+        while (!tipoAvatar.equals("Sombrero") && !tipoAvatar.equals("Esfinge") && !tipoAvatar.equals("Pelota") && !tipoAvatar.equals("Coche")){
+        System.out.println("Introduce tu avatar: [Esfinge / Sombrero / Pelota / Coche] ");
+        tipoAvatar = scanner.next();
         }
-        Jugador jugador = new Jugador(nombreJugador, tipoAvatar, casilla, avatares);
-        Avatar avatar = new Avatar(tipoAvatar, jugador, casilla);
+        Jugador jugador = new Jugador(nombreJugador,tipoAvatar,casilla,avatares);
+        Avatar avatar = new Avatar(tipoAvatar,jugador,casilla);
 
         scanner.close();
         this.jugadores.add(jugador);
-        this.avatares.add(avatar);
+        scanner.close();
     }
 
     /*
