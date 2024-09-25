@@ -11,4 +11,3 @@ Monopoly en Java sin saber java!
 
 ## How to play
 
-Aun no funciona nada
