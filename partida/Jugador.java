@@ -38,7 +38,7 @@ public class Jugador {
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
 
         this.nombre = nombre;
-        this.avatar = new Avatar(tipoAvatar,inicio);
+        this.avatar = new Avatar(tipoAvatar,inicio,avCreados);
         this.avatar.setTipo(tipoAvatar);
         this.avatar.setLugar(inicio);
         this. fortuna = Valor.FORTUNA_INICIAL;
@@ -47,11 +47,7 @@ public class Jugador {
         this.vueltas = 0;
         
     }
-    public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
-        
-    }
 
-    //Otros métodos:
     //Método para añadir una propiedad al jugador. Como parámetro, la casilla a añadir.
     public void anhadirPropiedad(Casilla casilla) {
         this.propiedades.add(casilla);
