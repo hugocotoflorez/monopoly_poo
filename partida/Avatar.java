@@ -36,6 +36,12 @@ public class Avatar {
 
     }
 
+    public void setJugador(Jugador jugador)
+    {
+        this.jugador = jugador;
+
+    }
+
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
         /**
          * Experimental:
@@ -62,7 +68,7 @@ public class Avatar {
     private void generarId(ArrayList<Avatar> avCreados) {
         Random rnd = new Random();
         String letra = String.valueOf((char) ('A' + rnd.nextInt(26)));
-        int aseguradodistinto = 0; 
+        int aseguradodistinto = 0;
         while (aseguradodistinto == 0){
             for(Avatar A:avCreados){
                 if(A.id == letra){
@@ -76,7 +82,7 @@ public class Avatar {
         this.id = letra;
         }
 
-        
+
         public void setTipo(String tipo){
             this.tipo = tipo;
         }
