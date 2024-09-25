@@ -17,7 +17,7 @@ public class Casilla {
     private float impuesto; // Cantidad a pagar por caer en la casilla: el alquiler en
                             // solares/servicios/transportes o impuestos.
     private float hipoteca; // Valor otorgado por hipotecar una casilla
-    private ArrayList<Avatar> avatares; // Avatares que están situados en la casilla.
+    private ArrayList<Avatar> avatares= new ArrayList<Avatar>(); // Avatares que están situados en la casilla.
 
     public static final int casillaWidth = 15;
 
