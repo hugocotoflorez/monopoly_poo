@@ -21,31 +21,69 @@ public class Casilla {
 
     public static final int casillaWidth = 15;
 
-    /* check return if x is true, else print message to stderr and raise an error */
-    private void check(Boolean x, String msg) {
-        if (!x) {
-            System.err.println(msg);
-            System.exit(1);
-        }
+
+    public String getNombre() {
+        return this.nombre;
+    }
+    public void setNombre(String nombre){
+        this.nombre = nombre;
     }
 
-    /* check return if x is true, else raise an error */
-    private void check(Boolean x) {
-        if (!x) {
-            System.exit(1);
-        }
+    
+    public void setValor(float valor){
+        this.valor = valor;
     }
+    public float getValor(){
+        return this.valor;
+    }
+
+    
+    public void setTipo(String tipo){
+        this.tipo = tipo;
+    }
+    public String getTipo(){
+        return this.tipo;
+    }
+
+
+    public void setPosicion(int pos) {
+        this.posicion = pos;
+    }
+
+    public int getPosicion() {
+
+        return this.posicion;
+    }
+
 
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
     }
 
-    public String getNombre() {
-        return this.nombre;
+    public Grupo getGrupo(){
+        return this.grupo;
     }
 
+
+    public void setDuenho(Jugador duenho){
+        this.duenho = duenho;
+    }
     public Jugador getDuenho() {
         return this.duenho;
+    }
+    public void setImpuesto(float impuesto){
+        this.impuesto = impuesto;
+    }
+    public float getImpuesto(){
+        return this.impuesto;
+    }
+
+
+    public void setHipoteca(float hipoteca){
+        this.hipoteca = hipoteca;
+    }
+    public float getHipoteca(){
+        return this.hipoteca;
     }
 
     /*
@@ -237,12 +275,16 @@ public class Casilla {
                 Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET;
     }
 
-    public void setPosicion(int pos) {
-        this.posicion = pos;
+    private void check(Boolean x) {
+    if (!x) {
+        System.exit(1);
     }
-
-    public int getPosicion() {
-
-        return this.posicion;
+}
+    /* check return if x is true, else print message to stderr and raise an error */
+    private void check(Boolean x, String msg) {
+        if (!x) {
+            System.err.println(msg);
+            System.exit(1);
+        }
     }
 }

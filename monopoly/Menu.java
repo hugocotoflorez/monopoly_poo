@@ -34,14 +34,10 @@ public class Menu {
         String tipoAvatar = new String("Avatar No Valido");
         System.out.println("Introduce nombre de jugador: ");
         String nombreJugador = scanner.next();
-        
-        while (!tipoAvatar.equals("Sombrero") && !tipoAvatar.equals("Esfinge") && !tipoAvatar.equals("Pelota") && !tipoAvatar.equals("Coche")){
-
-        System.out.println("Introduce tu avatar: [Esfinge / Sombrero / Pelota / Coche] ");
+        while (!tipoAvatar.equals("Esfinge") && !tipoAvatar.equals("Sombrero") && !tipoAvatar.equals("Pelota") && !tipoAvatar.equals("Coche")){
+        System.out.println("Introduce tu avatar: [ Esfinge / Pelota / Coche / Sombrero ] ");
         tipoAvatar = scanner.next();
-
         }
-
         Avatar avatar = new Avatar(tipoAvatar,casilla,this.avatares);
         this.avatares.add(avatar);
         Jugador jugador = new Jugador(nombreJugador,tipoAvatar,casilla,avatares);
