@@ -7,8 +7,8 @@ import partida.*;
 public class Menu {
 
     //Atributos
-    private ArrayList<Jugador> jugadores; //Jugadores de la partida.
-    private ArrayList<Avatar> avatares; //Avatares en la partida.
+    private ArrayList<Jugador> jugadores = new ArrayList<Jugador>(); //Jugadores de la partida.
+    private ArrayList<Avatar> avatares = new ArrayList<Avatar>(); //Avatares en la partida.
     private int turno = 0; //Índice correspondiente a la posición en el arrayList del jugador (y el avatar) que tienen el turno
     private int lanzamientos; //Variable para contar el número de lanzamientos de un jugador en un turno.
     private Tablero tablero; //Tablero en el que se juega.
@@ -36,13 +36,16 @@ public class Menu {
         String nombreJugador = scanner.next();
         
         while (!tipoAvatar.equals("Sombrero") && !tipoAvatar.equals("Esfinge") && !tipoAvatar.equals("Pelota") && !tipoAvatar.equals("Coche")){
+
         System.out.println("Introduce tu avatar: [Esfinge / Sombrero / Pelota / Coche] ");
         tipoAvatar = scanner.next();
-        }
-        Jugador jugador = new Jugador(nombreJugador,tipoAvatar,casilla,avatares);
-        Avatar avatar = new Avatar(tipoAvatar,jugador,casilla);
 
-        scanner.close();
+        }
+
+        Avatar avatar = new Avatar(tipoAvatar,casilla,this.avatares);
+        this.avatares.add(avatar);
+        Jugador jugador = new Jugador(nombreJugador,tipoAvatar,casilla,avatares);
+        
         this.jugadores.add(jugador);
         scanner.close();
     }
