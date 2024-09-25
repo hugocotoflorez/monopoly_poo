@@ -45,7 +45,7 @@ public class Menu {
         Avatar avatar = new Avatar(tipoAvatar,casilla,this.avatares);
         this.avatares.add(avatar);
         Jugador jugador = new Jugador(nombreJugador,tipoAvatar,casilla,avatares);
-        
+        avatar.setJugador(jugador);
         this.jugadores.add(jugador);
         scanner.close();
     }
