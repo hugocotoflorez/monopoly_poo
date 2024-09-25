@@ -54,50 +54,6 @@ public class Avatar {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
 
