@@ -34,7 +34,7 @@ public class Tablero {
         generarCasillas();
     }
     public Casilla getInicio(){
-        return posiciones.get(2).get(2); //TODO
+        return posiciones.get(0).get(0); //TODO
     }
 
     // Método para crear todas las casillas del tablero. Formado a su vez por cuatro
