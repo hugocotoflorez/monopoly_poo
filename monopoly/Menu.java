@@ -19,8 +19,8 @@ public class Menu {
 
     public Menu(){
         iniciarPartida();
-        // tablero = new Tablero(banca);
-        // System.out.println(tablero);
+        tablero = new Tablero(banca);
+        System.out.println(tablero);
         }
 
     // Método para inciar una partida: crea los jugadores y avatares.

@@ -27,13 +27,9 @@ public class Avatar {
     * Tipo del avatar, jugador al que pertenece, lugar en el que estará ubicado, y un arraylist con los
     * avatares creados (usado para crear un ID distinto del de los demás avatares).
      */
-    private boolean checkAvatar(String x){
-        return (x == "Sombrero" || x == "Esfinge" || x == "Pelota" || x == "Coche");
-    }
     public Avatar(String tipo, Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
-        if(checkAvatar(tipo)){
-            this.tipo = tipo;
-        }
+
+        this.tipo = tipo;
         this.jugador= jugador;
         this.lugar= lugar;
         generarId(avCreados);
