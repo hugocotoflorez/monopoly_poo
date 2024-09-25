@@ -103,12 +103,13 @@ public class Avatar {
 
     }
 
-    public Casilla moverCasilla(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
+    //Dado un entero y las casillas del tablero, devuelve la casilla que está en esa posición
+    public Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int posicion) {
         return casillas.get(lugar.getPosicion() / 10).get(lugar.getPosicion() % 10);
     }
 
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-        this.lugar = moverCasilla(casillas, valorTirada);
+        this.lugar = obtenerCasilla(casillas, valorTirada);
     }
 
     /*
