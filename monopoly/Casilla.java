@@ -21,71 +21,6 @@ public class Casilla {
 
     public static final int casillaWidth = 15;
 
-
-    public String getNombre() {
-        return this.nombre;
-    }
-    public void setNombre(String nombre){
-        this.nombre = nombre;
-    }
-
-    
-    public void setValor(float valor){
-        this.valor = valor;
-    }
-    public float getValor(){
-        return this.valor;
-    }
-
-    
-    public void setTipo(String tipo){
-        this.tipo = tipo;
-    }
-    public String getTipo(){
-        return this.tipo;
-    }
-
-
-    public void setPosicion(int pos) {
-        this.posicion = pos;
-    }
-
-    public int getPosicion() {
-
-        return this.posicion;
-    }
-
-
-    public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
-    }
-
-    public Grupo getGrupo(){
-        return this.grupo;
-    }
-
-
-    public void setDuenho(Jugador duenho){
-        this.duenho = duenho;
-    }
-    public Jugador getDuenho() {
-        return this.duenho;
-    }
-    public void setImpuesto(float impuesto){
-        this.impuesto = impuesto;
-    }
-    public float getImpuesto(){
-        return this.impuesto;
-    }
-
-
-    public void setHipoteca(float hipoteca){
-        this.hipoteca = hipoteca;
-    }
-    public float getHipoteca(){
-        return this.hipoteca;
-    }
-
     /*
      * Constructor para casillas tipo Solar, Servicios o Transporte:
      * Parámetros: nombre casilla, tipo (debe ser solar, serv. o transporte),
@@ -126,6 +61,75 @@ public class Casilla {
         this.posicion = posicion;
         this.duenho = duenho;
     }
+
+    //GETTERS
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public float getValor(){
+        return this.valor;
+    }
+
+    public String getTipo(){
+        return this.tipo;
+    }
+
+    public int getPosicion() {
+
+        return this.posicion;
+    }
+
+    public Grupo getGrupo(){
+        return this.grupo;
+    }
+
+    public Jugador getDuenho() {
+        return this.duenho;
+    }
+    
+    public float getImpuesto(){
+        return this.impuesto;
+    }
+
+    public float getHipoteca(){
+        return this.hipoteca;
+    }
+
+
+    //SETTERS
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
+
+    public void setValor(float valor){
+        this.valor = valor;
+    }
+
+    public void setTipo(String tipo){
+        this.tipo = tipo;
+    }
+
+    public void setPosicion(int pos) {
+        this.posicion = pos;
+    }
+
+    public void setDuenho(Jugador duenho){
+        this.duenho = duenho;
+    }
+    
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+
+    public void setImpuesto(float impuesto){
+        this.impuesto = impuesto;
+    }
+    
+    public void setHipoteca(float hipoteca){
+        this.hipoteca = hipoteca;
+    }
+
 
     // Método utilizado para añadir un avatar al array de avatares en casilla.
     public void anhadirAvatar(Avatar av) {
