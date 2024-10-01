@@ -89,7 +89,6 @@ public class Menu {
             case "acabar partida":
                 acabarPartida();
                 break;
-            case 
 
             default:
                 System.out.println("Opcion incorrecta.\n");
