@@ -29,6 +29,7 @@ public class Menu {
     private void iniciarPartida() {
         this.turno = 1;
         Jugador banca = new Jugador();
+        this.avatares.add(null); // avatar banca
         this.jugadores.add(banca);
         this.tablero = new Tablero(banca);
         Casilla casilla = this.tablero.obtenerCasilla(1);
@@ -38,7 +39,7 @@ public class Menu {
         do {
             System.out.println("Introduce nombre de jugador: ");
             nombreJugador = new String(scanner.next());
-            if(nombreJugador.equals("Stop"))
+            if(!nombreJugador.equals("Stop"))
             while (!tipoAvatar.equals("Esfinge") && !tipoAvatar.equals("Sombrero") && !tipoAvatar.equals("Pelota")
                     && !tipoAvatar.equals("Coche")) {
                 System.out.println("Introduce tu avatar: [ Esfinge / Pelota / Coche / Sombrero ] ");
@@ -49,7 +50,7 @@ public class Menu {
             Jugador jugador = new Jugador(nombreJugador, tipoAvatar, casilla, avatares);
             avatar.setJugador(jugador);
             this.jugadores.add(jugador);
-        } while (nombreJugador.equals("Stop"));
+        } while (!nombreJugador.equals("Stop"));
         scanner.close();
     }
 
@@ -121,7 +122,9 @@ public class Menu {
         this.dado2.hacerTirada();
         this.tirado = true;
         int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
-        System.out.println("El avatar" + this.avatares.get(turno).getId() + "avanza" + desplazamiento + "desde" + this.avatares.get(turno).getCasilla().getNombre() ); //TODO
+        System.out.print("El avatar" + this.avatares.get(turno).getId() + "avanza" + desplazamiento + "desde" + this.avatares.get(turno).getCasilla().getNombre() + "hasta"); 
+        this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
+        System.out.println(avatares.get(turno).getCasilla().getNombre());
         }else{
             System.out.println("Ya has tirado en este turno.");
         }
