@@ -48,6 +48,24 @@ public class Jugador {
         
     }
 
+    //GETTERS
+    public float getFortuna(){
+        return this.fortuna;
+    }
+    public String getNombre(){
+        return  this.nombre;
+    }
+
+    //SETTERS
+    public void setFortuna(float fortuna){
+        this.fortuna = fortuna;
+        
+    }
+    
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
+
     //Método para añadir una propiedad al jugador. Como parámetro, la casilla a añadir.
     public void anhadirPropiedad(Casilla casilla) {
         this.propiedades.add(casilla);
@@ -76,19 +94,5 @@ public class Jugador {
     /*Método para establecer al jugador en la cárcel. 
     * Se requiere disponer de las casillas del tablero para ello (por eso se pasan como parámetro).*/
     public void encarcelar(ArrayList<ArrayList<Casilla>> pos) {
-    }
-    
-    public float getFortuna(){
-        return this.fortuna;
-    }
-    public void setFortuna(float fortuna){
-        this.fortuna = fortuna;
-        
-    }
-    public String getNombre(){
-        return  this.nombre;
-    }
-    public void setNombre(String nombre){
-        this.nombre = nombre;
     }
 }

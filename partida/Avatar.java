@@ -45,17 +45,24 @@ public class Avatar {
         generarId(avCreados);
 
     }
-
+    //GETTERS
     public String getId()
     {
         return this.id;
     }
+    public Jugador getJugador(Jugador jugador){
+        return this.jugador;
+    }
 
+    //SETTERS
     public void setJugador(Jugador jugador){
         this.jugador = jugador;
     }
-    public Jugador getJugador(Jugador jugador){
-        return this.jugador;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    public void setLugar(Casilla lugar) {
+        this.lugar = lugar;
     }
 
 
@@ -93,12 +100,6 @@ public class Avatar {
         this.id = letra;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
 
-    public void setLugar(Casilla lugar) {
-        this.lugar = lugar;
-    }
 
 }

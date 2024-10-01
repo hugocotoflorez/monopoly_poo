@@ -33,9 +33,6 @@ public class Tablero {
         this.banca = banca;
         generarCasillas();
     }
-    public Casilla getInicio(){
-        return posiciones.get(0).get(0); //TODO
-    }
 
     public ArrayList<ArrayList<Casilla>> getPosiciones(){
         return posiciones;
