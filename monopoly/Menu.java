@@ -59,11 +59,7 @@ public class Menu {
         System.out.println("$>");
         switch(comando){
             case "lanzar dados":
-
-                this.dado1.hacerTirada();
-                this.dado2.hacerTirada();
-                int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
-                //TODO
+                lanzarDados();
                 break;
             case "salir carcel":
                 salirCarcel();
@@ -113,6 +109,10 @@ public class Menu {
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar
     // dados'.
     private void lanzarDados() {
+                this.dado1.hacerTirada();
+                this.dado2.hacerTirada();
+                int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
+                //TODO
     }
 
     /*
@@ -127,7 +127,7 @@ public class Menu {
     // carcel'.
     private void salirCarcel() {
         if (this.jugadores.get(turno).getEnCarcel() == true){
-            
+
             this.jugadores.get(turno).setEnCarcel(false);
             this.jugadores.get(turno).setFortuna(this.jugadores.get(turno).getFortuna()-Valor.PAGO_SALIR_CARCEL);
         }
