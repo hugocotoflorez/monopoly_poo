@@ -59,7 +59,6 @@ public class Jugador {
     //SETTERS
     public void setFortuna(float fortuna){
         this.fortuna = fortuna;
-        
     }
     
     public void setNombre(String nombre){
@@ -89,8 +88,14 @@ public class Jugador {
     //Como parámetro se pide el valor a añadir. Si hay que restar fortuna, se pasaría un valor negativo.
     public void sumarFortuna(float valor) {
         this.fortuna += valor;
+        if (this.estaBancarrota()) Menu.acabarPartida(); //TODO
     }
 
+    //Método para comprobar si un jugador está en bancarrota
+    public boolean estaBancarrota(){
+        System.out.println("El jugador " + this.getNombre() + " se ha quedado en bancarrota.");
+        return this.fortuna<0;
+    }
 
     //Método para sumar gastos a un jugador.
     //Parámetro: valor a añadir a los gastos del jugador (será el precio de un solar, impuestos pagados...).
