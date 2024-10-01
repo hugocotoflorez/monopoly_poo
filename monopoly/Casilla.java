@@ -11,7 +11,7 @@ public class Casilla {
     private String tipo; // Tipo de casilla (Solar, Especial, Transporte, Servicios, Comunidad).
     private float valor; // Valor de esa casilla (en la mayoría será valor de compra, en la casilla
                          // parking se usará como el bote).
-    private int posicion; // Posición que ocupa la casilla en el tablero (entero entre 1 y 40).
+    private int posicion; // Posición que ocupa la casilla en el tablero (entero entre 0 y 40).
     private Jugador duenho; // Dueño de la casilla (por defecto sería la banca).
     private Grupo grupo; // Grupo al que pertenece la casilla (si es solar).
     private float impuesto; // Cantidad a pagar por caer en la casilla: el alquiler en
@@ -87,7 +87,7 @@ public class Casilla {
     public Jugador getDuenho() {
         return this.duenho;
     }
-    
+
     public float getImpuesto(){
         return this.impuesto;
     }
@@ -117,7 +117,7 @@ public class Casilla {
     public void setDuenho(Jugador duenho){
         this.duenho = duenho;
     }
-    
+
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
     }
@@ -125,7 +125,7 @@ public class Casilla {
     public void setImpuesto(float impuesto){
         this.impuesto = impuesto;
     }
-    
+
     public void setHipoteca(float hipoteca){
         this.hipoteca = hipoteca;
     }
@@ -166,7 +166,7 @@ public class Casilla {
         if (fortuna_solicitante >= this.valor) {
             solicitante.setFortuna(fortuna_solicitante - this.valor);
             banca.setFortuna(fortuna_banca + this.valor);
-            System.out.println("El jugador" + solicitante.getNombre() + "ha comprado la casilla" + this.nombre. + "Su fortuna actual es" + solicitante.getFortuna());
+            System.out.println("El jugador" + solicitante.getNombre() + "ha comprado la casilla" + this.nombre + "Su fortuna actual es" + solicitante.getFortuna());
         } else { // TODO
             System.out.println("No tienes suficiente cash.");
         }
@@ -291,4 +291,18 @@ public class Casilla {
             System.exit(1);
         }
     }
+
+    @Override
+    public String toString()
+  {
+        return """
+        | Nombre: %s
+        | Tipo: %s
+        | Valor: %s
+        | Duenho: %s
+        | Grupo: %s
+        | Impuesto: %s
+        """.formatted(nombre, tipo, valor, duenho, grupo, impuesto);
+    }
+
 }
