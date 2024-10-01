@@ -64,15 +64,18 @@ public class Avatar {
     public void setLugar(Casilla lugar) {
         this.lugar = lugar;
     }
+    public Casilla getCasilla(){
+        return this.lugar;
+    }
 
 
-    public Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valorTirada)
+    private Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) // si no se encuentra esta funcion cambiala a publico
     {
         return casillas.get(lugar.getPosicion()%10).get(lugar.getPosicion()/10);
     }
 
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-        this.lugar = obtenerCasilla(casillas, valorTirada);
+        this.lugar = obtenerCasilla(casillas, valorTirada+lugar.getPosicion());
     }
 
     /*
