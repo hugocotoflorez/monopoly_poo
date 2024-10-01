@@ -110,7 +110,7 @@ public class Menu {
      */
     private void descAvatar(String ID) {
         for(Avatar A:this.avatares){
-            if(A.getId().equals(ID)){
+            if(A!=null && A.getId().equals(ID)){
                 A.toString();
                 return;
             }
@@ -186,8 +186,10 @@ public class Menu {
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
     private void listarAvatares() {
         for(Avatar A:avatares){
-            A.toString();
-            System.out.println("\n");
+            if(A!=null){
+                A.toString();
+                System.out.println("\n");
+            }
         }
     }
 
