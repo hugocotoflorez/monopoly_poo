@@ -115,9 +115,15 @@ public class Menu {
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar
     // dados'.
     private void lanzarDados() {
+        if( this.tirado == false){
         this.dado1.hacerTirada();
         this.dado2.hacerTirada();
+        this.tirado = true;
         int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
+        System.out.println("El avatar" + this.avatares.get(turno).getId() + "avanza" + desplazamiento + "desde" + this.avatares.get(turno).getCasilla().getNombre() ); //TODO
+        }else{
+            System.out.println("Ya has tirado en este turno.");
+        }
         // TODO
     }
 
@@ -161,6 +167,7 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
+        this.turno += this.turno;
     }
 
     public static void acabarPartida(){
