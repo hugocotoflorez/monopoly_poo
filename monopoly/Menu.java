@@ -38,6 +38,7 @@ public class Menu {
         do {
             System.out.println("Introduce nombre de jugador: ");
             nombreJugador = new String(scanner.next());
+            if(nombreJugador.equals("Stop"))
             while (!tipoAvatar.equals("Esfinge") && !tipoAvatar.equals("Sombrero") && !tipoAvatar.equals("Pelota")
                     && !tipoAvatar.equals("Coche")) {
                 System.out.println("Introduce tu avatar: [ Esfinge / Pelota / Coche / Sombrero ] ");
@@ -48,7 +49,7 @@ public class Menu {
             Jugador jugador = new Jugador(nombreJugador, tipoAvatar, casilla, avatares);
             avatar.setJugador(jugador);
             this.jugadores.add(jugador);
-        } while (nombreJugador != "Stop");
+        } while (nombreJugador.equals("Stop"));
         scanner.close();
     }
 
@@ -78,6 +79,9 @@ public class Menu {
                 break;
             case "mostrar tablero":
                 System.out.println(tablero);
+                break;
+            case "acabar partida":
+                acabarPartida();
                 break;
 
             default:
