@@ -110,6 +110,7 @@ public class Menu {
      * Parámetros: nombre de la casilla a describir.
      */
     private void descCasilla(String nombre) {
+        System.out.println(tablero.encontrar_casilla(nombre));
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar
