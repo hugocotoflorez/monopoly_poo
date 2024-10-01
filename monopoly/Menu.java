@@ -149,7 +149,7 @@ public class Menu {
     private void listarJugadores() {
         System.out.println("Jugadores:");
         for (Jugador j : jugadores) {
-            if (!j.esBanca){
+            if (!j.esBanca()){
                 System.out.println(j);
             }
         }
