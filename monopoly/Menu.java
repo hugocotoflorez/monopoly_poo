@@ -2,6 +2,7 @@ package monopoly;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import org.xml.sax.ext.DefaultHandler2;
 import partida.*;
 
 public class Menu {
@@ -9,7 +10,7 @@ public class Menu {
     //Atributos
     private ArrayList<Jugador> jugadores = new ArrayList<Jugador>(); //Jugadores de la partida.
     private ArrayList<Avatar> avatares = new ArrayList<Avatar>(); //Avatares en la partida.
-    private int turno = 0; //Índice correspondiente a la posición en el arrayList del jugador (y el avatar) que tienen el turno
+    private int turno; //Índice correspondiente a la posición en el arrayList del jugador (y el avatar) que tienen el turno
     private int lanzamientos; //Variable para contar el número de lanzamientos de un jugador en un turno.
     private Tablero tablero; //Tablero en el que se juega.
     private Dado dado1; //Dos dados para lanzar y avanzar casillas.
@@ -25,6 +26,7 @@ public class Menu {
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
+        this.turno = 1;
         Jugador banca = new Jugador();
         this.jugadores.add(banca);
         this.tablero = new Tablero(banca);
@@ -57,12 +59,20 @@ public class Menu {
         System.out.println("$>");
         switch(comando){
             case "lanzar dados":
+
+                this.dado1.hacerTirada();
+                this.dado2.hacerTirada();
+                int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
+                //TODO
                 break;
             case "salir carcel":
+                salirCarcel();
                 break;
             case "acabar turno":
+                acabarTurno();
                 break;
-            case "describir CASILLA": //TODO
+            case "describir CASILLA":
+                 //descCasilla();   TODO
                 break;
             case "Comprar CASILLA": //TODO
                 break;
@@ -70,6 +80,10 @@ public class Menu {
                 break;
             case "mostrar tablero":
                 System.out.println(tablero);
+                break;
+
+            default:
+                System.out.println("Opcion incorrecta.\n");
                 break;
         }
     }
@@ -112,6 +126,14 @@ public class Menu {
     // Método que ejecuta todas las acciones relacionadas con el comando 'salir
     // carcel'.
     private void salirCarcel() {
+        if (this.jugadores.get(turno).getEnCarcel() == true){
+            
+            this.jugadores.get(turno).setEnCarcel(false);
+            this.jugadores.get(turno).setFortuna(this.jugadores.get(turno).getFortuna()-Valor.PAGO_SALIR_CARCEL);
+        }
+        else{
+            System.out.println("El jugador" + this.jugadores.get(turno).getNombre() + "no está en la cárcel.\n");
+        }
     }
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.

@@ -65,7 +65,14 @@ public class Jugador {
     public void setNombre(String nombre){
         this.nombre = nombre;
     }
+    public void setEnCarcel(boolean enCarcel){
 
+        this.enCarcel = enCarcel;
+    }
+    public boolean getEnCarcel(){
+        
+        return this.enCarcel;
+    }
     //Método para añadir una propiedad al jugador. Como parámetro, la casilla a añadir.
     public void anhadirPropiedad(Casilla casilla) {
         this.propiedades.add(casilla);
