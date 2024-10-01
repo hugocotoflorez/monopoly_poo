@@ -64,6 +64,8 @@ public class Menu {
             case "lanzar dados":
                 lanzarDados();
                 break;
+            case "jugador":
+                break;
             case "salir carcel":
                 salirCarcel();
                 break;
@@ -86,6 +88,7 @@ public class Menu {
             case "acabar partida":
                 acabarPartida();
                 break;
+            case 
 
             default:
                 System.out.println("Opcion incorrecta.\n");
@@ -105,6 +108,13 @@ public class Menu {
      * Parámetro: id del avatar a describir.
      */
     private void descAvatar(String ID) {
+        for(Avatar A:this.avatares){
+            if(A.getId().equals(ID)){
+                A.toString();
+                return;
+            }
+        }
+        System.out.println("No se ha encontrado ese avatar.");
     }
 
     /*
@@ -183,6 +193,7 @@ public class Menu {
         this.turno += this.turno;
     }
 
+    //Método que finaliza la partida
     public static void acabarPartida(){
         System.out.println("FINALIZANDO PARTIDA");
         System.exit(0);
