@@ -110,6 +110,7 @@ public class Menu {
      * Parámetros: nombre de la casilla a describir.
      */
     private void descCasilla(String nombre) {
+        System.out.println(tablero.encontrar_casilla(nombre));
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar
@@ -133,6 +134,11 @@ public class Menu {
      * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
+        Casilla casilla = tablero.encontrar_casilla(nombre);
+        jugadores.get(turno).sumarFortuna(-casilla.getValor());
+        jugadores.get(turno).anhadirPropiedad(casilla);
+        System.out.println("El jugador " +jugadores.get(turno).getNombre() + " ha comprado " + casilla.getNombre() + " por " + casilla.getValor() + ".");
+        System.out.println("Su fortuna restante es " + jugadores.get(turno).getFortuna());
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'salir
@@ -141,7 +147,7 @@ public class Menu {
         if (this.jugadores.get(turno).getEnCarcel() == true) {
 
             this.jugadores.get(turno).setEnCarcel(false);
-            this.jugadores.get(turno).setFortuna(this.jugadores.get(turno).getFortuna() - Valor.PAGO_SALIR_CARCEL);
+            this.jugadores.get(turno).sumarFortuna(-Valor.PAGO_SALIR_CARCEL);
         } else {
             System.out.println("El jugador" + this.jugadores.get(turno).getNombre() + "no está en la cárcel.\n");
         }
