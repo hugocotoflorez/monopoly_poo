@@ -100,6 +100,14 @@ public class Avatar {
         this.id = letra;
     }
 
-
+    @Override
+    public String toString(){
+        String ret = """
+                id: %s,
+                tipo: %s,
+                casilla: %s,
+                jugador: %s
+                """.formatted(this.id,this.tipo,this.lugar.getNombre(),this.jugador.getNombre())
+    }
 
 }

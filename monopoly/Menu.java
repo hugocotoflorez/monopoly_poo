@@ -163,6 +163,10 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
     private void listarAvatares() {
+        for(Avatar A:avatares){
+            A.toString();
+            System.out.println("\n");
+        }
     }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
