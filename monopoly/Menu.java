@@ -66,6 +66,7 @@ public class Menu {
                 lanzarDados();
                 break;
             case "jugador":
+                this.jugadores.get(turno).getAvatar().toString();
                 break;
             case "salir carcel":
                 salirCarcel();
@@ -89,8 +90,6 @@ public class Menu {
             case "acabar partida":
                 acabarPartida();
                 break;
-            case 
-
             default:
                 System.out.println("Opcion incorrecta.\n");
                 break;

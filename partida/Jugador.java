@@ -61,6 +61,10 @@ public class Jugador {
         return this.nombre;
     }
 
+    public Avatar getAvatar(){
+        return this.avatar;
+    }
+
     // SETTERS
     public void setFortuna(float fortuna) {
         this.fortuna = fortuna;
