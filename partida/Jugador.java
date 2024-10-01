@@ -61,14 +61,14 @@ public class Jugador {
         return this.nombre;
     }
 
-    public Avatar getAvatar(){
+    public Avatar getAvatar() {
         return this.avatar;
     }
 
     // SETTERS
     public void setFortuna(float fortuna) {
         this.fortuna = fortuna;
-        
+
     }
 
     public void setNombre(String nombre) {
@@ -103,17 +103,19 @@ public class Jugador {
     // pasaría un valor negativo.
     public void sumarFortuna(float valor) {
         this.fortuna += valor;
-        if (this.estaBancarrota()) Menu.acabarPartida(); //TODO
+        if (this.estaBancarrota())
+            Menu.acabarPartida(); // TODO
     }
 
-    //Método para comprobar si un jugador está en bancarrota
-    public boolean estaBancarrota(){
+    // Método para comprobar si un jugador está en bancarrota
+    public boolean estaBancarrota() {
         System.out.println("El jugador " + this.getNombre() + " se ha quedado en bancarrota.");
-        return this.fortuna<0;
+        return this.fortuna < 0;
     }
 
-    //Método para sumar gastos a un jugador.
-    //Parámetro: valor a añadir a los gastos del jugador (será el precio de un solar, impuestos pagados...).
+    // Método para sumar gastos a un jugador.
+    // Parámetro: valor a añadir a los gastos del jugador (será el precio de un
+    // solar, impuestos pagados...).
     public void sumarGastos(float valor) {
         this.gastos += valor;
     }

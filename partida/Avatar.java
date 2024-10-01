@@ -38,44 +38,50 @@ public class Avatar {
         generarId(avCreados);
 
     }
+
     public Avatar(String tipo, Casilla lugar, ArrayList<Avatar> avCreados) {
 
         this.tipo = tipo;
-        this.lugar= lugar;
+        this.lugar = lugar;
         generarId(avCreados);
 
     }
-    //GETTERS
-    public String getId()
-    {
+
+    // GETTERS
+    public String getId() {
         return this.id != null ? this.id : "\0";
     }
-    public Jugador getJugador(Jugador jugador){
+
+    public Jugador getJugador(Jugador jugador) {
         return this.jugador;
     }
 
-    //SETTERS
-    public void setJugador(Jugador jugador){
+    // SETTERS
+    public void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }
+
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
     public void setLugar(Casilla lugar) {
         this.lugar = lugar;
     }
-    public Casilla getCasilla(){
+
+    public Casilla getCasilla() {
         return this.lugar;
     }
 
-
-    private Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) // si no se encuentra esta funcion cambiala a publico
+    private Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) // si no se encuentra esta
+                                                                                            // funcion cambiala a
+                                                                                            // publico
     {
-        return casillas.get(lugar.getPosicion()%10).get(lugar.getPosicion()/10);
+        return casillas.get(lugar.getPosicion() % 10).get(lugar.getPosicion() / 10);
     }
 
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-        this.lugar = obtenerCasilla(casillas, valorTirada+lugar.getPosicion());
+        this.lugar = obtenerCasilla(casillas, valorTirada + lugar.getPosicion());
     }
 
     /*
@@ -90,9 +96,9 @@ public class Avatar {
         Random rnd = new Random();
         String letra = String.valueOf((char) ('A' + rnd.nextInt(26)));
         int aseguradodistinto = 0;
-        while ((aseguradodistinto == 0) &&  (avCreados.size()!=0)) {
+        while ((aseguradodistinto == 0) && (avCreados.size() != 0)) {
             for (Avatar A : avCreados) {
-                if (A!=null &&( A.id == letra) ){
+                if (A != null && (A.id == letra)) {
                     letra = String.valueOf((char) ('A' + rnd.nextInt(26)));
                     aseguradodistinto = 0;
                     break;
@@ -104,14 +110,14 @@ public class Avatar {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         String ret = """
                 id: %s,
                 tipo: %s,
                 casilla: %s,
                 jugador: %s
-                """.formatted(this.id,this.tipo,this.lugar.getNombre(),this.jugador.getNombre());
-                return ret;
+                """.formatted(this.id, this.tipo, this.lugar.getNombre(), this.jugador.getNombre());
+        return ret;
     }
 
 }

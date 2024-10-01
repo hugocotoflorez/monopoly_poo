@@ -5,7 +5,6 @@ import partida.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 public class Tablero {
     // Atributos.
     private ArrayList<ArrayList<Casilla>> posiciones; // Posiciones del tablero: se define como un arraylist de
@@ -34,7 +33,7 @@ public class Tablero {
         generarCasillas();
     }
 
-    public ArrayList<ArrayList<Casilla>> getPosiciones(){
+    public ArrayList<ArrayList<Casilla>> getPosiciones() {
         return posiciones;
     }
 
@@ -48,11 +47,11 @@ public class Tablero {
         this.insertarLadoEste();
     }
 
-    //Dado un entero y las casillas del tablero, devuelve la casilla que está en esa posición
+    // Dado un entero y las casillas del tablero, devuelve la casilla que está en
+    // esa posición
     public Casilla obtenerCasilla(int posicion) {
-        return this.posiciones.get(posicion/ 10).get(posicion% 10);
+        return this.posiciones.get(posicion / 10).get(posicion % 10);
     }
-
 
     // Método para insertar las casillas del lado norte.
     private void insertarLadoNorte() {
@@ -66,9 +65,9 @@ public class Tablero {
         lado.add(new Casilla("Solar15", "solar", 27, Valor.GRUPO_6, banca));
         lado.add(new Casilla("Solar16", "solar", 28, Valor.GRUPO_6, banca));
         lado.add(new Casilla("Serv2", "serv", 29, Valor.SUMA_VUELTA * 0.75f, banca));
-        lado.add(new Casilla("Solar17", "solar",30, Valor.GRUPO_6, banca));
-        new Grupo(lado.get(1),lado.get(3),lado.get(4),Valor.COLOR_G5);
-        new Grupo(lado.get(6),lado.get(7),lado.get(9),Valor.COLOR_G6);
+        lado.add(new Casilla("Solar17", "solar", 30, Valor.GRUPO_6, banca));
+        new Grupo(lado.get(1), lado.get(3), lado.get(4), Valor.COLOR_G5);
+        new Grupo(lado.get(6), lado.get(7), lado.get(9), Valor.COLOR_G6);
 
         posiciones.add(lado);
         /* Se anade en el indice 0 */
@@ -87,9 +86,8 @@ public class Tablero {
         lado.add(new Casilla("Suerte", "suerte", 8, banca));
         lado.add(new Casilla("Solar4", "solar", 9, Valor.GRUPO_2, banca));
         lado.add(new Casilla("Solar5", "solar", 10, Valor.GRUPO_2, banca));
-        new Grupo(lado.get(1),lado.get(3),Valor.COLOR_G1);
-        new Grupo(lado.get(6),lado.get(8),lado.get(9),Valor.COLOR_G2);
-
+        new Grupo(lado.get(1), lado.get(3), Valor.COLOR_G1);
+        new Grupo(lado.get(6), lado.get(8), lado.get(9), Valor.COLOR_G2);
 
         posiciones.add(lado);
     }
@@ -99,7 +97,7 @@ public class Tablero {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
         lado.add(new Casilla("Carcel", "especial", 11, banca));
         lado.add(new Casilla("Solar6", "solar", 12, Valor.GRUPO_3, banca));
-        lado.add(new Casilla("Serv1", "serv", 13, Valor.SUMA_VUELTA*0.75f, banca));
+        lado.add(new Casilla("Serv1", "serv", 13, Valor.SUMA_VUELTA * 0.75f, banca));
         lado.add(new Casilla("Solar7", "solar", 14, Valor.GRUPO_3, banca));
         lado.add(new Casilla("Solar8", "solar", 15, Valor.GRUPO_3, banca));
         lado.add(new Casilla("Trans2", "transporte", 16, Valor.SUMA_VUELTA, banca));
@@ -107,8 +105,8 @@ public class Tablero {
         lado.add(new Casilla("Caja", "caja", 18, banca));
         lado.add(new Casilla("Solar10", "solar", 19, Valor.GRUPO_4, banca));
         lado.add(new Casilla("Solar11", "solar", 20, Valor.GRUPO_4, banca));
-        new Grupo(lado.get(1),lado.get(3),lado.get(4),Valor.COLOR_G3);
-        new Grupo(lado.get(6),lado.get(8),lado.get(9),Valor.COLOR_G4);
+        new Grupo(lado.get(1), lado.get(3), lado.get(4), Valor.COLOR_G3);
+        new Grupo(lado.get(6), lado.get(8), lado.get(9), Valor.COLOR_G4);
 
         posiciones.add(lado);
     }
@@ -124,10 +122,10 @@ public class Tablero {
         lado.add(new Casilla("Trans4", "transporte", 36, Valor.SUMA_VUELTA, banca));
         lado.add(new Casilla("Suerte3", "suerte", 37, banca));
         lado.add(new Casilla("Solar21", "solar", 38, Valor.GRUPO_8, banca));
-        lado.add(new Casilla("Impuesto2", 39, (Valor.SUMA_VUELTA)/2, banca));
+        lado.add(new Casilla("Impuesto2", 39, (Valor.SUMA_VUELTA) / 2, banca));
         lado.add(new Casilla("Solar22", "solar", 40, Valor.GRUPO_8, banca));
-        new Grupo(lado.get(1),lado.get(2),lado.get(4),Valor.COLOR_G7);
-        new Grupo(lado.get(7),lado.get(9),Valor.COLOR_G8);
+        new Grupo(lado.get(1), lado.get(2), lado.get(4), Valor.COLOR_G7);
+        new Grupo(lado.get(7), lado.get(9), Valor.COLOR_G8);
 
         posiciones.add(lado);
     }
@@ -173,7 +171,7 @@ public class Tablero {
 
         // casillas del lado este y oeste
         for (int i = 0; i < 9; i++) {
-            ret += char_vertical + String.format("%s", posiciones.get(1).get(9-i).printCasilla());
+            ret += char_vertical + String.format("%s", posiciones.get(1).get(9 - i).printCasilla());
             ret += char_vertical;
             ret += String.valueOf(' ').repeat(Casilla.casillaWidth * 9 - 1);
             ret += char_vertical + String.format("%s", posiciones.get(3).get(i + 1).printCasilla());

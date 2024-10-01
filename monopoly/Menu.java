@@ -20,7 +20,6 @@ public class Menu {
     private boolean tirado; // Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
     private boolean solvente; // Booleano para comprobar si el jugador que tiene el turno es solvente, es
                               // decir, si ha pagado sus deudas.
-
     public Menu() {
         iniciarPartida();
     }
@@ -35,22 +34,29 @@ public class Menu {
         Casilla casilla = this.tablero.obtenerCasilla(1);
         Scanner scanner = new Scanner(System.in);
         String tipoAvatar = new String("Avatar No Valido");
-        String nombreJugador;
+        String nombreJugador = new String();
+
         do {
-            System.out.println("Introduce nombre de jugador: ");
-            nombreJugador = new String(scanner.next());
-            if(!nombreJugador.equals("Stop")){
-                do { 
-                    System.out.println("Introduce tu avatar: [ Esfinge / Pelota / Coche / Sombrero ] ");
+            System.out.print("Introduce nombre de jugador: ");
+            nombreJugador = scanner.next();
+            System.out.println(nombreJugador);
+
+            if(nombreJugador.toLowerCase().equals("stop")) break;
+
+                do {
+                    System.out.print("Introduce tu avatar: [ Esfinge / Pelota / Coche / Sombrero ] ");
                     tipoAvatar = scanner.next();
                 } while (!tipoAvatar.equals("Esfinge") && !tipoAvatar.equals("Sombrero") && !tipoAvatar.equals("Pelota")
                         && !tipoAvatar.equals("Coche"));
+
                 Avatar avatar = new Avatar(tipoAvatar, casilla, this.avatares);
                 this.avatares.add(avatar);
                 Jugador jugador = new Jugador(nombreJugador, tipoAvatar, casilla, avatares);
                 avatar.setJugador(jugador);
                 this.jugadores.add(jugador);
-        } while (!nombreJugador.equals("Stop"));
+
+        } while (true);
+
         scanner.close();
     }
 
@@ -109,8 +115,8 @@ public class Menu {
      * Parámetro: id del avatar a describir.
      */
     private void descAvatar(String ID) {
-        for(Avatar A:this.avatares){
-            if(A!=null && A.getId().equals(ID)){
+        for (Avatar A : this.avatares) {
+            if (A != null && A.getId().equals(ID)) {
                 A.toString();
                 return;
             }
@@ -130,15 +136,16 @@ public class Menu {
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar
     // dados'.
     private void lanzarDados() {
-        if( this.tirado == false){
-        this.dado1.hacerTirada();
-        this.dado2.hacerTirada();
-        this.tirado = true;
-        int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
-        System.out.print("El avatar" + this.avatares.get(turno).getId() + "avanza" + desplazamiento + "desde" + this.avatares.get(turno).getCasilla().getNombre() + "hasta"); 
-        this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
-        System.out.println(avatares.get(turno).getCasilla().getNombre());
-        }else{
+        if (this.tirado == false) {
+            this.dado1.hacerTirada();
+            this.dado2.hacerTirada();
+            this.tirado = true;
+            int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
+            System.out.print("El avatar" + this.avatares.get(turno).getId() + "avanza" + desplazamiento + "desde"
+                    + this.avatares.get(turno).getCasilla().getNombre() + "hasta");
+            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
+            System.out.println(avatares.get(turno).getCasilla().getNombre());
+        } else {
             System.out.println("Ya has tirado en este turno.");
         }
         // TODO
@@ -153,7 +160,8 @@ public class Menu {
         Casilla casilla = tablero.encontrar_casilla(nombre);
         jugadores.get(turno).sumarFortuna(-casilla.getValor());
         jugadores.get(turno).anhadirPropiedad(casilla);
-        System.out.println("El jugador " +jugadores.get(turno).getNombre() + " ha comprado " + casilla.getNombre() + " por " + casilla.getValor() + ".");
+        System.out.println("El jugador " + jugadores.get(turno).getNombre() + " ha comprado " + casilla.getNombre()
+                + " por " + casilla.getValor() + ".");
         System.out.println("Su fortuna restante es " + jugadores.get(turno).getFortuna());
     }
 
@@ -177,7 +185,7 @@ public class Menu {
     private void listarJugadores() {
         System.out.println("Jugadores:");
         for (Jugador j : jugadores) {
-            if (!j.esBanca()){
+            if (!j.esBanca()) {
                 System.out.println(j);
             }
         }
@@ -185,8 +193,8 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
     private void listarAvatares() {
-        for(Avatar A:avatares){
-            if(A!=null){
+        for (Avatar A : avatares) {
+            if (A != null) {
                 A.toString();
                 System.out.println("\n");
             }
@@ -198,8 +206,8 @@ public class Menu {
         this.turno += this.turno;
     }
 
-    //Método que finaliza la partida
-    public static void acabarPartida(){
+    // Método que finaliza la partida
+    public static void acabarPartida() {
         System.out.println("FINALIZANDO PARTIDA");
         System.exit(0);
     }
