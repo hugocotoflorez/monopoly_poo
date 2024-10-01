@@ -18,7 +18,7 @@ public class Jugador {
 
     //Constructor vacío. Se usará para crear la banca.
     public Jugador() {
-        
+
         this.fortuna = 100000; // Valor elevado para que la banca nunca se quede sin dinero
         this.avatar = null;
         this.nombre = null;
@@ -45,7 +45,7 @@ public class Jugador {
         this.enCarcel = false;
         this.tiradasCarcel = 0;
         this.vueltas = 0;
-        
+
     }
 
     //GETTERS
@@ -59,9 +59,9 @@ public class Jugador {
     //SETTERS
     public void setFortuna(float fortuna){
         this.fortuna = fortuna;
-        
+
     }
-    
+
     public void setNombre(String nombre){
         this.nombre = nombre;
     }
@@ -70,7 +70,7 @@ public class Jugador {
         this.enCarcel = enCarcel;
     }
     public boolean getEnCarcel(){
-        
+
         return this.enCarcel;
     }
     //Método para añadir una propiedad al jugador. Como parámetro, la casilla a añadir.
@@ -98,11 +98,24 @@ public class Jugador {
         this.gastos += valor;
     }
 
-    /*Método para establecer al jugador en la cárcel. 
+    /*Método para establecer al jugador en la cárcel.
     * Se requiere disponer de las casillas del tablero para ello (por eso se pasan como parámetro).*/
     public void encarcelar(ArrayList<ArrayList<Casilla>> pos) {
     }
     public boolean esBanca(){
         return this.avatar == null;
+    }
+
+    @Override
+    public String toString()
+    {
+        return """
+        | Nombre: %s
+        | Avatar: %s
+        | - Fortuna %s
+        | - propiedades: %s
+        | - Hipotecas: %s
+        | - Edificios: %s
+        """.formatted(nombre, avatar, fortuna, propiedades, "Sin implementar", "Sin implementar");
     }
 }
