@@ -111,6 +111,7 @@ public class Avatar {
                 casilla: %s,
                 jugador: %s
                 """.formatted(this.id,this.tipo,this.lugar.getNombre(),this.jugador.getNombre());
+                return ret;
     }
 
 }
