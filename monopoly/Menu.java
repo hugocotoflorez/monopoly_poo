@@ -78,6 +78,9 @@ public class Menu {
                 break;
             case "listar enventa":
                 break;
+            case "listar avatares":
+                listarAvatares();
+                break;
             case "mostrar tablero":
                 System.out.println(tablero);
                 break;
@@ -172,6 +175,10 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
     private void listarAvatares() {
+        for(Avatar A:avatares){
+            A.toString();
+            System.out.println("\n");
+        }
     }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
