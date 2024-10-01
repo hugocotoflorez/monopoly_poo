@@ -163,4 +163,9 @@ public class Menu {
     private void acabarTurno() {
     }
 
+    public static void acabarPartida(){
+        System.out.println("FINALIZANDO PARTIDA");
+        System.exit(0);
+    }
+
 }
