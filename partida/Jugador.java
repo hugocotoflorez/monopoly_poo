@@ -116,6 +116,7 @@ public class Jugador {
         | - propiedades: %s
         | - Hipotecas: %s
         | - Edificios: %s
+        
         """.formatted(nombre, avatar, fortuna, propiedades, "Sin implementar", "Sin implementar");
     }
 }
