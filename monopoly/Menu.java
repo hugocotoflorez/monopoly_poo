@@ -127,6 +127,11 @@ public class Menu {
      * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
+        Casilla casilla = tablero.encontrar_casilla(nombre);
+        jugadores.get(turno).sumarFortuna(-casilla.getValor());
+        jugadores.get(turno).anhadirPropiedad(casilla);
+        System.out.println("El jugador " +jugadores.get(turno).getNombre() + " ha comprado " + casilla.getNombre() + " por " + casilla.getValor() + ".");
+        System.out.println("Su fortuna restante es " + jugadores.get(turno).getFortuna());
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'salir
