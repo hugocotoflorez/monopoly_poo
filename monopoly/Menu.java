@@ -77,6 +77,9 @@ public class Menu {
                 break;
             case "listar enventa":
                 break;
+            case "listar avatares":
+                listarAvatares();
+                break;
             case "mostrar tablero":
                 System.out.println(tablero);
                 break;
