@@ -66,6 +66,7 @@ public class Menu {
                 lanzarDados();
                 break;
             case "jugador":
+                this.jugadores.get(turno).getAvatar().toString();
                 break;
             case "salir carcel":
                 salirCarcel();
