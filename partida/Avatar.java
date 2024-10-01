@@ -48,7 +48,7 @@ public class Avatar {
     //GETTERS
     public String getId()
     {
-        return this.id;
+        return this.id != null ? this.id : "\0";
     }
     public Jugador getJugador(Jugador jugador){
         return this.jugador;
@@ -92,7 +92,7 @@ public class Avatar {
         int aseguradodistinto = 0;
         while ((aseguradodistinto == 0) &&  (avCreados.size()!=0)) {
             for (Avatar A : avCreados) {
-                if (A.id!=null ||( A.id == letra) ){
+                if (A!=null ||( A.id == letra) ){
                     letra = String.valueOf((char) ('A' + rnd.nextInt(26)));
                     aseguradodistinto = 0;
                     break;
