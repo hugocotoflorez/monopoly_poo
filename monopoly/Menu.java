@@ -7,13 +7,14 @@ import partida.*;
 
 public class Menu {
 
-    //Atributos
-    private ArrayList<Jugador> jugadores = new ArrayList<Jugador>(); //Jugadores de la partida.
-    private ArrayList<Avatar> avatares = new ArrayList<Avatar>(); //Avatares en la partida.
-    private int turno; //Índice correspondiente a la posición en el arrayList del jugador (y el avatar) que tienen el turno
-    private int lanzamientos; //Variable para contar el número de lanzamientos de un jugador en un turno.
-    private Tablero tablero; //Tablero en el que se juega.
-    private Dado dado1; //Dos dados para lanzar y avanzar casillas.
+    // Atributos
+    private ArrayList<Jugador> jugadores = new ArrayList<Jugador>(); // Jugadores de la partida.
+    private ArrayList<Avatar> avatares = new ArrayList<Avatar>(); // Avatares en la partida.
+    private int turno; // Índice correspondiente a la posición en el arrayList del jugador (y el
+                       // avatar) que tienen el turno
+    private int lanzamientos; // Variable para contar el número de lanzamientos de un jugador en un turno.
+    private Tablero tablero; // Tablero en el que se juega.
+    private Dado dado1; // Dos dados para lanzar y avanzar casillas.
     private Dado dado2;
     private Jugador banca; // El jugador banca.
     private boolean tirado; // Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
@@ -34,19 +35,21 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         String tipoAvatar = new String("Avatar No Valido");
         String nombreJugador;
-        do{
+        do {
             System.out.println("Introduce nombre de jugador: ");
             nombreJugador = new String(scanner.next());
-            while (!tipoAvatar.equals("Esfinge") && !tipoAvatar.equals("Sombrero") && !tipoAvatar.equals("Pelota") && !tipoAvatar.equals("Coche")){
+            if(nombreJugador.equals("Stop"))
+            while (!tipoAvatar.equals("Esfinge") && !tipoAvatar.equals("Sombrero") && !tipoAvatar.equals("Pelota")
+                    && !tipoAvatar.equals("Coche")) {
                 System.out.println("Introduce tu avatar: [ Esfinge / Pelota / Coche / Sombrero ] ");
                 tipoAvatar = scanner.next();
             }
-            Avatar avatar = new Avatar(tipoAvatar,casilla,this.avatares);
+            Avatar avatar = new Avatar(tipoAvatar, casilla, this.avatares);
             this.avatares.add(avatar);
-            Jugador jugador = new Jugador(nombreJugador,tipoAvatar,casilla,avatares);
+            Jugador jugador = new Jugador(nombreJugador, tipoAvatar, casilla, avatares);
             avatar.setJugador(jugador);
             this.jugadores.add(jugador);
-    }while(nombreJugador != "Stop");
+        } while (nombreJugador.equals("Stop"));
         scanner.close();
     }
 
@@ -57,13 +60,9 @@ public class Menu {
      */
     private void analizarComando(String comando) {
         System.out.println("$>");
-        switch(comando){
+        switch (comando) {
             case "lanzar dados":
-
-                this.dado1.hacerTirada();
-                this.dado2.hacerTirada();
-                int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
-                //TODO
+                lanzarDados();
                 break;
             case "salir carcel":
                 salirCarcel();
@@ -72,14 +71,17 @@ public class Menu {
                 acabarTurno();
                 break;
             case "describir CASILLA":
-                 //descCasilla();   TODO
+                // descCasilla(); TODO
                 break;
-            case "Comprar CASILLA": //TODO
+            case "Comprar CASILLA": // TODO
                 break;
             case "listar enventa":
                 break;
             case "mostrar tablero":
                 System.out.println(tablero);
+                break;
+            case "acabar partida":
+                this.jugadores.get(turno).acabarPartida();
                 break;
 
             default:
@@ -113,6 +115,10 @@ public class Menu {
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar
     // dados'.
     private void lanzarDados() {
+        this.dado1.hacerTirada();
+        this.dado2.hacerTirada();
+        int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
+        // TODO
     }
 
     /*
@@ -126,12 +132,11 @@ public class Menu {
     // Método que ejecuta todas las acciones relacionadas con el comando 'salir
     // carcel'.
     private void salirCarcel() {
-        if (this.jugadores.get(turno).getEnCarcel() == true){
-            
+        if (this.jugadores.get(turno).getEnCarcel() == true) {
+
             this.jugadores.get(turno).setEnCarcel(false);
-            this.jugadores.get(turno).setFortuna(this.jugadores.get(turno).getFortuna()-Valor.PAGO_SALIR_CARCEL);
-        }
-        else{
+            this.jugadores.get(turno).setFortuna(this.jugadores.get(turno).getFortuna() - Valor.PAGO_SALIR_CARCEL);
+        } else {
             System.out.println("El jugador" + this.jugadores.get(turno).getNombre() + "no está en la cárcel.\n");
         }
     }
@@ -142,6 +147,12 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
     private void listarJugadores() {
+        System.out.println("Jugadores:");
+        for (Jugador j : jugadores) {
+            if (!j.esBanca()){
+                System.out.println(j);
+            }
+        }
     }
 
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
