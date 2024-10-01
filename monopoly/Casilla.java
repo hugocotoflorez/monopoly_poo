@@ -156,15 +156,15 @@ public class Casilla {
      * - Jugador que solicita la compra de la casilla.
      * - Banca del monopoly (es el dueño de las casillas no compradas aún).
      */
-    public void comprarCasilla(Jugador solicitante, Jugador banca) { // TODO
+    public void comprarCasilla(Jugador solicitante, Jugador banca) {
         float fortuna_solicitante = solicitante.getFortuna();
         float fortuna_banca = banca.getFortuna();
         if (fortuna_solicitante >= this.valor) {
             solicitante.setFortuna(fortuna_solicitante - this.valor);
             banca.setFortuna(fortuna_banca + this.valor);
-            System.out.println("El jugador" + solicitante.getNombre() + "ha comprado la casilla" + this.nombre);
+            System.out.println("El jugador" + solicitante.getNombre() + "ha comprado la casilla" + this.nombre. + "Su fortuna actual es" + solicitante.getFortuna());
         } else { // TODO
-            System.out.println("No tienes suficiente cash POBRE");
+            System.out.println("No tienes suficiente cash.");
         }
     }
 

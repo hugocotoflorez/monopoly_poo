@@ -21,28 +21,30 @@ public class Menu {
 
     public Menu() {
         iniciarPartida();
-        tablero = new Tablero(banca);
-        System.out.println(tablero);
     }
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
         Jugador banca = new Jugador();
-        Tablero tablero = new Tablero(banca);
-        Casilla casilla = tablero.obtenerCasilla(1);
+        this.jugadores.add(banca);
+        this.tablero = new Tablero(banca);
+        Casilla casilla = this.tablero.obtenerCasilla(1);
         Scanner scanner = new Scanner(System.in);
         String tipoAvatar = new String("Avatar No Valido");
-        System.out.println("Introduce nombre de jugador: ");
-        String nombreJugador = scanner.next();
-        while (!tipoAvatar.equals("Esfinge") && !tipoAvatar.equals("Sombrero") && !tipoAvatar.equals("Pelota") && !tipoAvatar.equals("Coche")){
-        System.out.println("Introduce tu avatar: [ Esfinge / Pelota / Coche / Sombrero ] ");
-        tipoAvatar = scanner.next();
-        }
-        Avatar avatar = new Avatar(tipoAvatar,casilla,this.avatares);
-        this.avatares.add(avatar);
-        Jugador jugador = new Jugador(nombreJugador,tipoAvatar,casilla,avatares);
-        avatar.setJugador(jugador);
-        this.jugadores.add(jugador);
+        String nombreJugador;
+        do{
+            System.out.println("Introduce nombre de jugador: ");
+            nombreJugador = new String(scanner.next());
+            while (!tipoAvatar.equals("Esfinge") && !tipoAvatar.equals("Sombrero") && !tipoAvatar.equals("Pelota") && !tipoAvatar.equals("Coche")){
+                System.out.println("Introduce tu avatar: [ Esfinge / Pelota / Coche / Sombrero ] ");
+                tipoAvatar = scanner.next();
+            }
+            Avatar avatar = new Avatar(tipoAvatar,casilla,this.avatares);
+            this.avatares.add(avatar);
+            Jugador jugador = new Jugador(nombreJugador,tipoAvatar,casilla,avatares);
+            avatar.setJugador(jugador);
+            this.jugadores.add(jugador);
+    }while(nombreJugador != "Stop");
         scanner.close();
     }
 
@@ -52,6 +54,24 @@ public class Menu {
      * Parámetro: cadena de caracteres (el comando).
      */
     private void analizarComando(String comando) {
+        System.out.println("$>");
+        switch(comando){
+            case "lanzar dados":
+                break;
+            case "salir carcel":
+                break;
+            case "acabar turno":
+                break;
+            case "describir CASILLA": //TODO
+                break;
+            case "Comprar CASILLA": //TODO
+                break;
+            case "listar enventa":
+                break;
+            case "mostrar tablero":
+                System.out.println(tablero);
+                break;
+        }
     }
 
     /*
