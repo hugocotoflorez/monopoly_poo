@@ -81,7 +81,7 @@ public class Menu {
                 System.out.println(tablero);
                 break;
             case "acabar partida":
-                this.jugadores.get(turno).acabarPartida();
+                acabarPartida();;
                 break;
 
             default:
@@ -135,7 +135,7 @@ public class Menu {
         if (this.jugadores.get(turno).getEnCarcel() == true) {
 
             this.jugadores.get(turno).setEnCarcel(false);
-            this.jugadores.get(turno).setFortuna(this.jugadores.get(turno).getFortuna() - Valor.PAGO_SALIR_CARCEL);
+            this.jugadores.get(turno).sumarFortuna(-Valor.PAGO_SALIR_CARCEL);
         } else {
             System.out.println("El jugador" + this.jugadores.get(turno).getNombre() + "no está en la cárcel.\n");
         }
