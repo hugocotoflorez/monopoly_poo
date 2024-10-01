@@ -81,7 +81,7 @@ public class Menu {
                 System.out.println(tablero);
                 break;
             case "acabar partida":
-                this.jugadores.get(turno).acabarPartida();
+                acabarPartida();
                 break;
 
             default:
