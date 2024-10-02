@@ -175,12 +175,18 @@ public class Menu {
      * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
+        
         Casilla casilla = tablero.encontrar_casilla(nombre);
+        if (casilla.getDuenho().esBanca() == true){
         jugadores.get(turno).sumarFortuna(-casilla.getValor());
         jugadores.get(turno).anhadirPropiedad(casilla);
+        casilla.setDuenho(jugadores.get(turno));
         System.out.println("El jugador " + jugadores.get(turno).getNombre() + " ha comprado " + casilla.getNombre()
                 + " por " + casilla.getValor() + ".");
         System.out.println("Su fortuna restante es " + jugadores.get(turno).getFortuna());
+        }else{
+            System.out.println("La casilla" + casilla.getNombre() + "ya tiene duenho");
+        }
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'salir
@@ -235,6 +241,7 @@ public class Menu {
             }
             else{
                 this.turno = 1; //Por la banca
+
             }
     }else{
         System.out.println("Todavía no hay jugadores creados!");
