@@ -118,6 +118,8 @@ public class Menu {
 
             case "SALIR":
                 this.partida_finalizada = true;
+            default:
+                System.out.println("Opcion incorrecta.");
         }
     }
 
