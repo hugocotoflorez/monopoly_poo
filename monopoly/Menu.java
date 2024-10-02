@@ -137,18 +137,6 @@ public class Menu {
     }
 
     /*
-     * Método que indica qué jugador tiene el turno en un instante determinado
-     */
-    private void jugadorActual(Jugador jugador){
-        String t = """
-                nombre: %s
-                avatar: %s
-                tipo: %s
-                """.formatted(jugador.getNombre(),jugador.getAvatar().getId(), jugador.getAvatar().getTipo());
-        System.out.println(t);
-    }
-
-    /*
      * Método que realiza las acciones asociadas al comando 'describir avatar'.
      * Parámetro: id del avatar a describir.
      */
