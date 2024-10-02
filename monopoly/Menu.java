@@ -20,7 +20,7 @@ public class Menu {
     private boolean solvente; // Booleano para comprobar si el jugador que tiene el turno es solvente, es
                               // decir, si ha pagado sus deudas.
     private boolean partida_empezada = false;
-    private boolean partida_finalizada= false;
+    private boolean partida_finalizada = false;
 
     public Menu() {
         iniciarPartida();
@@ -114,6 +114,9 @@ public class Menu {
             case "ver":
                 System.out.println(this.tablero);
                 break;
+
+            case "SALIR":
+                this.partida_finalizada = true;
         }
     }
 
