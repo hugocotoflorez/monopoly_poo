@@ -156,7 +156,8 @@ public class Menu {
      * Parámetros: nombre de la casilla a describir.
      */
     private void descCasilla(String nombre) {
-        System.out.println(tablero.encontrar_casilla(nombre));
+        System.out.println(tablero.encontrar_casilla(nombre)); //TODO -> aquí no se puede llamar a ese tostring porque tiene que variar según el tipo de casilla
+                                                               // en el esqueleto venía una función para hacer esto (me la pido)
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar

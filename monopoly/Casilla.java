@@ -189,6 +189,7 @@ public class Casilla {
      */
     public String infoCasilla() { // TODO --> eliminar aquellos atributos que no tengan sentido para cada tipo de
                                   // casilla
+                                  // Si se pone suerte o ir a cárcel no hacer nada
         String info = new String();
         if (this.tipo == "Solar") {
             info = """
@@ -203,7 +204,7 @@ public class Casilla {
                     Valor de hipoteca: %f
                     }""".formatted(nombre, tipo, posicion, duenho.getNombre(), grupo.getColor(), impuesto, hipoteca);
         }
-        if (this.tipo == "Especial") {
+        if (this.tipo == "Especial") { //Aquí hay que poner el bote en el Parking, qué jugadores están en la cárcel, cuánto te dan en la salida
             info = """
                     {
                     Nombre: %s
@@ -216,7 +217,7 @@ public class Casilla {
                     Valor de hipoteca: %f
                     }""".formatted(nombre, tipo, posicion, duenho.getNombre(), grupo.getColor(), impuesto, hipoteca);
         }
-        if (this.tipo == "Transporte") {
+        if (this.tipo == "Transporte") { //Aquí hay que poner si tiene dueño. Poner valor y cuánto cuesta caer ahí
             info = """
                     {
                     Nombre: %s
@@ -229,20 +230,7 @@ public class Casilla {
                     Valor de hipoteca: %f
                     }""".formatted(nombre, tipo, posicion, duenho.getNombre(), grupo.getColor(), impuesto, hipoteca);
         }
-        if (this.tipo == "Servicios") {
-            info = """
-                    {
-                    Nombre: %s
-                    Tipo: %s
-                    Valor: %f
-                    Posición en el tablero: %d
-                    Dueño: %s
-                    Color del grupo: %s
-                    Impuestos a pagar: %f
-                    Valor de hipoteca: %f
-                    }""".formatted(nombre, tipo, posicion, duenho.getNombre(), grupo.getColor(), impuesto, hipoteca);
-        }
-        if (this.tipo == "Comunidad") {
+        if (this.tipo == "Servicios") { //Idem transportes
             info = """
                     {
                     Nombre: %s
