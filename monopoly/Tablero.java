@@ -33,6 +33,10 @@ public class Tablero {
         generarCasillas();
     }
 
+    public static posicion_salida() {
+        return posiciones.get(0).get(0);
+    }
+
     public ArrayList<ArrayList<Casilla>> getPosiciones() {
         return posiciones;
     }

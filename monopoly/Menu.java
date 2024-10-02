@@ -20,8 +20,17 @@ public class Menu {
     private boolean tirado; // Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
     private boolean solvente; // Booleano para comprobar si el jugador que tiene el turno es solvente, es
                               // decir, si ha pagado sus deudas.
+
     public Menu() {
         iniciarPartida();
+    }
+
+    private void crear_jugador(nombreJugador, tipoAvatar, avatares) {
+        Avatar avatar = new Avatar(tipoAvatar, Tablero.posicion_salida(), this.avatares);
+        this.avatares.add(avatar);
+        Jugador jugador = new Jugador(nombreJugador, tipoAvatar, Tablero.posicion_salida(), avatares);
+        avatar.setJugador(jugador);
+        this.jugadores.add(jugador);
     }
 
     // Método para inciar una partida: crea los jugadores y avatares.
@@ -31,33 +40,7 @@ public class Menu {
         this.avatares.add(null); // avatar banca
         this.jugadores.add(banca);
         this.tablero = new Tablero(banca);
-        Casilla casilla = this.tablero.obtenerCasilla(1);
-        Scanner scanner = new Scanner(System.in);
-        String tipoAvatar = new String("Avatar No Valido");
-        String nombreJugador = new String();
 
-        do {
-            System.out.print("Introduce nombre de jugador: ");
-            nombreJugador = scanner.next();
-            System.out.println(nombreJugador);
-
-            if(nombreJugador.toLowerCase().equals("stop")) break;
-
-                do {
-                    System.out.print("Introduce tu avatar: [ Esfinge / Pelota / Coche / Sombrero ] ");
-                    tipoAvatar = scanner.next();
-                } while (!tipoAvatar.equals("Esfinge") && !tipoAvatar.equals("Sombrero") && !tipoAvatar.equals("Pelota")
-                        && !tipoAvatar.equals("Coche"));
-
-                Avatar avatar = new Avatar(tipoAvatar, casilla, this.avatares);
-                this.avatares.add(avatar);
-                Jugador jugador = new Jugador(nombreJugador, tipoAvatar, casilla, avatares);
-                avatar.setJugador(jugador);
-                this.jugadores.add(jugador);
-
-        } while (true);
-
-        scanner.close();
     }
 
     /*
@@ -65,42 +48,8 @@ public class Menu {
      * correspondiente.
      * Parámetro: cadena de caracteres (el comando).
      */
-    private void analizarComando(String comando) {
-        System.out.println("$>");
-        switch (comando) {
-            case "lanzar dados":
-                lanzarDados();
-                break;
-            case "jugador":
-                this.jugadores.get(turno).getAvatar().toString();
-                break;
-            case "salir carcel":
-                salirCarcel();
-                break;
-            case "acabar turno":
-                acabarTurno();
-                break;
-            case "describir CASILLA":
-                // descCasilla(); TODO
-                break;
-            case "Comprar CASILLA": // TODO
-                break;
-            case "listar enventa":
-                break;
-            case "listar avatares":
-                listarAvatares();
-                break;
-            case "mostrar tablero":
-                System.out.println(tablero);
-                break;
-            case "acabar partida":
-                acabarPartida();
-                break;
+    private void analizarComando(String comando, Scanner scan) {
 
-            default:
-                System.out.println("Opcion incorrecta.\n");
-                break;
-        }
     }
 
     /*
