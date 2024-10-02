@@ -50,6 +50,7 @@ public class Menu {
         while (!partida_finalizada)
             analizarComando(scanner.nextLine());
         scanner.close();
+        acabarPartida();
     }
 
     /*
@@ -227,7 +228,17 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
-        this.turno += this.turno;
+        int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
+        if (numero_jugadores > 1){
+            if(this.turno < numero_jugadores){
+            this.turno += this.turno;
+            }
+            else{
+                this.turno = 1; //Por la banca
+            }
+    }else{
+        System.out.println("Todavía no hay jugadores creados!");
+        }
     }
 
     // Método que finaliza la partida
