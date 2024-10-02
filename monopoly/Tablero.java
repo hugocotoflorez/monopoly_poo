@@ -33,7 +33,7 @@ public class Tablero {
         generarCasillas();
     }
 
-    public static posicion_salida() {
+    public Casilla posicion_salida() {
         return posiciones.get(0).get(0);
     }
 

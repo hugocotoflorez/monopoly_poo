@@ -47,6 +47,11 @@ public class Avatar {
 
     }
 
+    public static Boolean esTipo(String tipo) {
+        return tipo == "Coche" || tipo == "Esfinge" ||
+                tipo == "Sombrero" || tipo == "Pelota";
+    }
+
     // GETTERS
     public String getId() {
         return this.id != null ? this.id : "\0";

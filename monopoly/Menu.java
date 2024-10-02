@@ -2,7 +2,6 @@ package monopoly;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import org.xml.sax.ext.DefaultHandler2;
 import partida.*;
 
 public class Menu {
@@ -20,15 +19,21 @@ public class Menu {
     private boolean tirado; // Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
     private boolean solvente; // Booleano para comprobar si el jugador que tiene el turno es solvente, es
                               // decir, si ha pagado sus deudas.
+    private boolean partida_empezada = false;
 
     public Menu() {
         iniciarPartida();
     }
 
-    private void crear_jugador(nombreJugador, tipoAvatar, avatares) {
-        Avatar avatar = new Avatar(tipoAvatar, Tablero.posicion_salida(), this.avatares);
+    private void crear_jugador(String nombreJugador, String tipoAvatar) {
+
+        if (!Avatar.esTipo(tipoAvatar)) {
+            System.out.println("Tipo invalido: " + tipoAvatar);
+            return;
+        }
+        Avatar avatar = new Avatar(tipoAvatar, this.tablero.posicion_salida(), this.avatares);
         this.avatares.add(avatar);
-        Jugador jugador = new Jugador(nombreJugador, tipoAvatar, Tablero.posicion_salida(), avatares);
+        Jugador jugador = new Jugador(nombreJugador, tipoAvatar, this.tablero.posicion_salida(), this.avatares);
         avatar.setJugador(jugador);
         this.jugadores.add(jugador);
     }
@@ -50,6 +55,62 @@ public class Menu {
      */
     private void analizarComando(String comando, Scanner scan) {
 
+        String[] com = comando.split(" ");
+        switch (com[0]) {
+            case "crear":
+                if (partida_empezada)
+                    System.out.println("La partida ya esta iniciada!");
+                else if (com[1] == "jugador")
+                    crear_jugador(com[2], com[3]);
+                break;
+
+            case "jugador":
+                descJugador(com);
+                break;
+
+            case "listar":
+                if (com[1] == "enventa")
+                    listarVenta();
+                break;
+
+            case "lanzar":
+                if (!partida_empezada) // iniciar la partida
+                    partida_empezada = true;
+
+                if (com[1] == "dados")
+                    lanzarDados();
+                break;
+
+            case "acabar":
+                acabarTurno();
+                break;
+
+            case "salir":
+                salirCarcel();
+                break;
+
+            case "describir":
+                switch (com[1]) {
+                    case "jugador": // describir jugador
+                        descJugador(com);
+                        break;
+                    case "avatar": // describir avatar
+                        descAvatar(com[2]);
+                        break;
+                    default: // describir casilla
+                        descCasilla(com[1]);
+                        break;
+                }
+                break;
+
+            case "comprar":
+                comprar(com[1]);
+                break;
+
+            case "ver":
+                System.out.println(this.tablero);
+                break;
+        }
     }
 
     /*
