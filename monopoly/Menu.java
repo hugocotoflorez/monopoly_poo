@@ -76,6 +76,10 @@ public class Menu {
             case "listar":
                 if (com[1] == "enventa")
                     listarVenta();
+                if (com[1] == "jugadores")
+                    listarJugadores();
+                if (com[1] == "avatares")
+                    listarAvatares();
                 break;
 
             case "lanzar":
@@ -242,7 +246,7 @@ public class Menu {
         int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
         if (numero_jugadores > 1){
             if(this.turno < numero_jugadores){
-            this.turno += this.turno;
+            this.turno += 1; 
             }
             else{
                 this.turno = 1; //Por la banca
