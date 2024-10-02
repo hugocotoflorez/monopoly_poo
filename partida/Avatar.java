@@ -61,6 +61,10 @@ public class Avatar {
         return this.jugador;
     }
 
+    public String getTipo(){
+        return this.tipo;
+    }
+
     // SETTERS
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
