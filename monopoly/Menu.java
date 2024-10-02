@@ -20,6 +20,7 @@ public class Menu {
     private boolean solvente; // Booleano para comprobar si el jugador que tiene el turno es solvente, es
                               // decir, si ha pagado sus deudas.
     private boolean partida_empezada = false;
+    private boolean partida_finalizada= false;
 
     public Menu() {
         iniciarPartida();
@@ -41,11 +42,14 @@ public class Menu {
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
         this.turno = 1;
+        Scanner scanner = new Scanner(System.in);
         Jugador banca = new Jugador();
         this.avatares.add(null); // avatar banca
         this.jugadores.add(banca);
         this.tablero = new Tablero(banca);
-
+        while (!partida_finalizada)
+            analizarComando(scanner.nextLine());
+        scanner.close();
     }
 
     /*
@@ -53,7 +57,7 @@ public class Menu {
      * correspondiente.
      * Parámetro: cadena de caracteres (el comando).
      */
-    private void analizarComando(String comando, Scanner scan) {
+    private void analizarComando(String comando) {
 
         String[] com = comando.split(" ");
         switch (com[0]) {
