@@ -196,6 +196,13 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
     private void listarVenta() {
+        for(int i = 0; i<40; i++){
+        if(this.tablero.obtenerCasilla(i).getDuenho()==banca && (this.tablero.obtenerCasilla(i).getTipo().equals("solar") 
+        || this.tablero.obtenerCasilla(i).getTipo().equals("transporte") || this.tablero.obtenerCasilla(i).getTipo().equals("servicios"))){
+            this.tablero.obtenerCasilla(i).infoCasilla();
+        }
+
+        }
     }
 
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
