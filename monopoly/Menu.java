@@ -163,6 +163,7 @@ public class Menu {
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar
     // dados'.
     private void lanzarDados() {
+
         if (this.tirado == false) {
             this.dado1.hacerTirada();
             this.dado2.hacerTirada();
@@ -170,6 +171,7 @@ public class Menu {
             int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
             System.out.print("El avatar" + this.avatares.get(turno).getId() + "avanza" + desplazamiento + "desde"
                     + this.avatares.get(turno).getCasilla().getNombre() + "hasta");
+            this.avatares.get(turno).getCasilla().
             this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
             System.out.println(avatares.get(turno).getCasilla().getNombre());
         } else {

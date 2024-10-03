@@ -160,7 +160,7 @@ public class Casilla {
      * - Jugador que solicita la compra de la casilla.
      * - Banca del monopoly (es el dueño de las casillas no compradas aún).
      */
-    public void comprarCasilla(Jugador solicitante, Jugador banca) {
+    public void comprarCasilla(Jugador solicitante, Jugador banca) { // Añade un avatar a la lista de avatares
         float fortuna_solicitante = solicitante.getFortuna();
         float fortuna_banca = banca.getFortuna();
         if (fortuna_solicitante >= this.valor) {
@@ -171,7 +171,17 @@ public class Casilla {
             System.out.println("No tienes suficiente cash.");
         }
     }
+    public void eliminarAvatarCasilla(String ID){ // Elimina un avatar de la lista de avatares dado su ID
 
+        for(int i = 0; i < avatares.size(); i++){
+            if(this.avatares.get(i).getId().equals(ID)){
+                this.avatares.remove(i);
+            }
+        }
+    }
+    public void anhadirAvatarCasilla(Avatar avatar){
+        this.avatares.add(avatar);
+    }
     /*
      * Método para añadir valor a una casilla. Utilidad:
      * - Sumar valor a la casilla de parking.
