@@ -21,7 +21,7 @@ public class Menu {
                               // decir, si ha pagado sus deudas.
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
-
+    private int numero_vueltas;
     public Menu() {
         iniciarPartida();
     }
@@ -42,6 +42,7 @@ public class Menu {
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
         this.turno = 1;
+        this.numero_vueltas = 0;
         Scanner scanner = new Scanner(System.in);
         Jugador banca = new Jugador();
         this.avatares.add(null); // avatar banca
