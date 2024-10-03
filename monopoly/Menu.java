@@ -171,8 +171,7 @@ public class Menu {
             int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
             System.out.print("El avatar" + this.avatares.get(turno).getId() + "avanza" + desplazamiento + "desde"
                     + this.avatares.get(turno).getCasilla().getNombre() + "hasta");
-            this.avatares.get(turno).getCasilla().
-            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
+            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento,this.avatares.get(turno));
             System.out.println(avatares.get(turno).getCasilla().getNombre());
         } else {
             System.out.println("Ya has tirado en este turno.");
