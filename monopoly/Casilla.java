@@ -195,6 +195,13 @@ public class Casilla {
             info = """
                     {
                     Nombre: %s
+                    Grupo: %s
+                    Propietario: %s
+                    Valor: %f
+                    Alquiler: %f
+                    Valor hotel: %f
+                    Valor casa: %f
+                    
                     Tipo: %s
                     Valor: %f
                     Posición en el tablero: %d
