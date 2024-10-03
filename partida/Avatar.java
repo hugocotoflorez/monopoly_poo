@@ -89,8 +89,10 @@ public class Avatar {
         return casillas.get(lugar.getPosicion() % 10).get(lugar.getPosicion() / 10);
     }
 
-    public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
+    public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada, Avatar avatar) {
+        this.lugar.eliminarAvatarCasilla(this.id);
         this.lugar = obtenerCasilla(casillas, valorTirada + lugar.getPosicion());
+        this.lugar.anhadirAvatarCasilla(avatar);
     }
 
     /*

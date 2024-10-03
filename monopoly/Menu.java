@@ -21,7 +21,7 @@ public class Menu {
                               // decir, si ha pagado sus deudas.
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
-
+    private int numero_vueltas;
     public Menu() {
         iniciarPartida();
     }
@@ -42,6 +42,7 @@ public class Menu {
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
         this.turno = 1;
+        this.numero_vueltas = 0;
         Scanner scanner = new Scanner(System.in);
         Jugador banca = new Jugador();
         this.avatares.add(null); // avatar banca
@@ -163,6 +164,7 @@ public class Menu {
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar
     // dados'.
     private void lanzarDados() {
+
         if (this.tirado == false) {
             this.dado1.hacerTirada();
             this.dado2.hacerTirada();
@@ -170,7 +172,7 @@ public class Menu {
             int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
             System.out.print("El avatar" + this.avatares.get(turno).getId() + "avanza" + desplazamiento + "desde"
                     + this.avatares.get(turno).getCasilla().getNombre() + "hasta");
-            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
+            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento,this.avatares.get(turno));
             System.out.println(avatares.get(turno).getCasilla().getNombre());
         } else {
             System.out.println("Ya has tirado en este turno.");
