@@ -66,7 +66,7 @@ public class Menu {
             case "crear":
                 if (partida_empezada)
                     System.out.println("La partida ya esta iniciada!");
-                else if (com[1] == "jugador")
+                else if (com[1].equals("jugador"))
                     crear_jugador(com[2], com[3]);
                 break;
 
@@ -75,11 +75,11 @@ public class Menu {
                 break;
 
             case "listar":
-                if (com[1] == "enventa")
+                if (com[1].equals("enventa"))
                     listarVenta();
-                if (com[1] == "jugadores")
+                if (com[1].equals("jugadores"))
                     listarJugadores();
-                if (com[1] == "avatares")
+                if (com[1].equals("avatares"))
                     listarAvatares();
                 break;
 
@@ -87,7 +87,7 @@ public class Menu {
                 if (!partida_empezada) // iniciar la partida
                     partida_empezada = true;
 
-                if (com[1] == "dados")
+                if (com[1].equals("dados"))
                     lanzarDados();
                 break;
 
@@ -186,7 +186,7 @@ public class Menu {
      * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
-        
+
         Casilla casilla = tablero.encontrar_casilla(nombre);
         if (casilla.getDuenho().esBanca() == true){
         jugadores.get(turno).sumarFortuna(-casilla.getValor());
@@ -216,7 +216,7 @@ public class Menu {
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
     private void listarVenta() {
         for(int i = 0; i<40; i++){
-        if(this.tablero.obtenerCasilla(i).getDuenho()==banca && (this.tablero.obtenerCasilla(i).getTipo().equals("solar") 
+        if(this.tablero.obtenerCasilla(i).getDuenho()==banca && (this.tablero.obtenerCasilla(i).getTipo().equals("solar")
         || this.tablero.obtenerCasilla(i).getTipo().equals("transporte") || this.tablero.obtenerCasilla(i).getTipo().equals("servicios"))){
             this.tablero.obtenerCasilla(i).infoCasilla();
         }
@@ -249,7 +249,7 @@ public class Menu {
         int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
         if (numero_jugadores > 1){
             if(this.turno < numero_jugadores){
-            this.turno += 1; 
+            this.turno += 1;
             }
             else{
                 this.turno = 1; //Por la banca
