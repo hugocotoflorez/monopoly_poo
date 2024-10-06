@@ -142,6 +142,6 @@ public class Jugador {
                 | - Hipotecas: %s
                 | - Edificios: %s
 
-                """.formatted(nombre, avatar!=null?this.avatar.getId():"", this.fortuna, propiedades!=null?this.propiedades:"", "Sin implementar", "Sin implementar");
+                """.formatted(nombre, avatar!=null?avatar:"", fortuna, propiedades!=null?propiedades:"", "Sin implementar", "Sin implementar");
     }
 }
