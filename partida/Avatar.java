@@ -36,6 +36,7 @@ public class Avatar {
         this.jugador = jugador;
         this.lugar = lugar;
         generarId(avCreados);
+        avCreados.add(this);
 
     }
 
