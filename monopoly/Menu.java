@@ -319,7 +319,7 @@ public class Menu {
                 System.out.println("El jugador actual es: "+ this.jugadores.get(turno));
             }
     }else{
-        System.out.println("Todavía no hay jugadores creados!");
+        System.out.println("Todavía no hay suficientes jugadores creados!");
         }
     }
 
