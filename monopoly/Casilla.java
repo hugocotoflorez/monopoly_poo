@@ -201,7 +201,7 @@ public class Casilla {
                                   // casilla
                                   // Si se pone suerte o ir a cárcel no hacer nada
         String info = new String();
-        if (this.tipo == "Solar") {
+        if (this.tipo.equals("Solar")) {
             info = """
                     {
                     Nombre: %s
@@ -221,7 +221,7 @@ public class Casilla {
                     Valor de hipoteca: %f
                     }""".formatted(nombre, tipo, posicion, duenho.getNombre(), grupo.getColor(), impuesto, hipoteca);
         }
-        if (this.tipo == "Especial") { //Aquí hay que poner el bote en el Parking, qué jugadores están en la cárcel, cuánto te dan en la salida
+        if (this.tipo.equals("Especial")) { //Aquí hay que poner el bote en el Parking, qué jugadores están en la cárcel, cuánto te dan en la salida
             info = """
                     {
                     Nombre: %s
@@ -234,7 +234,7 @@ public class Casilla {
                     Valor de hipoteca: %f
                     }""".formatted(nombre, tipo, posicion, duenho.getNombre(), grupo.getColor(), impuesto, hipoteca);
         }
-        if (this.tipo == "Transporte") { //Aquí hay que poner si tiene dueño. Poner valor y cuánto cuesta caer ahí
+        if (this.tipo.equals("Transporte")) { //Aquí hay que poner si tiene dueño. Poner valor y cuánto cuesta caer ahí
             info = """
                     {
                     Nombre: %s
@@ -247,7 +247,7 @@ public class Casilla {
                     Valor de hipoteca: %f
                     }""".formatted(nombre, tipo, posicion, duenho.getNombre(), grupo.getColor(), impuesto, hipoteca);
         }
-        if (this.tipo == "Servicios") { //Idem transportes
+        if (this.tipo.equals("Servicios")) { //Idem transportes
             info = """
                     {
                     Nombre: %s
