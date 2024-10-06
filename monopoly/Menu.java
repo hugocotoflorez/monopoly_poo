@@ -93,7 +93,7 @@ public class Menu {
                 }
 
             case "jugador":
-                descJugador(com);
+                descJugador(jugadores.get(turno).getNombre());
                 break;
 
             case "listar":
@@ -172,8 +172,26 @@ public class Menu {
     private void descJugador(String[] partes) {
 
         for (Jugador J : this.jugadores){
-            if (!J.esBanca() && J.getNombre().equals(partes[2])){
-                System.out.println(J.toString());
+            if (J.equals(partes[3])){
+                J.toString();
+                return;
+            }
+        }
+        System.out.println("No se ha encontrado este jugador.\n");
+    }
+
+    //Sobrecarga: si no se pasa argumentos describe el jugador que tiene el turno actual
+    private void descJugador() {
+        if(!jugadores.get(turno).esBanca()){
+            System.out.println("""
+                | Nombre: %s
+                | Avatar: %s
+                """.formatted(jugadores.get(turno).getNombre(), avatares.get(turno).getId()));
+    )
+        }
+        for (Jugador J : this.jugadores){
+            if (J.equals(partes[3])){
+                J.toString();
                 return;
             }
         }
@@ -187,7 +205,7 @@ public class Menu {
     private void descAvatar(String ID) {
         for (Avatar A : this.avatares) {
             if (A != null && A.getId().equals(ID)) {
-                System.out.println(A.toString());
+                A.toString();
                 return;
             }
         }
@@ -252,7 +270,7 @@ public class Menu {
             this.jugadores.get(turno).sumarFortuna(-Valor.PAGO_SALIR_CARCEL);
             System.out.println(this.jugadores.get(turno) + "paga " + Valor.PAGO_SALIR_CARCEL + " y sale de la cárcel. Puede lanzar los dados.");
         } else {
-            System.out.println("El jugador " + this.jugadores.get(turno).getNombre() + " no está en la cárcel.\n");
+            System.out.println("El jugador" + this.jugadores.get(turno).getNombre() + " no está en la cárcel.\n");
         }
     }
 
