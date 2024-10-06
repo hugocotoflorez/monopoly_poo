@@ -32,12 +32,9 @@ public class Menu {
             System.out.println("Tipo invalido: " + tipoAvatar);
             return;
         }
-        Avatar avatar = new Avatar(tipoAvatar, this.tablero.posicion_salida(), this.avatares);
-        this.avatares.add(avatar);
         Jugador jugador = new Jugador(nombreJugador, tipoAvatar, this.tablero.posicion_salida(), this.avatares);
-        avatar.setJugador(jugador);
         this.jugadores.add(jugador);
-        this.tablero.posicion_salida().anhadirAvatar(avatar);
+        this.tablero.posicion_salida().anhadirAvatar(this.avatares(avatares.size()));
     }
 
     // Método para inciar una partida: crea los jugadores y avatares.
@@ -277,8 +274,8 @@ public class Menu {
     private void listarVenta() {
         for(int i = 0; i<40; i++){
         if(this.tablero.obtenerCasilla(i).getDuenho()==banca && (this.tablero.obtenerCasilla(i).getTipo().equals("solar")
-        || this.tablero.obtenerCasilla(i).getTipo().equals("transporte") || this.tablero.obtenerCasilla(i).getTipo().equals("servicios"))){
-            System.out.println(this.tablero.obtenerCasilla(i).infoCasilla()+"\n");
+        || this.tablero.obtenerCasilla(i).getTipo().equals("transporte") || this.tablero.obtenerCasilla(i).getTipo().equals("serv"))){
+            System.out.println(this.tablero.obtenerCasilla(i).infoCasilla());
         }
 
         }
@@ -290,7 +287,7 @@ public class Menu {
         if (jugadores != null)
         for (Jugador j : jugadores) {
             if (!j.esBanca()) {
-                System.out.println(j);
+                System.out.println(j.describirJugador());
             }
         }
     }
@@ -299,7 +296,7 @@ public class Menu {
     private void listarAvatares() {
         for (Avatar A : avatares) {
             if (A != null) {
-                System.out.println(A.toString());
+                System.out.println(A.getInfo());
                 System.out.println("\n");
             }
         }

@@ -49,6 +49,7 @@ public class Jugador {
         this.enCarcel = false;
         this.tiradasCarcel = 0;
         this.vueltas = 0;
+        this.avatar.setJugador(this);
 
     }
 
@@ -132,8 +133,7 @@ public class Jugador {
         return this.avatar == null;
     }
 
-    @Override
-    public String toString() {
+    public String describirJugador() {
         return """
                 | Nombre: %s
                 | Avatar: %s
@@ -143,5 +143,11 @@ public class Jugador {
                 | - Edificios: %s
 
                 """.formatted(this.nombre, avatar!=null?this.avatar.getId():"", fortuna, propiedades!=null?this.propiedades:"", "Sin implementar", "Sin implementar");
+    }
+@Override
+    public String toString() {
+        return """
+                | Avatar: %s
+                """.formatted(avatar!=null?this.avatar.getId():"");
     }
 }
