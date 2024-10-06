@@ -199,7 +199,6 @@ public class Menu {
      */
     private void descAvatar(String ID) {
         for (int i = 1; i< avatares.size(); i++) {
-            System.out.println(avatares.get(i).getId());
             if (avatares.get(i).getId().equals(ID)) {
                 System.out.println(avatares.get(i).getInfo());
                 return;
