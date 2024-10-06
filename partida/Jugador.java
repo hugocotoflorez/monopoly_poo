@@ -13,7 +13,8 @@ public class Jugador {
     private boolean enCarcel; // Será true si el jugador está en la carcel
     private int tiradasCarcel; // Cuando está en la carcel, contará las tiradas sin éxito que ha hecho allí
                                // para intentar salir (se usa para limitar el numero de intentos).
-    private int vueltas; // Cuenta las vueltas dadas al tablero.
+    private int turnoscarcel;
+    private int vueltas = 0; // Cuenta las vueltas dadas al tablero.
     private ArrayList<Casilla> propiedades; // Propiedades que posee el jugador.
 
     // Constructor vacío. Se usará para crear la banca.
@@ -48,6 +49,7 @@ public class Jugador {
         this.fortuna = Valor.FORTUNA_INICIAL;
         this.enCarcel = false;
         this.tiradasCarcel = 0;
+        this.turnoscarcel = 0;
         this.vueltas = 0;
 
     }
@@ -65,6 +67,15 @@ public class Jugador {
         return this.avatar;
     }
 
+    public boolean getEnCarcel() {
+
+        return this.enCarcel;
+    }
+
+    public int getTurnosCarcel(){
+        return this.turnoscarcel;
+    }
+
     // SETTERS
     public void setFortuna(float fortuna) {
         this.fortuna = fortuna;
@@ -80,9 +91,8 @@ public class Jugador {
         this.enCarcel = enCarcel;
     }
 
-    public boolean getEnCarcel() {
-
-        return this.enCarcel;
+    public int setTurnosCarcel(int turnos){
+        return this.turnoscarcel = turnos;
     }
 
     // Método para añadir una propiedad al jugador. Como parámetro, la casilla a

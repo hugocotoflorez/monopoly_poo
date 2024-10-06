@@ -57,7 +57,7 @@ public class Avatar {
         return this.id != null ? this.id : "";
     }
 
-    public Jugador getJugador(Jugador jugador) {
+    public Jugador getJugador() {
         return this.jugador;
     }
 

@@ -211,54 +211,66 @@ public class Casilla {
                     Alquiler: %f
                     Valor hotel: %f
                     Valor casa: %f
-                    
-                    Tipo: %s
-                    Valor: %f
-                    Posición en el tablero: %d
-                    Dueño: %s
-                    Color del grupo: %s
-                    Impuestos a pagar: %f
-                    Valor de hipoteca: %f
-                    }""".formatted(nombre, tipo, posicion, duenho.getNombre(), grupo.getColor(), impuesto, hipoteca);
+                    Valor piscina: %f
+                    Valor pista de deporte: %f
+                    Alquiler una casa: %f
+                    ALquiler dos casas: %f
+                    Alquiler tres casas: %f
+                    Alquiler cuatro casas: %f
+                    Alquiler piscina: %f
+                    Alquiler pista de deporte: %f
+                    }""".formatted(nombre, grupo.getColor(),duenho.getNombre(), this.getValor(), impuesto, "No implementado.",  "No implementado.",  "No implementado.",  "No implementado.",  "No implementado.", "No implementado.",  "No implementado.",  "No implementado.", "No implementado.", "No implementado.");
         }
         if (this.tipo.equals("Especial")) { //Aquí hay que poner el bote en el Parking, qué jugadores están en la cárcel, cuánto te dan en la salida
-            info = """
-                    {
-                    Nombre: %s
-                    Tipo: %s
-                    Valor: %f
-                    Posición en el tablero: %d
-                    Dueño: %s
-                    Color del grupo: %s
-                    Impuestos a pagar: %f
-                    Valor de hipoteca: %f
-                    }""".formatted(nombre, tipo, posicion, duenho.getNombre(), grupo.getColor(), impuesto, hipoteca);
+            switch (nombre){
+                case "Salida":
+                    info = "{Casilla de ir a la cárcel.}";
+                    break;
+                case "IrCarcel":
+                    info = "{Casilla de ir a la cárcel.}";
+                case "Carcel":
+                    String jugencarcel = new String();
+                    for (Avatar av: avatares){
+                        if(av.getJugador().getEnCarcel()){
+                            jugencarcel +=  av.getJugador().getNombre() + " lleva " + av.getJugador().getTurnosCarcel() + " turnos aquí";
+                        }
+                    }
+                    info = """
+                            Salir: %f
+                            Jugadores: %s
+                            """.formatted(Valor.PAGO_SALIR_CARCEL, "["+jugencarcel+"]");
+                    break;
+                case "Parking":
+                    String jugenparking = new String();
+                    for (Avatar av: avatares) jugenparking += av.getJugador().getNombre() + " ";
+                    info = """
+                            Bote: %f
+                            Jugadores: %s
+                            """.formatted(Valor.BOTE_ACUMULADO, "[" + jugenparking + "]");
+                    break;
+                default:
+                    break;
+            }
         }
         if (this.tipo.equals("Transporte")) { //Aquí hay que poner si tiene dueño. Poner valor y cuánto cuesta caer ahí
             info = """
                     {
                     Nombre: %s
-                    Tipo: %s
+                    Tipo: transporte
+                    Propietario: %s
                     Valor: %f
-                    Posición en el tablero: %d
-                    Dueño: %s
-                    Color del grupo: %s
-                    Impuestos a pagar: %f
-                    Valor de hipoteca: %f
-                    }""".formatted(nombre, tipo, posicion, duenho.getNombre(), grupo.getColor(), impuesto, hipoteca);
+                    Impuesto: %f
+                    }""".formatted(nombre, duenho.getNombre(), valor,0); //TODO
         }
         if (this.tipo.equals("Servicios")) { //Idem transportes
             info = """
-                    {
-                    Nombre: %s
-                    Tipo: %s
-                    Valor: %f
-                    Posición en el tablero: %d
-                    Dueño: %s
-                    Color del grupo: %s
-                    Impuestos a pagar: %f
-                    Valor de hipoteca: %f
-                    }""".formatted(nombre, tipo, posicion, duenho.getNombre(), grupo.getColor(), impuesto, hipoteca);
+                {
+                Nombre: %s
+                Tipo: servicios
+                Propietario: %s
+                Valor: %f
+                Impuesto: %f
+                }""".formatted(nombre, duenho.getNombre(), valor,0); //TODO
         }
         return info;
     }

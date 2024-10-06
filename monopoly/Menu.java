@@ -268,6 +268,7 @@ public class Menu {
 
             this.jugadores.get(turno).setEnCarcel(false);
             this.jugadores.get(turno).sumarFortuna(-Valor.PAGO_SALIR_CARCEL);
+            this.jugadores.get(turno).setEnCarcel(false);
             System.out.println(this.jugadores.get(turno) + "paga " + Valor.PAGO_SALIR_CARCEL + " y sale de la cárcel. Puede lanzar los dados.");
         } else {
             System.out.println("El jugador" + this.jugadores.get(turno).getNombre() + " no está en la cárcel.");
@@ -310,9 +311,10 @@ public class Menu {
     private void acabarTurno() {
         int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
         if (numero_jugadores > 1 && partida_empezada){
+            if (jugadores.get(turno).getEnCarcel()) jugadores.get(turno).setTurnosCarcel(jugadores.get(turno).getTurnosCarcel()+1);
             if(this.turno < numero_jugadores){
-            this.turno += 1;
-            System.out.println("El jugador actual es: "+ this.jugadores.get(turno).getNombre());
+                this.turno += 1;
+                System.out.println("El jugador actual es: "+ this.jugadores.get(turno).getNombre());
             }
             else{
                 this.turno = 1; //Por la banca
