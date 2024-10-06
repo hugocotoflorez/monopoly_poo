@@ -21,7 +21,6 @@ public class Menu {
                               // decir, si ha pagado sus deudas.
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
-    private int numero_vueltas;
 
     public Menu() {
         iniciarPartida();
@@ -44,7 +43,6 @@ public class Menu {
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
         this.turno = 1;
-        this.numero_vueltas = 0;
         this.dado1 = new Dado();
         this.dado2 = new Dado();
         Scanner scanner = new Scanner(System.in);
@@ -116,7 +114,7 @@ public class Menu {
 
                 if (com.length == 2 && com[1].equals("dados"))
                 {
-                    if (!partida_empezada && jugadores.size() >=3){ // iniciar la partida
+                    if (jugadores.size() >=3){ // iniciar la partida
                         partida_empezada = true;
                         lanzarDados();
                     }else
@@ -178,8 +176,8 @@ public class Menu {
     private void descJugador(String[] partes) {
 
         for (Jugador J : this.jugadores){
-            if (J.equals(partes[3])){
-                J.toString();
+            if (J.getNombre().equals(partes[2])){
+                System.out.println(J.toString());
                 return;
             }
         }
@@ -203,9 +201,10 @@ public class Menu {
      * Parámetro: id del avatar a describir.
      */
     private void descAvatar(String ID) {
-        for (Avatar A : this.avatares) {
-            if (A != null && A.getId().equals(ID)) {
-                System.out.println(A.toString());
+        for (int i = 1; i< avatares.size(); i++) {
+            System.out.println(avatares.get(i).getId());
+            if (avatares.get(i).getId().equals(ID)) {
+                System.out.println(avatares.get(i).getInfo());
                 return;
             }
         }
@@ -310,8 +309,8 @@ public class Menu {
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
         int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
-        if (numero_jugadores > 1 && partida_empezada){
-            if (jugadores.get(turno).getEnCarcel()) jugadores.get(turno).setTurnosCarcel(jugadores.get(turno).getTurnosCarcel()+1);
+        this.tirado = false;
+        if (numero_jugadores > 1){
             if(this.turno < numero_jugadores){
                 this.turno += 1;
                 System.out.println("El jugador actual es: "+ this.jugadores.get(turno).getNombre());
