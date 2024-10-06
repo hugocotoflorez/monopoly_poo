@@ -197,68 +197,73 @@ public class Casilla {
      * Método para mostrar información sobre una casilla.
      * Devuelve una cadena con información específica de cada tipo de casilla.
      */
-    public String infoCasilla() { // TODO --> eliminar aquellos atributos que no tengan sentido para cada tipo de
-                                  // casilla
-                                  // Si se pone suerte o ir a cárcel no hacer nada
+    public String infoCasilla() {
         String info = new String();
-        if (this.tipo.equals("Solar")) {
+        if (this.tipo.equals("solar")) {
             info = """
                     {
                     Nombre: %s
-                    Grupo: %s
                     Propietario: %s
                     Valor: %f
                     Alquiler: %f
-                    Valor hotel: %f
-                    Valor casa: %f
-                    
-                    Tipo: %s
-                    Valor: %f
-                    Posición en el tablero: %d
-                    Dueño: %s
-                    Color del grupo: %s
-                    Impuestos a pagar: %f
-                    Valor de hipoteca: %f
-                    }""".formatted(nombre, tipo, posicion, duenho.getNombre(), grupo.getColor(), impuesto, hipoteca);
+                    Valor hotel: %s
+                    Valor casa: %s
+                    Valor piscina: %s
+                    Valor pista de deporte: %s
+                    Alquiler una casa: %s
+                    ALquiler dos casas: %s
+                    Alquiler tres casas: %s
+                    Alquiler cuatro casas: %s
+                    Alquiler piscina: %s
+                    Alquiler pista de deporte: %s
+                    }""".formatted(this.grupo.getColor() + nombre + Valor.RESET,duenho.getNombre(), this.getValor(), impuesto, "No implementado.",  "No implementado.",  "No implementado.",  "No implementado.",  "No implementado.", "No implementado.",  "No implementado.",  "No implementado.", "No implementado.", "No implementado.");
         }
-        if (this.tipo.equals("Especial")) { //Aquí hay que poner el bote en el Parking, qué jugadores están en la cárcel, cuánto te dan en la salida
+        else if (this.tipo.equals("especial")) { //Aquí hay que poner el bote en el Parking, qué jugadores están en la cárcel, cuánto te dan en la salida
+            if (this.nombre.equals("Salida")) info = "{Casilla de salida.}";
+            else if(this.nombre.equals("IrCarcel")) info = "{Casilla de ir a la cárcel.}";
+            else if(this.nombre.equals("Parking")){
+                String jugenparking = new String();
+                for (Avatar av: avatares) jugenparking += av.getJugador().getNombre() + " ";
+                info = """
+                        Bote: %f
+                        Jugadores: %s
+                        """.formatted(Valor.BOTE_ACUMULADO, "[" + jugenparking + "]");
+            }
+            else if(this.nombre.equals("Carcel")){
+                String jugencarcel = new String();
+                    for (Avatar av: avatares){
+                        if(av.getJugador().getEnCarcel()){
+                            jugencarcel +=  av.getJugador().getNombre() + " lleva " + av.getJugador().getTurnosCarcel() + " turnos aquí";
+                        }
+                    }
+                    info = """
+                            Salir: %f
+                            Jugadores: %s
+                            """.formatted(Valor.PAGO_SALIR_CARCEL, "["+jugencarcel+"]");
+            }
+        }
+        else if (this.tipo.equals("transporte")) { //Aquí hay que poner si tiene dueño. Poner valor y cuánto cuesta caer ahí
             info = """
                     {
                     Nombre: %s
-                    Tipo: %s
+                    Tipo: transporte
+                    Propietario: %s
                     Valor: %f
-                    Posición en el tablero: %d
-                    Dueño: %s
-                    Color del grupo: %s
-                    Impuestos a pagar: %f
-                    Valor de hipoteca: %f
-                    }""".formatted(nombre, tipo, posicion, duenho.getNombre(), grupo.getColor(), impuesto, hipoteca);
+                    Impuesto: %f
+                    }""".formatted(nombre, duenho.getNombre(), valor,0); //TODO
         }
-        if (this.tipo.equals("Transporte")) { //Aquí hay que poner si tiene dueño. Poner valor y cuánto cuesta caer ahí
+        else if (this.tipo.equals("servicios")) { //Idem transportes
             info = """
-                    {
-                    Nombre: %s
-                    Tipo: %s
-                    Valor: %f
-                    Posición en el tablero: %d
-                    Dueño: %s
-                    Color del grupo: %s
-                    Impuestos a pagar: %f
-                    Valor de hipoteca: %f
-                    }""".formatted(nombre, tipo, posicion, duenho.getNombre(), grupo.getColor(), impuesto, hipoteca);
+                {
+                Nombre: %s
+                Tipo: servicios
+                Propietario: %s
+                Valor: %f
+                Impuesto: %f
+                }""".formatted(nombre, duenho.getNombre(), valor,0); //TODO
         }
-        if (this.tipo.equals("Servicios")) { //Idem transportes
-            info = """
-                    {
-                    Nombre: %s
-                    Tipo: %s
-                    Valor: %f
-                    Posición en el tablero: %d
-                    Dueño: %s
-                    Color del grupo: %s
-                    Impuestos a pagar: %f
-                    Valor de hipoteca: %f
-                    }""".formatted(nombre, tipo, posicion, duenho.getNombre(), grupo.getColor(), impuesto, hipoteca);
+        else{
+            System.out.println("Esa casilla no existe.");
         }
         return info;
     }

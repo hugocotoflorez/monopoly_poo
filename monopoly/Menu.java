@@ -138,8 +138,8 @@ public class Menu {
                             if (com.length == 3)
                             descAvatar(com[2]);
                             break;
-                        default: // describir casilla
-                            descCasilla(com[1]);
+                        case "casilla": // describir casilla
+                            descCasilla(com[2]);
                             break;
                     }
                     break;
@@ -214,8 +214,15 @@ public class Menu {
      * Parámetros: nombre de la casilla a describir.
      */
     private void descCasilla(String nombre) {
-        System.out.println(tablero.encontrar_casilla(nombre)); //TODO -> aquí no se puede llamar a ese tostring porque tiene que variar según el tipo de casilla
-                                                               // en el esqueleto venía una función para hacer esto (me la pido)
+        for (int i = 0; i<4; i++){
+            for (int j = 0; j<10; j++){
+                if(tablero.getPosiciones().get(i).get(j).getNombre().equals(nombre)){
+                    System.out.println(tablero.getPosiciones().get(i).get(j).infoCasilla());
+                    return;
+                }
+            }
+        }
+        System.out.println("Casilla no existente.");
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar
@@ -264,6 +271,7 @@ public class Menu {
 
             this.jugadores.get(turno).setEnCarcel(false);
             this.jugadores.get(turno).sumarFortuna(-Valor.PAGO_SALIR_CARCEL);
+            this.jugadores.get(turno).setEnCarcel(false);
             System.out.println(this.jugadores.get(turno) + "paga " + Valor.PAGO_SALIR_CARCEL + " y sale de la cárcel. Puede lanzar los dados.");
         } else {
             System.out.println("El jugador" + this.jugadores.get(turno).getNombre() + " no está en la cárcel.");
@@ -308,8 +316,8 @@ public class Menu {
         this.tirado = false;
         if (numero_jugadores > 1){
             if(this.turno < numero_jugadores){
-            this.turno += 1;
-            System.out.println("El jugador actual es: "+ this.jugadores.get(turno).getNombre());
+                this.turno += 1;
+                System.out.println("El jugador actual es: "+ this.jugadores.get(turno).getNombre());
             }
             else{
                 this.turno = 1; //Por la banca
