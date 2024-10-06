@@ -141,8 +141,8 @@ public class Menu {
                             if (com.length == 3)
                             descAvatar(com[2]);
                             break;
-                        default: // describir casilla
-                            descCasilla(com[1]);
+                        case "casilla": // describir casilla
+                            descCasilla(com[2]);
                             break;
                     }
                     break;
@@ -217,8 +217,15 @@ public class Menu {
      * Parámetros: nombre de la casilla a describir.
      */
     private void descCasilla(String nombre) {
-        System.out.println(tablero.encontrar_casilla(nombre)); //TODO -> aquí no se puede llamar a ese tostring porque tiene que variar según el tipo de casilla
-                                                               // en el esqueleto venía una función para hacer esto (me la pido)
+        for (int i = 0; i<4; i++){
+            for (int j = 0; j<10; j++){
+                if(tablero.getPosiciones().get(i).get(j).getNombre().equals(nombre)){
+                    System.out.println(tablero.getPosiciones().get(i).get(j).infoCasilla());
+                    return;
+                }
+            }
+        }
+        System.out.println("Casilla no existente.");
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar

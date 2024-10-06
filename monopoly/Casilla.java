@@ -197,11 +197,9 @@ public class Casilla {
      * Método para mostrar información sobre una casilla.
      * Devuelve una cadena con información específica de cada tipo de casilla.
      */
-    public String infoCasilla() { // TODO --> eliminar aquellos atributos que no tengan sentido para cada tipo de
-                                  // casilla
-                                  // Si se pone suerte o ir a cárcel no hacer nada
+    public String infoCasilla() {
         String info = new String();
-        if (this.tipo.equals("Solar")) {
+        if (this.tipo.equals("solar")) {
             info = """
                     {
                     Nombre: %s
@@ -221,15 +219,19 @@ public class Casilla {
                     Alquiler pista de deporte: %f
                     }""".formatted(nombre, grupo.getColor(),duenho.getNombre(), this.getValor(), impuesto, "No implementado.",  "No implementado.",  "No implementado.",  "No implementado.",  "No implementado.", "No implementado.",  "No implementado.",  "No implementado.", "No implementado.", "No implementado.");
         }
-        if (this.tipo.equals("Especial")) { //Aquí hay que poner el bote en el Parking, qué jugadores están en la cárcel, cuánto te dan en la salida
-            switch (nombre){
-                case "Salida":
-                    info = "{Casilla de ir a la cárcel.}";
-                    break;
-                case "IrCarcel":
-                    info = "{Casilla de ir a la cárcel.}";
-                case "Carcel":
-                    String jugencarcel = new String();
+        else if (this.tipo.equals("especial")) { //Aquí hay que poner el bote en el Parking, qué jugadores están en la cárcel, cuánto te dan en la salida
+            if (this.nombre.equals("Salida")) info = "{Casilla de salida.}";
+            else if(this.nombre.equals("IrCarcel")) info = "{Casilla de ir a la cárcel.}";
+            else if(this.nombre.equals("Parking")){
+                String jugenparking = new String();
+                for (Avatar av: avatares) jugenparking += av.getJugador().getNombre() + " ";
+                info = """
+                        Bote: %f
+                        Jugadores: %s
+                        """.formatted(Valor.BOTE_ACUMULADO, "[" + jugenparking + "]");
+            }
+            else if(this.nombre.equals("Carcel")){
+                String jugencarcel = new String();
                     for (Avatar av: avatares){
                         if(av.getJugador().getEnCarcel()){
                             jugencarcel +=  av.getJugador().getNombre() + " lleva " + av.getJugador().getTurnosCarcel() + " turnos aquí";
@@ -239,20 +241,9 @@ public class Casilla {
                             Salir: %f
                             Jugadores: %s
                             """.formatted(Valor.PAGO_SALIR_CARCEL, "["+jugencarcel+"]");
-                    break;
-                case "Parking":
-                    String jugenparking = new String();
-                    for (Avatar av: avatares) jugenparking += av.getJugador().getNombre() + " ";
-                    info = """
-                            Bote: %f
-                            Jugadores: %s
-                            """.formatted(Valor.BOTE_ACUMULADO, "[" + jugenparking + "]");
-                    break;
-                default:
-                    break;
             }
         }
-        if (this.tipo.equals("Transporte")) { //Aquí hay que poner si tiene dueño. Poner valor y cuánto cuesta caer ahí
+        else if (this.tipo.equals("transporte")) { //Aquí hay que poner si tiene dueño. Poner valor y cuánto cuesta caer ahí
             info = """
                     {
                     Nombre: %s
@@ -262,7 +253,7 @@ public class Casilla {
                     Impuesto: %f
                     }""".formatted(nombre, duenho.getNombre(), valor,0); //TODO
         }
-        if (this.tipo.equals("Servicios")) { //Idem transportes
+        else if (this.tipo.equals("servicios")) { //Idem transportes
             info = """
                 {
                 Nombre: %s
@@ -271,6 +262,9 @@ public class Casilla {
                 Valor: %f
                 Impuesto: %f
                 }""".formatted(nombre, duenho.getNombre(), valor,0); //TODO
+        }
+        else{
+            System.out.println("Esa casilla no existe.");
         }
         return info;
     }
