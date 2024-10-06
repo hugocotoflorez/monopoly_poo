@@ -172,8 +172,8 @@ public class Menu {
     private void descJugador(String[] partes) {
 
         for (Jugador J : this.jugadores){
-            if (!J.esBanca() && J.equals(partes[3])){
-                J.toString();
+            if (!J.esBanca() && J.getNombre().equals(partes[2])){
+                System.out.println(J.toString());
                 return;
             }
         }
@@ -187,7 +187,7 @@ public class Menu {
     private void descAvatar(String ID) {
         for (Avatar A : this.avatares) {
             if (A != null && A.getId().equals(ID)) {
-                A.toString();
+                System.out.println(A.toString());
                 return;
             }
         }
