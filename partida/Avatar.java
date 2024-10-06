@@ -48,8 +48,8 @@ public class Avatar {
     }
 
     public static Boolean esTipo(String tipo) {
-        return tipo == "Coche" || tipo == "Esfinge" ||
-                tipo == "Sombrero" || tipo == "Pelota";
+        return tipo.equals("Coche") || tipo.equals("Esfinge") ||
+                tipo.equals("Sombrero") || tipo.equals("Pelota");
     }
 
     // GETTERS
@@ -120,15 +120,18 @@ public class Avatar {
         this.id = letra;
     }
 
+    public String getInfo(){
+    String ret = """
+        id: %s,
+        tipo: %s,
+        casilla: %s,
+        jugador: %s
+            """.formatted(this.id, this.tipo, this.lugar.getNombre(), this.jugador.getNombre());
+    return ret;
+}
     @Override
     public String toString() {
-        String ret = """
-                id: %s,
-                tipo: %s,
-                casilla: %s,
-                jugador: %s
-                """.formatted(this.id, this.tipo, this.lugar.getNombre(), this.jugador.getNombre());
-        return ret;
+        return this.id;
     }
 
 }

@@ -22,6 +22,7 @@ public class Menu {
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
     private int numero_vueltas;
+
     public Menu() {
         iniciarPartida();
     }
@@ -49,7 +50,10 @@ public class Menu {
         this.jugadores.add(banca);
         this.tablero = new Tablero(banca);
         while (!partida_finalizada)
+        {
+            System.out.print("\n[>]: ");
             analizarComando(scanner.nextLine());
+        }
         scanner.close();
         acabarPartida();
     }
@@ -63,33 +67,56 @@ public class Menu {
 
         String[] com = comando.split(" ");
         switch (com[0]) {
+            case "opciones":
+            case "?":
+                System.out.println("crear jugador <nombre> <avatar>");
+                System.out.println("jugador");
+                System.out.println("listar enventa");
+                System.out.println("listar jugadores");
+                System.out.println("listar avatares");
+                System.out.println("lanzar dados");
+                System.out.println("acabar");
+                System.out.println("salir (carcel)");
+                System.out.println("describir jugador");
+                System.out.println("describir avatar");
+                System.out.println("compar <casilla>");
+                System.out.println("ver");
+                break;
+
             case "crear":
                 if (partida_empezada)
                     System.out.println("La partida ya esta iniciada!");
-                else if (com[1].equals("jugador"))
+                else if (com.length==4 && com[1].equals("jugador"))
+                {
                     crear_jugador(com[2], com[3]);
                 break;
+                }
 
             case "jugador":
                 descJugador(com);
                 break;
 
             case "listar":
+                if (com.length ==2)
+                {
                 if (com[1].equals("enventa"))
                     listarVenta();
-                if (com[1].equals("jugadores"))
+                else if (com[1].equals("jugadores"))
                     listarJugadores();
-                if (com[1].equals("avatares"))
+                else if (com[1].equals("avatares"))
                     listarAvatares();
                 break;
+                }
 
             case "lanzar":
-                if (!partida_empezada) // iniciar la partida
-                    partida_empezada = true;
 
-                if (com[1].equals("dados"))
+                if (com.length == 2 && com[1].equals("dados"))
+                {
+                    if (!partida_empezada) // iniciar la partida
+                        partida_empezada = true;
                     lanzarDados();
-                break;
+                    break;
+                }
 
             case "acabar":
                 acabarTurno();
@@ -100,22 +127,29 @@ public class Menu {
                 break;
 
             case "describir":
-                switch (com[1]) {
-                    case "jugador": // describir jugador
-                        descJugador(com);
-                        break;
-                    case "avatar": // describir avatar
-                        descAvatar(com[2]);
-                        break;
-                    default: // describir casilla
-                        descCasilla(com[1]);
-                        break;
+                if (com.length >=2)
+                {
+                    switch (com[1]) {
+                        case "jugador": // describir jugador
+                            descJugador(com);
+                            break;
+                        case "avatar": // describir avatar
+                            if (com.length == 3)
+                            descAvatar(com[2]);
+                            break;
+                        default: // describir casilla
+                            descCasilla(com[1]);
+                            break;
+                    }
+                    break;
                 }
-                break;
 
             case "comprar":
+                if (com.length == 2)
+                {
                 comprar(com[1]);
                 break;
+                }
 
             case "ver":
                 System.out.println(this.tablero);
@@ -124,8 +158,9 @@ public class Menu {
             case "SALIR":
                 this.partida_finalizada = true;
                 break;
+
             default:
-                System.out.println("Opcion incorrecta.");
+                System.out.println("Opcion incorrecta. [? para ver las opciones]");
                 break;
         }
     }
@@ -227,6 +262,7 @@ public class Menu {
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
     private void listarJugadores() {
         System.out.println("Jugadores:");
+        if (jugadores != null)
         for (Jugador j : jugadores) {
             if (!j.esBanca()) {
                 System.out.println(j);

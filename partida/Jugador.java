@@ -21,7 +21,7 @@ public class Jugador {
 
         this.fortuna = 100000; // Valor elevado para que la banca nunca se quede sin dinero
         this.avatar = null;
-        this.nombre = null;
+        this.nombre = "banca";
         this.gastos = 0;
         this.enCarcel = false;
         this.tiradasCarcel = 0;
@@ -142,6 +142,6 @@ public class Jugador {
                 | - Hipotecas: %s
                 | - Edificios: %s
 
-                """.formatted(nombre, avatar, fortuna, propiedades, "Sin implementar", "Sin implementar");
+                """.formatted(nombre, avatar!=null?avatar:"", fortuna, propiedades!=null?propiedades:"", "Sin implementar", "Sin implementar");
     }
 }
