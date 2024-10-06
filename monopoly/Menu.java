@@ -67,7 +67,7 @@ public class Menu {
         switch (com[0]) {
             case "opciones":
             case "?":
-                System.out.println("crear jugador <nombre> <avatar>");
+                System.out.println("crear jugador <nombre> <tipo_avatar>");
                 System.out.println("jugador");
                 System.out.println("listar enventa");
                 System.out.println("listar jugadores");
@@ -75,9 +75,9 @@ public class Menu {
                 System.out.println("lanzar dados");
                 System.out.println("acabar");
                 System.out.println("salir (carcel)");
-                System.out.println("describir jugador");
-                System.out.println("describir avatar");
-                System.out.println("compar <casilla>");
+                System.out.println("describir jugador  <nombre>");
+                System.out.println("describir avatar <letra");
+                System.out.println("comprar <casilla>");
                 System.out.println("ver");
                 break;
 
@@ -310,7 +310,7 @@ public class Menu {
         if (jugadores != null)
         for (Jugador j : jugadores) {
             if (!j.esBanca()) {
-                System.out.println(j.describirJugador());
+                System.out.println(j);
             }
         }
     }

@@ -142,21 +142,17 @@ public class Jugador {
         return this.avatar == null;
     }
 
-    public String describirJugador() {
-        return """
-                | Nombre: %s
-                | Avatar: %s
-                | - Fortuna %s
-                | - propiedades: %s
-                | - Hipotecas: %s
-                | - Edificios: %s
-
-                """.formatted(this.nombre, avatar!=null?this.avatar.getId():"", fortuna, propiedades!=null?this.propiedades:"", "Sin implementar", "Sin implementar");
-    }
 @Override
     public String toString() {
         return """
-                | Avatar: %s
-                """.formatted(avatar!=null?this.avatar.getId():"");
+            | Nombre: %s
+            | Avatar: %s
+            | - Fortuna %s
+            | - propiedades: %s
+            | - Hipotecas: %s
+            | - Edificios: %s
+
+            """.formatted(this.nombre, avatar!=null?this.avatar.getId():"", fortuna, propiedades!=null?this.propiedades:"", "Sin implementar", "Sin implementar");
+
     }
 }
