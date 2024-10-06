@@ -203,21 +203,20 @@ public class Casilla {
             info = """
                     {
                     Nombre: %s
-                    Grupo: %s
                     Propietario: %s
                     Valor: %f
                     Alquiler: %f
-                    Valor hotel: %f
-                    Valor casa: %f
-                    Valor piscina: %f
-                    Valor pista de deporte: %f
-                    Alquiler una casa: %f
-                    ALquiler dos casas: %f
-                    Alquiler tres casas: %f
-                    Alquiler cuatro casas: %f
-                    Alquiler piscina: %f
-                    Alquiler pista de deporte: %f
-                    }""".formatted(nombre, grupo.getColor(),duenho.getNombre(), this.getValor(), impuesto, "No implementado.",  "No implementado.",  "No implementado.",  "No implementado.",  "No implementado.", "No implementado.",  "No implementado.",  "No implementado.", "No implementado.", "No implementado.");
+                    Valor hotel: %s
+                    Valor casa: %s
+                    Valor piscina: %s
+                    Valor pista de deporte: %s
+                    Alquiler una casa: %s
+                    ALquiler dos casas: %s
+                    Alquiler tres casas: %s
+                    Alquiler cuatro casas: %s
+                    Alquiler piscina: %s
+                    Alquiler pista de deporte: %s
+                    }""".formatted(this.grupo.getColor() + nombre + Valor.RESET,duenho.getNombre(), this.getValor(), impuesto, "No implementado.",  "No implementado.",  "No implementado.",  "No implementado.",  "No implementado.", "No implementado.",  "No implementado.",  "No implementado.", "No implementado.", "No implementado.");
         }
         else if (this.tipo.equals("especial")) { //Aquí hay que poner el bote en el Parking, qué jugadores están en la cárcel, cuánto te dan en la salida
             if (this.nombre.equals("Salida")) info = "{Casilla de salida.}";
