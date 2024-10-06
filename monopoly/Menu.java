@@ -184,12 +184,14 @@ public class Menu {
 
     //Sobrecarga: si no se pasa argumentos describe el jugador que tiene el turno actual
     private void descJugador() {
-        if(!jugadores.get(turno).esBanca()){
+        if((jugadores.size() != 1) && !jugadores.get(turno).esBanca()){
             System.out.println("""
                 | Nombre: %s
                 | Avatar: %s
-                """.formatted(jugadores.get(turno).getNombre(), avatares.get(turno).getId()));
+                """.formatted(jugadores.get(turno).getNombre(), jugadores.get(turno).getAvatar()));
+                return;
         }
+        System.out.println("No se ha encontrado este jugador.\n");
     }
 
     /*
