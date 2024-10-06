@@ -170,6 +170,14 @@ public class Menu {
      * Parámetro: comando introducido
      */
     private void descJugador(String[] partes) {
+
+        for (Jugador J : this.jugadores){
+            if (J.equals(partes[3])){
+                J.toString();
+                return;
+            }
+        }
+        System.out.println("No se ha encontrado este jugador.\n");
     }
 
     /*
@@ -183,7 +191,7 @@ public class Menu {
                 return;
             }
         }
-        System.out.println("No se ha encontrado ese avatar.");
+        System.out.println("No se ha encontrado ese avatar.\n");
     }
 
     /*
