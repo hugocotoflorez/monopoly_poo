@@ -284,6 +284,7 @@ public class Casilla {
                 Impuesto: %f
                 }""".formatted(nombre, duenho.getNombre(), valor,0); //TODO
         }
+        else if(this.tipo.equals("comunidad")){}
         else{
             System.out.println("Esa casilla no existe.");
         }
@@ -332,11 +333,7 @@ public class Casilla {
         return """
         | Nombre: %s
         | Tipo: %s
-        | Valor: %s
-        | Duenho: %s
-        | Grupo: %s
-        | Impuesto: %s
-        """.formatted(nombre, tipo, valor, duenho, grupo, impuesto);
+        """.formatted(nombre, tipo);
     }
 
 }
