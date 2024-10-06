@@ -244,7 +244,7 @@ public class Menu {
             this.jugadores.get(turno).sumarFortuna(-Valor.PAGO_SALIR_CARCEL);
             System.out.println(this.jugadores.get(turno) + "paga " + Valor.PAGO_SALIR_CARCEL + " y sale de la cárcel. Puede lanzar los dados.");
         } else {
-            System.out.println("El jugador" + this.jugadores.get(turno).getNombre() + "no está en la cárcel.\n");
+            System.out.println("El jugador" + this.jugadores.get(turno).getNombre() + " no está en la cárcel.\n");
         }
     }
 
