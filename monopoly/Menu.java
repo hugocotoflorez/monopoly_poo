@@ -229,6 +229,7 @@ public class Menu {
     private void lanzarDados() {
 
         if (this.tirado == false) {
+            int casillaantes = avatares.get(turno).getCasilla().getPosicion(),casillanueva;
             this.dado1.hacerTirada();
             this.dado2.hacerTirada();
             this.tirado = true;
@@ -237,6 +238,10 @@ public class Menu {
                     + this.avatares.get(turno).getCasilla().getNombre() + " hasta ");
             this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
             System.out.println(avatares.get(turno).getCasilla().getNombre());
+            casillanueva=avatares.get(turno).getCasilla().getPosicion();
+            if ((casillaantes > casillanueva) && (casillanueva > 1)){
+                jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
+            }
         } else {
             System.out.println("Ya has tirado en este turno.");
         }

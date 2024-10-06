@@ -152,6 +152,28 @@ public class Casilla {
      * en caso de no cumplirlas.
      */
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
+        if (this.tipo.equals("solar")){
+            if(!this.duenho.equals(banca)){
+                actual.sumarFortuna(-impuesto);
+                this.duenho.sumarFortuna(impuesto);
+            }
+            else{
+                System.out.println("El solar está disponible para la compra.");
+            }
+        }
+
+        if (this.tipo.equals("especial")){
+            if(this.nombre.equals("Parking")){
+                System.out.println("El jugador " + actual.getNombre() + " recibe" + valor + "del bote del parking");
+                actual.sumarFortuna(valor);
+                valor = 0;
+            }
+            if(this.nombre.equals("IrCarcel")){
+                actual.encarcelar(null);
+            }
+        }
+
+        //TODO
         return false;
     }
 
@@ -227,7 +249,7 @@ public class Casilla {
                 info = """
                         Bote: %f
                         Jugadores: %s
-                        """.formatted(Valor.BOTE_ACUMULADO, "[" + jugenparking + "]");
+                        """.formatted(valor, "[" + jugenparking + "]");
             }
             else if(this.nombre.equals("Carcel")){
                 String jugencarcel = new String();

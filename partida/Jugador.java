@@ -114,8 +114,7 @@ public class Jugador {
     // pasaría un valor negativo.
     public void sumarFortuna(float valor) {
         this.fortuna += valor;
-        if (this.estaBancarrota())
-            Menu.acabarPartida(); // TODO
+        if (this.estaBancarrota()) Menu.acabarPartida();
     }
 
     // Método para comprobar si un jugador está en bancarrota
