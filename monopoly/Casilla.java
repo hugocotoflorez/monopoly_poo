@@ -281,7 +281,7 @@ public class Casilla {
          * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1
          */
         return (this.grupo != null ? this.grupo.getColor() : Valor.WHITE) +
-                Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET;
+                Valor.BOLD + " " + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET;
     }
 
     private void check(Boolean x) {

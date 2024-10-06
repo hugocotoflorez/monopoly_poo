@@ -38,6 +38,7 @@ public class Menu {
         Jugador jugador = new Jugador(nombreJugador, tipoAvatar, this.tablero.posicion_salida(), this.avatares);
         avatar.setJugador(jugador);
         this.jugadores.add(jugador);
+        this.tablero.posicion_salida().anhadirAvatar(avatar);
     }
 
     // Método para inciar una partida: crea los jugadores y avatares.
