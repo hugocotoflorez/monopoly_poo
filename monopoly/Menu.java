@@ -116,9 +116,11 @@ public class Menu {
 
                 if (com.length == 2 && com[1].equals("dados"))
                 {
-                    if (!partida_empezada) // iniciar la partida
+                    if (!partida_empezada && jugadores.size() >=3){ // iniciar la partida
                         partida_empezada = true;
-                    lanzarDados();
+                        lanzarDados();
+                    }else
+                        System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
                     break;
                 }
 
@@ -190,7 +192,7 @@ public class Menu {
             System.out.println("""
                 | Nombre: %s
                 | Avatar: %s
-                """.formatted(jugadores.get(turno).getNombre(), jugadores.get(turno).getAvatar()));
+                """.formatted(jugadores.get(turno).getNombre(), jugadores.get(turno).getAvatar().getId()));
                 return;
         }
         System.out.println("No se ha encontrado este jugador.\n");
@@ -207,7 +209,7 @@ public class Menu {
                 return;
             }
         }
-        System.out.println("No se ha encontrado ese avatar.\n");
+        System.out.println("No se ha encontrado ese avatar.");
     }
 
     /*
@@ -268,7 +270,7 @@ public class Menu {
             this.jugadores.get(turno).sumarFortuna(-Valor.PAGO_SALIR_CARCEL);
             System.out.println(this.jugadores.get(turno) + "paga " + Valor.PAGO_SALIR_CARCEL + " y sale de la cárcel. Puede lanzar los dados.");
         } else {
-            System.out.println("El jugador" + this.jugadores.get(turno).getNombre() + " no está en la cárcel.\n");
+            System.out.println("El jugador" + this.jugadores.get(turno).getNombre() + " no está en la cárcel.");
         }
     }
 
@@ -298,7 +300,7 @@ public class Menu {
     private void listarAvatares() {
         for (Avatar A : avatares) {
             if (A != null) {
-                A.toString();
+                System.out.println(A.toString());
                 System.out.println("\n");
             }
         }
@@ -310,10 +312,11 @@ public class Menu {
         if (numero_jugadores > 1){
             if(this.turno < numero_jugadores){
             this.turno += 1;
+            System.out.println("El jugador actual es: "+ this.jugadores.get(turno).getNombre());
             }
             else{
                 this.turno = 1; //Por la banca
-
+                System.out.println("El jugador actual es: "+ this.jugadores.get(turno));
             }
     }else{
         System.out.println("Todavía no hay jugadores creados!");
