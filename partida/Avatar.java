@@ -84,15 +84,15 @@ public class Avatar {
         return this.lugar;
     }
 
-    private Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) // si no se encuentra esta función cambiala a publico
+    private static Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valor) // si no se encuentra esta función cambiala a publico
     {
-        return casillas.get(lugar.getPosicion() % 10).get(lugar.getPosicion() / 10);
+        return casillas.get(valor / 10).get(valor % 10);
     }
 
-    public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada, Avatar avatar) {
+    public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
         this.lugar.eliminarAvatarCasilla(this.id);
-        this.lugar = obtenerCasilla(casillas, valorTirada + this.lugar.getPosicion());
-        this.lugar.anhadirAvatarCasilla(avatar);
+        this.lugar = obtenerCasilla(casillas, valorTirada + this.lugar.getPosicion() - 1);
+        this.lugar.anhadirAvatarCasilla(this);
     }
 
     /*
