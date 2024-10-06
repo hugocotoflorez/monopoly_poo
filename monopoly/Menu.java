@@ -95,7 +95,7 @@ public class Menu {
                 }
 
             case "jugador":
-                descJugador(jugadores.get(turno).getNombre());
+                descJugador();
                 break;
 
             case "listar":
@@ -189,15 +189,7 @@ public class Menu {
                 | Nombre: %s
                 | Avatar: %s
                 """.formatted(jugadores.get(turno).getNombre(), avatares.get(turno).getId()));
-    )
         }
-        for (Jugador J : this.jugadores){
-            if (J.equals(partes[3])){
-                J.toString();
-                return;
-            }
-        }
-        System.out.println("No se ha encontrado este jugador.\n");
     }
 
     /*
