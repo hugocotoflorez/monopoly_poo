@@ -176,7 +176,7 @@ public class Menu {
     private void descJugador(String[] partes) {
 
         for (Jugador J : this.jugadores){
-            if (J.equals(partes[3])){
+            if (J.getNombre().equals(partes[2])){
                 J.toString();
                 return;
             }
@@ -201,9 +201,10 @@ public class Menu {
      * Parámetro: id del avatar a describir.
      */
     private void descAvatar(String ID) {
-        for (Avatar A : this.avatares) {
-            if (A != null && A.getId().equals(ID)) {
-                System.out.println(A.toString());
+        for (int i = 1; i< avatares.size(); i++) {
+            System.out.println(avatares.get(i).getId());
+            if (avatares.get(i).getId().equals(ID)) {
+                System.out.println(avatares.get(i).toString());
                 return;
             }
         }
