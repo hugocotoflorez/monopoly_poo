@@ -4,6 +4,7 @@ package monopoly;
 import partida.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Collections;
 
 public class Tablero {
     // Atributos.
@@ -209,7 +210,8 @@ public class Tablero {
 
         // lado sur
         ret += char_vertical + String.format("%s", posiciones.get(1).get(0).printCasilla());
-        for (Casilla c : posiciones.get(0).reversed())
+        Collections.reverse(posiciones.get(0));
+        for (Casilla c : posiciones.get(0))
             ret += char_vertical + String.format("%s", c.printCasilla());
         ret += char_vertical;
         ret += '\n';
