@@ -54,7 +54,7 @@ public class Avatar {
 
     // GETTERS
     public String getId() {
-        return this.id != null ? this.id : "\0";
+        return this.id != null ? this.id : "";
     }
 
     public Jugador getJugador(Jugador jugador) {
