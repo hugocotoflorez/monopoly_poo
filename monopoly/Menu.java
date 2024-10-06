@@ -189,7 +189,7 @@ public class Menu {
     private void descAvatar(String ID) {
         for (Avatar A : this.avatares) {
             if (A != null && A.getId().equals(ID)) {
-                System.out.println(A.toString());
+                System.out.println(A.getInfo());
                 return;
             }
         }
