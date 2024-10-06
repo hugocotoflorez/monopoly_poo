@@ -19,7 +19,7 @@ public class Casilla {
     private float hipoteca; // Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares= new ArrayList<Avatar>(); // Avatares que están situados en la casilla.
 
-    public static final int casillaWidth = 15;
+    public static final int casillaWidth = 19;
 
     /*
      * Constructor para casillas tipo Solar, Servicios o Transporte:
@@ -274,14 +274,16 @@ public class Casilla {
     public String printCasilla() {
         String data = new String();
         data += this.nombre;
-        for (Avatar av: avatares)
-        data += av.getId();
+        data += " ";
+        for (Avatar av: this.avatares) data += av.getId();
+        //data = data.substring(0, data.length()-this.avatares.size());
+        
         /*
          * Esta funcion se usa para obtener los datos de la casilla al pintar
          * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1
          */
         return (this.grupo != null ? this.grupo.getColor() : Valor.WHITE) +
-                Valor.BOLD + " " + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET;
+                Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET;
     }
 
     private void check(Boolean x) {
