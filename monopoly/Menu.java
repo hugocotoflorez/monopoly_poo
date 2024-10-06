@@ -172,7 +172,7 @@ public class Menu {
     private void descJugador(String[] partes) {
 
         for (Jugador J : this.jugadores){
-            if (J.equals(partes[3])){
+            if (!J.esBanca() && J.equals(partes[3])){
                 J.toString();
                 return;
             }
