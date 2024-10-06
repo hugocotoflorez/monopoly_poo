@@ -309,7 +309,7 @@ public class Menu {
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
         int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
-        if (numero_jugadores > 1){
+        if (numero_jugadores > 1 && partida_empezada){
             if(this.turno < numero_jugadores){
             this.turno += 1;
             System.out.println("El jugador actual es: "+ this.jugadores.get(turno).getNombre());
