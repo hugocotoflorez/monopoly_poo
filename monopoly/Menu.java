@@ -177,7 +177,7 @@ public class Menu {
 
         for (Jugador J : this.jugadores){
             if (J.getNombre().equals(partes[2])){
-                J.toString();
+                System.out.println(J.toString());
                 return;
             }
         }
@@ -204,7 +204,7 @@ public class Menu {
         for (int i = 1; i< avatares.size(); i++) {
             System.out.println(avatares.get(i).getId());
             if (avatares.get(i).getId().equals(ID)) {
-                System.out.println(avatares.get(i).toString());
+                System.out.println(avatares.get(i).getInfo());
                 return;
             }
         }
