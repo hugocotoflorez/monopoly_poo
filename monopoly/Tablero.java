@@ -210,9 +210,8 @@ public class Tablero {
 
         // lado sur
         ret += char_vertical + String.format("%s", posiciones.get(1).get(0).printCasilla());
-        Collections.reverse(posiciones.get(0));
-        for (Casilla c : posiciones.get(0))
-            ret += char_vertical + String.format("%s", c.printCasilla());
+        for (int i = 9; i>=0; i--)
+            ret += char_vertical + String.format("%s", posiciones.get(0).get(i).printCasilla());
         ret += char_vertical;
         ret += '\n';
 
