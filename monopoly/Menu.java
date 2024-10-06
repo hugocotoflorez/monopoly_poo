@@ -44,6 +44,8 @@ public class Menu {
     private void iniciarPartida() {
         this.turno = 1;
         this.numero_vueltas = 0;
+        this.dado1 = new Dado();
+        this.dado2 = new Dado();
         Scanner scanner = new Scanner(System.in);
         Jugador banca = new Jugador();
         this.avatares.add(null); // avatar banca
@@ -231,8 +233,8 @@ public class Menu {
             this.dado2.hacerTirada();
             this.tirado = true;
             int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
-            System.out.print("El avatar" + this.avatares.get(turno).getId() + "avanza" + desplazamiento + "desde"
-                    + this.avatares.get(turno).getCasilla().getNombre() + "hasta");
+            System.out.print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
+                    + this.avatares.get(turno).getCasilla().getNombre() + " hasta ");
             this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento,this.avatares.get(turno));
             System.out.println(avatares.get(turno).getCasilla().getNombre());
         } else {
@@ -279,7 +281,7 @@ public class Menu {
         for(int i = 0; i<40; i++){
         if(this.tablero.obtenerCasilla(i).getDuenho()==banca && (this.tablero.obtenerCasilla(i).getTipo().equals("solar")
         || this.tablero.obtenerCasilla(i).getTipo().equals("transporte") || this.tablero.obtenerCasilla(i).getTipo().equals("servicios"))){
-            this.tablero.obtenerCasilla(i).infoCasilla();
+            System.out.println(this.tablero.obtenerCasilla(i).infoCasilla()+"\n");
         }
 
         }
