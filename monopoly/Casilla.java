@@ -188,7 +188,7 @@ public class Casilla {
                 if (c.getDuenho() != banca && c.getDuenho() != actual) {
                     // se le resta el impuesto y se lo da al jugador que tiene
                     // la casilla
-                    int s= (c.getDuenho().servicios == 2)? 10 : 4;
+                    int s= (c.getDuenho().servicios() == 2)? 10 : 4;
                     float precio = c.getImpuesto()* s*actual.getTirada(); // REVISAR
                     actual.sumarFortuna(-precio);// revisar
                     c.getDuenho().sumarFortuna(precio);
