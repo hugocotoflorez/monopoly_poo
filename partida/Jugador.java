@@ -15,7 +15,7 @@ public class Jugador {
                                // para intentar salir (se usa para limitar el numero de intentos).
     private int turnoscarcel;
     private int vueltas = 0; // Cuenta las vueltas dadas al tablero.
-    private ArrayList<Casilla> propiedades; // Propiedades que posee el jugador.
+    private ArrayList<Casilla> propiedades = new ArrayList<Casilla>(); // Propiedades que posee el jugador.
 
     // Constructor vacío. Se usará para crear la banca.
     public Jugador() {
@@ -114,12 +114,14 @@ public class Jugador {
     // pasaría un valor negativo.
     public void sumarFortuna(float valor) {
         this.fortuna += valor;
-        if (this.estaBancarrota()) Menu.acabarPartida();
+        if (this.estaBancarrota()){
+            System.out.println("El jugador " + this.nombre + " se ha quedado en bancarrota. La partida se acabará");
+            Menu.acabarPartida();
+        }
     }
 
     // Método para comprobar si un jugador está en bancarrota
     public boolean estaBancarrota() {
-        System.out.println("El jugador " + this.getNombre() + " se ha quedado en bancarrota.");
         return this.fortuna < 0;
     }
 

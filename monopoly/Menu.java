@@ -82,8 +82,10 @@ public class Menu {
                 break;
 
             case "crear":
-                if (partida_empezada)
+                if (partida_empezada){
                     System.out.println("La partida ya esta iniciada!");
+                    break;
+                }
                 else if (com.length==4 && com[1].equals("jugador"))
                 {
                     if (jugadores.size()<=6) crear_jugador(com[2], com[3]);
@@ -256,6 +258,10 @@ public class Menu {
     private void comprar(String nombre) {
 
         Casilla casilla = tablero.encontrar_casilla(nombre);
+        if (casilla == null){
+            System.out.println("La casilla no existe");
+            return;
+    }
         if (casilla.getDuenho().esBanca() == true){
         jugadores.get(turno).sumarFortuna(-casilla.getValor());
         jugadores.get(turno).anhadirPropiedad(casilla);

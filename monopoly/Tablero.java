@@ -234,7 +234,7 @@ public class Tablero {
         // Solucion O(n) (busqueda lineal)
         for (ArrayList<Casilla> arr : posiciones) {
             for (Casilla c : arr) {
-                if (c.getNombre() == nombre)
+                if (c.getNombre().equals(nombre))
                     return c;
             }
         }
