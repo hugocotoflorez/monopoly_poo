@@ -87,6 +87,7 @@ public class Menu {
                 } else if (com.length == 4 && com[1].equals("jugador")) {
                     if (jugadores.size() <= 6)
                         crear_jugador(com[2], com[3]);
+                        System.out.println(this.tablero);
                     else
                         System.out.println("Ya se ha alcanzado el número máximo de jugadores.");
                 }
