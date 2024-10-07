@@ -250,6 +250,27 @@ public class Menu {
         // TODO
     }
 
+    //sobrecarga de lanzar dados en la cual elegimos qué valor sacan los dados
+    private void lanzarDados(int valor1, int valor2){
+        if (this.tirado == false){
+            int casillaantes= avatares.get(turno).getCasilla().getPosicion(),casillanueva;
+            this.tirado = true;
+            int desplazamiento = valor1 + valor2;
+            System.out.println("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
+                        + this.avatares.get(turno).getCasilla().getNombre() + " hasta ");
+            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(),desplazamiento);
+            System.out.println(avatares.get(turno).getCasilla().getNombre());
+            casillanueva=avatares.get(turno).getCasilla().getPosicion();
+            if ((casillaantes > casillanueva) && (casillanueva > 1)){
+                jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
+            }
+        }
+        else {
+            System.out.println("Ya has tirado en este turno.");
+        }
+        
+    }
+
     /*
      * Método que ejecuta todas las acciones realizadas con el comando 'comprar
      * nombre_casilla'.
