@@ -231,7 +231,7 @@ public class Menu {
 
     private void lanzarDados() {
 
-        while (this.tirado == false) {
+        if (this.tirado == false) {
             int casillaantes = avatares.get(turno).getCasilla().getPosicion(), casillanueva;
             this.dado1.hacerTirada();
             this.dado2.hacerTirada();
@@ -246,9 +246,11 @@ public class Menu {
             if ((casillaantes > casillanueva) && (casillanueva > 0)) {
                 jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
             }
-            if(dadosDobles(dado1, dado2))
+
+            if (dadosDobles(dado1, dado2)) {
                 this.tirado = false;
-            
+                System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
+            }
         }
     }
 
