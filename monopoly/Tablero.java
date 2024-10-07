@@ -140,7 +140,7 @@ public class Tablero {
     public String toString() {
         String ret = new String();
 
-        ret += "\033[H\033[2J";
+        //ret += "\033[H\033[2J"; LIMPIAR PANTALLA
 
         // borde superior del tablero
         ret += char_top_left;

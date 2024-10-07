@@ -230,12 +230,13 @@ public class Menu {
     }
 
     private void lanzarDados() {
-
+        if(this.lanzamientos <= 2){
         if (this.tirado == false) {
             int casillaantes = avatares.get(turno).getCasilla().getPosicion(), casillanueva;
             this.dado1.hacerTirada();
             this.dado2.hacerTirada();
             this.tirado = true;
+            this.lanzamientos +=1;
             int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
             System.out
                     .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
@@ -252,6 +253,12 @@ public class Menu {
                 System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
             }
         }
+    }
+    else{
+        this.jugadores.get(turno).setEnCarcel(true);
+        this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
+        System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
+    }
     }
 
     /*
@@ -336,6 +343,7 @@ public class Menu {
         if(partida_empezada && this.tirado){
         int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
         this.tirado = false;
+        this.lanzamientos = 0;
             if (this.turno < numero_jugadores) {
                 this.turno += 1;
                 System.out.println("El jugador actual es: " + this.jugadores.get(turno).getNombre());
@@ -347,12 +355,12 @@ public class Menu {
             System.out.println("La partida todavia no ha empezado. ");
         }
         }
-    }
+    
 
     // Método que finaliza la partida
     public static void acabarPartida() {
         System.out.println("FINALIZANDO PARTIDA");
         System.exit(0);
     }
-
 }
+
