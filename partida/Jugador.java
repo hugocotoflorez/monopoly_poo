@@ -76,10 +76,12 @@ public class Jugador {
         return this.turnoscarcel;
     }
 
+    public int getVueltas(){
+        return this.vueltas;
+    }
     // SETTERS
     public void setFortuna(float fortuna) {
         this.fortuna = fortuna;
-
     }
 
     public void setNombre(String nombre) {
@@ -91,9 +93,16 @@ public class Jugador {
         this.enCarcel = enCarcel;
     }
 
-    public int setTurnosCarcel(int turnos){
-        return this.turnoscarcel = turnos;
+    public void setTurnosCarcel(int turnos){
+        this.turnoscarcel = turnos;
     }
+
+    public void setVueltas(int vueltas){
+        this.vueltas = vueltas;
+    }
+
+
+    
 
     // Método para añadir una propiedad al jugador. Como parámetro, la casilla a
     // añadir.

@@ -6,7 +6,10 @@ public class Valor {
     public static final float FORTUNA_INICIAL = 9543076.28f;
     public static final float SUMA_VUELTA = 1301328.584f; // Se aproxima a la media de los precios de los solares del
                                                           // tablero.
-    public static final float PAGO_SALIR_CARCEL = 50000;
+
+    public static float SUMA_VUELTA_ACTUAL = SUMA_VUELTA;
+    public static float PAGO_SALIR_CARCEL = 0.25f*SUMA_VUELTA_ACTUAL;
+
     public static final float GRUPO_1 = 600000;
     public static final float GRUPO_2 = 520000;
     public static final float GRUPO_3 = 676000;
