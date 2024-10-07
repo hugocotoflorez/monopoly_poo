@@ -146,9 +146,8 @@ public class Jugador {
      * como parámetro).
      */
     public void encarcelar(ArrayList<ArrayList<Casilla>> pos) {
-
         this.avatar.setLugar(pos.get(1).get(0));
-
+        this.enCarcel = true;
     }
 
     public boolean esBanca() {
