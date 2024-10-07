@@ -338,11 +338,11 @@ public class Menu {
         if (numero_jugadores > 1){
             if(this.turno < numero_jugadores){
                 this.turno += 1;
-                System.out.println("El jugador actual es: "+ this.jugadores.get(turno).getNombre());
+                System.out.println("El jugador actual es: " + this.jugadores.get(turno).getNombre());
             }
             else{
                 this.turno = 1; //Por la banca
-                System.out.println("El jugador actual es: "+ this.jugadores.get(turno));
+                System.out.println("El jugador actual es: " + this.jugadores.get(turno).getNombre());
             }
     }else{
         System.out.println("Todavía no hay suficientes jugadores creados!");
