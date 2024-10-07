@@ -153,17 +153,51 @@ public class Casilla {
         Casilla c = actual.getAvatar().getCasilla();
         switch (c.getTipo()) {
             case "solar":
-                break;
+                if (c.getDuenho() != banca && c.getDuenho() != actual) {
+                    // pagar
+                    break;
+                }
+                /*
+                 * La opcion de comprar se lleva a cabo
+                 * desde el menu, esta funciona unicamente
+                 * devuelve si se puede comprar o no
+                 */
+                System.out.println("Se puede comprar la casilla " + c.getNombre());
+                return true; // se puede comprar
+
             case "especial":
                 break;
             case "transporte":
-                break;
+                if (c.getDuenho() != banca && c.getDuenho() != actual) {
+                    // pagar
+                    break;
+                }
+                /*
+                 * La opcion de comprar se lleva a cabo
+                 * desde el menu, esta funciona unicamente
+                 * devuelve si se puede comprar o no
+                 */
+                System.out.println("Se puede comprar la casilla " + c.getNombre());
+                return true; // se puede comprar
+
             case "suerte":
+                // hacer lo que haya que hacer
                 break;
             case "caja":
+                // hacer lo que haya que hacer
                 break;
+
             case "serv":
-                break;
+                if (c.getDuenho() != banca && c.getDuenho() != actual) {
+                    // pagar
+                    break;
+                }
+                System.out.println("Se puede comprar la casilla " + c.getNombre());
+                return true;
+
+            case "impuesto":
+                // pagar
+
             default:
                 System.err.println("Hugo no añadio el tipo %s a evaluarCasilla");
 
@@ -341,6 +375,7 @@ public class Casilla {
     public boolean esComprable(){
         return (this.duenho.esBanca() && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv")));
     }
+
     @Override
     public String toString() {
         return this.nombre;
