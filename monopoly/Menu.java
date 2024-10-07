@@ -47,8 +47,7 @@ public class Menu {
         this.avatares.add(null); // avatar banca
         this.jugadores.add(banca);
         this.tablero = new Tablero(banca);
-        while (!partida_finalizada)
-        {
+        while (!partida_finalizada) {
             System.out.print("\n[>]: ");
             analizarComando(scanner.nextLine());
         }
@@ -82,14 +81,14 @@ public class Menu {
                 break;
 
             case "crear":
-                if (partida_empezada){
+                if (partida_empezada) {
                     System.out.println("La partida ya esta iniciada!");
                     break;
-                }
-                else if (com.length==4 && com[1].equals("jugador"))
-                {
-                    if (jugadores.size()<=6) crear_jugador(com[2], com[3]);
-                    else System.out.println("Ya se ha alcanzado el número máximo de jugadores.");
+                } else if (com.length == 4 && com[1].equals("jugador")) {
+                    if (jugadores.size() <= 6)
+                        crear_jugador(com[2], com[3]);
+                    else
+                        System.out.println("Ya se ha alcanzado el número máximo de jugadores.");
                 }
                 break;
 
@@ -98,25 +97,24 @@ public class Menu {
                 break;
 
             case "listar":
-                if (com.length ==2)
-                {
-                if (com[1].equals("enventa"))
-                    listarVenta();
-                else if (com[1].equals("jugadores"))
-                    listarJugadores();
-                else if (com[1].equals("avatares"))
-                    listarAvatares();
-                break;
+                if (com.length == 2) {
+                    if (com[1].equals("enventa"))
+                        listarVenta();
+                    else if (com[1].equals("jugadores"))
+                        listarJugadores();
+                    else if (com[1].equals("avatares"))
+                        listarAvatares();
+                    break;
                 }
 
             case "lanzar":
 
-                if (com.length == 2 && com[1].equals("dados"))
-                {
-                    if (jugadores.size() >=3){ // iniciar la partida
+                if (com.length == 2 && com[1].equals("dados")) {
+                    if (jugadores.size() >= 3) { // iniciar la partida
                         partida_empezada = true;
                         lanzarDados();
-                    }else
+                        System.out.println(this.tablero);
+                    } else
                         System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
                     break;
                 }
@@ -130,15 +128,14 @@ public class Menu {
                 break;
 
             case "describir":
-                if (com.length >=2)
-                {
+                if (com.length >= 2) {
                     switch (com[1]) {
                         case "jugador": // describir jugador
                             descJugador(com);
                             break;
                         case "avatar": // describir avatar
                             if (com.length == 3)
-                            descAvatar(com[2]);
+                                descAvatar(com[2]);
                             break;
                         default: // describir casilla
                             descCasilla(com[1]);
@@ -148,10 +145,9 @@ public class Menu {
                 }
 
             case "comprar":
-                if (com.length == 2)
-                {
-                comprar(com[1]);
-                break;
+                if (com.length == 2) {
+                    comprar(com[1]);
+                    break;
                 }
 
             case "ver":
@@ -174,8 +170,8 @@ public class Menu {
      */
     private void descJugador(String[] partes) {
 
-        for (Jugador J : this.jugadores){
-            if (J.getNombre().equals(partes[2])){
+        for (Jugador J : this.jugadores) {
+            if (J.getNombre().equals(partes[2])) {
                 System.out.println(J.toString());
                 return;
             }
@@ -183,14 +179,15 @@ public class Menu {
         System.out.println("No se ha encontrado este jugador.\n");
     }
 
-    //Sobrecarga: si no se pasa argumentos describe el jugador que tiene el turno actual
+    // Sobrecarga: si no se pasa argumentos describe el jugador que tiene el turno
+    // actual
     private void descJugador() {
-        if((jugadores.size() != 1) && !jugadores.get(turno).esBanca()){
+        if ((jugadores.size() != 1) && !jugadores.get(turno).esBanca()) {
             System.out.println("""
-                | Nombre: %s
-                | Avatar: %s
-                """.formatted(jugadores.get(turno).getNombre(), jugadores.get(turno).getAvatar().getId()));
-                return;
+                    | Nombre: %s
+                    | Avatar: %s
+                    """.formatted(jugadores.get(turno).getNombre(), jugadores.get(turno).getAvatar().getId()));
+            return;
         }
         System.out.println("No se ha encontrado este jugador.\n");
     }
@@ -200,7 +197,7 @@ public class Menu {
      * Parámetro: id del avatar a describir.
      */
     private void descAvatar(String ID) {
-        for (int i = 1; i< avatares.size(); i++) {
+        for (int i = 1; i < avatares.size(); i++) {
             if (avatares.get(i).getId().equals(ID)) {
                 System.out.println(avatares.get(i).getInfo());
                 return;
@@ -215,39 +212,44 @@ public class Menu {
      * Parámetros: nombre de la casilla a describir.
      */
     private void descCasilla(String nombre) {
-        for (int i = 0; i<4; i++){
-            for (int j = 0; j<10; j++){
-                if(tablero.getPosiciones().get(i).get(j).getNombre().equals(nombre)){
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (tablero.getPosiciones().get(i).get(j).getNombre().equals(nombre)) {
                     System.out.println(tablero.getPosiciones().get(i).get(j).infoCasilla());
                     return;
                 }
             }
         }
-        System.out.println("La casilla "+ nombre + " no existe.");
+        System.out.println("La casilla " + nombre + " no existe.");
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar
     // dados'.
+    private boolean dadosDobles(Dado d1, Dado d2) {
+        return (d1.getValor() == d2.getValor());
+    }
+
     private void lanzarDados() {
 
-        if (this.tirado == false) {
-            int casillaantes = avatares.get(turno).getCasilla().getPosicion(),casillanueva;
+        while (this.tirado == false) {
+            int casillaantes = avatares.get(turno).getCasilla().getPosicion(), casillanueva;
             this.dado1.hacerTirada();
             this.dado2.hacerTirada();
             this.tirado = true;
             int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
-            System.out.print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
-                    + this.avatares.get(turno).getCasilla().getNombre() + " hasta ");
+            System.out
+                    .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
+                            + this.avatares.get(turno).getCasilla().getNombre() + " hasta ");
             this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
             System.out.println(avatares.get(turno).getCasilla().getNombre());
-            casillanueva=avatares.get(turno).getCasilla().getPosicion();
-            if ((casillaantes > casillanueva) && (casillanueva > 1)){
+            casillanueva = avatares.get(turno).getCasilla().getPosicion();
+            if ((casillaantes > casillanueva) && (casillanueva > 0)) {
                 jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
             }
-        } else {
-            System.out.println("Ya has tirado en este turno.");
+            if(dadosDobles(dado1, dado2))
+                this.tirado = false;
+            
         }
-        // TODO
     }
 
     /*
@@ -258,13 +260,13 @@ public class Menu {
     private void comprar(String nombre) {
 
         Casilla casilla = tablero.encontrar_casilla(nombre);
-        
-        if (casilla == null){
+
+        if (casilla == null) {
             System.out.println("La casilla no existe");
             return;
 
         }
-        casilla.comprarCasilla(this.jugadores.get(turno),this.jugadores.get(0));
+        casilla.comprarCasilla(this.jugadores.get(turno), this.jugadores.get(0));
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'salir
@@ -275,7 +277,8 @@ public class Menu {
             this.jugadores.get(turno).setEnCarcel(false);
             this.jugadores.get(turno).sumarFortuna(-Valor.PAGO_SALIR_CARCEL);
             this.jugadores.get(turno).setEnCarcel(false);
-            System.out.println(this.jugadores.get(turno) + "paga " + Valor.PAGO_SALIR_CARCEL + " y sale de la cárcel. Puede lanzar los dados.");
+            System.out.println(this.jugadores.get(turno) + "paga " + Valor.PAGO_SALIR_CARCEL
+                    + " y sale de la cárcel. Puede lanzar los dados.");
         } else {
             System.out.println("El jugador " + this.jugadores.get(turno).getNombre() + " no está en la cárcel.");
         }
@@ -283,22 +286,24 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
     private void listarVenta() {
-        for (int i = 0; i<4; i++){
-            for (int j = 0; j<10; j++){
-                if(tablero.getPosiciones().get(i).get(j).getDuenho().esBanca() &&
-                    (tablero.getPosiciones().get(i).get(j).getTipo().equals("solar") ||
-                    tablero.getPosiciones().get(i).get(j).getTipo().equals("transporte") || tablero.getPosiciones().get(i).get(j).getTipo().equals("servicios"))){
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (tablero.getPosiciones().get(i).get(j).getDuenho().esBanca() &&
+                        (tablero.getPosiciones().get(i).get(j).getTipo().equals("solar") ||
+                                tablero.getPosiciones().get(i).get(j).getTipo().equals("transporte")
+                                || tablero.getPosiciones().get(i).get(j).getTipo().equals("servicios"))) {
                     System.out.println(tablero.getPosiciones().get(i).get(j));
                 }
             }
         }
 
-
-        for(int i = 0; i<40; i++){
-        if(this.tablero.obtenerCasilla(i).getDuenho()==banca && (this.tablero.obtenerCasilla(i).getTipo().equals("solar")
-        || this.tablero.obtenerCasilla(i).getTipo().equals("transporte") || this.tablero.obtenerCasilla(i).getTipo().equals("serv"))){
-            System.out.println(this.tablero.obtenerCasilla(i).infoCasilla());
-        }
+        for (int i = 0; i < 40; i++) {
+            if (this.tablero.obtenerCasilla(i).getDuenho() == banca
+                    && (this.tablero.obtenerCasilla(i).getTipo().equals("solar")
+                            || this.tablero.obtenerCasilla(i).getTipo().equals("transporte")
+                            || this.tablero.obtenerCasilla(i).getTipo().equals("serv"))) {
+                System.out.println(this.tablero.obtenerCasilla(i).infoCasilla());
+            }
 
         }
     }
@@ -307,11 +312,11 @@ public class Menu {
     private void listarJugadores() {
         System.out.println("Jugadores:");
         if (jugadores != null)
-        for (Jugador j : jugadores) {
-            if (!j.esBanca()) {
-                System.out.println(j);
+            for (Jugador j : jugadores) {
+                if (!j.esBanca()) {
+                    System.out.println(j);
+                }
             }
-        }
     }
 
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
@@ -328,17 +333,16 @@ public class Menu {
     private void acabarTurno() {
         int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
         this.tirado = false;
-        if (numero_jugadores > 1){
-            if(this.turno < numero_jugadores){
+        if (numero_jugadores > 1) {
+            if (this.turno < numero_jugadores) {
                 this.turno += 1;
                 System.out.println("El jugador actual es: " + this.jugadores.get(turno).getNombre());
-            }
-            else{
-                this.turno = 1; //Por la banca
+            } else {
+                this.turno = 1; // Por la banca
                 System.out.println("El jugador actual es: " + this.jugadores.get(turno).getNombre());
             }
-    }else{
-        System.out.println("Todavía no hay suficientes jugadores creados!");
+        } else {
+            System.out.println("Todavía no hay suficientes jugadores creados!");
         }
     }
 
