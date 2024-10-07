@@ -16,6 +16,7 @@ public class Jugador {
     private int turnoscarcel;
     private int vueltas = 0; // Cuenta las vueltas dadas al tablero.
     private ArrayList<Casilla> propiedades = new ArrayList<Casilla>(); // Propiedades que posee el jugador.
+    private int tirada;
 
     // Constructor vacío. Se usará para crear la banca.
     public Jugador() {
@@ -106,6 +107,13 @@ public class Jugador {
         if (this.propiedades.contains(casilla)) {
             this.propiedades.remove(casilla);
         }
+    }
+
+    public int getTirada(){
+        return this.tirada;
+    }
+    public void setTirada(int tirada){
+        this.tirada = tirada;
     }
 
     // Método para añadir fortuna a un jugador

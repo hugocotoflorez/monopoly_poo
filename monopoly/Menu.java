@@ -11,7 +11,7 @@ public class Menu {
     private ArrayList<Avatar> avatares = new ArrayList<Avatar>(); // Avatares en la partida.
     private int turno; // Índice correspondiente a la posición en el arrayList del jugador (y el
                        // avatar) que tienen el turno
-    private int lanzamientos; // Variable para contar el número de lanzamientos de un jugador en un turno.
+    private int lanzamientos = 0; // Variable para contar el número de lanzamientos de un jugador en un turno.
     private Tablero tablero; // Tablero en el que se juega.
     private Dado dado1; // Dos dados para lanzar y avanzar casillas.
     private Dado dado2;
@@ -85,13 +85,12 @@ public class Menu {
                     System.out.println("La partida ya esta iniciada!");
                     break;
                 } else if (com.length == 4 && com[1].equals("jugador")) {
-                    if (jugadores.size() <= 6){
+                    if (jugadores.size() <= 6) {
                         crear_jugador(com[2], com[3]);
                         System.out.println(this.tablero);
-                    }
-                    else
+                    } else
                         System.out.println("Ya se ha alcanzado el número máximo de jugadores.");
-                    
+
                 }
                 break;
 
@@ -119,6 +118,9 @@ public class Menu {
                         System.out.println(this.tablero);
                     } else
                         System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
+                    break;
+                } else if (com.length == 2 && com[1].equals("dadoss")) {
+                    lanzarDados(3, 3);
                     break;
                 }
 
@@ -233,56 +235,56 @@ public class Menu {
     }
 
     private void lanzarDados() {
-        if(this.lanzamientos <= 2){
-        if (this.tirado == false) {
-            int casillaantes = avatares.get(turno).getCasilla().getPosicion(), casillanueva;
-            this.dado1.hacerTirada();
-            this.dado2.hacerTirada();
-            this.tirado = true;
-            this.lanzamientos +=1;
-            int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
-            System.out
-                    .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
-                            + this.avatares.get(turno).getCasilla().getNombre() + " hasta ");
-            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
-            System.out.println(avatares.get(turno).getCasilla().getNombre());
-            casillanueva = avatares.get(turno).getCasilla().getPosicion();
-            if ((casillaantes > casillanueva) && (casillanueva > 0)) {
-                jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
-            }
+        if (this.lanzamientos <= 2) {
+            if (!this.tirado) {
 
-            if (dadosDobles(dado1, dado2)) {
-                this.tirado = false;
-                System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
+                int casillaantes = avatares.get(turno).getCasilla().getPosicion(), casillanueva;
+                this.dado1.hacerTirada();
+                this.dado2.hacerTirada();
+                this.tirado = true;
+                this.lanzamientos += 1;
+                int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
+                System.out
+                        .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
+                                + this.avatares.get(turno).getCasilla().getNombre() + " hasta ");
+            
+                this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
+                System.out.println(avatares.get(turno).getCasilla().getNombre());
+
+                casillanueva = avatares.get(turno).getCasilla().getPosicion();
+                if ((casillaantes > casillanueva) && (casillanueva > 0)) {
+                    jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
+                }
+
+                if (dadosDobles(dado1, dado2)) {
+                    this.tirado = false;
+                    System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
+                }
             }
+        } else {
+            this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
+            System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
         }
     }
-    else{
-        this.jugadores.get(turno).setEnCarcel(true);
-        this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
-        System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
-    }
-    }
 
-    //sobrecarga de lanzar dados en la cual elegimos qué valor sacan los dados
-    private void lanzarDados(int valor1, int valor2){
-        if (this.tirado == false){
-            int casillaantes= avatares.get(turno).getCasilla().getPosicion(),casillanueva;
+    // sobrecarga de lanzar dados en la cual elegimos qué valor sacan los dados
+    private void lanzarDados(int valor1, int valor2) {
+        if (this.tirado == false) {
+            int casillaantes = avatares.get(turno).getCasilla().getPosicion(), casillanueva;
             this.tirado = true;
             int desplazamiento = valor1 + valor2;
             System.out.println("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
-                        + this.avatares.get(turno).getCasilla().getNombre() + " hasta ");
-            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(),desplazamiento);
+                    + this.avatares.get(turno).getCasilla().getNombre() + " hasta ");
+            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
             System.out.println(avatares.get(turno).getCasilla().getNombre());
-            casillanueva=avatares.get(turno).getCasilla().getPosicion();
-            if ((casillaantes > casillanueva) && (casillanueva > 1)){
+            casillanueva = avatares.get(turno).getCasilla().getPosicion();
+            if ((casillaantes > casillanueva) && (casillanueva > 1)) {
                 jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
             }
-        }
-        else {
+        } else {
             System.out.println("Ya has tirado en este turno.");
         }
-        
+
     }
 
     /*
@@ -364,10 +366,10 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
-        if(partida_empezada && this.tirado){
-        int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
-        this.tirado = false;
-        this.lanzamientos = 0;
+        if (partida_empezada && this.tirado) {
+            int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
+            this.tirado = false;
+            this.lanzamientos = 0;
             if (this.turno < numero_jugadores) {
                 this.turno += 1;
                 System.out.println("El jugador actual es: " + this.jugadores.get(turno).getNombre());
@@ -375,11 +377,10 @@ public class Menu {
                 this.turno = 1; // Por la banca
                 System.out.println("El jugador actual es: " + this.jugadores.get(turno).getNombre());
             }
-        }else{
+        } else {
             System.out.println("La partida todavia no ha empezado. ");
         }
-        }
-    
+    }
 
     // Método que finaliza la partida
     public static void acabarPartida() {
@@ -387,4 +388,3 @@ public class Menu {
         System.exit(0);
     }
 }
-
