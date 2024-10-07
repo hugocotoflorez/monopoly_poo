@@ -198,7 +198,12 @@ public class Casilla {
                 return true;
 
             case "impuesto":
-                // pagar
+            for(Avatar a: avatares){
+                if(a.getId().equals(actual.getAvatar().getId())){
+                    actual.sumarFortuna(-Valor.SUMA_VUELTA);
+                    break;
+                }
+            }
 
             default:
                 System.err.println("Hugo no añadio el tipo %s a evaluarCasilla");
