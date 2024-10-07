@@ -343,10 +343,7 @@ public class Casilla {
     }
     @Override
     public String toString() {
-        return """
-                | Nombre: %s
-                | Tipo: %s
-                """.formatted(nombre, tipo);
+        return this.nombre;
     }
 
 }
