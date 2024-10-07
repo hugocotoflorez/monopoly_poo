@@ -183,9 +183,10 @@ public class Casilla {
      * - Banca del monopoly (es el dueño de las casillas no compradas aún).
      */
     public void comprarCasilla(Jugador solicitante, Jugador banca) { // Añade un avatar a la lista de avatares
+
         float fortuna_solicitante = solicitante.getFortuna();
         float fortuna_banca = banca.getFortuna();
-        if (fortuna_solicitante >= this.valor) {
+        if (fortuna_solicitante >= this.valor && this.esComprable()) {
             solicitante.setFortuna(fortuna_solicitante - this.valor);
             banca.setFortuna(fortuna_banca + this.valor);
             System.out.println("El jugador" + solicitante.getNombre() + "ha comprado la casilla" + this.nombre + "Su fortuna actual es" + solicitante.getFortuna());
@@ -327,7 +328,7 @@ public class Casilla {
         }
     }
 
-    public boolean esComprable(Casilla casilla){
+    public boolean esComprable(){
         return (this.duenho.esBanca() && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv")));
     }
     @Override

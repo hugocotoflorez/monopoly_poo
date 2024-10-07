@@ -258,20 +258,13 @@ public class Menu {
     private void comprar(String nombre) {
 
         Casilla casilla = tablero.encontrar_casilla(nombre);
+        
         if (casilla == null){
             System.out.println("La casilla no existe");
             return;
-    }
-        if(casilla.sePuedeComprar){
-        jugadores.get(turno).sumarFortuna(-casilla.getValor());
-        jugadores.get(turno).anhadirPropiedad(casilla);
-        casilla.setDuenho(jugadores.get(turno));
-        System.out.println("El jugador " + jugadores.get(turno).getNombre() + " ha comprado " + casilla.getNombre()
-                + " por " + casilla.getValor() + ".");
-        System.out.println("Su fortuna restante es " + jugadores.get(turno).getFortuna());
-        }else{
-            System.out.println("La casilla" + casilla.getNombre() + "ya tiene duenho");
+
         }
+        casilla.comprarCasilla(this.jugadores.get(turno),this.jugadores.get(0));
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'salir
@@ -284,7 +277,7 @@ public class Menu {
             this.jugadores.get(turno).setEnCarcel(false);
             System.out.println(this.jugadores.get(turno) + "paga " + Valor.PAGO_SALIR_CARCEL + " y sale de la cárcel. Puede lanzar los dados.");
         } else {
-            System.out.println("El jugador" + this.jugadores.get(turno).getNombre() + " no está en la cárcel.");
+            System.out.println("El jugador " + this.jugadores.get(turno).getNombre() + " no está en la cárcel.");
         }
     }
 
