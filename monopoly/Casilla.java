@@ -327,6 +327,9 @@ public class Casilla {
         }
     }
 
+    public boolean esComprable(Casilla casilla){
+        return (this.duenho.esBanca() && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv")));
+    }
     @Override
     public String toString()
   {

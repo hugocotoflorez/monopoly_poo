@@ -262,7 +262,7 @@ public class Menu {
             System.out.println("La casilla no existe");
             return;
     }
-        if (casilla.getDuenho().esBanca() == true){
+        if(casilla.sePuedeComprar){
         jugadores.get(turno).sumarFortuna(-casilla.getValor());
         jugadores.get(turno).anhadirPropiedad(casilla);
         casilla.setDuenho(jugadores.get(turno));
