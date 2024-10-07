@@ -154,7 +154,7 @@ public class Casilla {
         switch (c.getTipo()) {
             case "solar":
                 if (c.getDuenho() != banca && c.getDuenho() != actual) {
-                    // pagar
+                    actual.sumarFortuna(- c.getImpuesto());// revisar
                     break;
                 }
                 /*
@@ -181,6 +181,7 @@ public class Casilla {
                 return true; // se puede comprar
 
             case "suerte":
+                System.out.println("No implementado");
                 // hacer lo que haya que hacer
                 break;
             case "caja":
@@ -222,10 +223,9 @@ public class Casilla {
             solicitante.anhadirPropiedad(this);
             System.out.println("El jugador " + solicitante.getNombre() + " ha comprado la casilla " + this.nombre
                     + ". Su fortuna actual es " + solicitante.getFortuna());
-        } else if(fortuna_solicitante < this.valor) { // TODO
+        } else if (fortuna_solicitante < this.valor) { // TODO
             System.out.println("No tienes suficiente fortuna.");
-        }
-        else if(!this.esComprable()){
+        } else if (!this.esComprable()) {
             System.out.println("Esta casilla no se puede comprar.");
         }
     }
@@ -372,8 +372,9 @@ public class Casilla {
         }
     }
 
-    public boolean esComprable(){
-        return (this.duenho.esBanca() && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv")));
+    public boolean esComprable() {
+        return (this.duenho.esBanca()
+                && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv")));
     }
 
     @Override

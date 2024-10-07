@@ -85,10 +85,13 @@ public class Menu {
                     System.out.println("La partida ya esta iniciada!");
                     break;
                 } else if (com.length == 4 && com[1].equals("jugador")) {
-                    if (jugadores.size() <= 6)
+                    if (jugadores.size() <= 6){
                         crear_jugador(com[2], com[3]);
+                        System.out.println(this.tablero);
+                    }
                     else
                         System.out.println("Ya se ha alcanzado el número máximo de jugadores.");
+                    
                 }
                 break;
 
@@ -259,6 +262,27 @@ public class Menu {
         this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
         System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
     }
+    }
+
+    //sobrecarga de lanzar dados en la cual elegimos qué valor sacan los dados
+    private void lanzarDados(int valor1, int valor2){
+        if (this.tirado == false){
+            int casillaantes= avatares.get(turno).getCasilla().getPosicion(),casillanueva;
+            this.tirado = true;
+            int desplazamiento = valor1 + valor2;
+            System.out.println("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
+                        + this.avatares.get(turno).getCasilla().getNombre() + " hasta ");
+            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(),desplazamiento);
+            System.out.println(avatares.get(turno).getCasilla().getNombre());
+            casillanueva=avatares.get(turno).getCasilla().getPosicion();
+            if ((casillaantes > casillanueva) && (casillanueva > 1)){
+                jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
+            }
+        }
+        else {
+            System.out.println("Ya has tirado en este turno.");
+        }
+        
     }
 
     /*
