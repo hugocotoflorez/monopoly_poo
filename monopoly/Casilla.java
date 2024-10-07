@@ -153,7 +153,6 @@ public class Casilla {
         Casilla c = actual.getAvatar().getCasilla();
         switch (c.getTipo()) {
             case "solar":
-                if (c.)
                 break;
             case "especial":
                 break;
@@ -178,17 +177,22 @@ public class Casilla {
      * - Jugador que solicita la compra de la casilla.
      * - Banca del monopoly (es el dueño de las casillas no compradas aún).
      */
-    public void comprarCasilla(Jugador solicitante, Jugador banca) { // Añade un avatar a la lista de avatares
+    public void comprarCasilla(Jugador solicitante, Jugador banca) {
 
         float fortuna_solicitante = solicitante.getFortuna();
         float fortuna_banca = banca.getFortuna();
         if (fortuna_solicitante >= this.valor && this.esComprable()) {
             solicitante.setFortuna(fortuna_solicitante - this.valor);
             banca.setFortuna(fortuna_banca + this.valor);
-            System.out.println("El jugador" + solicitante.getNombre() + "ha comprado la casilla" + this.nombre
-                    + "Su fortuna actual es" + solicitante.getFortuna());
-        } else { // TODO
-            System.out.println("No tienes suficiente cash.");
+            banca.eliminarPropiedad(this);
+            solicitante.anhadirPropiedad(this);
+            System.out.println("El jugador " + solicitante.getNombre() + " ha comprado la casilla " + this.nombre
+                    + ". Su fortuna actual es " + solicitante.getFortuna());
+        } else if(fortuna_solicitante < this.valor) { // TODO
+            System.out.println("No tienes suficiente fortuna.");
+        }
+        else if(!this.esComprable()){
+            System.out.println("Esta casilla no se puede comprar.");
         }
     }
 

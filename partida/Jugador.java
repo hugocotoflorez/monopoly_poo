@@ -28,7 +28,6 @@ public class Jugador {
         this.tiradasCarcel = 0;
         this.tiradasCarcel = 0;
         this.vueltas = 0;
-        this.propiedades = null; // la banca no tendría que tener al principio todas las propiedades del tablero?
     }
 
     /*
