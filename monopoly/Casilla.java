@@ -154,7 +154,10 @@ public class Casilla {
         switch (c.getTipo()) {
             case "solar":
                 if (c.getDuenho() != banca && c.getDuenho() != actual) {
-                    actual.sumarFortuna(- c.getImpuesto());// revisar
+                    // se le resta el impuesto y se lo da al jugador que tiene
+                    // la casilla
+                    actual.sumarFortuna(-c.getImpuesto());// revisar
+                    c.getDuenho().sumarFortuna(c.getImpuesto());
                     break;
                 }
                 /*
@@ -172,25 +175,23 @@ public class Casilla {
                     // pagar
                     break;
                 }
-                /*
-                 * La opcion de comprar se lleva a cabo
-                 * desde el menu, esta funciona unicamente
-                 * devuelve si se puede comprar o no
-                 */
                 System.out.println("Se puede comprar la casilla " + c.getNombre());
                 return true; // se puede comprar
 
+            case "caja":
             case "suerte":
                 System.out.println("No implementado");
-                // hacer lo que haya que hacer
-                break;
-            case "caja":
-                // hacer lo que haya que hacer
+                // hacer lo que haya que hacer (no para esta entrega)
                 break;
 
             case "serv":
                 if (c.getDuenho() != banca && c.getDuenho() != actual) {
-                    // pagar
+                    // se le resta el impuesto y se lo da al jugador que tiene
+                    // la casilla
+                    int s= (c.getDuenho().servicios() == 2)? 10 : 4;
+                    float precio = c.getImpuesto()* s*actual.getTirada(); // REVISAR
+                    actual.sumarFortuna(-precio);// revisar
+                    c.getDuenho().sumarFortuna(precio);
                     break;
                 }
                 System.out.println("Se puede comprar la casilla " + c.getNombre());

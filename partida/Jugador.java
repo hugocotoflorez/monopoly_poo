@@ -72,7 +72,7 @@ public class Jugador {
         return this.enCarcel;
     }
 
-    public int getTurnosCarcel(){
+    public int getTurnosCarcel() {
         return this.turnoscarcel;
     }
 
@@ -93,8 +93,8 @@ public class Jugador {
         this.enCarcel = enCarcel;
     }
 
-    public void setTurnosCarcel(int turnos){
-        this.turnoscarcel = turnos;
+    public int setTurnosCarcel(int turnos) {
+        return this.turnoscarcel = turnos;
     }
 
     public void setVueltas(int vueltas){
@@ -102,7 +102,7 @@ public class Jugador {
     }
 
 
-    
+
 
     // Método para añadir una propiedad al jugador. Como parámetro, la casilla a
     // añadir.
@@ -122,7 +122,7 @@ public class Jugador {
     // pasaría un valor negativo.
     public void sumarFortuna(float valor) {
         this.fortuna += valor;
-        if (this.estaBancarrota()){
+        if (this.estaBancarrota()) {
             System.out.println("El jugador " + this.nombre + " se ha quedado en bancarrota. La partida se acabará");
             Menu.acabarPartida();
         }
@@ -154,17 +154,31 @@ public class Jugador {
         return this.avatar == null;
     }
 
-@Override
+    /*
+     * Obtiene el numero de casillas de tipo servicio que
+     * tiene el jugador. Es ineficiente pero funciona
+     */
+    public int servicios() {
+        int i = 0;
+        for (Casilla c : this.propiedades) {
+            if (c.getTipo().equals("serv"))
+                ++i;
+        }
+        return i;
+    }
+
+    @Override
     public String toString() {
         return """
-            | Nombre: %s
-            | Avatar: %s
-            | - Fortuna %s
-            | - propiedades: %s
-            | - Hipotecas: %s
-            | - Edificios: %s
+                | Nombre: %s
+                | Avatar: %s
+                | - Fortuna %s
+                | - propiedades: %s
+                | - Hipotecas: %s
+                | - Edificios: %s
 
-            """.formatted(this.nombre, avatar!=null?this.avatar.getId():"", fortuna, propiedades!=null?this.propiedades:"", "Sin implementar", "Sin implementar");
+                """.formatted(this.nombre, avatar != null ? this.avatar.getId() : "", fortuna,
+                propiedades != null ? this.propiedades : "", "Sin implementar", "Sin implementar");
 
     }
 }
