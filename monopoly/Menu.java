@@ -138,8 +138,8 @@ public class Menu {
                             if (com.length == 3)
                             descAvatar(com[2]);
                             break;
-                        case "casilla": // describir casilla
-                            descCasilla(com[2]);
+                        default: // describir casilla
+                            descCasilla(com[1]);
                             break;
                     }
                     break;
@@ -221,7 +221,7 @@ public class Menu {
                 }
             }
         }
-        System.out.println("Casilla no existente.");
+        System.out.println("La casilla "+ nombre + " no existe.");
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar

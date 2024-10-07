@@ -259,7 +259,7 @@ public class Casilla {
                         }
                     }
                     info = """
-                            Salir: %f
+                            Salir: %.2f
                             Jugadores: %s
                             """.formatted(Valor.PAGO_SALIR_CARCEL, "["+jugencarcel+"]");
             }
