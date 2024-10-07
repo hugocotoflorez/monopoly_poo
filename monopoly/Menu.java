@@ -90,8 +90,8 @@ public class Menu {
                 {
                     if (jugadores.size()<=6) crear_jugador(com[2], com[3]);
                     else System.out.println("Ya se ha alcanzado el número máximo de jugadores.");
-                break;
                 }
+                break;
 
             case "jugador":
                 descJugador();
@@ -292,15 +292,15 @@ public class Menu {
     private void listarVenta() {
         for (int i = 0; i<4; i++){
             for (int j = 0; j<10; j++){
-                if(tablero.getPosiciones().get(i).get(j).getDuenho().esBanca() && 
-                    (tablero.getPosiciones().get(i).get(j).getTipo().equals("solar") || 
+                if(tablero.getPosiciones().get(i).get(j).getDuenho().esBanca() &&
+                    (tablero.getPosiciones().get(i).get(j).getTipo().equals("solar") ||
                     tablero.getPosiciones().get(i).get(j).getTipo().equals("transporte") || tablero.getPosiciones().get(i).get(j).getTipo().equals("servicios"))){
                     System.out.println(tablero.getPosiciones().get(i).get(j));
                 }
             }
         }
-        
-        
+
+
         for(int i = 0; i<40; i++){
         if(this.tablero.obtenerCasilla(i).getDuenho()==banca && (this.tablero.obtenerCasilla(i).getTipo().equals("solar")
         || this.tablero.obtenerCasilla(i).getTipo().equals("transporte") || this.tablero.obtenerCasilla(i).getTipo().equals("serv"))){
