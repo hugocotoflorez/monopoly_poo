@@ -262,5 +262,9 @@ public class Tablero {
         return null;
     }
 
-
+    public void actualizarValorSolares(){
+        for(int i = 0;i<this.grupos.size();i++){
+            
+        }
+    }
 }

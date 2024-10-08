@@ -21,7 +21,6 @@ public class Menu {
                               // decir, si ha pagado sus deudas.
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
-    private int minVueltas = 0;
 
     public Menu() {
         iniciarPartida();
@@ -271,12 +270,9 @@ public class Menu {
                         if (j.getVueltas() <= vueltasmin)
                             vueltasmin = j.getVueltas();
                     }
-                    if (jugadorMenosVueltas(jugadores).equals(this.jugadores.get(turno))) {
-                        if (minVueltas != this.jugadores.get(turno).getVueltas()) {
-                            minVueltas++;
-                            if (minVueltas % 4 == 0)
-                                actualizarValorSolares();
-                        }
+                    if((this.jugadores.get(turno).getVueltas() == vueltasmin) && (vueltasmin % 4 == 0)){
+                        this.tablero.actualizarValorSolares();
+                    }
                     }
                 }
 
@@ -291,7 +287,7 @@ public class Menu {
                 avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
 
             }
-        } else {
+        else {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
             System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
         }
