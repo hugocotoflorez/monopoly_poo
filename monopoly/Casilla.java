@@ -249,6 +249,7 @@ public class Casilla {
             banca.setFortuna(fortuna_banca + this.valor);
             banca.eliminarPropiedad(this);
             solicitante.anhadirPropiedad(this);
+            this.duenho = solicitante;
             System.out.println("El jugador " + solicitante.getNombre() + " ha comprado la casilla " + this.nombre
                     + ". Su fortuna actual es " + solicitante.getFortuna());
         } else if (fortuna_solicitante < this.valor) { // TODO
