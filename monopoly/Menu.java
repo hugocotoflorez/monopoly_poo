@@ -121,7 +121,7 @@ public class Menu {
                         System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
                     break;
                 } else if (com.length == 2 && com[1].equals("dadoss")) {
-                    lanzarDados(1, 38);
+                    lanzarDados(15, 15);
                     break;
                 }
 
@@ -276,7 +276,7 @@ public class Menu {
                 if (vueltasmin < this.jugadores.get(turno).getVueltas()) {
                     vueltasmin += 1;
                     if (this.jugadores.get(turno).getVueltas() % 4 == 0) // TODO
-                        ;
+                    ;
                 }
                 if(avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")){
                     jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
