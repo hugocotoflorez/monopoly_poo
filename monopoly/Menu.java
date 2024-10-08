@@ -410,7 +410,9 @@ public class Menu {
             return;
 
         }
-        casilla.comprarCasilla(this.jugadores.get(turno), this.jugadores.get(0));
+        if (this.tirado || lanzamientos > 0){
+            casilla.comprarCasilla(this.jugadores.get(turno), this.jugadores.get(0));
+        }
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'salir
