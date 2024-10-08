@@ -252,13 +252,13 @@ public class Casilla {
         float fortuna_solicitante = solicitante.getFortuna();
         if (fortuna_solicitante >= this.valor && this.esComprable(solicitante)) {
             solicitante.setFortuna(fortuna_solicitante - this.valor);
-            banca.sumarGastos(this.valor);
+            //banca.sumarGastos(this.valor);
             banca.eliminarPropiedad(this);
             solicitante.anhadirPropiedad(this);
             this.duenho = solicitante;
             System.out.println("El jugador " + solicitante.getNombre() + " ha comprado la casilla " + this.nombre
                     + ". Su fortuna actual es " + solicitante.getFortuna());
-            System.out.println("El bote de la banca es ahora "+banca.getGastos());
+            //System.out.println("El bote de la banca es ahora "+banca.getGastos());
         } else if (fortuna_solicitante < this.valor) { // TODO
             System.out.println("No tienes suficiente fortuna.");
         } else if (!this.esComprable(solicitante)) {
