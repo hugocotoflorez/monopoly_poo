@@ -150,7 +150,7 @@ public class Casilla {
      * en caso de no cumplirlas.
      */
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
-        Casilla c = actual.getAvatar().getCasilla();
+        Casilla c = this;// sorry
         switch (c.getTipo()) {
             case "solar":
                 if (c.getDuenho() != banca && c.getDuenho() != actual) {
@@ -172,6 +172,7 @@ public class Casilla {
                 break;
             case "transporte":
                 if (c.getDuenho() != banca && c.getDuenho() != actual) {
+                    float p = 0.25 * c.getDuenho().transportes * Valor.VALOR_TRANSPORTE;
                     // pagar
                     break;
                 }
@@ -188,8 +189,8 @@ public class Casilla {
                 if (c.getDuenho() != banca && c.getDuenho() != actual) {
                     // se le resta el impuesto y se lo da al jugador que tiene
                     // la casilla
-                    int s= (c.getDuenho().servicios() == 2)? 10 : 4;
-                    float precio = c.getImpuesto()* s*actual.getTirada(); // REVISAR
+                    int s = (c.getDuenho().servicios() == 2) ? 10 : 4;
+                    float precio = c.getImpuesto() * s * actual.getTirada(); // REVISAR
                     actual.sumarFortuna(-precio);// revisar
                     c.getDuenho().sumarFortuna(precio);
                     break;
@@ -198,7 +199,12 @@ public class Casilla {
                 return true;
 
             case "impuesto":
-                // pagar
+            for(Avatar a: avatares){
+                if(a.getId().equals(actual.getAvatar().getId())){
+                    actual.sumarFortuna(-Valor.SUMA_VUELTA);
+                    break;
+                }
+            }
 
             default:
                 System.err.println("Hugo no añadio el tipo %s a evaluarCasilla");
