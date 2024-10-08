@@ -94,6 +94,8 @@ public class Menu {
                         System.out.println("Ya se ha alcanzado el número máximo de jugadores.");
 
                 }
+                else
+                System.out.println("No se pudo crear el jugador");
                 break;
 
             case "jugador":
@@ -275,7 +277,7 @@ public class Menu {
                         if (minVueltas != this.jugadores.get(turno).getVueltas()) {
                             minVueltas++;
                             if (minVueltas % 4 == 0)
-                                actualizarValorSolares();
+                                ;//actualizarValorSolares();
                         }
                     }
                 }
