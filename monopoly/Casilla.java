@@ -191,7 +191,7 @@ public class Casilla {
                 break;
             case "transporte":
                 if (c.getDuenho() != banca && c.getDuenho() != actual) {
-                    float p = 0.25f * c.getDuenho().transportes() * Valor.IMPUESTOS_TRANSPORTES;
+                    float p = 0.25f * c.getDuenho().transportes() * c.impuesto;
                     actual.sumarFortuna(-p);
                     this.getDuenho().sumarFortuna(p);
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
@@ -224,7 +224,7 @@ public class Casilla {
                 return true;
 
             case "impuesto":
-                actual.sumarFortuna(-Valor.SUMA_VUELTA);
+                actual.sumarFortuna(-c.impuesto);
                 break;
 
             default:
