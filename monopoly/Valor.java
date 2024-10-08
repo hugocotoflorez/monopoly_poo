@@ -7,8 +7,7 @@ public class Valor {
     public static final float SUMA_VUELTA = 1301328.584f; // Se aproxima a la media de los precios de los solares del
                                                           // tablero.
 
-    public static float SUMA_VUELTA_ACTUAL = SUMA_VUELTA;
-    public static float PAGO_SALIR_CARCEL = 0.25f*SUMA_VUELTA_ACTUAL;
+    public static float PAGO_SALIR_CARCEL = 0.25f*SUMA_VUELTA;
 
     public static final float GRUPO_1 = 600000;
     public static final float GRUPO_2 = 520000;
@@ -18,6 +17,10 @@ public class Valor {
     public static final float GRUPO_6 = 1485172;
     public static final float GRUPO_7 = 1930723.6f;
     public static final float GRUPO_8 = 3764911.02f;
+    public static final float IMPUESTOS_TRANSPORTES = SUMA_VUELTA;
+    public static final float IMPUESTO_SERVICIOS = SUMA_VUELTA/200;
+    public static final float IMPUESTOS1 = SUMA_VUELTA;
+    public static final float IMPUESTOS2 = SUMA_VUELTA/2;
 
     // Colores del texto:
     public static final String BOLD = "\u001B[1m";
@@ -39,4 +42,5 @@ public class Valor {
     public static final String COLOR_G6 = "\u001B[38;2;128;64;0m";
     public static final String COLOR_G7 = GREEN;
     public static final String COLOR_G8 = BLUE;
+
 }
