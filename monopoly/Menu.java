@@ -253,13 +253,25 @@ public class Menu {
 
                 casillanueva = avatares.get(turno).getCasilla().getPosicion();
                 if ((casillaantes > casillanueva) && (casillanueva > 0)) {
-                    jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
+                    System.out.println("¡Has pasado por la casilla! Ganaste "+ Valor.SUMA_VUELTA_ACTUAL);
+                    jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA_ACTUAL);
+                    jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas()+1);
                 }
 
                 if (dadosDobles(dado1, dado2)) {
                     this.tirado = false;
                     System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
                 }
+
+                int vueltasmin = this.jugadores.get(turno).getVueltas();
+                for(Jugador j: this.jugadores){
+                    if (j.getVueltas() <= vueltasmin) vueltasmin = j.getVueltas();
+                }
+                if (vueltasmin < this.jugadores.get(turno).getVueltas()){
+                    vueltasmin += 1;
+                    if (this.jugadores.get(turno).getVueltas() % 4 == 0) //TODO
+                }
+
             }
         } else {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
