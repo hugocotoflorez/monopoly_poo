@@ -34,6 +34,7 @@ public class Casilla {
         this.posicion = posicion;
         this.valor = valor;
         this.duenho = duenho;
+        this.impuesto = valor*0.1f;
     }
 
     /*
