@@ -278,6 +278,10 @@ public class Menu {
                     if (this.jugadores.get(turno).getVueltas() % 4 == 0) // TODO
                         ;
                 }
+                if(avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")){
+                    jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
+                }
+                avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), banca, desplazamiento);
 
             }
         } else {
