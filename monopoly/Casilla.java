@@ -152,12 +152,15 @@ public class Casilla {
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
         Casilla c = this;// sorry
         switch (c.getTipo()) {
+            // supuestamente acabado
             case "solar":
                 if (c.getDuenho() != banca && c.getDuenho() != actual) {
                     // se le resta el impuesto y se lo da al jugador que tiene
                     // la casilla
                     actual.sumarFortuna(-c.getImpuesto());// revisar
                     c.getDuenho().sumarFortuna(c.getImpuesto());
+                    System.out.println("El jugador " + actual.getNombre() + " paga " +
+                            c.getImpuesto() + " a " + c.getDuenho());
                     break;
                 }
                 /*
@@ -169,10 +172,30 @@ public class Casilla {
                 return true; // se puede comprar
 
             case "especial":
+                if (this.nombre.equals("Carcel")) {
+                    // no pasa nada
+                }
+                if (this.nombre.equals("Parking")) {
+                    banca.sumarFortuna(-banca.getGastos());
+                    this.getDuenho().sumarFortuna(banca.getGastos());
+                    banca.resetGastos();
+                }
+                if (this.nombre.equals("IrCarcel")) {
+                    /* No se como pasarle el array de casillas desde aqui */
+                    actual.encarcelar(null); // TODO
+                }
+                if (this.nombre.equals("Salida")) {
+                    // Desde aqui no se hace nada
+                }
+
                 break;
             case "transporte":
                 if (c.getDuenho() != banca && c.getDuenho() != actual) {
-                    float p = 0.25 * c.getDuenho().transportes * Valor.VALOR_TRANSPORTE;
+                    float p = 0.25f * c.getDuenho().transportes() * Valor.IMPUESTOS_TRANSPORTES;
+                    actual.sumarFortuna(-p);
+                    this.getDuenho().sumarFortuna(p);
+                    System.out.println("El jugador " + actual.getNombre() + " paga " +
+                            p + " a " + c.getDuenho());
                     // pagar
                     break;
                 }
@@ -189,22 +212,20 @@ public class Casilla {
                 if (c.getDuenho() != banca && c.getDuenho() != actual) {
                     // se le resta el impuesto y se lo da al jugador que tiene
                     // la casilla
-                    int s = (c.getDuenho().servicios() == 2) ? 10 : 4;
+                    int s = (c.getDuenho().servicios() >= 2) ? 10 : 4;
                     float precio = c.getImpuesto() * s * actual.getTirada(); // REVISAR
                     actual.sumarFortuna(-precio);// revisar
                     c.getDuenho().sumarFortuna(precio);
+                    System.out.println("El jugador " + actual.getNombre() + " paga " +
+                            precio + " a " + c.getDuenho());
                     break;
                 }
                 System.out.println("Se puede comprar la casilla " + c.getNombre());
                 return true;
 
             case "impuesto":
-            for(Avatar a: avatares){
-                if(a.getId().equals(actual.getAvatar().getId())){
-                    actual.sumarFortuna(-Valor.SUMA_VUELTA);
-                    break;
-                }
-            }
+                actual.sumarFortuna(-Valor.SUMA_VUELTA);
+                break;
 
             default:
                 System.err.println("Hugo no añadio el tipo %s a evaluarCasilla");

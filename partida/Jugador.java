@@ -9,7 +9,7 @@ public class Jugador {
     private String nombre; // Nombre del jugador
     private Avatar avatar; // Avatar que tiene en la partida.
     private float fortuna; // Dinero que posee.
-    private float gastos; // Gastos realizados a lo largo del juego.
+    private float gastos=0; // Gastos realizados a lo largo del juego.
     private boolean enCarcel; // Será true si el jugador está en la carcel
     private int tiradasCarcel; // Cuando está en la carcel, contará las tiradas sin éxito que ha hecho allí
                                // para intentar salir (se usa para limitar el numero de intentos).
@@ -53,6 +53,14 @@ public class Jugador {
         this.vueltas = 0;
         this.avatar.setJugador(this);
 
+    }
+
+    public float getGastos(){
+        return this.gastos;
+    }
+
+    public void resetGastos(){
+        this.gastos = 0;
     }
 
     // GETTERS
@@ -159,7 +167,7 @@ public class Jugador {
         this.avatar.setLugar(pos.get(1).get(0));
         this.enCarcel = true;
         this.avatar.getCasilla().anhadirAvatar(this.avatar);
-        
+
     }
 
     public boolean esBanca() {
@@ -174,6 +182,19 @@ public class Jugador {
         int i = 0;
         for (Casilla c : this.propiedades) {
             if (c.getTipo().equals("serv"))
+                ++i;
+        }
+        return i;
+    }
+
+    /*
+     * Obtiene el numero de casillas de tipo transporte que
+     * tiene el jugador. Es ineficiente pero funciona
+     */
+    public int transportes() {
+        int i = 0;
+        for (Casilla c : this.propiedades) {
+            if (c.getTipo().equals("transporte"))
                 ++i;
         }
         return i;
