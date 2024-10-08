@@ -98,6 +98,8 @@ public class Tablero {
         lado.add(new Casilla("Suerte", "suerte", 8, banca));
         lado.add(new Casilla("Solar4", "solar", 9, Valor.GRUPO_2, banca));
         lado.add(new Casilla("Solar5", "solar", 10, Valor.GRUPO_2, banca));
+        lado.get(4).setImpuesto(Valor.IMPUESTOS1);
+        lado.get(5).setImpuesto(Valor.IMPUESTOS_TRANSPORTES);
         Grupo G1 = new Grupo(lado.get(1), lado.get(3), Valor.COLOR_G1);
         Grupo G2 = new Grupo(lado.get(6), lado.get(8), lado.get(9), Valor.COLOR_G2);
         this.grupos.put("Negro", G1);
@@ -119,8 +121,9 @@ public class Tablero {
         lado.add(new Casilla("Caja", "caja", 18, banca));
         lado.add(new Casilla("Solar10", "solar", 19, Valor.GRUPO_4, banca));
         lado.add(new Casilla("Solar11", "solar", 20, Valor.GRUPO_4, banca));
-        lado.get(1).setImpuesto(Valor.GRUPO_3*0.10f); lado.get(3).setImpuesto(Valor.GRUPO_3*0.10f); lado.get(4).setImpuesto(Valor.GRUPO_3*0.10f);
-        lado.get(6).setImpuesto(Valor.GRUPO_4*0.10f);lado.get(8).setImpuesto(Valor.GRUPO_4*0.10f); lado.get(9).setImpuesto(Valor.GRUPO_4*0.10f);
+        //lado.get(1).setImpuesto(Valor.GRUPO_3*0.10f); lado.get(3).setImpuesto(Valor.GRUPO_3*0.10f); lado.get(4).setImpuesto(Valor.GRUPO_3*0.10f);
+        //lado.get(6).setImpuesto(Valor.GRUPO_4*0.10f);lado.get(8).setImpuesto(Valor.GRUPO_4*0.10f); lado.get(9).setImpuesto(Valor.GRUPO_4*0.10f);
+        lado.get(2).setImpuesto(Valor.IMPUESTO_SERVICIOS);
         lado.get(5).setImpuesto(Valor.IMPUESTOS_TRANSPORTES);
         Grupo G3 = new Grupo(lado.get(1), lado.get(3), lado.get(4), Valor.COLOR_G3);
         Grupo G4 = new Grupo(lado.get(6), lado.get(8), lado.get(9), Valor.COLOR_G4);
@@ -143,6 +146,8 @@ public class Tablero {
         lado.add(new Casilla("Solar21", "solar", 38, Valor.GRUPO_8, banca));
         lado.add(new Casilla("Impuesto2", 39, (Valor.SUMA_VUELTA) / 2, banca));
         lado.add(new Casilla("Solar22", "solar", 40, Valor.GRUPO_8, banca));
+        lado.get(5).setImpuesto(Valor.IMPUESTOS_TRANSPORTES);
+        lado.get(8).setImpuesto(Valor.IMPUESTOS2);
         Grupo G7 = new Grupo(lado.get(1), lado.get(2), lado.get(4), Valor.COLOR_G7);
         Grupo G8 = new Grupo(lado.get(7), lado.get(9), Valor.COLOR_G8);
         this.grupos.put("Verde",G7);
