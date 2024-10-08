@@ -192,7 +192,8 @@ public class Casilla {
                 break;
             case "transporte":
                 if (!c.esComprable(actual)) {
-                    c.setImpuesto(c.getDuenho().cuantostransportes()*0.25f*Valor.IMPUESTOS_TRANSPORTES);
+                    float p = c.getDuenho().cuantostransportes()*0.25f*Valor.IMPUESTOS_TRANSPORTES;
+                    c.setImpuesto(p);
                     actual.sumarFortuna(-c.impuesto);
                     if(actual.estaBancarrota()) Menu.acabarPartida();
                     this.getDuenho().sumarFortuna(c.impuesto);
@@ -210,19 +211,19 @@ public class Casilla {
                 break;
 
             case "serv":
-                if (!c.esComprable(actual)) {
-                    // se le resta el impuesto y se lo da al jugador que tiene
-                    // la casilla
-                    int s = (c.getDuenho().servicios() >= 2) ? 10 : 4;
-                    float precio = c.getImpuesto() * s * actual.getTirada(); // REVISAR
-                    actual.sumarFortuna(-precio);// revisar
-                    c.getDuenho().sumarFortuna(precio);
+                 if (!c.esComprable(actual)) {
+                    int s = (c.getDuenho().cuantosservicios()>=2)?10:4;
+                    float p = Valor.IMPUESTO_SERVICIOS*s*tirada;
+                    c.setImpuesto(p);
+                    actual.sumarFortuna(-c.impuesto);
+                    if(actual.estaBancarrota()) Menu.acabarPartida();
+                    c.getDuenho().sumarFortuna(c.impuesto);
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
-                            precio + " a " + c.getDuenho());
+                            c.impuesto + " a " + c.getDuenho());
                     break;
                 }
                 System.out.println("Se puede comprar la casilla " + c.getNombre());
-                return true;
+                return true; // se puede comprar
 
             case "impuesto":
                 System.out.println("Has caído en una casilla de impuestos. Se te va a cobrar "+c.impuesto);
