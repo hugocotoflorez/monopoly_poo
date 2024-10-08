@@ -67,17 +67,18 @@ public class Menu {
             case "opciones":
             case "?":
                 System.out.println("crear jugador <nombre> <tipo_avatar>");
-                System.out.println("jugador");
+                System.out.println("jugador - jugador con el turno");
                 System.out.println("listar enventa");
                 System.out.println("listar jugadores");
                 System.out.println("listar avatares");
                 System.out.println("lanzar dados");
-                System.out.println("acabar");
+                System.out.println("acabar - acaba el turno");
                 System.out.println("salir (carcel)");
                 System.out.println("describir jugador  <nombre>");
                 System.out.println("describir avatar <letra");
                 System.out.println("comprar <casilla>");
-                System.out.println("ver");
+                System.out.println("ver - muestra el tablero");
+                System.out.println("clear - limpia la pantalla");
                 break;
 
             case "crear":
@@ -159,9 +160,13 @@ public class Menu {
                 System.out.println(this.tablero);
                 break;
 
+            case "q":
             case "SALIR":
                 this.partida_finalizada = true;
                 break;
+
+            case "clear":
+                System.out.print("033[H\033[2J");
 
             default:
                 System.out.println("Opcion incorrecta. [? para ver las opciones]");
@@ -177,7 +182,7 @@ public class Menu {
 
         for (Jugador J : this.jugadores) {
             if (J.getNombre().equals(partes[2])) {
-                System.out.println(J.toString());
+                System.out.println(J);
                 return;
             }
         }
@@ -255,7 +260,7 @@ public class Menu {
                 if ((casillaantes > casillanueva) && (casillanueva > 0)) {
                     System.out.println("¡Has pasado por la Salida! Ganaste "+ Valor.SUMA_VUELTA);
                     jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
-                    jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas()+1);
+                    jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
                 }
 
                 if (dadosDobles(dado1, dado2)) {
@@ -264,13 +269,14 @@ public class Menu {
                 }
 
                 int vueltasmin = this.jugadores.get(turno).getVueltas();
-                for(Jugador j: this.jugadores){
-                    if (j.getVueltas() <= vueltasmin) vueltasmin = j.getVueltas();
+                for (Jugador j : this.jugadores) {
+                    if (j.getVueltas() <= vueltasmin)
+                        vueltasmin = j.getVueltas();
                 }
-                if (vueltasmin < this.jugadores.get(turno).getVueltas()){
+                if (vueltasmin < this.jugadores.get(turno).getVueltas()) {
                     vueltasmin += 1;
-                    if (this.jugadores.get(turno).getVueltas() % 4 == 0) //TODO
-                ;
+                    if (this.jugadores.get(turno).getVueltas() % 4 == 0) // TODO
+                        ;
                 }
 
             }
