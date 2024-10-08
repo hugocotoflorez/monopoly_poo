@@ -138,14 +138,11 @@ public class Jugador {
     // pasaría un valor negativo.
     public void sumarFortuna(float valor) {
         this.fortuna += valor;
-        if (this.estaBancarrota()) {
-            System.out.println("El jugador " + this.nombre + " se ha quedado en bancarrota. La partida se acabará");
-            Menu.acabarPartida();
-        }
     }
 
     // Método para comprobar si un jugador está en bancarrota
     public boolean estaBancarrota() {
+        if(this.fortuna<0) System.out.println("El jugador "+ nombre + "está en bancarrota.");
         return this.fortuna < 0;
     }
 
@@ -191,7 +188,7 @@ public class Jugador {
      * Obtiene el numero de casillas de tipo transporte que
      * tiene el jugador. Es ineficiente pero funciona
      */
-    public int transportes() {
+    public int cuantostransportes() {
         int i = 0;
         for (Casilla c : this.propiedades) {
             if (c.getTipo().equals("transporte"))

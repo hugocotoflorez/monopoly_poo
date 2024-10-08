@@ -154,7 +154,7 @@ public class Casilla {
         switch (c.getTipo()) {
             // supuestamente acabado
             case "solar":
-                if (c.esComprable(actual)) {
+                if (!c.esComprable(actual)) {
                     // se le resta el impuesto y se lo da al jugador que tiene
                     // la casilla
                     actual.sumarFortuna(-c.getImpuesto());// revisar
@@ -191,13 +191,13 @@ public class Casilla {
 
                 break;
             case "transporte":
-                if (c.esComprable(actual)) {
-                    float p = 0.25f * c.getDuenho().transportes() * c.impuesto;
-                    actual.sumarFortuna(-p);
-                    this.getDuenho().sumarFortuna(p);
+                if (!c.esComprable(actual)) {
+                    c.setImpuesto(c.getDuenho().cuantostransportes()*0.25f*Valor.IMPUESTOS_TRANSPORTES);
+                    actual.sumarFortuna(-c.impuesto);
+                    if(actual.estaBancarrota()) Menu.acabarPartida();
+                    this.getDuenho().sumarFortuna(c.impuesto);
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
-                            p + " a " + c.getDuenho());
-                    // pagar
+                            c.impuesto + " a " + c.getDuenho());
                     break;
                 }
                 System.out.println("Se puede comprar la casilla " + c.getNombre());
@@ -210,7 +210,7 @@ public class Casilla {
                 break;
 
             case "serv":
-                if (c.esComprable(actual)) {
+                if (!c.esComprable(actual)) {
                     // se le resta el impuesto y se lo da al jugador que tiene
                     // la casilla
                     int s = (c.getDuenho().servicios() >= 2) ? 10 : 4;
@@ -227,6 +227,7 @@ public class Casilla {
             case "impuesto":
                 System.out.println("Has caído en una casilla de impuestos. Se te va a cobrar "+c.impuesto);
                 actual.sumarFortuna(-c.impuesto);
+                if(actual.estaBancarrota()) Menu.acabarPartida();
                 banca.sumarGastos(c.impuesto);
                 System.out.println("El bote de la banca ahora es "+banca.getGastos());
                 break;
