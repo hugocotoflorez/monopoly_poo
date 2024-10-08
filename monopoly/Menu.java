@@ -120,12 +120,10 @@ public class Menu {
                     } else
                         System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
                     break;
-                } else if (com.length == 2 && com[1].equals("dadoss")) {
-                    int valor = 0;
-                    Scanner scanner2 = new Scanner(System.in);
-                    scanner2.nextInt(valor);
+                } else if (com.length == 3 && com[1].equals("dadoss")) {
+                    int valor = Integer.parseInt(com[2]);
                     lanzarDados(valor);
-                    scanner2.close();
+                    //scanner2.close();
                     break;
                 }
 
