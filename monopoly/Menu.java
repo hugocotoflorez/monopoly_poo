@@ -261,6 +261,16 @@ public class Menu {
                     System.out.println("¡Has pasado por la Salida! Ganaste "+ Valor.SUMA_VUELTA);
                     jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
                     jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
+                
+                    int vueltasmin = this.jugadores.get(turno).getVueltas();
+                    for (Jugador j : this.jugadores) {
+                        if (j.getVueltas() <= vueltasmin)
+                            vueltasmin = j.getVueltas();
+                    }
+                    if(this.jugadores.get(turno).getVueltas()==vueltasmin && vueltasmin%4==0){
+                        //TODO incrementar valor de los solares
+                    }
+                }
                 }
 
                 if (dadosDobles(dado1, dado2)) {
@@ -268,16 +278,7 @@ public class Menu {
                     System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
                 }
 
-                int vueltasmin = this.jugadores.get(turno).getVueltas();
-                for (Jugador j : this.jugadores) {
-                    if (j.getVueltas() <= vueltasmin)
-                        vueltasmin = j.getVueltas();
-                }
-                if (vueltasmin < this.jugadores.get(turno).getVueltas()) {
-                    vueltasmin += 1;
-                    if (this.jugadores.get(turno).getVueltas() % 4 == 0) // TODO
-                        ;
-                }
+                
                 if(avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")){
                     jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
                 }
