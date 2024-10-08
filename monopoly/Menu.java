@@ -271,7 +271,7 @@ public class Menu {
                         //TODO incrementar valor de los solares
                     }
                 }
-                }
+                
 
                 if (dadosDobles(dado1, dado2)) {
                     this.tirado = false;
@@ -285,11 +285,13 @@ public class Menu {
                 avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), banca, desplazamiento);
 
             }
-        } else {
+        }
+        else {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
             System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
         }
     }
+
 
     // sobrecarga de lanzar dados en la cual elegimos qué valor sacan los dados
     private void lanzarDados(int valor1, int valor2) {
