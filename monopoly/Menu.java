@@ -284,7 +284,7 @@ public class Menu {
                 if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
                     jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
                 }
-                avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), banca, desplazamiento);
+                avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
 
             }
         } else {
@@ -333,7 +333,7 @@ public class Menu {
                 if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
                     jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
                 }
-                avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), banca, desplazamiento);
+                avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
 
             }
         } else {
@@ -356,7 +356,7 @@ public class Menu {
             return;
 
         }
-        casilla.comprarCasilla(this.jugadores.get(turno), this.banca);
+        casilla.comprarCasilla(this.jugadores.get(turno), this.jugadores.get(0));
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'salir
@@ -388,7 +388,7 @@ public class Menu {
         }
 
         for (int i = 0; i < 40; i++) {
-            if (this.tablero.obtenerCasilla(i).getDuenho() == banca
+            if (this.tablero.obtenerCasilla(i).getDuenho().esBanca()
                     && (this.tablero.obtenerCasilla(i).getTipo().equals("solar")
                             || this.tablero.obtenerCasilla(i).getTipo().equals("transporte")
                             || this.tablero.obtenerCasilla(i).getTipo().equals("serv"))) {
