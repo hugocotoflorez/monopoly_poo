@@ -225,7 +225,7 @@ public class Casilla {
                 System.out.println("Se puede comprar la casilla " + c.getNombre());
                 return true; // se puede comprar
 
-            case "impuesto":
+            case "impuestos":
                 System.out.println("Has caído en una casilla de impuestos. Se te va a cobrar "+c.impuesto);
                 actual.sumarFortuna(-c.impuesto);
                 if(actual.estaBancarrota()) Menu.acabarPartida();

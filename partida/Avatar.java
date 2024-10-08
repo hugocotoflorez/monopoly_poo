@@ -84,8 +84,7 @@ public class Avatar {
         return this.lugar;
     }
 
-    private static Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valor) // si no se encuentra esta función cambiala a publico
-    {
+    static Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valor){
         valor = valor%40;
         return casillas.get(valor / 10).get(valor % 10);
     }

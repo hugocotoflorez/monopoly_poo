@@ -121,7 +121,11 @@ public class Menu {
                         System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
                     break;
                 } else if (com.length == 2 && com[1].equals("dadoss")) {
-                    lanzarDados(15, 15);
+                    int valor = 0;
+                    Scanner scanner2 = new Scanner(System.in);
+                    scanner2.nextInt(valor);
+                    lanzarDados(valor);
+                    scanner2.close();
                     break;
                 }
 
@@ -258,52 +262,46 @@ public class Menu {
 
                 casillanueva = avatares.get(turno).getCasilla().getPosicion();
                 if ((casillaantes > casillanueva) && (casillanueva > 0)) {
-                    System.out.println("¡Has pasado por la Salida! Ganaste "+ Valor.SUMA_VUELTA);
+                    System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
                     jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
                     jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
-                
+
                     int vueltasmin = this.jugadores.get(turno).getVueltas();
                     for (Jugador j : this.jugadores) {
                         if (j.getVueltas() <= vueltasmin)
                             vueltasmin = j.getVueltas();
                     }
-                    if(this.jugadores.get(turno).getVueltas()==vueltasmin && vueltasmin%4==0){
-                        //TODO incrementar valor de los solares
+                    if (this.jugadores.get(turno).getVueltas() == vueltasmin && vueltasmin % 4 == 0) {
+                        // TODO incrementar valor de los solares
                     }
                 }
-                
 
                 if (dadosDobles(dado1, dado2)) {
                     this.tirado = false;
                     System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
                 }
 
-                
-                if(avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")){
+                if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
                     jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
                 }
                 avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), banca, desplazamiento);
 
             }
-        }
-        else {
+        } else {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
             System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
         }
     }
 
-
     // sobrecarga de lanzar dados en la cual elegimos qué valor sacan los dados
-    private void lanzarDados(int valor1, int valor2) {
+    private void lanzarDados(int valor) {
         if (this.lanzamientos < 2) {
             if (!this.tirado) {
 
                 int casillaantes = avatares.get(turno).getCasilla().getPosicion(), casillanueva;
-                this.dado1.setValor(valor1);
-                this.dado2.setValor(valor2);
                 this.tirado = true;
                 this.lanzamientos += 1;
-                int desplazamiento = this.dado1.getValor() + this.dado2.getValor();
+                int desplazamiento = valor;
                 System.out
                         .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
                                 + this.avatares.get(turno).getCasilla().getNombre() + " hasta ");
@@ -313,19 +311,35 @@ public class Menu {
 
                 casillanueva = avatares.get(turno).getCasilla().getPosicion();
                 if ((casillaantes > casillanueva) && (casillanueva > 0)) {
+                    System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
                     jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
+                    jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
+
+                    int vueltasmin = this.jugadores.get(turno).getVueltas();
+                    for (Jugador j : this.jugadores) {
+                        if (j.getVueltas() <= vueltasmin)
+                            vueltasmin = j.getVueltas();
+                    }
+                    if (this.jugadores.get(turno).getVueltas() == vueltasmin && vueltasmin % 4 == 0) {
+                        // TODO incrementar valor de los solares
+                    }
                 }
 
                 if (dadosDobles(dado1, dado2)) {
                     this.tirado = false;
                     System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
                 }
+
+                if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
+                    jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
+                }
+                avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), banca, desplazamiento);
+
             }
         } else {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
             System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
         }
-
     }
 
     /*
@@ -418,8 +432,10 @@ public class Menu {
                 this.turno = 1; // Por la banca
                 System.out.println("El jugador actual es: " + this.jugadores.get(turno).getNombre());
             }
-        } else {
+        } else if(!partida_empezada) {
             System.out.println("La partida todavia no ha empezado. ");
+        }else if(!this.tirado){
+            System.out.println("No has lanzado los dados este turno");
         }
     }
 
