@@ -174,8 +174,10 @@ public class Casilla {
             case "especial":
                 if (this.nombre.equals("Carcel")) {
                     // no pasa nada
+                    System.out.println("Estás de visita en la cárcel.");
                 }
                 if (this.nombre.equals("Parking")) {
+                    System.out.println("El jugador " + actual.getNombre() + " consigue el bote de la banca de " + banca.getGastos());
                     banca.sumarFortuna(-banca.getGastos());
                     this.getDuenho().sumarFortuna(banca.getGastos());
                     banca.resetGastos();
@@ -224,7 +226,10 @@ public class Casilla {
                 return true;
 
             case "impuesto":
+                System.out.println("Has caído en una casilla de impuestos. Se te va a cobrar "+c.impuesto);
                 actual.sumarFortuna(-c.impuesto);
+                banca.sumarGastos(c.impuesto);
+                System.out.println("El bote de la banca ahora es "+banca.getGastos());
                 break;
 
             default:
@@ -243,15 +248,15 @@ public class Casilla {
     public void comprarCasilla(Jugador solicitante, Jugador banca) {
 
         float fortuna_solicitante = solicitante.getFortuna();
-        float fortuna_banca = banca.getFortuna();
         if (fortuna_solicitante >= this.valor && this.esComprable()) {
             solicitante.setFortuna(fortuna_solicitante - this.valor);
-            banca.setFortuna(fortuna_banca + this.valor);
+            banca.sumarGastos(this.valor);
             banca.eliminarPropiedad(this);
             solicitante.anhadirPropiedad(this);
             this.duenho = solicitante;
             System.out.println("El jugador " + solicitante.getNombre() + " ha comprado la casilla " + this.nombre
                     + ". Su fortuna actual es " + solicitante.getFortuna());
+            System.out.println("El bote de la banca es ahora "+banca.getGastos());
         } else if (fortuna_solicitante < this.valor) { // TODO
             System.out.println("No tienes suficiente fortuna.");
         } else if (!this.esComprable()) {
