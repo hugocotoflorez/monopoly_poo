@@ -175,7 +175,7 @@ public class Jugador {
      * Obtiene el numero de casillas de tipo servicio que
      * tiene el jugador. Es ineficiente pero funciona
      */
-    public int servicios() {
+    public int cuantosservicios() {
         int i = 0;
         for (Casilla c : this.propiedades) {
             if (c.getTipo().equals("serv"))
