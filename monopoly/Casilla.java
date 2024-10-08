@@ -160,7 +160,7 @@ public class Casilla {
                     actual.sumarFortuna(-c.getImpuesto());// revisar
                     c.getDuenho().sumarFortuna(c.getImpuesto());
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
-                            c.getImpuesto() + " a " + c.getDuenho());
+                            c.getImpuesto() + " a " + c.getDuenho().getNombre());
                     break;
                 }
                 /*
