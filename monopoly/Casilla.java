@@ -154,7 +154,7 @@ public class Casilla {
         switch (c.getTipo()) {
             // supuestamente acabado
             case "solar":
-                if (c.getDuenho() != banca && c.getDuenho() != actual) {
+                if (c.esComprable(actual)) {
                     // se le resta el impuesto y se lo da al jugador que tiene
                     // la casilla
                     actual.sumarFortuna(-c.getImpuesto());// revisar
@@ -179,20 +179,19 @@ public class Casilla {
                 if (this.nombre.equals("Parking")) {
                     System.out.println("El jugador " + actual.getNombre() + " consigue el bote de la banca de " + banca.getGastos());
                     banca.sumarFortuna(-banca.getGastos());
-                    this.getDuenho().sumarFortuna(banca.getGastos());
+                    actual.sumarFortuna(banca.getGastos());
                     banca.resetGastos();
                 }
                 if (this.nombre.equals("IrCarcel")) {
-                    /* No se como pasarle el array de casillas desde aqui */
-                    actual.encarcelar(null); // TODO
+                    System.out.println("Oh no! Has ido a la Cárcel!");
                 }
                 if (this.nombre.equals("Salida")) {
-                    // Desde aqui no se hace nada
+                    System.out.println("Has pasado por Salida! Cobra " + Valor.SUMA_VUELTA);
                 }
 
                 break;
             case "transporte":
-                if (c.getDuenho() != banca && c.getDuenho() != actual) {
+                if (c.esComprable(actual)) {
                     float p = 0.25f * c.getDuenho().transportes() * c.impuesto;
                     actual.sumarFortuna(-p);
                     this.getDuenho().sumarFortuna(p);
@@ -211,7 +210,7 @@ public class Casilla {
                 break;
 
             case "serv":
-                if (c.getDuenho() != banca && c.getDuenho() != actual) {
+                if (c.esComprable(actual)) {
                     // se le resta el impuesto y se lo da al jugador que tiene
                     // la casilla
                     int s = (c.getDuenho().servicios() >= 2) ? 10 : 4;
@@ -248,7 +247,7 @@ public class Casilla {
     public void comprarCasilla(Jugador solicitante, Jugador banca) {
 
         float fortuna_solicitante = solicitante.getFortuna();
-        if (fortuna_solicitante >= this.valor && this.esComprable()) {
+        if (fortuna_solicitante >= this.valor && this.esComprable(solicitante)) {
             solicitante.setFortuna(fortuna_solicitante - this.valor);
             banca.sumarGastos(this.valor);
             banca.eliminarPropiedad(this);
@@ -259,7 +258,7 @@ public class Casilla {
             System.out.println("El bote de la banca es ahora "+banca.getGastos());
         } else if (fortuna_solicitante < this.valor) { // TODO
             System.out.println("No tienes suficiente fortuna.");
-        } else if (!this.esComprable()) {
+        } else if (!this.esComprable(solicitante)) {
             System.out.println("Esta casilla no se puede comprar.");
         }
     }
@@ -423,17 +422,14 @@ public class Casilla {
             System.exit(1);
         }
     }
-    private boolean encontrarAvatarCasilla(){
-        for (Avatar a: avatares){
-            if(a.getCasilla().equals(this))
-                return true;
-        }
-        return false;
-    }
-    public boolean esComprable() {
+    /*public boolean esComprable() {
 
         return (this.duenho.esBanca()
                 && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv")) && this.encontrarAvatarCasilla());
+    }*/
+    public boolean esComprable(Jugador jugador) {
+
+        return (this.duenho.esBanca() && jugador.getAvatar().getCasilla().equals(this));
     }
 
     @Override
