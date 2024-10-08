@@ -299,15 +299,6 @@ public class Menu {
         }
         }
 
-    private Jugador jugadorMenosVueltas(ArrayList<Jugador> jugadores) {
-        Jugador min_j;
-        min_j = jugadores.get(0);
-        for (Jugador a : jugadores)
-            if (a.getVueltas() < min_j.getVueltas())
-                min_j = a;
-        return min_j;
-    }
-
     // sobrecarga de lanzar dados en la cual elegimos qué valor sacan los dados
     private void lanzarDados(int valor) {
         if (this.lanzamientos < 2) {
@@ -340,10 +331,10 @@ public class Menu {
                     }
                 }
 
-                if (dadosDobles(dado1, dado2)) {
+                /*if (dadosDobles(dado1, dado2)) {
                     this.tirado = false;
                     System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
-                }
+                }*/
 
                 if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
                     jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
