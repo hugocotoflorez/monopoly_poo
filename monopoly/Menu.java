@@ -2,6 +2,7 @@ package monopoly;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 import partida.*;
 
 public class Menu {
@@ -123,7 +124,7 @@ public class Menu {
                 } else if (com.length == 3 && com[1].equals("dadoss")) {
                     int valor = Integer.parseInt(com[2]);
                     lanzarDados(valor);
-                    //scanner2.close();
+                    // scanner2.close();
                     break;
                 }
 
@@ -243,7 +244,7 @@ public class Menu {
     }
 
     private void lanzarDados() {
-        if (this.lanzamientos < 2) {
+        if (this.lanzamientos < 2 && !this.jugadores.get(turno).getEnCarcel()) {
             if (!this.tirado) {
 
                 int casillaantes = avatares.get(turno).getCasilla().getPosicion(), casillanueva;
@@ -286,9 +287,11 @@ public class Menu {
                 avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
 
             }
-        } else {
+        } else if (this.lanzamientos >= 2) {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
             System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
+        } else if (this.jugadores.get(turno).getEnCarcel()) {
+            System.out.println("Oh no! Estás en la cárcel!");
         }
     }
 
@@ -341,6 +344,46 @@ public class Menu {
         }
     }
 
+    private void lanzarDadosCarcel() {
+
+        this.dado1.hacerTirada();
+        this.dado2.hacerTirada();
+        if (dadosDobles(dado1, dado2) && this.jugadores.get(turno).getTurnosCarcel() < 3 && !this.tirado) {
+            int desplazamiento = dado1.getValor() + dado2.getValor();
+            System.out.println("Has sacado dobles! Sales de la Cárcel y avanzas hasta");
+            this.jugadores.get(turno).setEnCarcel(false);
+            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
+            System.out.println(this.avatares.get(turno).getCasilla());
+            this.lanzamientos +=1;
+            return;
+        } 
+        else if(this.jugadores.get(turno).getTurnosCarcel() >= 3){
+            System.out.println("No has sacado dobles! Dado1: "+ dado1.getValor() + " Dado2: " +dado2.getValor());
+            System.out.println("Oh no! Llevas tres turnos en la cárcel paga " + Valor.PAGO_SALIR_CARCEL);
+            pagarCarcel();
+            return;
+        }
+        else if(this.tirado){
+            System.out.println("Ya has tirado este turno! ");
+            return;
+        }
+        else if(!dadosDobles(dado1,dado2)){
+            System.out.println("No has sacado dobles! Dado1: "+ dado1.getValor() + " Dado2: " +dado2.getValor());
+        }
+        this.jugadores.get(turno).setTurnosCarcel(this.jugadores.get(turno).getTurnosCarcel()+1);
+        this.tirado = true;
+        
+    }
+
+    private void pagarCarcel() {
+        this.tirado = false;
+        this.jugadores.get(turno).setEnCarcel(false);
+        this.jugadores.get(turno).sumarFortuna(-Valor.PAGO_SALIR_CARCEL);
+        System.out.println(
+                "Has pagado " + Valor.PAGO_SALIR_CARCEL + " para salir de la carcel. Puedes lanzar los dados.");
+
+    }
+
     /*
      * Método que ejecuta todas las acciones realizadas con el comando 'comprar
      * nombre_casilla'.
@@ -361,13 +404,25 @@ public class Menu {
     // Método que ejecuta todas las acciones relacionadas con el comando 'salir
     // carcel'.
     private void salirCarcel() {
-        if (this.jugadores.get(turno).getEnCarcel() == true) {
 
-            this.jugadores.get(turno).setEnCarcel(false);
-            this.jugadores.get(turno).sumarFortuna(-Valor.PAGO_SALIR_CARCEL);
-            this.jugadores.get(turno).setEnCarcel(false);
-            System.out.println(this.jugadores.get(turno) + "paga " + Valor.PAGO_SALIR_CARCEL
-                    + " y sale de la cárcel. Puede lanzar los dados.");
+        if (this.jugadores.get(turno).getEnCarcel() == true) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Como quieres salir de la cárcel?");
+            System.out.println("1) Lanzar dados (sacando dobles)");
+            System.out.println("2) Pagando el impuesto " + Valor.PAGO_SALIR_CARCEL);
+            System.out.printf("[>]: ");
+            char opcion = scanner.next().charAt(0);
+            switch (opcion) {
+                case '1':
+                    lanzarDadosCarcel();
+                    break;
+                case '2':
+                    pagarCarcel();
+                    break;
+                default:
+                    System.out.println("Opcion incorrecta");
+                    break;
+            }
         } else {
             System.out.println("El jugador " + this.jugadores.get(turno).getNombre() + " no está en la cárcel.");
         }
@@ -431,9 +486,9 @@ public class Menu {
                 this.turno = 1; // Por la banca
                 System.out.println("El jugador actual es: " + this.jugadores.get(turno).getNombre());
             }
-        } else if(!partida_empezada) {
+        } else if (!partida_empezada) {
             System.out.println("La partida todavia no ha empezado. ");
-        }else if(!this.tirado){
+        } else if (!this.tirado) {
             System.out.println("No has lanzado los dados este turno");
         }
     }
