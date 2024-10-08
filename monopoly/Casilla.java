@@ -310,7 +310,8 @@ public class Casilla {
                     impuesto, "No implementado.", "No implementado.", "No implementado.", "No implementado.",
                     "No implementado.", "No implementado.", "No implementado.", "No implementado.", "No implementado.",
                     "No implementado.");
-        } else if (this.tipo.equals("especial")) { // Aquí hay que poner el bote en el Parking, qué jugadores están en
+        } 
+        else if (this.tipo.equals("especial")) { // Aquí hay que poner el bote en el Parking, qué jugadores están en
                                                    // la cárcel, cuánto te dan en la salida
             if (this.nombre.equals("Salida"))
                 info = "{Casilla de salida.}";
@@ -346,8 +347,8 @@ public class Casilla {
                     Propietario: %s
                     Valor: %f
                     Impuesto: %f
-                    }""".formatted(nombre, duenho.getNombre(), valor, 0); // TODO
-        } else if (this.tipo.equals("servicios")) { // Idem transportes
+                    }""".formatted(nombre, duenho.getNombre(), valor, impuesto); // TODO
+        } else if (this.tipo.equals("serv")) { // Idem transportes
             info = """
                     {
                     Nombre: %s
@@ -355,9 +356,26 @@ public class Casilla {
                     Propietario: %s
                     Valor: %f
                     Impuesto: %f
-                    }""".formatted(nombre, duenho.getNombre(), valor, 0); // TODO
-        } else if (this.tipo.equals("comunidad")) {
-        } else {
+                    }""".formatted(nombre, duenho.getNombre(), valor, impuesto); // TODO
+        } else if (this.tipo.equals("caja")) {
+            info = """
+                    Nombre: %s
+                    Tipo: comunidad
+                    """.formatted(nombre);
+        }else if (this.tipo.equals("suerte")){
+                info = """
+                    Nombre: %s
+                    Tipo: suerte
+                    """.formatted(nombre);
+        }
+        else if  (this.tipo.equals("impuestos")){
+            info = """
+                    Nombre: %s
+                    Tipo: impuestos
+                    Impuestos: %f
+                    """.formatted(nombre,impuesto);
+        }
+        else {
             System.out.println("Esa casilla no existe.");
         }
         return info;

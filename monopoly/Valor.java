@@ -21,6 +21,8 @@ public class Valor {
     public static final float IMPUESTO_SERVICIOS = SUMA_VUELTA/200f;
     public static final float IMPUESTOS1 = SUMA_VUELTA;
     public static final float IMPUESTOS2 = SUMA_VUELTA/2;
+    public static final float TRANSPORTES = SUMA_VUELTA;
+    public static final float SERVICIOS = SUMA_VUELTA*0.75f;
 
     // Colores del texto:
     public static final String BOLD = "\u001B[1m";

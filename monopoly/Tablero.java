@@ -66,10 +66,10 @@ public class Tablero {
         lado.add(new Casilla("Suerte2", "suerte", 23, banca));
         lado.add(new Casilla("Solar13", "solar", 24, Valor.GRUPO_5, banca));
         lado.add(new Casilla("Solar14", "solar", 25, Valor.GRUPO_5, banca));
-        lado.add(new Casilla("Trans3", "transporte", 26, Valor.SUMA_VUELTA, banca));
+        lado.add(new Casilla("Trans3", "transporte", 26, Valor.TRANSPORTES, banca));
         lado.add(new Casilla("Solar15", "solar", 27, Valor.GRUPO_6, banca));
         lado.add(new Casilla("Solar16", "solar", 28, Valor.GRUPO_6, banca));
-        lado.add(new Casilla("Serv2", "serv", 29, Valor.SUMA_VUELTA * 0.75f, banca));
+        lado.add(new Casilla("Serv2", "serv", 29, Valor.SERVICIOS, banca));
         lado.add(new Casilla("Solar17", "solar", 30, Valor.GRUPO_6, banca));
 
         
@@ -92,13 +92,12 @@ public class Tablero {
         lado.add(new Casilla("Solar1", "solar", 2, Valor.GRUPO_1, banca));
         lado.add(new Casilla("Caja", "caja", 3, banca));
         lado.add(new Casilla("Solar2", "solar", 4, Valor.GRUPO_1, banca));
-        lado.add(new Casilla("Impt1", 5, Valor.SUMA_VUELTA, banca));
-        lado.add(new Casilla("Trans1", "transporte", 6, Valor.SUMA_VUELTA, banca));
+        lado.add(new Casilla("Impt1", 5, Valor.IMPUESTOS1, banca));
+        lado.add(new Casilla("Trans1", "transporte", 6, Valor.TRANSPORTES, banca));
         lado.add(new Casilla("Solar3", "solar", 7, Valor.GRUPO_2, banca));
         lado.add(new Casilla("Suerte", "suerte", 8, banca));
         lado.add(new Casilla("Solar4", "solar", 9, Valor.GRUPO_2, banca));
         lado.add(new Casilla("Solar5", "solar", 10, Valor.GRUPO_2, banca));
-        lado.get(4).setImpuesto(Valor.IMPUESTOS1);
         lado.get(5).setImpuesto(Valor.IMPUESTOS_TRANSPORTES);
         Grupo G1 = new Grupo(lado.get(1), lado.get(3), Valor.COLOR_G1);
         Grupo G2 = new Grupo(lado.get(6), lado.get(8), lado.get(9), Valor.COLOR_G2);
@@ -113,10 +112,10 @@ public class Tablero {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
         lado.add(new Casilla("Carcel", "especial", 11, banca));
         lado.add(new Casilla("Solar6", "solar", 12, Valor.GRUPO_3, banca));
-        lado.add(new Casilla("Serv1", "serv", 13, Valor.SUMA_VUELTA * 0.75f, banca));
+        lado.add(new Casilla("Serv1", "serv", 13, Valor.SERVICIOS, banca));
         lado.add(new Casilla("Solar7", "solar", 14, Valor.GRUPO_3, banca));
         lado.add(new Casilla("Solar8", "solar", 15, Valor.GRUPO_3, banca));
-        lado.add(new Casilla("Trans2", "transporte", 16, Valor.SUMA_VUELTA, banca));
+        lado.add(new Casilla("Trans2", "transporte", 16, Valor.TRANSPORTES, banca));
         lado.add(new Casilla("Solar9", "solar", 17, Valor.GRUPO_4, banca));
         lado.add(new Casilla("Caja", "caja", 18, banca));
         lado.add(new Casilla("Solar10", "solar", 19, Valor.GRUPO_4, banca));
@@ -141,13 +140,12 @@ public class Tablero {
         lado.add(new Casilla("Solar19", "solar", 33, Valor.GRUPO_7, banca));
         lado.add(new Casilla("Caja", "caja", 34, banca));
         lado.add(new Casilla("Solar20", "solar", 35, Valor.GRUPO_7, banca));
-        lado.add(new Casilla("Trans4", "transporte", 36, Valor.SUMA_VUELTA, banca));
+        lado.add(new Casilla("Trans4", "transporte", 36, Valor.TRANSPORTES, banca));
         lado.add(new Casilla("Suerte3", "suerte", 37, banca));
         lado.add(new Casilla("Solar21", "solar", 38, Valor.GRUPO_8, banca));
-        lado.add(new Casilla("Impuesto2", 39, (Valor.SUMA_VUELTA) / 2, banca));
+        lado.add(new Casilla("Impt2", 39, Valor.IMPUESTOS2, banca));
         lado.add(new Casilla("Solar22", "solar", 40, Valor.GRUPO_8, banca));
         lado.get(5).setImpuesto(Valor.IMPUESTOS_TRANSPORTES);
-        lado.get(8).setImpuesto(Valor.IMPUESTOS2);
         Grupo G7 = new Grupo(lado.get(1), lado.get(2), lado.get(4), Valor.COLOR_G7);
         Grupo G8 = new Grupo(lado.get(7), lado.get(9), Valor.COLOR_G8);
         this.grupos.put("Verde",G7);
