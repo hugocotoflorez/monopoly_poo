@@ -168,7 +168,8 @@ public class Menu {
                 break;
 
             case "clear":
-                System.out.print("033[H\033[2J");
+                System.out.print("\033[H\033[2J");
+                break;
 
             default:
                 System.out.println("Opcion incorrecta. [? para ver las opciones]");
