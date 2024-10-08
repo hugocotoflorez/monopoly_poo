@@ -120,7 +120,7 @@ public class Menu {
                         System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
                     break;
                 } else if (com.length == 2 && com[1].equals("dadoss")) {
-                    lanzarDados(3, 3);
+                    lanzarDados(1, 38);
                     break;
                 }
 
@@ -253,7 +253,7 @@ public class Menu {
 
                 casillanueva = avatares.get(turno).getCasilla().getPosicion();
                 if ((casillaantes > casillanueva) && (casillanueva > 0)) {
-                    System.out.println("¡Has pasado por la casilla! Ganaste "+ Valor.SUMA_VUELTA);
+                    System.out.println("¡Has pasado por la Salida! Ganaste "+ Valor.SUMA_VUELTA);
                     jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
                     jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas()+1);
                 }
