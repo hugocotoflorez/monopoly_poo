@@ -290,7 +290,7 @@ public class Menu {
                 avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
                 }
             }
-        } else if (this.lanzamientos >= 2) {
+         else if (this.lanzamientos >= 2) {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
             System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
         }else if(this.jugadores.get(turno).getEnCarcel())
