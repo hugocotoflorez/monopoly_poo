@@ -18,7 +18,7 @@ public class Valor {
     public static final float GRUPO_7 = 1930723.6f;
     public static final float GRUPO_8 = 3764911.02f;
     public static final float IMPUESTOS_TRANSPORTES = SUMA_VUELTA;
-    public static final float IMPUESTO_SERVICIOS = SUMA_VUELTA/200;
+    public static final float IMPUESTO_SERVICIOS = SUMA_VUELTA/200f;
     public static final float IMPUESTOS1 = SUMA_VUELTA;
     public static final float IMPUESTOS2 = SUMA_VUELTA/2;
 

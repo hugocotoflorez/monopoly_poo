@@ -73,6 +73,8 @@ public class Tablero {
         lado.add(new Casilla("Solar17", "solar", 30, Valor.GRUPO_6, banca));
         lado.get(1).setImpuesto(Valor.GRUPO_5*0.10f); lado.get(3).setImpuesto(Valor.GRUPO_5*0.10f); lado.get(4).setImpuesto(Valor.GRUPO_5*0.10f);
         lado.get(6).setImpuesto(Valor.GRUPO_6*0.10f);lado.get(7).setImpuesto(Valor.GRUPO_6*0.10f); lado.get(9).setImpuesto(Valor.GRUPO_6*0.10f);
+        lado.get(5).setImpuesto(Valor.IMPUESTOS_TRANSPORTES);
+        lado.get(8).setImpuesto(Valor.IMPUESTO_SERVICIOS);
         new Grupo(lado.get(1), lado.get(3), lado.get(4), Valor.COLOR_G5);
         new Grupo(lado.get(6), lado.get(7), lado.get(9), Valor.COLOR_G6);
         posiciones.add(lado);
@@ -111,6 +113,9 @@ public class Tablero {
         lado.add(new Casilla("Caja", "caja", 18, banca));
         lado.add(new Casilla("Solar10", "solar", 19, Valor.GRUPO_4, banca));
         lado.add(new Casilla("Solar11", "solar", 20, Valor.GRUPO_4, banca));
+        lado.get(1).setImpuesto(Valor.GRUPO_3*0.10f); lado.get(3).setImpuesto(Valor.GRUPO_3*0.10f); lado.get(4).setImpuesto(Valor.GRUPO_3*0.10f);
+        lado.get(6).setImpuesto(Valor.GRUPO_4*0.10f);lado.get(8).setImpuesto(Valor.GRUPO_4*0.10f); lado.get(9).setImpuesto(Valor.GRUPO_4*0.10f);
+        lado.get(5).setImpuesto(Valor.IMPUESTOS_TRANSPORTES);
         new Grupo(lado.get(1), lado.get(3), lado.get(4), Valor.COLOR_G3);
         new Grupo(lado.get(6), lado.get(8), lado.get(9), Valor.COLOR_G4);
 
