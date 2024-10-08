@@ -423,10 +423,17 @@ public class Casilla {
             System.exit(1);
         }
     }
-
+    private boolean encontrarAvatarCasilla(){
+        for (Avatar a: avatares){
+            if(a.getCasilla().equals(this))
+                return true;
+        }
+        return false;
+    }
     public boolean esComprable() {
+
         return (this.duenho.esBanca()
-                && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv")));
+                && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv")) && this.encontrarAvatarCasilla());
     }
 
     @Override
