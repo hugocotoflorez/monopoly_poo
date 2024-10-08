@@ -154,13 +154,13 @@ public class Casilla {
         switch (c.getTipo()) {
             // supuestamente acabado
             case "solar":
-                if (c.getDuenho() != banca && c.getDuenho() != actual) {
+                if ((!c.getDuenho().esBanca()) && (!c.getDuenho().equals(actual))) {
                     // se le resta el impuesto y se lo da al jugador que tiene
                     // la casilla
                     actual.sumarFortuna(-c.getImpuesto());// revisar
                     c.getDuenho().sumarFortuna(c.getImpuesto());
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
-                            c.getImpuesto() + " a " + c.getDuenho());
+                            c.getImpuesto() + " a " + c.getDuenho().getNombre());
                     break;
                 }
                 /*
