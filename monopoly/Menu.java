@@ -273,10 +273,11 @@ public class Menu {
                             vueltasmin = j.getVueltas();
                     }
                     if((this.jugadores.get(turno).getVueltas() == vueltasmin) && (vueltasmin % 4 == 0)){
+                        System.out.println("Todos los jugadores han dado 4 vueltas, se va a incrementar el precio de los solares en un 10%.");
                         this.tablero.actualizarValorSolares();
                     }
                     }
-                }
+                
 
                 if (dadosDobles(dado1, dado2)) {
                     this.tirado = false;
@@ -287,7 +288,7 @@ public class Menu {
                     jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
                 }
                 avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
-
+                }
             }
         else {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
