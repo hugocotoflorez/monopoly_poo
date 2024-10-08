@@ -123,6 +123,7 @@ public class Menu {
                         System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
                     break;
                 } else if (com.length == 3 && com[1].equals("dadoss")) {
+                    partida_empezada = true;
                     int valor = Integer.parseInt(com[2]);
                     lanzarDados(valor);
                     // scanner2.close();
