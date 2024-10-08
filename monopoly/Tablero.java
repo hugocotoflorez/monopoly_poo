@@ -31,7 +31,6 @@ public class Tablero {
     // menú).
     public Tablero(Jugador banca) {
         this.banca = banca;
-        this.grupos;
         generarCasillas();
     }
 
