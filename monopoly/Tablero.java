@@ -10,7 +10,7 @@ public class Tablero {
     // Atributos.
     private ArrayList<ArrayList<Casilla>> posiciones; // Posiciones del tablero: se define como un arraylist de
                                                       // arraylists de casillas (uno por cada lado del tablero).
-    private HashMap<String, Grupo> grupos; // Grupos del tablero, almacenados como un HashMap con clave String (será el
+    private HashMap<String, Grupo> grupos = new HashMap<String, Grupo>(); // Grupos del tablero, almacenados como un HashMap con clave String (será el
                                            // color del grupo).
     private Jugador banca; // Un jugador que será la banca.
 
@@ -31,6 +31,7 @@ public class Tablero {
     // menú).
     public Tablero(Jugador banca) {
         this.banca = banca;
+        this.grupos;
         generarCasillas();
     }
 
@@ -71,12 +72,16 @@ public class Tablero {
         lado.add(new Casilla("Solar16", "solar", 28, Valor.GRUPO_6, banca));
         lado.add(new Casilla("Serv2", "serv", 29, Valor.SUMA_VUELTA * 0.75f, banca));
         lado.add(new Casilla("Solar17", "solar", 30, Valor.GRUPO_6, banca));
-        lado.get(1).setImpuesto(Valor.GRUPO_5*0.10f); lado.get(3).setImpuesto(Valor.GRUPO_5*0.10f); lado.get(4).setImpuesto(Valor.GRUPO_5*0.10f);
-        lado.get(6).setImpuesto(Valor.GRUPO_6*0.10f);lado.get(7).setImpuesto(Valor.GRUPO_6*0.10f); lado.get(9).setImpuesto(Valor.GRUPO_6*0.10f);
+
+        
+        //lado.get(1).setImpuesto(Valor.GRUPO_5*0.10f); lado.get(3).setImpuesto(Valor.GRUPO_5*0.10f); lado.get(4).setImpuesto(Valor.GRUPO_5*0.10f);
+        //lado.get(6).setImpuesto(Valor.GRUPO_6*0.10f);lado.get(7).setImpuesto(Valor.GRUPO_6*0.10f); lado.get(9).setImpuesto(Valor.GRUPO_6*0.10f);
         lado.get(5).setImpuesto(Valor.IMPUESTOS_TRANSPORTES);
         lado.get(8).setImpuesto(Valor.IMPUESTO_SERVICIOS);
-        new Grupo(lado.get(1), lado.get(3), lado.get(4), Valor.COLOR_G5);
-        new Grupo(lado.get(6), lado.get(7), lado.get(9), Valor.COLOR_G6);
+        Grupo G5 = new Grupo(lado.get(1), lado.get(3), lado.get(4), Valor.COLOR_G5);
+        Grupo G6 = new Grupo(lado.get(6), lado.get(7), lado.get(9), Valor.COLOR_G6);
+        this.grupos.put("Rojo", G5);
+        this.grupos.put("Marrón", G6);
         posiciones.add(lado);
         /* Se anade en el indice 0 */
     }
@@ -94,8 +99,10 @@ public class Tablero {
         lado.add(new Casilla("Suerte", "suerte", 8, banca));
         lado.add(new Casilla("Solar4", "solar", 9, Valor.GRUPO_2, banca));
         lado.add(new Casilla("Solar5", "solar", 10, Valor.GRUPO_2, banca));
-        new Grupo(lado.get(1), lado.get(3), Valor.COLOR_G1);
-        new Grupo(lado.get(6), lado.get(8), lado.get(9), Valor.COLOR_G2);
+        Grupo G1 = new Grupo(lado.get(1), lado.get(3), Valor.COLOR_G1);
+        Grupo G2 = new Grupo(lado.get(6), lado.get(8), lado.get(9), Valor.COLOR_G2);
+        this.grupos.put("Negro", G1);
+        this.grupos.put("Cyan", G2);
 
         posiciones.add(lado);
     }
@@ -116,8 +123,10 @@ public class Tablero {
         lado.get(1).setImpuesto(Valor.GRUPO_3*0.10f); lado.get(3).setImpuesto(Valor.GRUPO_3*0.10f); lado.get(4).setImpuesto(Valor.GRUPO_3*0.10f);
         lado.get(6).setImpuesto(Valor.GRUPO_4*0.10f);lado.get(8).setImpuesto(Valor.GRUPO_4*0.10f); lado.get(9).setImpuesto(Valor.GRUPO_4*0.10f);
         lado.get(5).setImpuesto(Valor.IMPUESTOS_TRANSPORTES);
-        new Grupo(lado.get(1), lado.get(3), lado.get(4), Valor.COLOR_G3);
-        new Grupo(lado.get(6), lado.get(8), lado.get(9), Valor.COLOR_G4);
+        Grupo G3 = new Grupo(lado.get(1), lado.get(3), lado.get(4), Valor.COLOR_G3);
+        Grupo G4 = new Grupo(lado.get(6), lado.get(8), lado.get(9), Valor.COLOR_G4);
+        this.grupos.put("Rosa",G3);
+        this.grupos.put("Amarillo",G4);
 
         posiciones.add(lado);
     }
@@ -135,8 +144,10 @@ public class Tablero {
         lado.add(new Casilla("Solar21", "solar", 38, Valor.GRUPO_8, banca));
         lado.add(new Casilla("Impuesto2", 39, (Valor.SUMA_VUELTA) / 2, banca));
         lado.add(new Casilla("Solar22", "solar", 40, Valor.GRUPO_8, banca));
-        new Grupo(lado.get(1), lado.get(2), lado.get(4), Valor.COLOR_G7);
-        new Grupo(lado.get(7), lado.get(9), Valor.COLOR_G8);
+        Grupo G7 = new Grupo(lado.get(1), lado.get(2), lado.get(4), Valor.COLOR_G7);
+        Grupo G8 = new Grupo(lado.get(7), lado.get(9), Valor.COLOR_G8);
+        this.grupos.put("Verde",G7);
+        this.grupos.put("Azul",G8);
 
         posiciones.add(lado);
     }
