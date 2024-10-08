@@ -121,7 +121,7 @@ public class Menu {
                         System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
                     break;
                 } else if (com.length == 2 && com[1].equals("dadoss")) {
-                    lanzarDados(1, 38);
+                    lanzarDados(15, 15);
                     break;
                 }
 

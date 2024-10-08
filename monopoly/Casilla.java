@@ -422,11 +422,7 @@ public class Casilla {
             System.exit(1);
         }
     }
-    /*public boolean esComprable() {
 
-        return (this.duenho.esBanca()
-                && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv")) && this.encontrarAvatarCasilla());
-    }*/
     public boolean esComprable(Jugador jugador) {
 
         return (this.duenho.esBanca() && jugador.getAvatar().getCasilla().equals(this));
