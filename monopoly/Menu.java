@@ -93,7 +93,8 @@ public class Menu {
                     } else
                         System.out.println("Ya se ha alcanzado el número máximo de jugadores.");
 
-                }
+                } else
+                    System.out.println("No se pudo crear el jugador");
                 break;
 
             case "jugador":
@@ -271,15 +272,16 @@ public class Menu {
                         if (j.getVueltas() <= vueltasmin)
                             vueltasmin = j.getVueltas();
                     }
-                    if (this.jugadores.get(turno).getVueltas() == vueltasmin && vueltasmin % 4 == 0) {
-                        // TODO incrementar valor de los solares
+                    if ((this.jugadores.get(turno).getVueltas() == vueltasmin) && (vueltasmin % 4 == 0)) {
+                        this.tablero.actualizarValorSolares();
                     }
                 }
+            }
 
-                if (dadosDobles(dado1, dado2)) {
-                    this.tirado = false;
-                    System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
-                }
+            if (dadosDobles(dado1, dado2)) {
+                this.tirado = false;
+                System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
+            }
 
                 if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
                     jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
@@ -290,9 +292,19 @@ public class Menu {
         } else if (this.lanzamientos >= 2) {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
             System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
-        } else if (this.jugadores.get(turno).getEnCarcel()) {
+        }else if(this.jugadores.get(turno).getEnCarcel())
+        {
             System.out.println("Oh no! Estás en la cárcel!");
         }
+        }
+
+    private Jugador jugadorMenosVueltas(ArrayList<Jugador> jugadores) {
+        Jugador min_j;
+        min_j = jugadores.get(0);
+        for (Jugador a : jugadores)
+            if (a.getVueltas() < min_j.getVueltas())
+                min_j = a;
+        return min_j;
     }
 
     // sobrecarga de lanzar dados en la cual elegimos qué valor sacan los dados
@@ -354,25 +366,22 @@ public class Menu {
             this.jugadores.get(turno).setEnCarcel(false);
             this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
             System.out.println(this.avatares.get(turno).getCasilla());
-            this.lanzamientos +=1;
+            this.lanzamientos += 1;
             return;
-        } 
-        else if(this.jugadores.get(turno).getTurnosCarcel() >= 3){
-            System.out.println("No has sacado dobles! Dado1: "+ dado1.getValor() + " Dado2: " +dado2.getValor());
+        } else if (this.jugadores.get(turno).getTurnosCarcel() >= 3) {
+            System.out.println("No has sacado dobles! Dado1: " + dado1.getValor() + " Dado2: " + dado2.getValor());
             System.out.println("Oh no! Llevas tres turnos en la cárcel paga " + Valor.PAGO_SALIR_CARCEL);
             pagarCarcel();
             return;
-        }
-        else if(this.tirado){
+        } else if (this.tirado) {
             System.out.println("Ya has tirado este turno! ");
             return;
+        } else if (!dadosDobles(dado1, dado2)) {
+            System.out.println("No has sacado dobles! Dado1: " + dado1.getValor() + " Dado2: " + dado2.getValor());
         }
-        else if(!dadosDobles(dado1,dado2)){
-            System.out.println("No has sacado dobles! Dado1: "+ dado1.getValor() + " Dado2: " +dado2.getValor());
-        }
-        this.jugadores.get(turno).setTurnosCarcel(this.jugadores.get(turno).getTurnosCarcel()+1);
+        this.jugadores.get(turno).setTurnosCarcel(this.jugadores.get(turno).getTurnosCarcel() + 1);
         this.tirado = true;
-        
+
     }
 
     private void pagarCarcel() {
