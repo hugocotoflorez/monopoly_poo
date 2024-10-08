@@ -9,7 +9,7 @@ public class Jugador {
     private String nombre; // Nombre del jugador
     private Avatar avatar; // Avatar que tiene en la partida.
     private float fortuna; // Dinero que posee.
-    private float gastos=0; // Gastos realizados a lo largo del juego.
+    private float gastos=0f; // Gastos realizados a lo largo del juego.
     private boolean enCarcel; // Será true si el jugador está en la carcel
     private int tiradasCarcel; // Cuando está en la carcel, contará las tiradas sin éxito que ha hecho allí
                                // para intentar salir (se usa para limitar el numero de intentos).

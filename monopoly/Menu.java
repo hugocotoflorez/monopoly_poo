@@ -21,6 +21,7 @@ public class Menu {
                               // decir, si ha pagado sus deudas.
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
+    private int minVueltas = 0;
 
     public Menu() {
         iniciarPartida();
@@ -123,7 +124,7 @@ public class Menu {
                 } else if (com.length == 3 && com[1].equals("dadoss")) {
                     int valor = Integer.parseInt(com[2]);
                     lanzarDados(valor);
-                    //scanner2.close();
+                    // scanner2.close();
                     break;
                 }
 
@@ -168,7 +169,8 @@ public class Menu {
                 break;
 
             case "clear":
-                System.out.print("033[H\033[2J");
+                System.out.print("\033[H\033[2J");
+                break;
 
             default:
                 System.out.println("Opcion incorrecta. [? para ver las opciones]");
@@ -269,8 +271,12 @@ public class Menu {
                         if (j.getVueltas() <= vueltasmin)
                             vueltasmin = j.getVueltas();
                     }
-                    if (this.jugadores.get(turno).getVueltas() == vueltasmin && vueltasmin % 4 == 0) {
-                        // TODO incrementar valor de los solares
+                    if (jugadorMenosVueltas(jugadores).equals(this.jugadores.get(turno))) {
+                        if (minVueltas != this.jugadores.get(turno).getVueltas()) {
+                            minVueltas++;
+                            if (minVueltas % 4 == 0)
+                                actualizarValorSolares();
+                        }
                     }
                 }
 
@@ -282,13 +288,22 @@ public class Menu {
                 if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
                     jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
                 }
-                avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), banca, desplazamiento);
+                avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
 
             }
         } else {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
             System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
         }
+    }
+
+    private Jugador jugadorMenosVueltas(ArrayList<Jugador> jugadores) {
+        Jugador min_j;
+        min_j = jugadores.get(0);
+        for (Jugador a : jugadores)
+            if (a.getVueltas() < min_j.getVueltas())
+                min_j = a;
+return min_j;
     }
 
     // sobrecarga de lanzar dados en la cual elegimos qué valor sacan los dados
@@ -331,7 +346,7 @@ public class Menu {
                 if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
                     jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
                 }
-                avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), banca, desplazamiento);
+                avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
 
             }
         } else {
@@ -354,7 +369,7 @@ public class Menu {
             return;
 
         }
-        casilla.comprarCasilla(this.jugadores.get(turno), this.banca);
+        casilla.comprarCasilla(this.jugadores.get(turno), this.jugadores.get(0));
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'salir
@@ -386,7 +401,7 @@ public class Menu {
         }
 
         for (int i = 0; i < 40; i++) {
-            if (this.tablero.obtenerCasilla(i).getDuenho() == banca
+            if (this.tablero.obtenerCasilla(i).getDuenho().esBanca()
                     && (this.tablero.obtenerCasilla(i).getTipo().equals("solar")
                             || this.tablero.obtenerCasilla(i).getTipo().equals("transporte")
                             || this.tablero.obtenerCasilla(i).getTipo().equals("serv"))) {
@@ -430,9 +445,9 @@ public class Menu {
                 this.turno = 1; // Por la banca
                 System.out.println("El jugador actual es: " + this.jugadores.get(turno).getNombre());
             }
-        } else if(!partida_empezada) {
+        } else if (!partida_empezada) {
             System.out.println("La partida todavia no ha empezado. ");
-        }else if(!this.tirado){
+        } else if (!this.tirado) {
             System.out.println("No has lanzado los dados este turno");
         }
     }

@@ -34,7 +34,7 @@ public class Casilla {
         this.posicion = posicion;
         this.valor = valor;
         this.duenho = duenho;
-        this.impuesto = valor*0.1f;
+        this.impuesto = valor * 0.1f;
     }
 
     /*
@@ -178,7 +178,8 @@ public class Casilla {
                     System.out.println("Estás de visita en la cárcel.");
                 }
                 if (this.nombre.equals("Parking")) {
-                    System.out.println("El jugador " + actual.getNombre() + " consigue el bote de la banca de " + banca.getGastos());
+                    System.out.println("El jugador " + actual.getNombre() + " consigue el bote de la banca de "
+                            + banca.getGastos());
                     banca.sumarFortuna(-banca.getGastos());
                     actual.sumarFortuna(banca.getGastos());
                     banca.resetGastos();
@@ -193,10 +194,11 @@ public class Casilla {
                 break;
             case "transporte":
                 if (!c.esComprable(actual)) {
-                    float p = c.getDuenho().cuantostransportes()*0.25f*Valor.IMPUESTOS_TRANSPORTES;
+                    float p = c.getDuenho().cuantostransportes() * 0.25f * Valor.IMPUESTOS_TRANSPORTES;
                     c.setImpuesto(p);
                     actual.sumarFortuna(-c.impuesto);
-                    if(actual.estaBancarrota()) Menu.acabarPartida();
+                    if (actual.estaBancarrota())
+                        Menu.acabarPartida();
                     this.getDuenho().sumarFortuna(c.impuesto);
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
                             c.impuesto + " a " + c.getDuenho());
@@ -212,12 +214,13 @@ public class Casilla {
                 break;
 
             case "serv":
-                 if (!c.esComprable(actual)) {
-                    int s = (c.getDuenho().cuantosservicios()>=2)?10:4;
-                    float p = Valor.IMPUESTO_SERVICIOS*s*tirada;
+                if (!c.esComprable(actual)) {
+                    int s = (c.getDuenho().cuantosservicios() >= 2) ? 10 : 4;
+                    float p = Valor.IMPUESTO_SERVICIOS * s * tirada;
                     c.setImpuesto(p);
                     actual.sumarFortuna(-c.impuesto);
-                    if(actual.estaBancarrota()) Menu.acabarPartida();
+                    if (actual.estaBancarrota())
+                        Menu.acabarPartida();
                     c.getDuenho().sumarFortuna(c.impuesto);
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
                             c.impuesto + " a " + c.getDuenho());
@@ -227,11 +230,12 @@ public class Casilla {
                 return true; // se puede comprar
 
             case "impuestos":
-                System.out.println("Has caído en una casilla de impuestos. Se te va a cobrar "+c.impuesto);
+                System.out.println("Has caído en una casilla de impuestos. Se te va a cobrar " + c.impuesto);
                 actual.sumarFortuna(-c.impuesto);
-                if(actual.estaBancarrota()) Menu.acabarPartida();
+                if (actual.estaBancarrota())
+                    Menu.acabarPartida();
                 banca.sumarGastos(c.impuesto);
-                System.out.println("El bote de la banca ahora es "+banca.getGastos());
+                System.out.println("El bote de la banca ahora es " + banca.getGastos());
                 break;
 
             default:
@@ -317,8 +321,7 @@ public class Casilla {
                     impuesto, "No implementado.", "No implementado.", "No implementado.", "No implementado.",
                     "No implementado.", "No implementado.", "No implementado.", "No implementado.", "No implementado.",
                     "No implementado.");
-        } 
-        else if (this.tipo.equals("especial")) { // Aquí hay que poner el bote en el Parking, qué jugadores están en
+        } else if (this.tipo.equals("especial")) { // Aquí hay que poner el bote en el Parking, qué jugadores están en
                                                    // la cárcel, cuánto te dan en la salida
             if (this.nombre.equals("Salida"))
                 info = "{Casilla de salida.}";
@@ -369,20 +372,18 @@ public class Casilla {
                     Nombre: %s
                     Tipo: comunidad
                     """.formatted(nombre);
-        }else if (this.tipo.equals("suerte")){
-                info = """
+        } else if (this.tipo.equals("suerte")) {
+            info = """
                     Nombre: %s
                     Tipo: suerte
                     """.formatted(nombre);
-        }
-        else if  (this.tipo.equals("impuestos")){
+        } else if (this.tipo.equals("impuestos")) {
             info = """
                     Nombre: %s
                     Tipo: impuestos
                     Impuestos: %f
-                    """.formatted(nombre,impuesto);
-        }
-        else {
+                    """.formatted(nombre, impuesto);
+        } else {
             System.out.println("Esa casilla no existe.");
         }
         return info;
@@ -428,7 +429,9 @@ public class Casilla {
 
     public boolean esComprable(Jugador jugador) {
 
-        return (this.duenho.esBanca() && jugador.getAvatar().getCasilla().equals(this));
+        return (this.duenho.esBanca()
+                && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv"))
+                && jugador.getAvatar().getCasilla().equals(this));
     }
 
     @Override
