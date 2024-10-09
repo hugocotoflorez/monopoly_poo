@@ -201,7 +201,7 @@ public class Casilla {
                         Menu.acabarPartida();
                     this.getDuenho().sumarFortuna(c.impuesto);
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
-                            c.impuesto + " a " + c.getDuenho());
+                            c.impuesto + " a " + c.getDuenho().getNombre());
                     break;
                 }
                 System.out.println("Se puede comprar la casilla " + c.getNombre());
@@ -223,7 +223,7 @@ public class Casilla {
                         Menu.acabarPartida();
                     c.getDuenho().sumarFortuna(c.impuesto);
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
-                            c.impuesto + " a " + c.getDuenho());
+                            c.impuesto + " a " + c.getDuenho().getNombre());
                     break;
                 }
                 System.out.println("Se puede comprar la casilla " + c.getNombre());
