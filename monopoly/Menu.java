@@ -344,7 +344,7 @@ public class Menu {
 
                 int vueltasmin = this.jugadores.get(turno).getVueltas();
                 for (Jugador j : this.jugadores) {
-                    if (j.getVueltas() <= vueltasmin)
+                    if (j.getVueltas() < vueltasmin)
                         vueltasmin = j.getVueltas();
                 }
                 if ((this.jugadores.get(turno).getVueltas() == vueltasmin) && (vueltasmin % 4 == 0)) {
