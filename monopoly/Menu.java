@@ -290,24 +290,10 @@ public class Menu {
                 int vueltasmin = this.jugadores.get(turno).getVueltas();
 
                 for (Jugador j : this.jugadores) {
-                    if (j.esBanca()) {
-                        ;
-                    } else if (j.getVueltas() < vueltasmin) {
+                    if (!j.esBanca() && j.getVueltas() < vueltasmin) {
                         vueltasmin = j.getVueltas();
                     }
                 }
-
-                System.out.println("- vueltas min: " + vueltasmin);
-
-                if (this.jugadores.get(turno).getVueltas() != vueltasmin)
-                    System.out.println("- El jugador no tiene las vueltas minimas");
-                else
-                    System.out.println("- El jugador tiene las vueltas minimas");
-
-                if (vueltasmin % 4 != 0)
-                    System.out.println("- Las vueltas minimas no son multiplo de 4");
-                else
-                    System.out.println("- Las vueltas minimas son multiplo de 4");
 
                 if ((this.jugadores.get(turno).getVueltas() == vueltasmin) && (vueltasmin % 4 == 0)) {
                     System.out.println(
