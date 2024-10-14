@@ -235,7 +235,7 @@ public class Casilla {
                 if (actual.estaBancarrota())
                     Menu.acabarPartida();
                 banca.sumarGastos(c.impuesto);
-                System.out.println("El bote de la banca ahora es " + this.getValor());
+                System.out.println("El bote de la banca ahora es " + banca.getGastos());
                 break;
 
             default:
