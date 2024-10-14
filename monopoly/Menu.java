@@ -79,6 +79,7 @@ public class Menu {
                 System.out.println("describir jugador  <nombre>");
                 System.out.println("describir avatar <letra");
                 System.out.println("comprar <casilla>");
+                System.out.println("bancarrota - acaba la partida para ese jugador");
                 System.out.println("ver - muestra el tablero");
                 System.out.println("clear - limpia la pantalla");
                 break;
@@ -543,9 +544,8 @@ public class Menu {
 
     private void bancarrota() {
 
-        Jugador actual = this.jugadores.get(turno);
-        if (actual.getFortuna() < 0) {
-            if (actual.getAvatar().getCasilla().getDuenho().esBanca()) {
+        Jugador actual = this.jugadores.get(turno); // Jugador actual
+            if (actual.getAvatar().getCasilla().getDuenho().esBanca() || actual.getFortuna() > 0) { // Si la banca lo deja en bancarrota
                 for (Casilla c : actual.getPropiedades()) {
                     actual.eliminarPropiedad(c);
                     banca.anhadirPropiedad(c);
@@ -555,7 +555,7 @@ public class Menu {
                         + "se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban.");
             }
 
-            if (!actual.getAvatar().getCasilla().getDuenho().esBanca()) {
+            if (!actual.getAvatar().getCasilla().getDuenho().esBanca()) { // Si es otro jugador
                 for (Casilla c : actual.getPropiedades()) {
                     actual.eliminarPropiedad(c);
                     actual.getAvatar().getCasilla().getDuenho().anhadirPropiedad(c);
@@ -569,4 +569,4 @@ public class Menu {
             this.jugadores.remove(turno);
         }
     }
-}
+
