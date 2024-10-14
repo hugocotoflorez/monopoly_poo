@@ -180,9 +180,9 @@ public class Casilla {
                 if (this.nombre.equals("Parking")) {
                     System.out.println("El jugador " + actual.getNombre() + " consigue el bote de la banca de "
                             + banca.getGastos());
-                    banca.sumarFortuna(-banca.getGastos());
                     actual.sumarFortuna(banca.getGastos());
                     banca.resetGastos();
+                    this.setValor(0);
                 }
                 if (this.nombre.equals("IrCarcel")) {
                     System.out.println("Oh no! Has ido a la Cárcel!");
@@ -235,7 +235,7 @@ public class Casilla {
                 if (actual.estaBancarrota())
                     Menu.acabarPartida();
                 banca.sumarGastos(c.impuesto);
-                System.out.println("El bote de la banca ahora es " + banca.getGastos());
+                System.out.println("El bote de la banca ahora es " + this.getValor());
                 break;
 
             default:
@@ -256,14 +256,12 @@ public class Casilla {
         float fortuna_solicitante = solicitante.getFortuna();
         if (fortuna_solicitante >= this.valor && this.esComprable(solicitante)) {
             solicitante.setFortuna(fortuna_solicitante - this.valor);
-            //banca.sumarGastos(this.valor);
             banca.eliminarPropiedad(this);
             solicitante.anhadirPropiedad(this);
             this.duenho = solicitante;
             System.out.println("El jugador " + solicitante.getNombre() + " ha comprado la casilla " + this.nombre
                     + ". Su fortuna actual es " + solicitante.getFortuna());
-            //System.out.println("El bote de la banca es ahora "+banca.getGastos());
-        } else if (fortuna_solicitante < this.valor) { // TODO
+        } else if (fortuna_solicitante < this.valor) {
             System.out.println("No tienes suficiente fortuna.");
         } else if (!this.esComprable(solicitante)) {
             System.out.println("Esta casilla no se puede comprar.");
@@ -334,7 +332,7 @@ public class Casilla {
                 info = """
                         Bote: %f
                         Jugadores: %s
-                        """.formatted(valor, "[" + jugenparking + "]");
+                        """.formatted(this.duenho.getGastos(), "[" + jugenparking + "]");
             } else if (this.nombre.equals("Carcel")) {
                 String jugencarcel = new String();
                 for (Avatar av : avatares) {
@@ -357,7 +355,7 @@ public class Casilla {
                     Propietario: %s
                     Valor: %f
                     Impuesto: %f
-                    }""".formatted(nombre, duenho.getNombre(), valor, impuesto); // TODO
+                    }""".formatted(nombre, duenho.getNombre(), valor, impuesto);
         } else if (this.tipo.equals("serv")) { // Idem transportes
             info = """
                     {
@@ -366,7 +364,7 @@ public class Casilla {
                     Propietario: %s
                     Valor: %f
                     Impuesto: %f
-                    }""".formatted(nombre, duenho.getNombre(), valor, impuesto); // TODO
+                    }""".formatted(nombre, duenho.getNombre(), valor, impuesto);
         } else if (this.tipo.equals("caja")) {
             info = """
                     Nombre: %s
