@@ -152,6 +152,9 @@ public class Menu {
             case "salir":
                 salirCarcel();
                 break;
+            case "bancarrota":
+                bancarrota();
+                break;
 
             case "describir":
                 if (com.length >= 2) {
@@ -436,7 +439,7 @@ public class Menu {
 
         }
         if (this.tirado || lanzamientos > 0) {
-            casilla.comprarCasilla(this.jugadores.get(turno), this.jugadores.get(0));
+            casilla.comprarCasilla(this.jugadores.get(turno), banca);
         }
     }
 
@@ -536,5 +539,34 @@ public class Menu {
     public static void acabarPartida() {
         System.out.println("FINALIZANDO PARTIDA");
         System.exit(0);
+    }
+
+    private void bancarrota() {
+
+        Jugador actual = this.jugadores.get(turno);
+        if (actual.getFortuna() < 0) {
+            if (actual.getAvatar().getCasilla().getDuenho().esBanca()) {
+                for (Casilla c : actual.getPropiedades()) {
+                    actual.eliminarPropiedad(c);
+                    banca.anhadirPropiedad(c);
+                    c.setDuenho(banca);
+                }
+                System.out.println("El jugador" + actual.getNombre()
+                        + "se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban.");
+            }
+
+            if (!actual.getAvatar().getCasilla().getDuenho().esBanca()) {
+                for (Casilla c : actual.getPropiedades()) {
+                    actual.eliminarPropiedad(c);
+                    actual.getAvatar().getCasilla().getDuenho().anhadirPropiedad(c);
+                    c.setDuenho(actual.getAvatar().getCasilla().getDuenho());
+                }
+                System.out.println("El jugador " + actual.getNombre()
+                        + " se ha declarado en bancarrota. Sus propiedades y fortuna pasan a "
+                        + actual.getAvatar().getCasilla().getDuenho().getNombre());
+            }
+
+            this.jugadores.remove(turno);
+        }
     }
 }
