@@ -310,7 +310,7 @@ public class Menu {
 
                 if ((this.jugadores.get(turno).getVueltas() == vueltasmin) && (vueltasmin % 4 == 0)) {
                     System.out.println(
-                            "Todos los jugadores han dado 4 vueltas, se va a incrementar el precio de los solares en un 10%.");
+                            "Todos los jugadores han dado un múltiplo de 4vueltas, se va a incrementar el precio de los solares en un 10%.");
                     this.tablero.actualizarValorSolares();
                 }
             }

@@ -265,7 +265,7 @@ public class Tablero {
     public void actualizarValorSolares(){
         for(Grupo g: this.grupos.values()){
             for(Casilla c : g.getMiembros()){
-                if(!c.getDuenho().esBanca()) c.setValor(c.getValor() + c.getValor()*0.05f);
+                if(c.getDuenho().esBanca()) c.setValor(c.getValor() + c.getValor()*0.05f);
             }
         }
     }
