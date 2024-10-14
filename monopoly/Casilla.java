@@ -261,6 +261,10 @@ public class Casilla {
             this.duenho = solicitante;
             System.out.println("El jugador " + solicitante.getNombre() + " ha comprado la casilla " + this.nombre
                     + ". Su fortuna actual es " + solicitante.getFortuna());
+            if (this.grupo.esDuenhoGrupo(solicitante)){
+                System.out.println("El jugador " + solicitante.getNombre() + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
+                this.grupo.actualizarAlquilerGrupo();
+            }
         } else if (fortuna_solicitante < this.valor) {
             System.out.println("No tienes suficiente fortuna.");
         } else if (!this.esComprable(solicitante)) {
