@@ -19,6 +19,8 @@ public class Casilla {
     private float hipoteca; // Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares = new ArrayList<Avatar>(); // Avatares que están situados en la casilla.
 
+    private boolean hipotecada;
+
     public static final int casillaWidth = 19;
 
     /*
@@ -35,6 +37,8 @@ public class Casilla {
         this.valor = valor;
         this.duenho = duenho;
         this.impuesto = valor * 0.1f;
+        this.hipotecada = false;
+
     }
 
     /*
@@ -139,7 +143,31 @@ public class Casilla {
     public void eliminarAvatar(Avatar av) {
         this.avatares.remove(av);
     }
+    public boolean getHipotecada(){
 
+        return this.hipotecada;
+    }
+    public void setHipotecada(boolean hipotecada){
+
+        this.hipotecada = hipotecada;
+    }
+
+    public void hipotecar(Jugador actual){
+
+        if(this.duenho.equals(actual) && (this.tipo.equals("solar") || this.tipo.equals("serv") || this.tipo.equals("transporte")) && this.hipotecada == false){
+
+            this.duenho.sumarFortuna(hipoteca);
+            this.hipotecada = true;
+        }
+
+    }
+    public void deshipotecar(Jugador actual){
+        if(this.duenho.equals(actual) && (this.tipo.equals("solar") || this.tipo.equals("serv") || this.tipo.equals("transporte")) && this.hipotecada == true){
+
+            this.duenho.sumarFortuna(-hipoteca*1.10f);
+        }
+        this.hipotecada = false;
+    }
     /*
      * Método para evaluar qué hacer en una casilla concreta. Parámetros:
      * - Jugador cuyo avatar está en esa casilla.
