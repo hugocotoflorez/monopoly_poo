@@ -255,8 +255,8 @@ public class Menu {
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar
     // dados'.
-    private boolean dadosDobles(Dado d1, Dado d2) {
-        return (d1.getValor() == d2.getValor());
+    private boolean dadosDobles(int valor1, int valor2) {
+        return (valor1 == valor2);
     }
 
     private void lanzarDados() {
@@ -315,7 +315,7 @@ public class Menu {
                 }
             }
 
-            if (dadosDobles(dado1, dado2)) {
+            if (dadosDobles(valor1, valor2)) {
                 this.tirado = false;
                 System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
             }
