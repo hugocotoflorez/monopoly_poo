@@ -84,4 +84,10 @@ class Grupo {
         return true;
     }
 
+    /* Función para llamar cuando un jugador tenga todos los solares de un grupo. Duplica su alquiler */
+    public void actualizarAlquilerGrupo(){
+        for (Casilla m: this.miembros){
+            m.setImpuesto(m.getImpuesto()*2);
+        }
+    }
 }
