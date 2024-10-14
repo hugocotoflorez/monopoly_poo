@@ -49,6 +49,21 @@ public class Menu {
         this.avatares.add(null); // avatar banca
         this.jugadores.add(banca);
         this.tablero = new Tablero(banca);
+        System.out.println("OPCIONES:");
+        System.out.println("crear jugador <nombre> <tipo_avatar>");
+        System.out.println("jugador - jugador con el turno");
+        System.out.println("listar enventa");
+        System.out.println("listar jugadores");
+        System.out.println("listar avatares");
+        System.out.println("lanzar dados");
+        System.out.println("acabar - acaba el turno");
+        System.out.println("salir (carcel)");
+        System.out.println("describir jugador  <nombre>");
+        System.out.println("describir avatar <letra");
+        System.out.println("comprar <casilla>");
+        System.out.println("bancarrota - acaba la partida para ese jugador");
+        System.out.println("ver - muestra el tablero");
+        System.out.println("clear - limpia la pantalla");
         while (!partida_finalizada) {
             System.out.print("\n[>]: ");
             analizarComando(scanner.nextLine());
@@ -310,7 +325,7 @@ public class Menu {
 
                 if ((this.jugadores.get(turno).getVueltas() == vueltasmin) && (vueltasmin % 4 == 0)) {
                     System.out.println(
-                            "Todos los jugadores han dado un múltiplo de 4vueltas, se va a incrementar el precio de los solares en un 10%.");
+                            "Todos los jugadores han dado un múltiplo de 4 vueltas, se va a incrementar el precio de los solares en un 10%.");
                     this.tablero.actualizarValorSolares();
                 }
             }
@@ -337,7 +352,7 @@ public class Menu {
 
         this.dado1.hacerTirada();
         this.dado2.hacerTirada();
-        if (dadosDobles(dado1, dado2) && this.jugadores.get(turno).getTurnosCarcel() < 3 && !this.tirado) {
+        if (dadosDobles(dado1.getValor(), dado2.getValor()) && this.jugadores.get(turno).getTurnosCarcel() < 3 && !this.tirado) {
             int desplazamiento = dado1.getValor() + dado2.getValor();
             System.out.println("Has sacado dobles! Sales de la Cárcel y avanzas hasta");
             this.jugadores.get(turno).setEnCarcel(false);
@@ -354,7 +369,7 @@ public class Menu {
         } else if (this.tirado) {
             System.out.println("Ya has tirado este turno! ");
             return;
-        } else if (!dadosDobles(dado1, dado2)) {
+        } else if (!dadosDobles(dado1.getValor(), dado2.getValor())) {
             System.out.println("No has sacado dobles! Dado1: " + dado1.getValor() + " Dado2: " + dado2.getValor());
         }
         this.jugadores.get(turno).setTurnosCarcel(this.jugadores.get(turno).getTurnosCarcel() + 1);
