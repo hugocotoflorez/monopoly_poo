@@ -2,7 +2,6 @@ package monopoly;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import javax.swing.plaf.synth.SynthSpinnerUI;
 import partida.*;
 
 public class Menu {
