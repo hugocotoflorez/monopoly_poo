@@ -129,19 +129,14 @@ public class Menu {
                     } else
                         System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
                     break;
-                } else if (com.length == 3 && com[1].equals("dadoss")) {
-                    partida_empezada = true;
-                    int valor = Integer.parseInt(com[2]);
-                    lanzarDados(valor);
-                    // scanner2.close();
-                    break;
                 }
 
             case "l":
-                if (com.length == 2) {
+                if (com.length == 3) {
                     partida_empezada = true;
                     int valor = Integer.parseInt(com[1]);
-                    lanzarDados(valor);
+                    int valor2 = Integer.parseInt(com[2]);
+                    lanzarDados(valor, valor2);
                     break;
                 }
 
@@ -266,9 +261,9 @@ public class Menu {
 
     private void lanzarDados() {
 
-            this.dado1.hacerTirada();
-            this.dado2.hacerTirada();
-            lanzarDados(dado1.getValor(), dado2.getValor());
+        this.dado1.hacerTirada();
+        this.dado2.hacerTirada();
+        lanzarDados(dado1.getValor(), dado2.getValor());
     }
 
     private Jugador jugadorMenosVueltas(ArrayList<Jugador> jugadores) {
@@ -499,28 +494,28 @@ public class Menu {
     private void bancarrota() {
 
         Jugador actual = this.jugadores.get(turno); // Jugador actual
-            if (actual.getAvatar().getCasilla().getDuenho().esBanca() || actual.getFortuna() > 0) { // Si la banca lo deja en bancarrota
-                for (Casilla c : actual.getPropiedades()) {
-                    actual.eliminarPropiedad(c);
-                    banca.anhadirPropiedad(c);
-                    c.setDuenho(banca);
-                }
-                System.out.println("El jugador" + actual.getNombre()
-                        + "se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban.");
+        if (actual.getAvatar().getCasilla().getDuenho().esBanca() || actual.getFortuna() > 0) { // Si la banca lo deja
+                                                                                                // en bancarrota
+            for (Casilla c : actual.getPropiedades()) {
+                actual.eliminarPropiedad(c);
+                banca.anhadirPropiedad(c);
+                c.setDuenho(banca);
             }
-
-            if (!actual.getAvatar().getCasilla().getDuenho().esBanca()) { // Si es otro jugador
-                for (Casilla c : actual.getPropiedades()) {
-                    actual.eliminarPropiedad(c);
-                    actual.getAvatar().getCasilla().getDuenho().anhadirPropiedad(c);
-                    c.setDuenho(actual.getAvatar().getCasilla().getDuenho());
-                }
-                System.out.println("El jugador " + actual.getNombre()
-                        + " se ha declarado en bancarrota. Sus propiedades y fortuna pasan a "
-                        + actual.getAvatar().getCasilla().getDuenho().getNombre());
-            }
-
-            this.jugadores.remove(turno);
+            System.out.println("El jugador " + actual.getNombre()
+                    + "se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban.");
         }
-    }
 
+        if (!actual.getAvatar().getCasilla().getDuenho().esBanca()) { // Si es otro jugador
+            for (Casilla c : actual.getPropiedades()) {
+                actual.eliminarPropiedad(c);
+                actual.getAvatar().getCasilla().getDuenho().anhadirPropiedad(c);
+                c.setDuenho(actual.getAvatar().getCasilla().getDuenho());
+            }
+            System.out.println("El jugador " + actual.getNombre()
+                    + " se ha declarado en bancarrota. Sus propiedades y fortuna pasan a "
+                    + actual.getAvatar().getCasilla().getDuenho().getNombre());
+        }
+
+        this.jugadores.remove(turno);
+    }
+}
