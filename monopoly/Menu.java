@@ -366,16 +366,17 @@ public class Menu {
                     System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
                 }
 
-            if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
-                jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
-            }
-            avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
+                if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
+                    jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
+                }
+                avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
 
-        } else if (this.lanzamientos >= 2 && !this.tirado) {
-            this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
-            System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
-        } else if (this.jugadores.get(turno).getEnCarcel()) {
-            System.out.println("Oh no! Estás en la cárcel!");
+            } else if (this.lanzamientos >= 2 && !this.tirado) {
+                this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
+                System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
+            } else if (this.jugadores.get(turno).getEnCarcel()) {
+                System.out.println("Oh no! Estás en la cárcel!");
+            }
         }
     }
 
