@@ -24,7 +24,7 @@ public class Jugador {
         this.fortuna = 100000; // Valor elevado para que la banca nunca se quede sin dinero
         this.avatar = null;
         this.nombre = "banca";
-        this.gastos = 0;
+        this.gastos = 0; 
         this.enCarcel = false;
         this.tiradasCarcel = 0;
         this.tiradasCarcel = 0;
@@ -131,6 +131,11 @@ public class Jugador {
     }
     public void setTirada(int tirada){
         this.tirada = tirada;
+    }
+    public ArrayList<Casilla> getPropiedades(){
+
+        return this.propiedades;
+        
     }
 
     // Método para añadir fortuna a un jugador
