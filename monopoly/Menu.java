@@ -209,7 +209,7 @@ public class Menu {
                 break;
 
             case "salir":
-                salirCarcel(banca);
+                salirCarcel();
                 break;
             case "bancarrota":
                 bancarrota();
@@ -409,7 +409,7 @@ public class Menu {
         }
     }
 
-    private void lanzarDadosCarcel(Jugador banca) {
+    private void lanzarDadosCarcel() {
 
         this.dado1.hacerTirada();
         this.dado2.hacerTirada();
@@ -426,7 +426,7 @@ public class Menu {
             System.out.println("No has sacado dobles! Dado1: " + dado1.getValor() + " Dado2: " + dado2.getValor());
             System.out.println("Oh no! Llevas tres turnos en la cárcel paga " + Valor.PAGO_SALIR_CARCEL);
             this.tirado = false;
-            pagarCarcel(banca);
+            pagarCarcel();
             return;
         } else if (this.tirado) {
             System.out.println("Ya has tirado este turno! ");
@@ -439,7 +439,7 @@ public class Menu {
 
     }
 
-    private void pagarCarcel(Jugador banca) {
+    private void pagarCarcel() {
         if (!this.tirado) {
             this.tirado = false;
             this.jugadores.get(turno).setEnCarcel(false);
@@ -448,8 +448,8 @@ public class Menu {
                     "Has pagado " + Valor.PAGO_SALIR_CARCEL + " para salir de la carcel. Puedes lanzar los dados.");
             this.jugadores.get(turno).setPagoTasasEImpuestos(
                     this.jugadores.get(turno).getPagoTasasEImpuestos() + Valor.PAGO_SALIR_CARCEL);
-            banca.sumarGastos(Valor.PAGO_SALIR_CARCEL);
-            System.out.println("El bote de la banca ahora es " + banca.getGastos());
+            this.jugadores.get(0).sumarGastos(Valor.PAGO_SALIR_CARCEL);
+            System.out.println("El bote de la banca ahora es " + this.jugadores.get(0).getGastos());
         } else {
             System.out.println("Ya has tirado este turno!");
         }
@@ -476,9 +476,9 @@ public class Menu {
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'salir
     // carcel'.
-    private void salirCarcel(Jugador banca) {
+    private void salirCarcel() {
 
-        if (this.jugadores.get(turno).getEnCarcel() == true) {
+        if (this.jugadores.get(turno).getEnCarcel() == true && this.tirado == false) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Como quieres salir de la cárcel?");
             System.out.println("1) Lanzar dados (sacando dobles)");
@@ -487,18 +487,21 @@ public class Menu {
             char opcion = scanner.next().charAt(0);
             switch (opcion) {
                 case '1':
-                    lanzarDadosCarcel(banca);
+                    lanzarDadosCarcel();
                     break;
                 case '2':
-                    pagarCarcel(banca);
+                    pagarCarcel();
                     break;
                 default:
                     System.out.println("Opcion incorrecta");
                     break;
             }
-            scanner.close();
-        } else {
-            System.out.println("El jugador " + this.jugadores.get(turno).getNombre() + " no está en la cárcel.");
+            //scanner.close();
+        } else  if(this.jugadores.get(turno).getEnCarcel() == false){
+            System.out.println("El jugador " + this.jugadores.get(turno).getNombre() + " no puede en la cárcel.");
+        }
+        else if (this.tirado == true){
+            System.out.println("Ya has tirado en este turno!");
         }
     }
 
