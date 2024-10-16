@@ -267,6 +267,17 @@ public class Jugador {
         return i;
     }
 
+
+    public String estadisticasJugador(){
+        String ret = """
+                {
+                    Dinero invertido en compra de propiedades y edificaciones: %f
+                    Pago de tasas y/o impuestos: %f
+
+                }
+                """;
+        return ret;
+    }
     @Override
     public String toString() {
         return """

@@ -64,6 +64,7 @@ public class Menu {
         System.out.println("bancarrota - acaba la partida para ese jugador");
         System.out.println("ver - muestra el tablero");
         System.out.println("clear - limpia la pantalla");
+        System.out.println("estadisticas <Jugador>");
         while (!partida_finalizada) {
             System.out.print("\n[>]: ");
             analizarComando(scanner.nextLine());
@@ -97,6 +98,7 @@ public class Menu {
                 System.out.println("bancarrota - acaba la partida para ese jugador");
                 System.out.println("ver - muestra el tablero");
                 System.out.println("clear - limpia la pantalla");
+                System.out.println("estadisticas <Jugador>");
                 break;
 
             case "default":
@@ -189,6 +191,14 @@ public class Menu {
                     comprar(com[1]);
                     break;
                 }
+            case "estadisticas":
+                if (com.length == 2){
+                    mostrarestadisticasjugador(com[2]);
+                }
+                else if (com.length == 1){
+                    mostrarestadisticaspartida();
+                }
+                else System.out.println("Opcion incorrecta. [? para ver las opciones]");
 
             case "ver":
                 System.out.println(this.tablero);
@@ -480,6 +490,20 @@ public class Menu {
                 System.out.println("\n");
             }
         }
+    }
+
+    private void mostrarestadisticasjugador(String nombre){
+        for (Jugador J : this.jugadores) {
+            if (J.getNombre().equals(nombre)) {
+                System.out.println("{");
+                return;
+            }
+        }
+        System.out.println("No se ha encontrado este jugador.\n");
+    }
+
+    private void mostrarestadisticaspartida(){
+
     }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
