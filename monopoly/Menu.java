@@ -399,6 +399,7 @@ public class Menu {
                     "Has pagado " + Valor.PAGO_SALIR_CARCEL + " para salir de la carcel. Puedes lanzar los dados.");
             this.jugadores.get(turno).setPagoTasasEImpuestos(
                     this.jugadores.get(turno).getPagoTasasEImpuestos() + Valor.PAGO_SALIR_CARCEL);
+            banca.sumarGastos(Valor.PAGO_SALIR_CARCEL);
         } else {
             System.out.println("Ya has tirado este turno!");
         }

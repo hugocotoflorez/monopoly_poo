@@ -118,7 +118,7 @@ public class Carta {
         else
             switch (this.accion) {
                 case 1:
-                    accComm1(av);
+                    accComm1(av, jugadores);
                     break;
                 case 2:
                     accComm2(av, casillas);
@@ -130,7 +130,7 @@ public class Carta {
                     accComm4(av);
                     break;
                 case 5:
-                    accComm5(av);
+                    accComm5(av, jugadores);
                     break;
                 case 6:
                     accComm6(av, jugadores);
@@ -205,12 +205,13 @@ public class Carta {
         av.getJugador().setPremiosInversionesOBote(av.getJugador().getPremiosInversionesOBote() + 1000000);
     }
 
-    private void accComm1(Avatar av) {
+    private void accComm1(Avatar av, ArrayList<Jugador> jugadores) {
         /**
          * Paga 500000€ por un fin de semana en un balneario de 5 estrellas
          */
         av.getJugador().sumarFortuna(500000);
         av.getJugador().setPagoTasasEImpuestos(av.getJugador().getPagoTasasEImpuestos() + 500000);
+        jugadores.get(0).sumarGastos(500000);
     }
 
     private void accComm2(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
@@ -244,12 +245,13 @@ public class Carta {
         av.getJugador().setPremiosInversionesOBote(av.getJugador().getPremiosInversionesOBote() +2000000);
     }
 
-    private void accComm5(Avatar av) {
+    private void accComm5(Avatar av, ArrayList<Jugador> jugadores) {
         /**
          * Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14.
          */
         av.getJugador().sumarFortuna(-1000000);
         av.getJugador().setPagoTasasEImpuestos(av.getJugador().getPagoTasasEImpuestos() + 1000000);
+        jugadores.get(0).sumarGastos(1000000);
     }
 
     private void accComm6(Avatar av, ArrayList<Jugador> jugadores) {
@@ -261,6 +263,7 @@ public class Carta {
             av.getJugador().sumarFortuna(-200000);
             j.sumarFortuna(200000);
             av.getJugador().setPagoTasasEImpuestos(av.getJugador().getPagoTasasEImpuestos() + 200000);
+            jugadores.get(0).sumarGastos(200000);
         }
     }
 
