@@ -310,10 +310,10 @@ public class Menu {
             casillanueva = avatares.get(turno).getCasilla().getPosicion();
             if ((casillaantes > casillanueva)) {
 
+                // !!!!!! si se modifica algo de esto hay que modificarlo tambien en Carta
                 System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
                 jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
                 jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
-                jugadores.get(turno).setPasarPorCasillaDeSalida(jugadores.get(turno).getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
                 System.out.println("Llevas " + jugadores.get(turno).getVueltas() + " vueltas.");
 
                 int vueltasmin = this.jugadores.get(turno).getVueltas();
@@ -385,7 +385,6 @@ public class Menu {
             this.jugadores.get(turno).sumarFortuna(-Valor.PAGO_SALIR_CARCEL);
             System.out.println(
                     "Has pagado " + Valor.PAGO_SALIR_CARCEL + " para salir de la carcel. Puedes lanzar los dados.");
-            this.jugadores.get(turno).setPagoTasasEImpuestos(this.jugadores.get(turno).getPagoTasasEImpuestos() + Valor.PAGO_SALIR_CARCEL);
         } else {
             System.out.println("Ya has tirado este turno!");
         }
