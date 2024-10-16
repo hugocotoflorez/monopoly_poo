@@ -18,6 +18,8 @@ public class Casilla {
                             // solares/servicios/transportes o impuestos.
     private float hipoteca; // Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares = new ArrayList<Avatar>(); // Avatares que están situados en la casilla.
+    private ArrayList<Edificio> edificios;
+    private ArrayList<Integer> caidasEnCasilla; // Cuenta el numero de veces que el jugador iesimo cayó en la casilla
 
     private boolean hipotecada;
 
@@ -143,31 +145,39 @@ public class Casilla {
     public void eliminarAvatar(Avatar av) {
         this.avatares.remove(av);
     }
-    public boolean getHipotecada(){
+
+    public boolean getHipotecada() {
 
         return this.hipotecada;
     }
-    public void setHipotecada(boolean hipotecada){
+
+    public void setHipotecada(boolean hipotecada) {
 
         this.hipotecada = hipotecada;
     }
 
-    public void hipotecar(Jugador actual){
+    public void hipotecar(Jugador actual) {
 
-        if(this.duenho.equals(actual) && (this.tipo.equals("solar") || this.tipo.equals("serv") || this.tipo.equals("transporte")) && this.hipotecada == false){
+        if (this.duenho.equals(actual)
+                && (this.tipo.equals("solar") || this.tipo.equals("serv") || this.tipo.equals("transporte"))
+                && this.hipotecada == false) {
 
             this.duenho.sumarFortuna(hipoteca);
             this.hipotecada = true;
         }
 
     }
-    public void deshipotecar(Jugador actual){
-        if(this.duenho.equals(actual) && (this.tipo.equals("solar") || this.tipo.equals("serv") || this.tipo.equals("transporte")) && this.hipotecada == true){
 
-            this.duenho.sumarFortuna(-hipoteca*1.10f);
+    public void deshipotecar(Jugador actual) {
+        if (this.duenho.equals(actual)
+                && (this.tipo.equals("solar") || this.tipo.equals("serv") || this.tipo.equals("transporte"))
+                && this.hipotecada == true) {
+
+            this.duenho.sumarFortuna(-hipoteca * 1.10f);
         }
         this.hipotecada = false;
     }
+
     /*
      * Método para evaluar qué hacer en una casilla concreta. Parámetros:
      * - Jugador cuyo avatar está en esa casilla.
@@ -289,8 +299,9 @@ public class Casilla {
             this.duenho = solicitante;
             System.out.println("El jugador " + solicitante.getNombre() + " ha comprado la casilla " + this.nombre
                     + ". Su fortuna actual es " + solicitante.getFortuna());
-            if (this.grupo.esDuenhoGrupo(solicitante)){
-                System.out.println("El jugador " + solicitante.getNombre() + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
+            if (this.grupo.esDuenhoGrupo(solicitante)) {
+                System.out.println("El jugador " + solicitante.getNombre()
+                        + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
                 this.grupo.actualizarAlquilerGrupo();
             }
         } else if (fortuna_solicitante < this.valor) {
@@ -469,4 +480,91 @@ public class Casilla {
         return this.nombre;
     }
 
+    private int obtenerNumeroCasas() {
+        int ret = 0;
+        for (Edificio e : this.edificios) {
+            if (e.getTipo().equals("Casa"))
+                ret += 1;
+        }
+        return ret;
+    }
+
+    private int obtenerNumeroHoteles() {
+        int ret = 0;
+        for (Edificio e : this.edificios) {
+            if (e.getTipo().equals("Hotel"))
+                ret += 1;
+        }
+        return ret;
+    }
+
+    private int obtenerNumeroPiscinas() {
+        int ret = 0;
+        for (Edificio e : this.edificios) {
+            if (e.getTipo().equals("Piscina"))
+                ret += 1;
+        }
+        return ret;
+    }
+
+    private int obtenerNumeroPistasDeporte() {
+        int ret = 0;
+        for (Edificio e : this.edificios) {
+            if (e.getTipo().equals("Pista de deportes"))
+                ret += 1;
+        }
+        return ret;
+    }
+
+    public void edificar(String tipo, Jugador duenhoGrupo) {
+
+        if (this.grupo.esDuenhoGrupo(duenhoGrupo)) {
+
+            switch (tipo) {
+                case "Casa": // Como máximo puede haver 4 casas
+
+                    if (this.obtenerNumeroCasas() < 4) {
+                        this.edificios.add(new Edificio(tipo, this));
+                        return;
+                    }
+                    System.out.println("No puedes edificar una Casa en estos momentos.");
+                    break;
+
+                case "Hotel": // Solo se puede construir un hotel si hay 4 casas
+                              // Además las casas serán eliminadas
+
+                    if (this.obtenerNumeroCasas() == 4) {
+                        for (Edificio e : this.edificios) {
+                            if (e.getTipo().equals("Casa"))
+                                this.edificios.remove(e);
+                        }
+                        this.edificios.add(new Edificio(tipo, this));
+                        return;
+                    }
+                    System.out.println("No puedes edificar un Hotel en estos momentos.");
+                    break;
+
+                case "Piscina": // Numero de hoteles >= 1
+                                // Numero de casas >= 2
+                    if (this.obtenerNumeroCasas() >= 2 && this.obtenerNumeroHoteles() >= 1) {
+                        this.edificios.add(new Edificio(tipo, this));
+                        return;
+                    }
+                    System.out.println("No puedes edificar una Piscina en estos momentos.");
+                    break;
+
+                case "Pista": // Numero de hoteles >= 2
+                    if (this.obtenerNumeroHoteles() >= 2) {
+                        this.edificios.add(new Edificio("Pista de deportes", this));
+                        return;
+                    }
+                    System.out.println("No puedes edificar una Pista de deportes en estos momentos.");
+                    break;
+                default:
+                    System.out.println("Tipo incorrecto!");
+                    break;
+            }
+
+        }
+    }
 }
