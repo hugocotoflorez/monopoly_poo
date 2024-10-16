@@ -175,8 +175,8 @@ public class Menu {
                         listarJugadores();
                     else if (com[1].equals("avatares"))
                         listarAvatares();
+                    }
                     break;
-                }
 
             case "lanzar":
 
@@ -187,8 +187,8 @@ public class Menu {
                         System.out.println(this.tablero);
                     } else
                         System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
+                    }
                     break;
-                }
 
             case "l":
                 if (com.length == 3) {
@@ -196,8 +196,8 @@ public class Menu {
                     int valor = Integer.parseInt(com[1]);
                     int valor2 = Integer.parseInt(com[2]);
                     lanzarDados(valor, valor2);
-                    break;
                 }
+                break;
 
             case "a":
             case "acabar":
@@ -231,8 +231,9 @@ public class Menu {
             case "comprar":
                 if (com.length == 2) {
                     comprar(com[1]);
-                    break;
                 }
+                break;
+
             case "estadisticas":
                 if (com.length == 2) {
                     mostrarestadisticasjugador(com[1]);
@@ -240,6 +241,7 @@ public class Menu {
                     mostrarestadisticaspartida();
                 } else
                     System.out.println("Opcion incorrecta. [? para ver las opciones]");
+                break;
 
             case "ver":
                 System.out.println(this.tablero);
