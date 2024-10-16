@@ -400,6 +400,7 @@ public class Menu {
             this.jugadores.get(turno).setPagoTasasEImpuestos(
                     this.jugadores.get(turno).getPagoTasasEImpuestos() + Valor.PAGO_SALIR_CARCEL);
             banca.sumarGastos(Valor.PAGO_SALIR_CARCEL);
+            System.out.println("El bote de la banca ahora es " + banca.getGastos());
         } else {
             System.out.println("Ya has tirado este turno!");
         }

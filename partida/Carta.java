@@ -212,6 +212,7 @@ public class Carta {
         av.getJugador().sumarFortuna(500000);
         av.getJugador().setPagoTasasEImpuestos(av.getJugador().getPagoTasasEImpuestos() + 500000);
         jugadores.get(0).sumarGastos(500000);
+        System.out.println("El bote de la banca ahora es " + jugadores.get(0).getGastos());
     }
 
     private void accComm2(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
@@ -252,6 +253,7 @@ public class Carta {
         av.getJugador().sumarFortuna(-1000000);
         av.getJugador().setPagoTasasEImpuestos(av.getJugador().getPagoTasasEImpuestos() + 1000000);
         jugadores.get(0).sumarGastos(1000000);
+        System.out.println("El bote de la banca ahora es " + jugadores.get(0).getGastos());
     }
 
     private void accComm6(Avatar av, ArrayList<Jugador> jugadores) {
@@ -264,6 +266,7 @@ public class Carta {
             j.sumarFortuna(200000);
             av.getJugador().setPagoTasasEImpuestos(av.getJugador().getPagoTasasEImpuestos() + 200000);
             jugadores.get(0).sumarGastos(200000);
+            System.out.println("El bote de la banca ahora es " + jugadores.get(0).getGastos());
         }
     }
 
