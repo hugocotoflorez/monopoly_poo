@@ -193,7 +193,7 @@ public class Menu {
                 }
             case "estadisticas":
                 if (com.length == 2) {
-                    mostrarestadisticasjugador(com[2]);
+                    mostrarestadisticasjugador(com[1]);
                 } else if (com.length == 1) {
                     mostrarestadisticaspartida();
                 } else
