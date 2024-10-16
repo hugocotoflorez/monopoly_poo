@@ -3,6 +3,8 @@ package partida;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import monopoly.Casilla;
+
 public class Carta {
     String descripcion;
     String tipo;
@@ -58,13 +60,19 @@ public class Carta {
     }
 
     // El avatar es el jugador que esta en suerte y sobre el que se aplican las
-    // acciones
-    public void elegirCarta(ArrayList<Carta> baraja, int n, Avatar av) {
+    // acciones.
+    public void elegirCarta(
+            ArrayList<Carta> baraja, // baraja de cartas
+            int n, // numero de carta elegido
+            Avatar av, // avatar que usa la carta
+            ArrayList<Jugador> jugadores, // todos los jugadores
+            ArrayList<ArrayList<Casilla>> casillas // todas las casillas
+    ) {
         barajar(baraja);
         obtenerCarta(baraja, n);
         Carta c = obtenerCarta(baraja, n);
         mostrarDescipcion(c);
-        realizarAccion(c, av);
+        realizarAccion(c, av, jugadores, casillas);
     }
 
     private void barajar(ArrayList<Carta> baraja) {
@@ -82,14 +90,15 @@ public class Carta {
         System.out.println(c.descripcion);
     }
 
-    private void realizarAccion(Carta c, Avatar av) {
+    private void realizarAccion(Carta c, Avatar av, ArrayList<Jugador> jugadores,
+            ArrayList<ArrayList<Casilla>> casillas) {
         if (c.tipo.equals("suerte"))
             switch (c.accion) {
                 case 1:
-                    accSuerte1(av);
+                    accSuerte1(av, casillas);
                     break;
                 case 2:
-                    accSuerte2(av);
+                    accSuerte2(av,casillas);
                     break;
                 case 3:
                     accSuerte3(av);
@@ -122,89 +131,111 @@ public class Carta {
                     accComm5(av);
                     break;
                 case 6:
-                    accComm6(av);
+                    accComm6(av, jugadores);
                     break;
             }
     }
 
-    private void accSuerte1(Avatar av) {
+    private void accSuerte1(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
         /**
          * Ve al Transportes1 y coge un avión. Si pasas por la casilla de Salida, cobra
          * la cantidad habitual.
          */
+        /* 5 es la posicion de transportes1 */
+        if (av.getCasilla().getPosicion() > 5) {
+            // Pasa por salida
+        }
+        av.setLugar(casillas.get(0).get(5));
     }
 
-    private void accSuerte2(Avatar av) {
+    private void accSuerte2(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
         /*
          * Decides hacer un viaje de placer. Avanza hasta Solar15 directamente, sin
          * pasar por la casilla de Salida y sin cobrar la cantidad habitual.
          */
+        av.setLugar(casillas.get(0).get(0));
     }
 
     private void accSuerte3(Avatar av) {
         /**
-         * Vendes tu billete de avión para Solar171 en una subasta por Internet. Cobra
+         * Vendes tu billete de avión para Solar17 en una subasta por Internet. Cobra
          * 500000€
          */
+        av.getJugador().sumarFortuna(500000);
     }
 
-    private void accSuerte4(Avatar av) {
+    private void accSuerte4(Avatar av, ArrayList<ArrayList<Casilla>> casillas ) { // TODO
         /**
          * Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.
          */
+        // cobrar
+        av.setLugar(casillas.get(0).get(6));
     }
 
-    private void accSuerte5(Avatar av) {
+    private void accSuerte5(Avatar av, ArrayList<ArrayList<Casilla>> casillas ) {
         /**
          * Los acreedores te persiguen por impago. Ve a la Cárcel. Ve directamente sin
          * pasar por la casilla de Salida
          * y sin cobrar la cantidad habitual
          */
+        av.getJugador().encarcelar(casillas);
+
     }
 
     private void accSuerte6(Avatar av) {
         /**
          * ¡Has ganado el bote de la lotería! Recibe 1000000€
          */
+        av.getJugador().sumarFortuna(1000000);
     }
 
     private void accComm1(Avatar av) {
         /**
          * Paga 500000€ por un fin de semana en un balneario de 5 estrellas
          */
+        av.getJugador().sumarFortuna(500000);
     }
 
-    private void accComm2(Avatar av) {
+    private void accComm2(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
         /**
          * Te investigan por fraude de identidad. Ve a la Cárcel. Ve directamente sin
          * pasar por la casilla de Salida y
          * sin cobrar la cantidad habitual
          */
+        av.getJugador().encarcelar(casillas);
     }
 
-    private void accComm3(Avatar av) {
+    private void accComm3(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
         /**
          * Colócate en la casilla de Salida. Cobra la cantidad habitual.
          */
+        av.setLugar(casillas.get(0).get(0));
+        // Cobrar Salida
     }
 
     private void accComm4(Avatar av) {
         /**
          * Tu compañía de Internet obtiene beneficios. Recibe 2000000€
          */
+        av.getJugador().sumarFortuna(2000000);
     }
 
     private void accComm5(Avatar av) {
         /**
-         * Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar142.
+         * Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14.
          */
+        av.getJugador().sumarFortuna(-1000000);
     }
 
-    private void accComm6(Avatar av) {
+    private void accComm6(Avatar av, ArrayList<Jugador> jugadores) {
         /**
          * Alquilas a tus compañeros una villa en Solar7 durante una semana. Paga
-         * 200000€ a cada jugador3
+         * 200000€ a cada jugador
          */
+        for (Jugador j : jugadores) {
+            av.getJugador().sumarFortuna(-200000);
+            j.sumarFortuna(200000);
+        }
     }
 
 }
