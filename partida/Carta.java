@@ -170,6 +170,7 @@ public class Carta {
          * 500000€
          */
         av.getJugador().sumarFortuna(500000);
+        av.getJugador().setPremiosInversionesOBote(av.getJugador().getPremiosInversionesOBote() + 500000);
     }
 
     private void accSuerte4(Avatar av, ArrayList<ArrayList<Casilla>> casillas) { // TODO
@@ -201,6 +202,7 @@ public class Carta {
          * ¡Has ganado el bote de la lotería! Recibe 1000000€
          */
         av.getJugador().sumarFortuna(1000000);
+        av.getJugador().setPremiosInversionesOBote(av.getJugador().getPremiosInversionesOBote() + 1000000);
     }
 
     private void accComm1(Avatar av) {
@@ -208,6 +210,7 @@ public class Carta {
          * Paga 500000€ por un fin de semana en un balneario de 5 estrellas
          */
         av.getJugador().sumarFortuna(500000);
+        av.getJugador().setPagoTasasEImpuestos(av.getJugador().getPagoTasasEImpuestos() + 500000);
     }
 
     private void accComm2(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
