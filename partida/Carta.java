@@ -241,6 +241,7 @@ public class Carta {
          * Tu compañía de Internet obtiene beneficios. Recibe 2000000€
          */
         av.getJugador().sumarFortuna(2000000);
+        av.getJugador().setPremiosInversionesOBote(av.getJugador().getPremiosInversionesOBote() +2000000);
     }
 
     private void accComm5(Avatar av) {
@@ -248,6 +249,7 @@ public class Carta {
          * Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14.
          */
         av.getJugador().sumarFortuna(-1000000);
+        av.getJugador().setPagoTasasEImpuestos(av.getJugador().getPagoTasasEImpuestos() + 1000000);
     }
 
     private void accComm6(Avatar av, ArrayList<Jugador> jugadores) {
@@ -258,6 +260,7 @@ public class Carta {
         for (Jugador j : jugadores) {
             av.getJugador().sumarFortuna(-200000);
             j.sumarFortuna(200000);
+            av.getJugador().setPagoTasasEImpuestos(av.getJugador().getPagoTasasEImpuestos() + 200000);
         }
     }
 
