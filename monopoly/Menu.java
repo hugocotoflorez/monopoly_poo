@@ -24,8 +24,50 @@ public class Menu {
 
     private boolean debeActualizar = false;
 
+    private ArrayList<Carta> suerte;
+    private ArrayList<Carta> comunidad;
+
     public Menu() {
+        crear_cartas_comunidad();
+        crear_cartas_suerte();
         iniciarPartida();
+    }
+
+    private void crear_cartas_suerte() {
+        this.suerte = new ArrayList<Carta>();
+        suerte.add(new Carta(Carta.desc1, "suerte", 1));
+        suerte.add(new Carta(Carta.desc2, "suerte", 2));
+        suerte.add(new Carta(Carta.desc3, "suerte", 3));
+        suerte.add(new Carta(Carta.desc4, "suerte", 4));
+        suerte.add(new Carta(Carta.desc5, "suerte", 5));
+        suerte.add(new Carta(Carta.desc6, "suerte", 6));
+    }
+
+    private void crear_cartas_comunidad() {
+        this.comunidad = new ArrayList<Carta>();
+        comunidad.add(new Carta(Carta.desc7, "comunidad", 1));
+        comunidad.add(new Carta(Carta.desc8, "comunidad", 2));
+        comunidad.add(new Carta(Carta.desc9, "comunidad", 3));
+        comunidad.add(new Carta(Carta.desc10, "comunidad", 4));
+        comunidad.add(new Carta(Carta.desc11, "comunidad", 5));
+        comunidad.add(new Carta(Carta.desc12, "comunidad", 6));
+    }
+
+    private void elegir_carta(ArrayList<Carta> baraja) {
+        int n;
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.println("Elige una carta del 1 al 6: ");
+            n = Integer.parseInt(scanner.next());
+
+        } while (0 < n && n <= 6);
+        scanner.close();
+
+        Carta.barajar(baraja);
+        Carta c = Carta.obtenerCarta(baraja, n);
+        c.mostrarDescipcion();
+        c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
     }
 
     private void crear_jugador(String nombreJugador, String tipoAvatar) {
@@ -49,22 +91,22 @@ public class Menu {
         this.avatares.add(null); // avatar banca
         this.jugadores.add(banca);
         this.tablero = new Tablero(banca);
-        System.out.println("OPCIONES:");
-        System.out.println("crear jugador <nombre> <tipo_avatar>");
-        System.out.println("jugador - jugador con el turno");
-        System.out.println("listar enventa");
-        System.out.println("listar jugadores");
-        System.out.println("listar avatares");
-        System.out.println("lanzar dados");
-        System.out.println("acabar - acaba el turno");
-        System.out.println("salir (carcel)");
-        System.out.println("describir jugador  <nombre>");
-        System.out.println("describir avatar <letra");
-        System.out.println("comprar <casilla>");
-        System.out.println("bancarrota - acaba la partida para ese jugador");
-        System.out.println("ver - muestra el tablero");
-        System.out.println("clear - limpia la pantalla");
-        System.out.println("estadisticas <Jugador>");
+        System.out.println(Valor.BOLD+ "OPCIONES:"+Valor.RESET);
+        System.out.println("> crear jugador <nombre> <tipo_avatar>");
+        System.out.println("> jugador - jugador con el turno");
+        System.out.println("> listar enventa");
+        System.out.println("> listar jugadores");
+        System.out.println("> listar avatares");
+        System.out.println("> lanzar dados");
+        System.out.println("> acabar - acaba el turno");
+        System.out.println("> salir (carcel)");
+        System.out.println("> describir jugador  <nombre>");
+        System.out.println("> describir avatar <letra");
+        System.out.println("> comprar <casilla>");
+        System.out.println("> bancarrota - acaba la partida para ese jugador");
+        System.out.println("> ver - muestra el tablero");
+        System.out.println("> clear - limpia la pantalla");
+        System.out.println("> estadisticas <Jugador>");
         while (!partida_finalizada) {
             System.out.print("\n[>]: ");
             analizarComando(scanner.nextLine());
@@ -133,8 +175,8 @@ public class Menu {
                         listarJugadores();
                     else if (com[1].equals("avatares"))
                         listarAvatares();
+                    }
                     break;
-                }
 
             case "lanzar":
 
@@ -145,8 +187,8 @@ public class Menu {
                         System.out.println(this.tablero);
                     } else
                         System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
+                    }
                     break;
-                }
 
             case "l":
                 if (com.length == 3) {
@@ -154,8 +196,8 @@ public class Menu {
                     int valor = Integer.parseInt(com[1]);
                     int valor2 = Integer.parseInt(com[2]);
                     lanzarDados(valor, valor2);
-                    break;
                 }
+                break;
 
             case "a":
             case "acabar":
@@ -189,15 +231,17 @@ public class Menu {
             case "comprar":
                 if (com.length == 2) {
                     comprar(com[1]);
-                    break;
                 }
+                break;
+
             case "estadisticas":
                 if (com.length == 2) {
-                    mostrarestadisticasjugador(com[2]);
+                    mostrarestadisticasjugador(com[1]);
                 } else if (com.length == 1) {
                     mostrarestadisticaspartida();
                 } else
                     System.out.println("Opcion incorrecta. [? para ver las opciones]");
+                break;
 
             case "ver":
                 System.out.println(this.tablero);
@@ -355,6 +399,7 @@ public class Menu {
         } else if (this.lanzamientos >= 2 && !this.tirado) {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
             System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
+            this.tirado = true;
         } else if (this.jugadores.get(turno).getEnCarcel()) {
             System.out.println("Oh no! Estás en la cárcel!");
         }
@@ -399,6 +444,8 @@ public class Menu {
                     "Has pagado " + Valor.PAGO_SALIR_CARCEL + " para salir de la carcel. Puedes lanzar los dados.");
             this.jugadores.get(turno).setPagoTasasEImpuestos(
                     this.jugadores.get(turno).getPagoTasasEImpuestos() + Valor.PAGO_SALIR_CARCEL);
+            banca.sumarGastos(Valor.PAGO_SALIR_CARCEL);
+            System.out.println("El bote de la banca ahora es " + banca.getGastos());
         } else {
             System.out.println("Ya has tirado este turno!");
         }
@@ -445,6 +492,7 @@ public class Menu {
                     System.out.println("Opcion incorrecta");
                     break;
             }
+            scanner.close();
         } else {
             System.out.println("El jugador " + this.jugadores.get(turno).getNombre() + " no está en la cárcel.");
         }
@@ -499,6 +547,7 @@ public class Menu {
         for (Jugador J : this.jugadores) {
             if (J.getNombre().equals(nombre)) {
                 System.out.println(J.estadisticasJugador());
+                return;
             }
         }
         System.out.println("No se ha encontrado este jugador.\n");

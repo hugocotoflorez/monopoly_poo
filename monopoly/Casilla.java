@@ -302,15 +302,14 @@ public class Casilla {
         float fortuna_solicitante = solicitante.getFortuna();
         if (fortuna_solicitante >= this.valor && this.esComprable(solicitante)) {
             solicitante.setFortuna(fortuna_solicitante - this.valor);
-            banca.eliminarPropiedad(this);
+            //banca.eliminarPropiedad(this);
             solicitante.anhadirPropiedad(this);
             this.duenho = solicitante;
             System.out.println("El jugador " + solicitante.getNombre() + " ha comprado la casilla " + this.nombre
                     + ". Su fortuna actual es " + solicitante.getFortuna());
             solicitante.setDineroInvertido(solicitante.getDineroInvertido() + this.valor);
-            if (this.grupo.esDuenhoGrupo(solicitante)) {
-                System.out.println("El jugador " + solicitante.getNombre()
-                        + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
+            if (this.tipo.equals("solar") && this.grupo.esDuenhoGrupo(solicitante)){
+                System.out.println("El jugador " + solicitante.getNombre() + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
                 this.grupo.actualizarAlquilerGrupo();
             }
         } else if (fortuna_solicitante < this.valor) {
