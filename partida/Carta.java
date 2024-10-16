@@ -45,6 +45,20 @@ public class Carta {
      * en la memoria, deberá haber 6 cartas de tipo Suerte y 6 cartas de Caja de
      * Comunidad.
      */
+
+    public final static String desc1 = "Ve al Transportes1 y coge un avión. Si pasas por la casilla de Salida, cobra la cantidad habitual.";
+    public final static String desc2 = "Decides hacer un viaje de placer. Avanza hasta Solar15 directamente, sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.";
+    public final static String desc3 = "Vendes tu billete de avión para Solar171 en una subasta por Internet. Cobra 500000€.";
+    public final static String desc4 = "Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.";
+    public final static String desc5 = "Los acreedores te persiguen por impago. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.";
+    public final static String desc6 = "¡Has ganado el bote de la lotería! Recibe 1000000€.";
+    public final static String desc7 = "Paga 500000€ por un fin de semana en un balneario de 5 estrellas.";
+    public final static String desc8 = "Te investigan por fraude de identidad. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.";
+    public final static String desc9 = "Colócate en la casilla de Salida. Cobra la cantidad habitual.";
+    public final static String desc10 = "Tu compañía de Internet obtiene beneficios. Recibe 2000000€.";
+    public final static String desc11 = "Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14.";
+    public final static String desc12 = "Alquilas a tus compañeros una villa en Solar7 durante una semana. Paga 200000€ a cada jugador3.";
+
     public Carta(String descripcion, String tipo, int accion) {
         this.setAccion(accion);
         this.setTipo(tipo);
@@ -61,41 +75,25 @@ public class Carta {
             this.tipo = tipo;
     }
 
-    // El avatar es el jugador que esta en suerte y sobre el que se aplican las
-    // acciones.
-    public void elegirCarta(
-            ArrayList<Carta> baraja, // baraja de cartas
-            int n, // numero de carta elegido
-            Avatar av, // avatar que usa la carta
-            ArrayList<Jugador> jugadores, // todos los jugadores
-            ArrayList<ArrayList<Casilla>> casillas // todas las casillas
-    ) {
-        barajar(baraja);
-        obtenerCarta(baraja, n);
-        Carta c = obtenerCarta(baraja, n);
-        mostrarDescipcion(c);
-        realizarAccion(c, av, jugadores, casillas);
-    }
-
-    private void barajar(ArrayList<Carta> baraja) {
+    public static void barajar(ArrayList<Carta> baraja) {
         Collections.shuffle(baraja);
     }
 
-    private Carta obtenerCarta(ArrayList<Carta> baraja, int n) {
+    public static Carta obtenerCarta(ArrayList<Carta> baraja, int n) {
         if (n <= 0 && n > 6)
             return null;
 
         return baraja.get(n - 1);
     }
 
-    private void mostrarDescipcion(Carta c) {
-        System.out.println(c.descripcion);
+    public  void mostrarDescipcion() {
+        System.out.println(this.descripcion);
     }
 
-    private void realizarAccion(Carta c, Avatar av, ArrayList<Jugador> jugadores,
+    public  void realizarAccion(Avatar av, ArrayList<Jugador> jugadores,
             ArrayList<ArrayList<Casilla>> casillas) {
-        if (c.tipo.equals("suerte"))
-            switch (c.accion) {
+        if (this.tipo.equals("suerte"))
+            switch (this.accion) {
                 case 1:
                     accSuerte1(av, casillas);
                     break;
@@ -146,12 +144,12 @@ public class Carta {
         /* 5 es la posicion de transportes1 */
         if (av.getCasilla().getPosicion() > 5) {
             // Pasa por salida
-        System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
-        av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
-        av.getJugador().setVueltas(av.getJugador().getVueltas() + 1);
-        av.getJugador().setPasarPorCasillaDeSalida(
-        av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
-        System.out.println("Llevas " + av.getJugador().getVueltas() + " vueltas.");
+            System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
+            av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
+            av.getJugador().setVueltas(av.getJugador().getVueltas() + 1);
+            av.getJugador().setPasarPorCasillaDeSalida(
+                    av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
+            System.out.println("Llevas " + av.getJugador().getVueltas() + " vueltas.");
         }
         av.setLugar(casillas.get(0).get(5));
     }
@@ -183,7 +181,7 @@ public class Carta {
         av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
         av.getJugador().setVueltas(av.getJugador().getVueltas() + 1);
         av.getJugador().setPasarPorCasillaDeSalida(
-        av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
+                av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
         System.out.println("Llevas " + av.getJugador().getVueltas() + " vueltas.");
     }
 
@@ -234,7 +232,7 @@ public class Carta {
         av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
         av.getJugador().setVueltas(av.getJugador().getVueltas() + 1);
         av.getJugador().setPasarPorCasillaDeSalida(
-        av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
+                av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
         System.out.println("Llevas " + av.getJugador().getVueltas() + " vueltas.");
     }
 
@@ -263,6 +261,7 @@ public class Carta {
          */
         for (Jugador j : jugadores) {
             av.getJugador().sumarFortuna(-200000);
+            av.getJugador().estaBancarrota();
             j.sumarFortuna(200000);
             av.getJugador().setPagoTasasEImpuestos(av.getJugador().getPagoTasasEImpuestos() + 200000);
             jugadores.get(0).sumarGastos(200000);

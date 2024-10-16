@@ -24,8 +24,48 @@ public class Menu {
 
     private boolean debeActualizar = false;
 
+    private ArrayList<Carta> suerte;
+    private ArrayList<Carta> comunidad;
+
     public Menu() {
         iniciarPartida();
+    }
+
+    private void crear_cartas_suerte() {
+        this.suerte = new ArrayList<Carta>();
+        suerte.add(new Carta(Carta.desc1, "suerte", 1));
+        suerte.add(new Carta(Carta.desc2, "suerte", 2));
+        suerte.add(new Carta(Carta.desc3, "suerte", 3));
+        suerte.add(new Carta(Carta.desc4, "suerte", 4));
+        suerte.add(new Carta(Carta.desc5, "suerte", 5));
+        suerte.add(new Carta(Carta.desc6, "suerte", 6));
+    }
+
+    private void crear_cartas_comunidad() {
+        this.comunidad = new ArrayList<Carta>();
+        suerte.add(new Carta(Carta.desc7, "comunidad", 1));
+        suerte.add(new Carta(Carta.desc8, "comunidad", 2));
+        suerte.add(new Carta(Carta.desc9, "comunidad", 3));
+        suerte.add(new Carta(Carta.desc10, "comunidad", 4));
+        suerte.add(new Carta(Carta.desc11, "comunidad", 5));
+        suerte.add(new Carta(Carta.desc12, "comunidad", 6));
+    }
+
+    private void elegir_carta(ArrayList<Carta> baraja) {
+        int n;
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.println("Elige una carta del 1 al 6: ");
+            n = Integer.parseInt(scanner.next());
+
+        } while (0 < n && n <= 6);
+        scanner.close();
+
+        Carta.barajar(baraja);
+        Carta c = Carta.obtenerCarta(baraja, n);
+        c.mostrarDescipcion();
+        c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
     }
 
     private void crear_jugador(String nombreJugador, String tipoAvatar) {
