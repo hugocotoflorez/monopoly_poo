@@ -205,7 +205,7 @@ public class Menu {
                 break;
 
             case "salir":
-                salirCarcel();
+                salirCarcel(banca);
                 break;
             case "bancarrota":
                 bancarrota();
@@ -472,7 +472,7 @@ public class Menu {
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'salir
     // carcel'.
-    private void salirCarcel() {
+    private void salirCarcel(Jugador banca) {
 
         if (this.jugadores.get(turno).getEnCarcel() == true) {
             Scanner scanner = new Scanner(System.in);
