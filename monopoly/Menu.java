@@ -53,6 +53,10 @@ public class Menu {
         comunidad.add(new Carta(Carta.desc12, "comunidad", 6));
     }
 
+    /*
+     * Cuando se caiga en una casilla que hay que lanzar cartas, se tiene que llamar
+     * a esta funcion.
+     */
     private void elegir_carta(ArrayList<Carta> baraja) {
         int n;
         Scanner scanner = new Scanner(System.in);
@@ -91,7 +95,7 @@ public class Menu {
         this.avatares.add(null); // avatar banca
         this.jugadores.add(banca);
         this.tablero = new Tablero(banca);
-        System.out.println(Valor.BOLD+ "OPCIONES:"+Valor.RESET);
+        System.out.println(Valor.BOLD + "OPCIONES:" + Valor.RESET);
         System.out.println("> crear jugador <nombre> <tipo_avatar>");
         System.out.println("> jugador - jugador con el turno");
         System.out.println("> listar enventa");
@@ -175,8 +179,8 @@ public class Menu {
                         listarJugadores();
                     else if (com[1].equals("avatares"))
                         listarAvatares();
-                    }
-                    break;
+                }
+                break;
 
             case "lanzar":
 
@@ -187,8 +191,8 @@ public class Menu {
                         System.out.println(this.tablero);
                     } else
                         System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
-                    }
-                    break;
+                }
+                break;
 
             case "l":
                 if (com.length == 3) {
@@ -405,7 +409,7 @@ public class Menu {
         }
     }
 
-    private void lanzarDadosCarcel() {
+    private void lanzarDadosCarcel(Jugador banca) {
 
         this.dado1.hacerTirada();
         this.dado2.hacerTirada();
@@ -422,7 +426,7 @@ public class Menu {
             System.out.println("No has sacado dobles! Dado1: " + dado1.getValor() + " Dado2: " + dado2.getValor());
             System.out.println("Oh no! Llevas tres turnos en la cárcel paga " + Valor.PAGO_SALIR_CARCEL);
             this.tirado = false;
-            pagarCarcel();
+            pagarCarcel(banca);
             return;
         } else if (this.tirado) {
             System.out.println("Ya has tirado este turno! ");
@@ -435,7 +439,7 @@ public class Menu {
 
     }
 
-    private void pagarCarcel() {
+    private void pagarCarcel(Jugador banca) {
         if (!this.tirado) {
             this.tirado = false;
             this.jugadores.get(turno).setEnCarcel(false);
@@ -483,10 +487,10 @@ public class Menu {
             char opcion = scanner.next().charAt(0);
             switch (opcion) {
                 case '1':
-                    lanzarDadosCarcel();
+                    lanzarDadosCarcel(banca);
                     break;
                 case '2':
-                    pagarCarcel();
+                    pagarCarcel(banca);
                     break;
                 default:
                     System.out.println("Opcion incorrecta");
