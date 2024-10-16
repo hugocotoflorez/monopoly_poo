@@ -324,6 +324,7 @@ public class Menu {
                 System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
                 jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
                 jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
+                
                 System.out.println("Llevas " + jugadores.get(turno).getVueltas() + " vueltas.");
 
                 int vueltasmin = this.jugadores.get(turno).getVueltas();
