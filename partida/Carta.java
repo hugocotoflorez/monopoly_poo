@@ -1,5 +1,7 @@
 package partida;
 
+import monopoly.Valor;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -98,16 +100,16 @@ public class Carta {
                     accSuerte1(av, casillas);
                     break;
                 case 2:
-                    accSuerte2(av,casillas);
+                    accSuerte2(av, casillas);
                     break;
                 case 3:
                     accSuerte3(av);
                     break;
                 case 4:
-                    accSuerte4(av);
+                    accSuerte4(av, casillas);
                     break;
                 case 5:
-                    accSuerte5(av);
+                    accSuerte5(av, casillas);
                     break;
                 case 6:
                     accSuerte6(av);
@@ -119,10 +121,10 @@ public class Carta {
                     accComm1(av);
                     break;
                 case 2:
-                    accComm2(av);
+                    accComm2(av, casillas);
                     break;
                 case 3:
-                    accComm3(av);
+                    accComm3(av, casillas);
                     break;
                 case 4:
                     accComm4(av);
@@ -136,7 +138,7 @@ public class Carta {
             }
     }
 
-    private void accSuerte1(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
+    private void accSuerte1(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {// TODO
         /**
          * Ve al Transportes1 y coge un avión. Si pasas por la casilla de Salida, cobra
          * la cantidad habitual.
@@ -144,6 +146,12 @@ public class Carta {
         /* 5 es la posicion de transportes1 */
         if (av.getCasilla().getPosicion() > 5) {
             // Pasa por salida
+        System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
+        av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
+        av.getJugador().setVueltas(av.getJugador().getVueltas() + 1);
+        av.getJugador().setPasarPorCasillaDeSalida(
+        av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
+        System.out.println("Llevas " + av.getJugador().getVueltas() + " vueltas.");
         }
         av.setLugar(casillas.get(0).get(5));
     }
@@ -164,15 +172,21 @@ public class Carta {
         av.getJugador().sumarFortuna(500000);
     }
 
-    private void accSuerte4(Avatar av, ArrayList<ArrayList<Casilla>> casillas ) { // TODO
+    private void accSuerte4(Avatar av, ArrayList<ArrayList<Casilla>> casillas) { // TODO
         /**
          * Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.
          */
         // cobrar
         av.setLugar(casillas.get(0).get(6));
+        System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
+        av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
+        av.getJugador().setVueltas(av.getJugador().getVueltas() + 1);
+        av.getJugador().setPasarPorCasillaDeSalida(
+        av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
+        System.out.println("Llevas " + av.getJugador().getVueltas() + " vueltas.");
     }
 
-    private void accSuerte5(Avatar av, ArrayList<ArrayList<Casilla>> casillas ) {
+    private void accSuerte5(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
         /**
          * Los acreedores te persiguen por impago. Ve a la Cárcel. Ve directamente sin
          * pasar por la casilla de Salida
@@ -211,6 +225,12 @@ public class Carta {
          */
         av.setLugar(casillas.get(0).get(0));
         // Cobrar Salida
+        System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
+        av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
+        av.getJugador().setVueltas(av.getJugador().getVueltas() + 1);
+        av.getJugador().setPasarPorCasillaDeSalida(
+        av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
+        System.out.println("Llevas " + av.getJugador().getVueltas() + " vueltas.");
     }
 
     private void accComm4(Avatar av) {
