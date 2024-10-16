@@ -501,6 +501,7 @@ public class Menu {
         for (Jugador J : this.jugadores) {
             if (J.getNombre().equals(nombre)) {
                 System.out.println(J.estadisticasJugador());
+                return;
             }
         }
         System.out.println("No se ha encontrado este jugador.\n");
