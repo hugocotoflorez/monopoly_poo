@@ -192,13 +192,12 @@ public class Menu {
                     break;
                 }
             case "estadisticas":
-                if (com.length == 2){
+                if (com.length == 2) {
                     mostrarestadisticasjugador(com[2]);
-                }
-                else if (com.length == 1){
+                } else if (com.length == 1) {
                     mostrarestadisticaspartida();
-                }
-                else System.out.println("Opcion incorrecta. [? para ver las opciones]");
+                } else
+                    System.out.println("Opcion incorrecta. [? para ver las opciones]");
 
             case "ver":
                 System.out.println(this.tablero);
@@ -324,7 +323,8 @@ public class Menu {
                 System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
                 jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
                 jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
-                
+                jugadores.get(turno).setPasarPorCasillaDeSalida(
+                        jugadores.get(turno).getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
                 System.out.println("Llevas " + jugadores.get(turno).getVueltas() + " vueltas.");
 
                 int vueltasmin = this.jugadores.get(turno).getVueltas();
@@ -364,7 +364,8 @@ public class Menu {
 
         this.dado1.hacerTirada();
         this.dado2.hacerTirada();
-        if (dadosDobles(dado1.getValor(), dado2.getValor()) && this.jugadores.get(turno).getTurnosCarcel() < 3 && !this.tirado) {
+        if (dadosDobles(dado1.getValor(), dado2.getValor()) && this.jugadores.get(turno).getTurnosCarcel() < 3
+                && !this.tirado) {
             int desplazamiento = dado1.getValor() + dado2.getValor();
             System.out.println("Has sacado dobles! Sales de la Cárcel y avanzas hasta");
             this.jugadores.get(turno).setEnCarcel(false);
@@ -396,6 +397,8 @@ public class Menu {
             this.jugadores.get(turno).sumarFortuna(-Valor.PAGO_SALIR_CARCEL);
             System.out.println(
                     "Has pagado " + Valor.PAGO_SALIR_CARCEL + " para salir de la carcel. Puedes lanzar los dados.");
+            this.jugadores.get(turno).setPagoTasasEImpuestos(
+                    this.jugadores.get(turno).getPagoTasasEImpuestos() + Valor.PAGO_SALIR_CARCEL);
         } else {
             System.out.println("Ya has tirado este turno!");
         }
@@ -492,7 +495,7 @@ public class Menu {
         }
     }
 
-    private void mostrarestadisticasjugador(String nombre){
+    private void mostrarestadisticasjugador(String nombre) {
         for (Jugador J : this.jugadores) {
             if (J.getNombre().equals(nombre)) {
                 System.out.println("{");
@@ -502,7 +505,7 @@ public class Menu {
         System.out.println("No se ha encontrado este jugador.\n");
     }
 
-    private void mostrarestadisticaspartida(){
+    private void mostrarestadisticaspartida() {
 
     }
 
