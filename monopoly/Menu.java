@@ -498,8 +498,7 @@ public class Menu {
     private void mostrarestadisticasjugador(String nombre) {
         for (Jugador J : this.jugadores) {
             if (J.getNombre().equals(nombre)) {
-                System.out.println("{");
-                return;
+                System.out.println(J.estadisticasJugador());
             }
         }
         System.out.println("No se ha encontrado este jugador.\n");

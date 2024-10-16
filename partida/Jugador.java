@@ -273,9 +273,13 @@ public class Jugador {
                 {
                     Dinero invertido en compra de propiedades y edificaciones: %f
                     Pago de tasas y/o impuestos: %f
-
+                    Pago de alquileres y uso de servicios y transportes: %f
+                    Cobro de alquileres y uso de servicios y transportes: %f
+                    Cobro por pasar por la casilla de salida: %f
+                    Cobro por premios, inversiones o  bote: %f
+                    Veces en la cárcel: %d
                 }
-                """;
+                """.formatted(this.dineroInvertido, this.pagoTasasEImpuestos, this.pagoDeAlquileres, this.cobroDeAlquileres, this.pasarPorCasillaDeSalida, this.premiosInversionesOBote, this.vecesEnLaCarcel)
         return ret;
     }
     @Override
