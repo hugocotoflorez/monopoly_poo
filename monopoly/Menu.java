@@ -391,6 +391,7 @@ public class Menu {
 
             if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
                 jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
+                this.tirado = true;
             }
             avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
 
