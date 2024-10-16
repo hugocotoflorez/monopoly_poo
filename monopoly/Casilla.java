@@ -524,7 +524,8 @@ public class Casilla {
         return ret;
     }
 
-    public void edificar(String tipo, Jugador duenhoGrupo) {
+    public void edificar(String tipo, Jugador duenhoGrupo) { // Restar precio de la edificación al Jugador
+                                                             // Aumentar el alquiler de la casilla dependiendo de la edificación
 
         if (this.grupo.esDuenhoGrupo(duenhoGrupo)) {
 
