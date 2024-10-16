@@ -527,9 +527,7 @@ public class Casilla {
         if (this.grupo.getNumCasillas() == 2){
             return !(this.obtenerNumeroCasas() == 2 && this.obtenerNumeroHoteles() == 2 && this.obtenerNumeroPiscinas() == 2 && this.obtenerNumeroPistasDeporte() == 2);
         }
-        if (this.grupo.getNumCasillas() == 3){
-            return !(this.obtenerNumeroCasas() == 3 && this.obtenerNumeroHoteles() == 3 && this.obtenerNumeroPiscinas() == 3 && this.obtenerNumeroPistasDeporte() == 3);
-        }
+        return !(this.obtenerNumeroCasas() == 3 && this.obtenerNumeroHoteles() == 3 && this.obtenerNumeroPiscinas() == 3 && this.obtenerNumeroPistasDeporte() == 3);
     }
     private boolean esCasaEdificable(){
 
