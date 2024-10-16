@@ -91,22 +91,22 @@ public class Menu {
         this.avatares.add(null); // avatar banca
         this.jugadores.add(banca);
         this.tablero = new Tablero(banca);
-        System.out.println("OPCIONES:");
-        System.out.println("crear jugador <nombre> <tipo_avatar>");
-        System.out.println("jugador - jugador con el turno");
-        System.out.println("listar enventa");
-        System.out.println("listar jugadores");
-        System.out.println("listar avatares");
-        System.out.println("lanzar dados");
-        System.out.println("acabar - acaba el turno");
-        System.out.println("salir (carcel)");
-        System.out.println("describir jugador  <nombre>");
-        System.out.println("describir avatar <letra");
-        System.out.println("comprar <casilla>");
-        System.out.println("bancarrota - acaba la partida para ese jugador");
-        System.out.println("ver - muestra el tablero");
-        System.out.println("clear - limpia la pantalla");
-        System.out.println("estadisticas <Jugador>");
+        System.out.println(Valor.BOLD+ "OPCIONES:"+Valor.RESET);
+        System.out.println("> crear jugador <nombre> <tipo_avatar>");
+        System.out.println("> jugador - jugador con el turno");
+        System.out.println("> listar enventa");
+        System.out.println("> listar jugadores");
+        System.out.println("> listar avatares");
+        System.out.println("> lanzar dados");
+        System.out.println("> acabar - acaba el turno");
+        System.out.println("> salir (carcel)");
+        System.out.println("> describir jugador  <nombre>");
+        System.out.println("> describir avatar <letra");
+        System.out.println("> comprar <casilla>");
+        System.out.println("> bancarrota - acaba la partida para ese jugador");
+        System.out.println("> ver - muestra el tablero");
+        System.out.println("> clear - limpia la pantalla");
+        System.out.println("> estadisticas <Jugador>");
         while (!partida_finalizada) {
             System.out.print("\n[>]: ");
             analizarComando(scanner.nextLine());
