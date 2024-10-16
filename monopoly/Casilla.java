@@ -200,6 +200,8 @@ public class Casilla {
                     c.getDuenho().sumarFortuna(c.getImpuesto());
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
                             c.getImpuesto() + " a " + c.getDuenho().getNombre());
+                    actual.setPagoDeAlquileres(actual.getPagoDeAlquileres()+c.getImpuesto());
+                    c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
                     break;
                 }
                 /*
@@ -219,6 +221,7 @@ public class Casilla {
                     System.out.println("El jugador " + actual.getNombre() + " consigue el bote de la banca de "
                             + banca.getGastos());
                     actual.sumarFortuna(banca.getGastos());
+                    actual.setPremiosInversionesOBote(actual.getPremiosInversionesOBote() + banca.getGastos());
                     banca.resetGastos();
                     this.setValor(0);
                 }
@@ -240,6 +243,8 @@ public class Casilla {
                     this.getDuenho().sumarFortuna(c.impuesto);
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
                             c.impuesto + " a " + c.getDuenho().getNombre());
+                    actual.setPagoDeAlquileres(actual.getPagoDeAlquileres()+c.getImpuesto());
+                    c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
                     break;
                 }
                 System.out.println("Se puede comprar la casilla " + c.getNombre());
@@ -262,6 +267,8 @@ public class Casilla {
                     c.getDuenho().sumarFortuna(c.impuesto);
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
                             c.impuesto + " a " + c.getDuenho().getNombre());
+                    actual.setPagoDeAlquileres(actual.getPagoDeAlquileres()+c.getImpuesto());
+                    c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
                     break;
                 }
                 System.out.println("Se puede comprar la casilla " + c.getNombre());
@@ -274,6 +281,7 @@ public class Casilla {
                     Menu.acabarPartida();
                 banca.sumarGastos(c.impuesto);
                 System.out.println("El bote de la banca ahora es " + banca.getGastos());
+                actual.setPagoTasasEImpuestos(actual.getPagoTasasEImpuestos()+c.impuesto);
                 break;
 
             default:
@@ -299,9 +307,9 @@ public class Casilla {
             this.duenho = solicitante;
             System.out.println("El jugador " + solicitante.getNombre() + " ha comprado la casilla " + this.nombre
                     + ". Su fortuna actual es " + solicitante.getFortuna());
-            if (this.grupo.esDuenhoGrupo(solicitante)) {
-                System.out.println("El jugador " + solicitante.getNombre()
-                        + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
+            solicitante.setDineroInvertido(solicitante.getDineroInvertido() + this.valor);
+            if (this.grupo.esDuenhoGrupo(solicitante)){
+                System.out.println("El jugador " + solicitante.getNombre() + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
                 this.grupo.actualizarAlquilerGrupo();
             }
         } else if (fortuna_solicitante < this.valor) {
