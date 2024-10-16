@@ -28,6 +28,8 @@ public class Menu {
     private ArrayList<Carta> comunidad;
 
     public Menu() {
+        crear_cartas_comunidad();
+        crear_cartas_suerte();
         iniciarPartida();
     }
 
