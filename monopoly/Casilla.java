@@ -211,6 +211,7 @@ public class Casilla {
                     System.out.println("El jugador " + actual.getNombre() + " consigue el bote de la banca de "
                             + banca.getGastos());
                     actual.sumarFortuna(banca.getGastos());
+                    actual.setPremiosInversionesOBote(actual.getPremiosInversionesOBote() + banca.getGastos());
                     banca.resetGastos();
                     this.setValor(0);
                 }
