@@ -66,6 +66,10 @@ class Grupo {
      */
     public void anhadirCasilla(Casilla miembro) {
         this.miembros.add(miembro);
+        this.numCasillas += 1;
+    }
+    public int getNumeroCasillas(){
+        return this.miembros.size();
     }
 
     /*

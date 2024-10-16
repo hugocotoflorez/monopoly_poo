@@ -200,7 +200,7 @@ public class Casilla {
                     c.getDuenho().sumarFortuna(c.getImpuesto());
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
                             c.getImpuesto() + " a " + c.getDuenho().getNombre());
-                    actual.setPagoDeAlquileres(actual.getPagoDeAlquileres()+c.getImpuesto());
+                    actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
                     c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
                     break;
                 }
@@ -243,7 +243,7 @@ public class Casilla {
                     this.getDuenho().sumarFortuna(c.impuesto);
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
                             c.impuesto + " a " + c.getDuenho().getNombre());
-                    actual.setPagoDeAlquileres(actual.getPagoDeAlquileres()+c.getImpuesto());
+                    actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
                     c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
                     break;
                 }
@@ -267,7 +267,7 @@ public class Casilla {
                     c.getDuenho().sumarFortuna(c.impuesto);
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
                             c.impuesto + " a " + c.getDuenho().getNombre());
-                    actual.setPagoDeAlquileres(actual.getPagoDeAlquileres()+c.getImpuesto());
+                    actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
                     c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
                     break;
                 }
@@ -281,7 +281,7 @@ public class Casilla {
                     Menu.acabarPartida();
                 banca.sumarGastos(c.impuesto);
                 System.out.println("El bote de la banca ahora es " + banca.getGastos());
-                actual.setPagoTasasEImpuestos(actual.getPagoTasasEImpuestos()+c.impuesto);
+                actual.setPagoTasasEImpuestos(actual.getPagoTasasEImpuestos() + c.impuesto);
                 break;
 
             default:
@@ -308,8 +308,9 @@ public class Casilla {
             System.out.println("El jugador " + solicitante.getNombre() + " ha comprado la casilla " + this.nombre
                     + ". Su fortuna actual es " + solicitante.getFortuna());
             solicitante.setDineroInvertido(solicitante.getDineroInvertido() + this.valor);
-            if (this.grupo.esDuenhoGrupo(solicitante)){
-                System.out.println("El jugador " + solicitante.getNombre() + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
+            if (this.grupo.esDuenhoGrupo(solicitante)) {
+                System.out.println("El jugador " + solicitante.getNombre()
+                        + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
                 this.grupo.actualizarAlquilerGrupo();
             }
         } else if (fortuna_solicitante < this.valor) {
@@ -523,16 +524,40 @@ public class Casilla {
         }
         return ret;
     }
+    private boolean getCasillaEdificable(){
+        if (this.grupo.getNumCasillas() == 2){
+            return !(this.obtenerNumeroCasas() == 2 && this.obtenerNumeroHoteles() == 2 && this.obtenerNumeroPiscinas() == 2 && this.obtenerNumeroPistasDeporte() == 2);
+        }
+        if (this.grupo.getNumCasillas() == 3){
+            return !(this.obtenerNumeroCasas() == 3 && this.obtenerNumeroHoteles() == 3 && this.obtenerNumeroPiscinas() == 3 && this.obtenerNumeroPistasDeporte() == 3);
+        }
+    }
+    private boolean esCasaEdificable(){
+
+        return (this.obtenerNumeroCasas() < 4 && this.getCasillaEdificable());
+    }
+    private boolean esHotelEdificable(){
+        return( this.obtenerNumeroCasas() == 4 && this.getCasillaEdificable());
+    }
+    private boolean esPiscinaEdificable(){
+        return (this.obtenerNumeroCasas() >= 2 && this.obtenerNumeroHoteles() >= 1 && this.getCasillaEdificable())
+    }
+    private boolean esPistaEdificable(){
+        return (this.obtenerNumeroHoteles() >= 2 && this.getCasillaEdificable());
+    }
 
     public void edificar(String tipo, Jugador duenhoGrupo) { // Restar precio de la edificación al Jugador
-                                                             // Aumentar el alquiler de la casilla dependiendo de la edificación
+                                                             // Aumentar el alquiler de la casilla dependiendo de la
+                                                             // edificación
+                                                             // Si numCasillas grupo == 2 -> max(edificios) = 2 por tipo
+                                                             // Si numCasillas grupo == 3 -> max(edificios) = 3 por tipo
 
         if (this.grupo.esDuenhoGrupo(duenhoGrupo)) {
 
             switch (tipo) {
                 case "Casa": // Como máximo puede haver 4 casas
 
-                    if (this.obtenerNumeroCasas() < 4) {
+                    if (this.esCasaEdificable()) {
                         this.edificios.add(new Edificio(tipo, this));
                         return;
                     }
@@ -542,7 +567,7 @@ public class Casilla {
                 case "Hotel": // Solo se puede construir un hotel si hay 4 casas
                               // Además las casas serán eliminadas
 
-                    if (this.obtenerNumeroCasas() == 4) {
+                    if (this.esHotelEdificable()) {
                         for (Edificio e : this.edificios) {
                             if (e.getTipo().equals("Casa"))
                                 this.edificios.remove(e);
@@ -555,7 +580,7 @@ public class Casilla {
 
                 case "Piscina": // Numero de hoteles >= 1
                                 // Numero de casas >= 2
-                    if (this.obtenerNumeroCasas() >= 2 && this.obtenerNumeroHoteles() >= 1) {
+                    if (this.esPiscinaEdificable()) {
                         this.edificios.add(new Edificio(tipo, this));
                         return;
                     }
@@ -563,7 +588,7 @@ public class Casilla {
                     break;
 
                 case "Pista": // Numero de hoteles >= 2
-                    if (this.obtenerNumeroHoteles() >= 2) {
+                    if (this.esPiscinaEdificable()) {
                         this.edificios.add(new Edificio("Pista de deportes", this));
                         return;
                     }
