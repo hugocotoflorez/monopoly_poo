@@ -23,7 +23,7 @@ se deberán substituir las casas por el hotel.                                  
 que se pueden construir en el grupo al que dicho solar pertenece: si el grupo consta de dos casillas, se
 pueden construir, como máximo, 2 hoteles, 2 casas, 2 piscinas y 2 pistas de deporte; mientras que, si el
 grupo está compuesto por tres casillas, se puede construir, como máximo, 3 hoteles, 3 casas, 3 piscinas
-y 3 pistas de deporte.
+y 3 pistas de deporte.                                                                                             CHECK¿?
 
  Cada edificio tiene un coste de alquiler que depende (1) del tipo al que pertenece y (2) de la propiedad
 o casilla en la que se ha construido.

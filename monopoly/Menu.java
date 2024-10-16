@@ -53,6 +53,10 @@ public class Menu {
         comunidad.add(new Carta(Carta.desc12, "comunidad", 6));
     }
 
+    /*
+     * Cuando se caiga en una casilla que hay que lanzar cartas, se tiene que llamar
+     * a esta funcion.
+     */
     private void elegir_carta(ArrayList<Carta> baraja) {
         int n;
         Scanner scanner = new Scanner(System.in);
@@ -91,7 +95,7 @@ public class Menu {
         this.avatares.add(null); // avatar banca
         this.jugadores.add(banca);
         this.tablero = new Tablero(banca);
-        System.out.println(Valor.BOLD+ "OPCIONES:"+Valor.RESET);
+        System.out.println(Valor.BOLD + "OPCIONES:" + Valor.RESET);
         System.out.println("> crear jugador <nombre> <tipo_avatar>");
         System.out.println("> jugador - jugador con el turno");
         System.out.println("> listar enventa");
@@ -175,8 +179,8 @@ public class Menu {
                         listarJugadores();
                     else if (com[1].equals("avatares"))
                         listarAvatares();
-                    }
-                    break;
+                }
+                break;
 
             case "lanzar":
 
@@ -187,8 +191,8 @@ public class Menu {
                         System.out.println(this.tablero);
                     } else
                         System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
-                    }
-                    break;
+                }
+                break;
 
             case "l":
                 if (com.length == 3) {
