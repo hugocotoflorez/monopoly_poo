@@ -279,7 +279,7 @@ public class Jugador {
                     Cobro por premios, inversiones o  bote: %f
                     Veces en la cárcel: %d
                 }
-                """.formatted(this.dineroInvertido, this.pagoTasasEImpuestos, this.pagoDeAlquileres, this.cobroDeAlquileres, this.pasarPorCasillaDeSalida, this.premiosInversionesOBote, this.vecesEnLaCarcel)
+                """.formatted(this.dineroInvertido, this.pagoTasasEImpuestos, this.pagoDeAlquileres, this.cobroDeAlquileres, this.pasarPorCasillaDeSalida, this.premiosInversionesOBote, this.vecesEnLaCarcel);
         return ret;
     }
     @Override
