@@ -539,7 +539,7 @@ public class Casilla {
         return( this.obtenerNumeroCasas() == 4 && this.getCasillaEdificable());
     }
     private boolean esPiscinaEdificable(){
-        return (this.obtenerNumeroCasas() >= 2 && this.obtenerNumeroHoteles() >= 1 && this.getCasillaEdificable())
+        return (this.obtenerNumeroCasas() >= 2 && this.obtenerNumeroHoteles() >= 1 && this.getCasillaEdificable());
     }
     private boolean esPistaEdificable(){
         return (this.obtenerNumeroHoteles() >= 2 && this.getCasillaEdificable());
@@ -548,8 +548,6 @@ public class Casilla {
     public void edificar(String tipo, Jugador duenhoGrupo) { // Restar precio de la edificación al Jugador
                                                              // Aumentar el alquiler de la casilla dependiendo de la
                                                              // edificación
-                                                             // Si numCasillas grupo == 2 -> max(edificios) = 2 por tipo
-                                                             // Si numCasillas grupo == 3 -> max(edificios) = 3 por tipo
 
         if (this.grupo.esDuenhoGrupo(duenhoGrupo)) {
 
