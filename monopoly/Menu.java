@@ -489,6 +489,7 @@ public class Menu {
                     System.out.println("Opcion incorrecta");
                     break;
             }
+            scanner.close();
         } else {
             System.out.println("El jugador " + this.jugadores.get(turno).getNombre() + " no está en la cárcel.");
         }
