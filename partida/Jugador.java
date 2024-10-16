@@ -18,6 +18,14 @@ public class Jugador {
     private ArrayList<Casilla> propiedades = new ArrayList<Casilla>(); // Propiedades que posee el jugador.
     private int tirada;
 
+    private float dineroInvertido = 0;
+    private float pagoTasasEImpuestos = 0;
+    private float pagoDeAlquileres = 0;
+    private float cobroDeAlquileres = 0;
+    private float pasarPorCasillaDeSalida = 0;
+    private float premiosInversionesOBote = 0;
+    private int vecesEnLaCarcel = 0;
+
     // Constructor vacío. Se usará para crear la banca.
     public Jugador() {
 
@@ -88,6 +96,36 @@ public class Jugador {
     public int getVueltas(){
         return this.vueltas;
     }
+
+    public float getDineroInvertido(){
+        return this.dineroInvertido;
+    }
+
+    public float getPagoTasasEImpuestos(){
+        return this.pagoTasasEImpuestos;
+    }
+
+    public float getPagoDeAlquileres(){
+        return this.pagoDeAlquileres;
+    }
+
+    public float getCobroDeAlquileres(){
+        return this.cobroDeAlquileres;
+    }
+
+    public float getPasarPorCasillaDeSalida(){
+        return this.pasarPorCasillaDeSalida;
+    }
+
+    public float getPremiosInversionesOBote(){
+        return this.premiosInversionesOBote;
+    }
+
+    public int getVecesEnLaCarcel(){
+        return this.vecesEnLaCarcel;
+    }
+
+
     // SETTERS
     public void setFortuna(float fortuna) {
         this.fortuna = fortuna;
@@ -102,15 +140,41 @@ public class Jugador {
         this.enCarcel = enCarcel;
     }
 
-    public int setTurnosCarcel(int turnos) {
-        return this.turnoscarcel = turnos;
+    public void setTurnosCarcel(int turnos) {
+        this.turnoscarcel = turnos;
     }
 
     public void setVueltas(int vueltas){
         this.vueltas = vueltas;
     }
 
+    public void setDineroInvertido(float valor){
+        this.dineroInvertido = valor;
+    }
 
+    public void setPagoTasasEImpuestos(float valor){
+        this.pagoTasasEImpuestos = valor;
+    }
+
+    public void setPagoDeAlquileres(float valor){
+        this.pagoDeAlquileres = valor;
+    }
+
+    public void setCobroDeAlquileres(float valor){
+        this.cobroDeAlquileres = valor;
+    }
+
+    public void setPasarPorCasillaDeSalida(float valor){
+        this.pasarPorCasillaDeSalida = valor;
+    }
+
+    public void setPremiosInversionesOBote(float valor){
+        this.premiosInversionesOBote = valor;
+    }
+
+    public void setVecesEnLaCarcel(int valor){
+        this.vecesEnLaCarcel = valor;
+    }
 
 
     // Método para añadir una propiedad al jugador. Como parámetro, la casilla a
@@ -169,6 +233,7 @@ public class Jugador {
         this.avatar.setLugar(pos.get(1).get(0));
         this.enCarcel = true;
         this.avatar.getCasilla().anhadirAvatar(this.avatar);
+        this.vecesEnLaCarcel += 1;
 
     }
 
