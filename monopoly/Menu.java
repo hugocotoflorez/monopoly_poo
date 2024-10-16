@@ -405,7 +405,7 @@ public class Menu {
         }
     }
 
-    private void lanzarDadosCarcel() {
+    private void lanzarDadosCarcel(Jugador banca) {
 
         this.dado1.hacerTirada();
         this.dado2.hacerTirada();
@@ -422,7 +422,7 @@ public class Menu {
             System.out.println("No has sacado dobles! Dado1: " + dado1.getValor() + " Dado2: " + dado2.getValor());
             System.out.println("Oh no! Llevas tres turnos en la cárcel paga " + Valor.PAGO_SALIR_CARCEL);
             this.tirado = false;
-            pagarCarcel();
+            pagarCarcel(banca);
             return;
         } else if (this.tirado) {
             System.out.println("Ya has tirado este turno! ");
@@ -435,7 +435,7 @@ public class Menu {
 
     }
 
-    private void pagarCarcel() {
+    private void pagarCarcel(Jugador banca) {
         if (!this.tirado) {
             this.tirado = false;
             this.jugadores.get(turno).setEnCarcel(false);
@@ -483,10 +483,10 @@ public class Menu {
             char opcion = scanner.next().charAt(0);
             switch (opcion) {
                 case '1':
-                    lanzarDadosCarcel();
+                    lanzarDadosCarcel(banca);
                     break;
                 case '2':
-                    pagarCarcel();
+                    pagarCarcel(banca);
                     break;
                 default:
                     System.out.println("Opcion incorrecta");
