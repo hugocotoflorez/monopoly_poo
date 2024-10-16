@@ -45,12 +45,12 @@ public class Menu {
 
     private void crear_cartas_comunidad() {
         this.comunidad = new ArrayList<Carta>();
-        suerte.add(new Carta(Carta.desc7, "comunidad", 1));
-        suerte.add(new Carta(Carta.desc8, "comunidad", 2));
-        suerte.add(new Carta(Carta.desc9, "comunidad", 3));
-        suerte.add(new Carta(Carta.desc10, "comunidad", 4));
-        suerte.add(new Carta(Carta.desc11, "comunidad", 5));
-        suerte.add(new Carta(Carta.desc12, "comunidad", 6));
+        comunidad.add(new Carta(Carta.desc7, "comunidad", 1));
+        comunidad.add(new Carta(Carta.desc8, "comunidad", 2));
+        comunidad.add(new Carta(Carta.desc9, "comunidad", 3));
+        comunidad.add(new Carta(Carta.desc10, "comunidad", 4));
+        comunidad.add(new Carta(Carta.desc11, "comunidad", 5));
+        comunidad.add(new Carta(Carta.desc12, "comunidad", 6));
     }
 
     private void elegir_carta(ArrayList<Carta> baraja) {
