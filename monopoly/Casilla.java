@@ -252,8 +252,6 @@ public class Casilla {
 
             case "caja":
             case "suerte":
-                System.out.println("No implementado");
-                // hacer lo que haya que hacer (no para esta entrega)
                 break;
 
             case "serv":
