@@ -86,11 +86,11 @@ public class Carta {
         return baraja.get(n - 1);
     }
 
-    public  void mostrarDescipcion() {
+    public void mostrarDescipcion() {
         System.out.println(this.descripcion);
     }
 
-    public  void realizarAccion(Avatar av, ArrayList<Jugador> jugadores,
+    public void realizarAccion(Avatar av, ArrayList<Jugador> jugadores,
             ArrayList<ArrayList<Casilla>> casillas) {
         if (this.tipo.equals("suerte"))
             switch (this.accion) {
@@ -136,7 +136,7 @@ public class Carta {
             }
     }
 
-    private void accSuerte1(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {// TODO
+    private void accSuerte1(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
         /**
          * Ve al Transportes1 y coge un avión. Si pasas por la casilla de Salida, cobra
          * la cantidad habitual.
@@ -151,7 +151,7 @@ public class Carta {
                     av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
             System.out.println("Llevas " + av.getJugador().getVueltas() + " vueltas.");
         }
-        av.setLugar(casillas.get(0).get(5));
+        av.moverAvatar(casillas.get(0).get(5));
     }
 
     private void accSuerte2(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
@@ -159,7 +159,7 @@ public class Carta {
          * Decides hacer un viaje de placer. Avanza hasta Solar15 directamente, sin
          * pasar por la casilla de Salida y sin cobrar la cantidad habitual.
          */
-        av.setLugar(casillas.get(0).get(0));
+        av.moverAvatar(casillas.get(2).get(6));
     }
 
     private void accSuerte3(Avatar av) {
@@ -171,18 +171,20 @@ public class Carta {
         av.getJugador().setPremiosInversionesOBote(av.getJugador().getPremiosInversionesOBote() + 500000);
     }
 
-    private void accSuerte4(Avatar av, ArrayList<ArrayList<Casilla>> casillas) { // TODO
+    private void accSuerte4(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
         /**
          * Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.
          */
         // cobrar
-        av.setLugar(casillas.get(0).get(6));
-        System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
-        av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
-        av.getJugador().setVueltas(av.getJugador().getVueltas() + 1);
-        av.getJugador().setPasarPorCasillaDeSalida(
-                av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
-        System.out.println("Llevas " + av.getJugador().getVueltas() + " vueltas.");
+        if (av.getCasilla().getPosicion() > 6) {
+            System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
+            av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
+            av.getJugador().setVueltas(av.getJugador().getVueltas() + 1);
+            av.getJugador().setPasarPorCasillaDeSalida(
+                    av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
+            System.out.println("Llevas " + av.getJugador().getVueltas() + " vueltas.");
+        }
+        av.moverAvatar(casillas.get(0).get(6));
     }
 
     private void accSuerte5(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
@@ -226,7 +228,7 @@ public class Carta {
         /**
          * Colócate en la casilla de Salida. Cobra la cantidad habitual.
          */
-        av.setLugar(casillas.get(0).get(0));
+        av.moverAvatar(casillas.get(0).get(0));
         // Cobrar Salida
         System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
         av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
@@ -241,7 +243,7 @@ public class Carta {
          * Tu compañía de Internet obtiene beneficios. Recibe 2000000€
          */
         av.getJugador().sumarFortuna(2000000);
-        av.getJugador().setPremiosInversionesOBote(av.getJugador().getPremiosInversionesOBote() +2000000);
+        av.getJugador().setPremiosInversionesOBote(av.getJugador().getPremiosInversionesOBote() + 2000000);
     }
 
     private void accComm5(Avatar av, ArrayList<Jugador> jugadores) {
