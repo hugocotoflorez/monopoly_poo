@@ -19,7 +19,8 @@ public class Casilla {
     private float hipoteca; // Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares = new ArrayList<Avatar>(); // Avatares que están situados en la casilla.
     private ArrayList<Edificio> edificios;
-    private int[] caidasEnCasilla = {0,0,0,0,0,0}; // Cuenta el numero de veces que el jugador iesimo cayó en la casilla
+    private int[] caidasEnCasilla = { 0, 0, 0, 0, 0, 0 }; // Cuenta el numero de veces que el jugador iesimo cayó en la
+                                                          // casilla
     public float recaudado = 0;
 
     private boolean hipotecada;
@@ -103,7 +104,7 @@ public class Casilla {
         return this.hipoteca;
     }
 
-    public int[] getCaidasEnCasilla(){
+    public int[] getCaidasEnCasilla() {
         return this.caidasEnCasilla;
     }
 
@@ -112,7 +113,7 @@ public class Casilla {
         return this.hipotecada;
     }
 
-    public float getRecaudado(){
+    public float getRecaudado() {
         return this.recaudado;
     }
 
@@ -154,26 +155,31 @@ public class Casilla {
         this.hipotecada = hipotecada;
     }
 
-    public void setRecaudado(float valor){
+    public void setRecaudado(float valor) {
         this.recaudado = valor;
     }
 
-    public String listar_edificios_grupo(String tipo){
-        
+    public ArrayList<Edificio> getEdificios() {
+
+        return this.edificios;
+
+    }
+
+    public String listar_edificios_grupo(String tipo) {
+
         String ret = new String();
 
         ret += "[ ";
 
         for (Edificio e : this.edificios)
-            if(e.getTipo().equals(tipo))
+            if (e.getTipo().equals(tipo))
                 ret += e.getID() + ", ";
 
         ret += " ]\n";
 
         return ret;
-        
-    }
 
+    }
 
     // Método utilizado para añadir un avatar al array de avatares en casilla.
     public void anhadirAvatar(Avatar av) {
@@ -185,19 +191,19 @@ public class Casilla {
         this.avatares.remove(av);
     }
 
-    //Método para incrementar en 1 el número de veces que se cayó en una casilla.
-    public void actualizarCaidasEnCasilla(int jugador){
-        if(jugador < 6 && jugador >= 0) this.caidasEnCasilla[jugador] += 1;
+    // Método para incrementar en 1 el número de veces que se cayó en una casilla.
+    public void actualizarCaidasEnCasilla(int jugador) {
+        if (jugador < 6 && jugador >= 0)
+            this.caidasEnCasilla[jugador] += 1;
     }
 
-    //Método para que me diga el total de visitas de la casilla
-    public int totalVisitas(){
+    // Método para que me diga el total de visitas de la casilla
+    public int totalVisitas() {
         int ret = 0;
-        for(int i = 0; i<6; i++) ret+=caidasEnCasilla[i];
+        for (int i = 0; i < 6; i++)
+            ret += caidasEnCasilla[i];
         return ret;
     }
-
-   
 
     public void hipotecar(Jugador actual) {
 
@@ -346,14 +352,15 @@ public class Casilla {
         float fortuna_solicitante = solicitante.getFortuna();
         if (fortuna_solicitante >= this.valor && this.esComprable(solicitante)) {
             solicitante.setFortuna(fortuna_solicitante - this.valor);
-            //banca.eliminarPropiedad(this);
+            // banca.eliminarPropiedad(this);
             solicitante.anhadirPropiedad(this);
             this.duenho = solicitante;
             System.out.println("El jugador " + solicitante.getNombre() + " ha comprado la casilla " + this.nombre
                     + ". Su fortuna actual es " + solicitante.getFortuna());
             solicitante.setDineroInvertido(solicitante.getDineroInvertido() + this.valor);
-            if (this.tipo.equals("solar") && this.grupo.esDuenhoGrupo(solicitante)){
-                System.out.println("El jugador " + solicitante.getNombre() + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
+            if (this.tipo.equals("solar") && this.grupo.esDuenhoGrupo(solicitante)) {
+                System.out.println("El jugador " + solicitante.getNombre()
+                        + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
                 this.grupo.actualizarAlquilerGrupo();
             }
         } else if (fortuna_solicitante < this.valor) {
@@ -567,37 +574,45 @@ public class Casilla {
         }
         return ret;
     }
-    private boolean getCasillaEdificable(){
-        if (this.grupo.getNumCasillas() == 2){
-            return !(this.obtenerNumeroCasas() == 2 && this.obtenerNumeroHoteles() == 2 && this.obtenerNumeroPiscinas() == 2 && this.obtenerNumeroPistasDeporte() == 2);
+
+    private boolean getCasillaEdificable() {
+        if (this.grupo.getNumCasillas() == 2) {
+            return !(this.obtenerNumeroCasas() == 2 && this.obtenerNumeroHoteles() == 2
+                    && this.obtenerNumeroPiscinas() == 2 && this.obtenerNumeroPistasDeporte() == 2);
         }
-        return !(this.obtenerNumeroCasas() == 3 && this.obtenerNumeroHoteles() == 3 && this.obtenerNumeroPiscinas() == 3 && this.obtenerNumeroPistasDeporte() == 3);
+        return !(this.obtenerNumeroCasas() == 3 && this.obtenerNumeroHoteles() == 3 && this.obtenerNumeroPiscinas() == 3
+                && this.obtenerNumeroPistasDeporte() == 3);
     }
-   private boolean esConstruible(Jugador duenhoGrupo){
 
-    int numero_veces_caidas = this.caidasEnCasilla[duenhoGrupo.getAvatar().getTurno()];
-    return (this.grupo.esDuenhoGrupo(duenhoGrupo)|| numero_veces_caidas > 2);
+    private boolean esConstruible(Jugador duenhoGrupo) {
 
-   }
+        int numero_veces_caidas = this.caidasEnCasilla[duenhoGrupo.getAvatar().getTurno()];
+        return ((this.grupo.esDuenhoGrupo(duenhoGrupo) || numero_veces_caidas > 2)
+                && this.getDuenho().equals(duenhoGrupo));
+
+    }
     // Se cumplen los requisitos para construir?
-   
-    private boolean esCasaEdificable(){
+
+    private boolean esCasaEdificable() {
 
         return (this.obtenerNumeroCasas() < 4 && this.getCasillaEdificable());
     }
-    private boolean esHotelEdificable(){
-        return( this.obtenerNumeroCasas() == 4 && this.getCasillaEdificable());
+
+    private boolean esHotelEdificable() {
+        return (this.obtenerNumeroCasas() == 4 && this.getCasillaEdificable());
     }
-    private boolean esPiscinaEdificable(){
+
+    private boolean esPiscinaEdificable() {
         return (this.obtenerNumeroCasas() >= 2 && this.obtenerNumeroHoteles() >= 1 && this.getCasillaEdificable());
     }
-    private boolean esPistaEdificable(){
+
+    private boolean esPistaEdificable() {
         return (this.obtenerNumeroHoteles() >= 2 && this.getCasillaEdificable());
     }
 
-    public void listar_edificios_casilla(){
+    public void listar_edificios_casilla() {
 
-        for(int i = 0; i< this.edificios.size(); i++){
+        for (int i = 0; i < this.edificios.size(); i++) {
 
             this.edificios.get(i).toString();
 
@@ -606,10 +621,10 @@ public class Casilla {
     }
 
     public void edificar(String tipo, Jugador duenhoGrupo) {
-                                                             // Aumentar el alquiler de la casilla dependiendo de la
-                                                             // edificación
+        // Aumentar el alquiler de la casilla dependiendo de la
+        // edificación
         if (esConstruible(duenhoGrupo)) {
-            
+
             switch (tipo) {
                 case "Casa": // Como máximo puede haver 4 casas
 
@@ -623,7 +638,7 @@ public class Casilla {
                         Valor.NumeroCasasConstruidas++;
 
                         System.out.println("Se ha edificado una casa en " + this.getNombre() + "La fortuna de "
-                         + duenhoGrupo.getNombre() + " se reduce en " + Casa.getPrecio());
+                                + duenhoGrupo.getNombre() + " se reduce en " + Casa.getPrecio());
 
                         return;
 
@@ -643,7 +658,7 @@ public class Casilla {
                                 this.edificios.remove(e);
                         }
 
-                        Edificio Hotel = new Edificio(tipo,this, Valor.NumeroHotelesConstruidos);
+                        Edificio Hotel = new Edificio(tipo, this, Valor.NumeroHotelesConstruidos);
 
                         this.edificios.add(Hotel);
                         duenhoGrupo.sumarFortuna(-Hotel.getPrecio());
@@ -651,7 +666,7 @@ public class Casilla {
                         Valor.NumeroHotelesConstruidos++;
 
                         System.out.println("Se ha edificado un hotel en " + this.getNombre() + "La fortuna de "
-                        + duenhoGrupo.getNombre() + " se reduce en " + Hotel.getPrecio());
+                                + duenhoGrupo.getNombre() + " se reduce en " + Hotel.getPrecio());
 
                         return;
                     }
@@ -662,7 +677,7 @@ public class Casilla {
                                 // Numero de casas >= 2
                     if (this.esPiscinaEdificable()) {
 
-                        Edificio Piscina = new Edificio(tipo,this, Valor.NumeroPiscinasConstruidas);
+                        Edificio Piscina = new Edificio(tipo, this, Valor.NumeroPiscinasConstruidas);
 
                         this.edificios.add(Piscina);
                         duenhoGrupo.sumarFortuna(-Piscina.getPrecio());
@@ -670,7 +685,7 @@ public class Casilla {
                         Valor.NumeroPiscinasConstruidas++;
 
                         System.out.println("Se ha edificado una piscina en " + this.getNombre() + "La fortuna de "
-                        + duenhoGrupo.getNombre() + " se reduce en " + Piscina.getPrecio());
+                                + duenhoGrupo.getNombre() + " se reduce en " + Piscina.getPrecio());
 
                         return;
 
@@ -688,8 +703,9 @@ public class Casilla {
 
                         Valor.NumeroPistasConstruidos++;
 
-                        System.out.println("Se ha edificado una Pista de Deportes en " + this.getNombre() + "La fortuna de "
-                        + duenhoGrupo.getNombre() + " se reduce en " + Pista.getPrecio());
+                        System.out.println(
+                                "Se ha edificado una Pista de Deportes en " + this.getNombre() + "La fortuna de "
+                                        + duenhoGrupo.getNombre() + " se reduce en " + Pista.getPrecio());
 
                         return;
                     }
@@ -706,10 +722,12 @@ public class Casilla {
         }
     }
 
-    public void desEdificar(){
+    public void desEdificar(String tipoEdificio, Jugador duenhoEdificio) { // Hay que poner los prints en menu
 
-        // Sumar precio edificio a jugador
-        // Eliminar edificio de la casilla
-        
+        if (this.getDuenho().equals(duenhoEdificio))
+            for (Edificio e : this.edificios)
+                if (e.getTipo().equals(tipoEdificio))
+                    edificios.remove(e);
+
     }
 }

@@ -47,6 +47,9 @@ El valor inicial de una casa y de un hotel es el 60% del valor inicial del solar
 
  Vender edificios
 
+ Actualizar describir Casilla
+
+ Actualizar describir Jugador
 */
 package monopoly;
 
