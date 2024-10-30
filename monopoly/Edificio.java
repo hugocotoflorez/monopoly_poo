@@ -26,10 +26,10 @@ grupo está compuesto por tres casillas, se puede construir, como máximo, 3 hot
 y 3 pistas de deporte.                                                                                              CHECK¿?
 
  Cada edificio tiene un coste de alquiler que depende (1) del tipo al que pertenece y (2) de la propiedad
-o casilla en la que se ha construido.                                                                               TODO
+o casilla en la que se ha construido.                                                                               CHECK¿? - No tiene alquiler perdon pero creo que funciona
 
  El coste de alquiler que debe pagar un avatar que cae en una propiedad con edificios será la suma del
-coste de alquiler de todos los edificios construidos en dicha propiedad                                             TODO
+coste de alquiler de todos los edificios construidos en dicha propiedad                                             CHECK¿?
 
 El valor inicial de una casa y de un hotel es el 60% del valor inicial del solar en el que se edifica.              CHECK¿?
 
