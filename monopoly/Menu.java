@@ -433,6 +433,19 @@ public class Menu {
     }
 
     private void moverPelota(int valor1, int valor2) {
+        /*
+         * Pelota: si el valor de los dados es mayor que 4, avanza tantas casillas como
+         * dicho valor; mientras que, si el valor es menor o igual que 4, retrocede el
+         * número de casillas correspondiente. En cualquiera de los dos casos, el avatar
+         * se parará en las casillas por las que va pasando y cuyos valores son impares
+         * contados desde el número 4. Por ejemplo, si el valor del dado es 9, entonces
+         * el avatar avanzará hasta la casilla 5, de manera que si pertenece a otro
+         * jugador y es una casilla de propiedad deberá pagar el alquiler, y después
+         * avanzará hasta la casilla 7, que podrá comprar si no pertenece a ningún
+         * jugador, y finalmente a la casilla 9, que podrá comprar o deberá pagar
+         * alquiler si no pertenece al jugador. Si una de esas casillas es Ir a Cárcel,
+         * entonces no se parará en las subsiguientes casillas
+         */
     }
 
     /* No para esta entrega */
@@ -701,45 +714,48 @@ public class Menu {
         return ret;
     }
 
-    /*private String buscarGruposMasRentables(){
+    /*
+     * private String buscarGruposMasRentables(){
+     * String ret = new String();
+     * float maxrecaudado = tablero.getGrupoMap().get("Rojo").totalRecaudado();
+     * for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
+     * for (Casilla c : Lado) {
+     * if (c.getRecaudado() >= maxrecaudado)
+     * maxrecaudado = c.getRecaudado();
+     * }
+     * }
+     * for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
+     * for (Casilla c : Lado) {
+     * if (c.getRecaudado() == maxrecaudado) {
+     * ret += c.getNombre();
+     * ret += ", ";
+     * }
+     * }
+     * }
+     * return ret;
+     * }
+     */
+
+    private String buscarCasillaMasFrecuentada() {
         String ret = new String();
-        float maxrecaudado = tablero.getGrupoMap().get("Rojo").totalRecaudado();
+        int maxvisitas = this.tablero.posicion_salida().totalVisitas();
         for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
             for (Casilla c : Lado) {
-                if (c.getRecaudado() >= maxrecaudado)
-                    maxrecaudado = c.getRecaudado();
+                if (c.totalVisitas() >= maxvisitas)
+                    maxvisitas = c.totalVisitas();
             }
         }
         for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
             for (Casilla c : Lado) {
-                if (c.getRecaudado() == maxrecaudado) {
+                if (c.totalVisitas() == maxvisitas) {
                     ret += c.getNombre();
                     ret += ", ";
                 }
             }
         }
         return ret;
-    }*/
-    
-    private String buscarCasillaMasFrecuentada(){
-        String ret = new String();
-        int maxvisitas = this.tablero.posicion_salida().totalVisitas();
-        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
-            for(Casilla c: Lado){
-                if(c.totalVisitas() >= maxvisitas ) maxvisitas = c.totalVisitas();
-            }
-        }
-        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
-            for(Casilla c: Lado){
-                if(c.totalVisitas() == maxvisitas ){
-                    ret += c.getNombre();
-                    ret+= ", ";
-                }
-            }
-        }
-        return ret;
     }
-    //FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
+    // FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
 
     private void mostrarestadisticaspartida() {
         System.out.println("Casillas más rentables: " + this.buscarCasillasMasRentables());
