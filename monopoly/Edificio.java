@@ -43,7 +43,7 @@ El valor inicial de una casa y de un hotel es el 60% del valor inicial del solar
 
  Listar edificios construidos en un grupo                                                                          CHECK¿?
 
- Añadir prints a edificar
+ Añadir prints a edificar                                                                                           CHECK¿? - Los prints en caso de no poder edificar no son los del guión pero me da pereza
 
  Vender edificios
 

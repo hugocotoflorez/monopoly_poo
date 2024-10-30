@@ -702,11 +702,7 @@ public class Menu {
             System.out.println("Ese grupo no existe.");
             return;
         }
-        for (int i = 0; i < grupo.getNumCasillas(); i++) {
-
-            grupo.getMiembros().get(i).listar_edificios_casilla();
-
-        }
+            grupo.toString();
 
     }
 
