@@ -68,7 +68,8 @@ class Grupo {
         this.miembros.add(miembro);
         this.numCasillas += 1;
     }
-    public int getNumeroCasillas(){
+
+    public int getNumeroCasillas() {
         return this.miembros.size();
     }
 
@@ -88,67 +89,95 @@ class Grupo {
         return true;
     }
 
-    /* Función para llamar cuando un jugador tenga todos los solares de un grupo. Duplica su alquiler */
-    public void actualizarAlquilerGrupo(){
-        for (Casilla m: this.miembros){
-            m.setImpuesto(m.getImpuesto()*2);
+    /*
+     * Función para llamar cuando un jugador tenga todos los solares de un grupo.
+     * Duplica su alquiler
+     */
+    public void actualizarAlquilerGrupo() {
+        for (Casilla m : this.miembros) {
+            m.setImpuesto(m.getImpuesto() * 2);
         }
     }
 
-    //Función devuelve el total de recaudados de un grupo de un color en concreto
-    public float totalRecaudado(){
+    // Función devuelve el total de recaudados de un grupo de un color en concreto
+    public float totalRecaudado() {
         float ret = 0;
-        for(Casilla c: this.miembros){
+        for (Casilla c : this.miembros) {
             ret += c.getRecaudado();
         }
         return ret;
     }
 
-@Override
+    @Override
 
-public String toString(){
+    public String toString() {
 
-   /* EJEMPLO DE REPRESENTACIÓN
+        /*
+         * EJEMPLO DE REPRESENTACIÓN
+         * 
+         * {
+         * propiedad: Solar18,
+         * hoteles: [hotel-1]
+         * casas: [casa-1],
+         * piscinas: [piscina-1],
+         * pistasDeDeporte: -
+         * alquiler: 8000000
+         * },
+         * {
+         * propiedad: Solar20,
+         * hoteles: [hotel-3]
+         * casas: [casa-7],
+         * piscinas: -,
+         * pistasDeDeporte: -,
+         * alquiler: 6500000
+         * }
+         */
 
-   {
-        propiedad: Solar18,
-        hoteles: [hotel-1]
-        casas: [casa-1],
-        piscinas: [piscina-1],
-        pistasDeDeporte: -
-        alquiler: 8000000
-        },
-        {
-        propiedad: Solar20,
-        hoteles: [hotel-3]
-        casas: [casa-7],
-        piscinas: -,
-        pistasDeDeporte: -,
-        alquiler: 6500000
+        String ret = new String();
+        ret += "{\n";
+
+        for (Casilla c : this.miembros) {
+
+            ret += ("propiedad: " + c.getNombre());
+
+            ret += ("hoteles: [ " + c.listar_edificios_grupo("Hotel"));
+
+            ret += ("casas: " + c.listar_edificios_grupo("Casa"));
+
+            ret += ("piscinas: " + c.listar_edificios_grupo("Piscina"));
+
+            ret += ("pistasDeDeporte: " + c.listar_edificios_grupo("Pista de deportes"));
+
+            ret += ("alquiler: ");
+
         }
-    */
 
-    String ret = new String();
-    ret += "{\n";
+        ret += "}\n";
 
-    for(Casilla c : this.miembros){
-
-        ret += ("propiedad: " + c.getNombre() );
-
-        ret += ("hoteles: [ " + c.listar_edificios_grupo("Hotel") );
-
-        ret += ("casas: " + c.listar_edificios_grupo("Casa"));
-
-        ret += ("piscinas: " + c.listar_edificios_grupo("Piscina"));
-
-        ret += ("pistasDeDeporte: " + c.listar_edificios_grupo("Pista de deportes"));
-
-        ret += ("alquiler: ");
-
+        return ret;
     }
 
-    ret += "}\n";
+    public float getValor() {
 
-    return ret;
-}
+        switch (this.colorGrupo) {
+
+            case "Negro": // G1
+                return Valor.GRUPO_1;
+            case "Cyan": // G2
+                return Valor.GRUPO_2;
+            case "Rosa": // G3
+                return Valor.GRUPO_3;
+            case "Amarillo": // G4
+                return Valor.GRUPO_4;
+            case "Rojo": // G5
+                return Valor.GRUPO_5;
+            case "Marron": // G6
+                return Valor.GRUPO_6;
+            case "Verde": // G7
+                return Valor.GRUPO_7;
+            case "Azul": // G8
+                return Valor.GRUPO_8;
+
+        }
+    }
 }

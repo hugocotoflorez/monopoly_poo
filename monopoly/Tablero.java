@@ -84,7 +84,7 @@ public class Tablero {
         Grupo G5 = new Grupo(lado.get(1), lado.get(3), lado.get(4), Valor.COLOR_G5);
         Grupo G6 = new Grupo(lado.get(6), lado.get(7), lado.get(9), Valor.COLOR_G6);
         this.grupos.put("Rojo", G5);
-        this.grupos.put("Marrón", G6);
+        this.grupos.put("Marron", G6);
         posiciones.add(lado);
         /* Se anade en el indice 0 */
     }

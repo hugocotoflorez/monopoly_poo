@@ -620,6 +620,74 @@ public class Casilla {
 
     }
 
+    // Para casillas edificadas, recalcula el impuesto cada vez que se conestruye un
+    // edificio
+    private void actualizarValorCasilla() {
+
+        int numeroCasas = this.obtenerNumeroCasas();
+        int numeroHoteles = this.obtenerNumeroHoteles();
+        int numeroPiscinas = this.obtenerNumeroPiscinas();
+        int numeroPistas = this.obtenerNumeroPistasDeporte();
+
+        float nuevoImpuestoCasas = 0f;
+        float nuevoImpuestoHoteles = 0f;
+        float nuevoImpuestoPiscinas = 0f;
+        float nuevoImpuestoPistas = 0f;
+
+        if (numeroCasas == 1) {
+
+            nuevoImpuestoCasas = this.grupo.getValor();
+            nuevoImpuestoCasas *= 5;
+
+        }
+
+        if (numeroCasas == 2) {
+
+            nuevoImpuestoCasas = this.grupo.getValor();
+            nuevoImpuestoCasas *= 15;
+
+        }
+
+        if (numeroCasas == 3) {
+
+            nuevoImpuestoCasas = this.grupo.getValor();
+            nuevoImpuestoCasas *= 35;
+
+        }
+
+        if (numeroCasas == 4) {
+
+            nuevoImpuestoCasas = this.grupo.getValor();
+            nuevoImpuestoCasas *= 50;
+
+        }
+
+        if (numeroHoteles >= 1) {
+
+            nuevoImpuestoHoteles = this.grupo.getValor();
+            nuevoImpuestoHoteles *= 70 * numeroHoteles;
+
+        }
+
+        if (numeroPiscinas >= 1) {
+
+            nuevoImpuestoPiscinas = this.grupo.getValor();
+            nuevoImpuestoPiscinas *= 25 * numeroPiscinas;
+
+        }
+
+        if (numeroPistas >= 1) {
+
+            nuevoImpuestoPistas = this.grupo.getValor();
+            nuevoImpuestoPistas *= 25 * numeroPistas;
+
+        }
+
+        this.setImpuesto(this.grupo.getValor() + nuevoImpuestoCasas + nuevoImpuestoHoteles + nuevoImpuestoPiscinas
+                + nuevoImpuestoPistas);
+
+    }
+
     public void edificar(String tipo, Jugador duenhoGrupo) {
         // Aumentar el alquiler de la casilla dependiendo de la
         // edificación
@@ -720,15 +788,16 @@ public class Casilla {
             }
 
         }
+        this.actualizarValorCasilla(); // Actualiza el valor de la casilla después de edificar
     }
 
     public void desEdificar(String tipoEdificio, Jugador duenhoEdificio) { // Hay que poner los prints en menu
 
         if (this.getDuenho().equals(duenhoEdificio))
             for (Edificio e : this.edificios)
-                if (e.getTipo().equals(tipoEdificio)){
+                if (e.getTipo().equals(tipoEdificio)) {
                     edificios.remove(e);
-                    duenhoEdificio.sumarFortuna((e.getPrecio()/2));
+                    duenhoEdificio.sumarFortuna((e.getPrecio() / 2));
                     return;
                 }
 
