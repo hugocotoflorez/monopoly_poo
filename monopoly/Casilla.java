@@ -42,7 +42,7 @@ public class Casilla {
         this.impuesto = valor * 0.1f;
         this.hipotecada = false;
 
-        for(int i = 0; i < 6; i++) caidasEnCasilla.set(0, 0);
+        for(int i = 0; i < 6; i++) caidasEnCasilla.set(i, 0);
     }
 
     /*
