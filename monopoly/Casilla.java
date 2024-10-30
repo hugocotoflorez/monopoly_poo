@@ -118,6 +118,10 @@ public class Casilla {
         return this.hipotecada;
     }
 
+    public float getRecaudado(){
+        return this.recaudado;
+    }
+
     // SETTERS
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -154,6 +158,10 @@ public class Casilla {
     public void setHipotecada(boolean hipotecada) {
 
         this.hipotecada = hipotecada;
+    }
+
+    public void setRecaudado(float valor){
+        this.recaudado = valor;
     }
 
 

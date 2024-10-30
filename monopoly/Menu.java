@@ -2,6 +2,9 @@ package monopoly;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.xml.transform.stax.StAXResult;
+
 import partida.*;
 
 public class Menu {
@@ -575,10 +578,27 @@ public class Menu {
 
 
     //FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA------------------------------------
-
+    private String buscarCasillasMasRentables(){
+        String ret = new String();
+        float maxrecaudado = tablero.posicion_salida().getRecaudado();
+        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
+            for(Casilla c: Lado){
+                if (c.getRecaudado() >= maxrecaudado) maxrecaudado = c.getRecaudado();
+            }
+        }
+        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
+            for(Casilla c: Lado){
+                if (c.getRecaudado() == maxrecaudado){
+                    ret += c.getNombre();
+                    ret+= ", ";
+                }
+            }
+        }
+        return ret;
+    }
     //FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
     private void mostrarestadisticaspartida() {
-
+        System.out.println("Casilla más rentable: " + this.buscarCasillasMasRentables() );
     }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
