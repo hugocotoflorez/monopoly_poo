@@ -30,6 +30,7 @@ public class Menu {
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
     private boolean movimientoAvanzado = false;
+    private boolean movimientoAvanzadoSePuedeCambiar = true;
     /*
      * Poner un scanner nuevo para cada funcion en la que se necesita daba error
      * porque segun lo que la intuicion me dice no se pueden abrir dos scanners
@@ -252,9 +253,9 @@ public class Menu {
 
             case "estadisticas":
                 if (com.length == 2) {
-                    mostrarestadisticasjugador(com[1]);
+                    mostrarEstadisticasJugador(com[1]);
                 } else if (com.length == 1) {
-                    mostrarestadisticaspartida();
+                    mostrarEstadisticasPartida();
                 } else
                     System.out.println("Opcion incorrecta. [? para ver las opciones]");
                 break;
@@ -435,7 +436,11 @@ public class Menu {
          * menor que 4, el avatar retrocederá el número de casillas correspondientes y
          * además no puede volver a lanzar los dados en los siguientes dos turnos.
          */
-        System.err.println("[!]: Estas usando codigo sin acabar!!");
+        /*
+         * DUDAS:
+         * se vuelve a tirar cuando se sacan dobles? como afecta?
+         */
+        System.err.println("[!]: Estas usando codigo sin acabar!! (moverCoche)");
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
             moverNormal(valor1, valor2);
@@ -457,7 +462,7 @@ public class Menu {
          * alquiler si no pertenece al jugador. Si una de esas casillas es Ir a Cárcel,
          * entonces no se parará en las subsiguientes casillas
          */
-        System.err.println("[!]: Estas usando codigo sin acabar!!");
+        System.err.println("[!]: Estas usando codigo sin acabar!!(MoverPelota)");
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
             for (int i = 5; i < desplazamiento; i += 2) {
@@ -468,9 +473,9 @@ public class Menu {
                  * propiedades, no se
                  */
                 if (i == 5)
-                    mover(5, 0);
+                    moverNormal(5, 0);
                 else
-                    mover(2, 0);
+                    moverNormal(2, 0);
             }
         } else {
         }
@@ -485,7 +490,14 @@ public class Menu {
     }
 
     private void cambairModo() {
+        if (!movimientoAvanzadoSePuedeCambiar) {
+            /* Esto no se si deberia existir o si se puede cambiar DUDA */
+            System.out.println("Ya cambiaste de modo en este turno!");
+            return;
+        }
+
         movimientoAvanzado = !movimientoAvanzado;
+        movimientoAvanzadoSePuedeCambiar = false;
 
         if (movimientoAvanzado)
             System.out.println("Se ha activado el modo avanzado");
@@ -706,7 +718,7 @@ public class Menu {
 
     }
 
-    private void mostrarestadisticasjugador(String nombre) {
+    private void mostrarEstadisticasJugador(String nombre) {
         for (Jugador J : this.jugadores) {
             if (J.getNombre().equals(nombre)) {
                 System.out.println(J.estadisticasJugador());
@@ -738,37 +750,39 @@ public class Menu {
         return ret;
     }
 
-    private String buscarGruposMasRentables(){
+    private String buscarGruposMasRentables() {
         String ret = new String();
         float maxrecaudado = tablero.getGruposMap().get("Rojo").totalRecaudado();
         Set<Map.Entry<String, Grupo>> entradas = tablero.getGruposMap().entrySet();
-        for (Map.Entry<String,Grupo> e: entradas){
+        for (Map.Entry<String, Grupo> e : entradas) {
             Grupo g = e.getValue();
-            if (g.totalRecaudado() >= maxrecaudado) maxrecaudado = g.totalRecaudado();
+            if (g.totalRecaudado() >= maxrecaudado)
+                maxrecaudado = g.totalRecaudado();
         }
-        for (Map.Entry<String,Grupo> e: entradas){
+        for (Map.Entry<String, Grupo> e : entradas) {
             Grupo g = e.getValue();
-            if (g.totalRecaudado() == maxrecaudado){
+            if (g.totalRecaudado() == maxrecaudado) {
                 ret += e.getKey();
                 ret += ", ";
             }
         }
         return ret;
     }
-    
-    private String buscarCasillaMasFrecuentada(){
+
+    private String buscarCasillaMasFrecuentada() {
         String ret = new String();
         int maxvisitas = this.tablero.posicion_salida().totalVisitas();
-        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
-            for(Casilla c: Lado){
-                if(c.totalVisitas() >= maxvisitas ) maxvisitas = c.totalVisitas();
+        for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
+            for (Casilla c : Lado) {
+                if (c.totalVisitas() >= maxvisitas)
+                    maxvisitas = c.totalVisitas();
             }
         }
-        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
-            for(Casilla c: Lado){
-                if(c.totalVisitas() == maxvisitas ){
+        for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
+            for (Casilla c : Lado) {
+                if (c.totalVisitas() == maxvisitas) {
                     ret += c.getNombre();
-                    ret+= ", ";
+                    ret += ", ";
                 }
             }
         }
@@ -776,7 +790,7 @@ public class Menu {
     }
     // FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
 
-    private void mostrarestadisticaspartida() {
+    private void mostrarEstadisticasPartida() {
         System.out.println("Casillas más rentables: " + this.buscarCasillasMasRentables());
         System.out.println("Grupos más rentables: " + this.buscarGruposMasRentables());
         System.out.println("Casillas más frecuentadas: " + this.buscarCasillaMasFrecuentada());
@@ -785,6 +799,10 @@ public class Menu {
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
         if (partida_empezada && this.tirado) {
+
+            /* Esto no se donde meterlo, en cada turno se tiene que poner a true*/
+            movimientoAvanzadoSePuedeCambiar = true;
+
             int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
             this.tirado = false;
             this.lanzamientos = 0;
