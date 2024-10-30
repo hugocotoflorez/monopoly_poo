@@ -103,4 +103,52 @@ class Grupo {
         }
         return ret;
     }
+
+@Override
+
+public Stirng toString(){
+
+   /* EJEMPLO DE REPRESENTACIÓN
+
+   {
+        propiedad: Solar18,
+        hoteles: [hotel-1]
+        casas: [casa-1],
+        piscinas: [piscina-1],
+        pistasDeDeporte: -
+        alquiler: 8000000
+        },
+        {
+        propiedad: Solar20,
+        hoteles: [hotel-3]
+        casas: [casa-7],
+        piscinas: -,
+        pistasDeDeporte: -,
+        alquiler: 6500000
+        }
+    */
+
+    String ret = new String();
+    ret += "{\n";
+
+    for(Casilla c : this.miembros){
+
+        ret += ("propiedad: " + c.getNombre() );
+
+        ret += ("hoteles: [ " + c.listar_edificios_grupo("Hotel") );
+
+        ret += ("casas: " + c.listar_edificios_grupo("Casa"));
+
+        ret += ("piscinas: " + c.listar_edificios_grupo("Piscina"));
+
+        ret += ("pistasDeDeporte: " + c.listar_edificios_grupo("Pista de deportes"));
+
+        ret += ("alquiler: ");
+
+    }
+
+    ret += "}\n";
+
+    return ret;
+}
 }

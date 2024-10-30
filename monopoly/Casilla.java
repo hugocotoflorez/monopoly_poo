@@ -158,6 +158,22 @@ public class Casilla {
         this.recaudado = valor;
     }
 
+    public String listar_edificios_grupo(String tipo){
+        
+        String ret = new String();
+
+        ret += "[ ";
+
+        for (Edificio e : this.edificios)
+            if(e.getTipo().equals(tipo))
+                ret += e.getID() + ", ";
+
+        ret += " ]\n";
+
+        return ret;
+        
+    }
+
 
     // Método utilizado para añadir un avatar al array de avatares en casilla.
     public void anhadirAvatar(Avatar av) {
@@ -557,6 +573,14 @@ public class Casilla {
         }
         return !(this.obtenerNumeroCasas() == 3 && this.obtenerNumeroHoteles() == 3 && this.obtenerNumeroPiscinas() == 3 && this.obtenerNumeroPistasDeporte() == 3);
     }
+   private boolean esConstruible(Jugador duenhoGrupo){
+
+    int numero_veces_caidas = this.caidasEnCasilla[duenhoGrupo.getAvatar().getTurno()];
+    return (this.grupo.esDuenhoGrupo(duenhoGrupo)|| numero_veces_caidas > 2);
+
+   }
+    // Se cumplen los requisitos para construir?
+   
     private boolean esCasaEdificable(){
 
         return (this.obtenerNumeroCasas() < 4 && this.getCasillaEdificable());
@@ -584,9 +608,7 @@ public class Casilla {
     public void edificar(String tipo, Jugador duenhoGrupo) {
                                                              // Aumentar el alquiler de la casilla dependiendo de la
                                                              // edificación
-        if (this.grupo.esDuenhoGrupo(duenhoGrupo)) {
-
-            int numero_veces_caidas = this.caidasEnCasilla[duenhoGrupo.getAvatar().getTurno()];
+        if (esConstruible(duenhoGrupo)) {
             
             switch (tipo) {
                 case "Casa": // Como máximo puede haver 4 casas
@@ -595,6 +617,7 @@ public class Casilla {
 
                         Edificio Casa = new Edificio(tipo, this, Valor.NumeroCasasConstruidas);
                         this.edificios.add(Casa);
+
                         duenhoGrupo.sumarFortuna(-Casa.getPrecio());
 
                         Valor.NumeroCasasConstruidas++;
@@ -661,11 +684,20 @@ public class Casilla {
 
                     System.out.println("No puedes edificar una Pista de deportes en estos momentos.");
                     break;
+
                 default:
+
                     System.out.println("Tipo incorrecto!");
                     break;
             }
 
         }
+    }
+
+    public void desEdificar(){
+
+        // Sumar precio edificio a jugador
+        // Eliminar edificio de la casilla
+        
     }
 }

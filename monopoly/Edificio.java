@@ -10,7 +10,7 @@ edificio.                                                                       
 
  En un solar se puede construir una casa si dicho solar pertenece al jugador cuyo avatar se encuentra
 en la casilla y si (1) el avatar ha caído más de dos veces en esa misma casilla o (2) el jugador posee el
-grupo de casillas a la que pertenece dicha casilla.                                                                 TODO  - Modificar esEdificable
+grupo de casillas a la que pertenece dicha casilla.                                                                 CHECK¿?
 
  En un solar se puede construir un hotel si en dicho solar ya se han construido cuatro casas y, además,
 se deberán substituir las casas por el hotel.                                                                       CHECK¿?
@@ -41,7 +41,7 @@ El valor inicial de una casa y de un hotel es el 60% del valor inicial del solar
 
  IDs unicos por cada edificio                                                                                      CHECK¿?
 
- Listar edificios construidos en un grupo                                                                          CHECK¿?
+ Listar edificios construidos en un grupo                                                                          REHACER MIRAR GUION
 
  Añadir prints a edificar
 
