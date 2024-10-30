@@ -45,4 +45,9 @@ public class Valor {
     public static final String COLOR_G7 = GREEN;
     public static final String COLOR_G8 = BLUE;
 
+    public static int NumeroCasasConstruidas = 0;
+    public static int NumeroHotelesConstruidos = 0;
+    public static int NumeroPiscinasConstruidas = 0;
+    public static int NumeroPistasConstruidos = 0;
+
 }
