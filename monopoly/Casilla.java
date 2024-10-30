@@ -19,7 +19,8 @@ public class Casilla {
     private float hipoteca; // Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares = new ArrayList<Avatar>(); // Avatares que están situados en la casilla.
     private ArrayList<Edificio> edificios;
-    private ArrayList<Integer> caidasEnCasilla; // Cuenta el numero de veces que el jugador iesimo cayó en la casilla
+    private ArrayList<Integer> caidasEnCasilla = new ArrayList<Integer>(6); // Cuenta el numero de veces que el jugador iesimo cayó en la casilla
+    public float recaudado = 0;
 
     private boolean hipotecada;
 
@@ -41,6 +42,7 @@ public class Casilla {
         this.impuesto = valor * 0.1f;
         this.hipotecada = false;
 
+        for(int i = 0; i < 6; i++) caidasEnCasilla.set(0, 0);
     }
 
     /*
@@ -53,6 +55,8 @@ public class Casilla {
         this.posicion = posicion;
         this.impuesto = impuesto;
         this.duenho = duenho;
+
+        for(int i = 0; i < 6; i++) caidasEnCasilla.set(0, 0);
     }
 
     /*
@@ -67,6 +71,8 @@ public class Casilla {
         this.tipo = tipo;
         this.posicion = posicion;
         this.duenho = duenho;
+
+        for(int i = 0; i < 6; i++) caidasEnCasilla.set(0, 0);
     }
 
     // GETTERS
@@ -103,6 +109,15 @@ public class Casilla {
         return this.hipoteca;
     }
 
+    public ArrayList<Integer> getCaidasEnCasilla(){
+        return this.caidasEnCasilla;
+    }
+
+    public boolean getHipotecada() {
+
+        return this.hipotecada;
+    }
+
     // SETTERS
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -136,6 +151,12 @@ public class Casilla {
         this.hipoteca = hipoteca;
     }
 
+    public void setHipotecada(boolean hipotecada) {
+
+        this.hipotecada = hipotecada;
+    }
+
+
     // Método utilizado para añadir un avatar al array de avatares en casilla.
     public void anhadirAvatar(Avatar av) {
         this.avatares.add(av);
@@ -146,15 +167,12 @@ public class Casilla {
         this.avatares.remove(av);
     }
 
-    public boolean getHipotecada() {
-
-        return this.hipotecada;
+    //Método para incrementar en 1 el número de veces que se cayó en una casilla.
+    public void actualizarCaidasEnCasilla(int jugador){
+        if(jugador < 6 && jugador >= 0) this.caidasEnCasilla.set(jugador, this.caidasEnCasilla.get(jugador)+1);
     }
 
-    public void setHipotecada(boolean hipotecada) {
-
-        this.hipotecada = hipotecada;
-    }
+   
 
     public void hipotecar(Jugador actual) {
 
@@ -189,7 +207,7 @@ public class Casilla {
      * en caso de no cumplirlas.
      */
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
-        Casilla c = this;// sorry
+        Casilla c = this;
         switch (c.getTipo()) {
             // supuestamente acabado
             case "solar":
@@ -202,6 +220,7 @@ public class Casilla {
                             c.getImpuesto() + " a " + c.getDuenho().getNombre());
                     actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
                     c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
+                    c.recaudado += c.impuesto;
                     break;
                 }
                 /*
@@ -245,6 +264,7 @@ public class Casilla {
                             c.impuesto + " a " + c.getDuenho().getNombre());
                     actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
                     c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
+                    c.recaudado += c.impuesto;
                     break;
                 }
                 System.out.println("Se puede comprar la casilla " + c.getNombre());
@@ -267,6 +287,7 @@ public class Casilla {
                             c.impuesto + " a " + c.getDuenho().getNombre());
                     actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
                     c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
+                    c.recaudado += c.impuesto;
                     break;
                 }
                 System.out.println("Se puede comprar la casilla " + c.getNombre());
