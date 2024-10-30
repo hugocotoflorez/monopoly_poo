@@ -106,7 +106,7 @@ class Grupo {
 
 @Override
 
-public Stirng toString(){
+public String toString(){
 
    /* EJEMPLO DE REPRESENTACIÓN
 
