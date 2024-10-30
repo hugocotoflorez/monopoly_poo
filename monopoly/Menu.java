@@ -176,6 +176,12 @@ public class Menu {
                         listarJugadores();
                     else if (com[1].equals("avatares"))
                         listarAvatares();
+                    else if (com[1].equals("edificios"))
+                        listarEdificios();
+                }
+                if (com.length == 3){
+                    if(com[1].equals("edificios"))
+                    listarEdificios(this.tablero.getGruposMap().get(com[2]));
                 }
                 break;
 
@@ -589,6 +595,35 @@ public class Menu {
                 System.out.println("\n");
             }
         }
+    }
+
+    // Método que muestra todos los edifcios construidos en la partida
+    private void listarEdificios(){
+
+        for(int i = 0; i < 4; i++){
+
+            for(int j = 0; j < 10; j++){
+
+                this.tablero.getPosiciones().get(i).get(j).listar_edificios_casilla();
+
+            }
+
+        }
+    }
+
+    // Método que muestra todos los elementos de un grupo dado el color
+    private void listarEdificios(Grupo grupo){
+        if(grupo == null) {
+            System.out.println("Ese grupo no existe.");
+            return;
+        }
+        for (int i = 0; i < grupo.getNumCasillas(); i++){
+
+           grupo.getMiembros().get(i).listar_edificios_casilla(); 
+
+        }
+
+
     }
 
     private void mostrarestadisticasjugador(String nombre) {
