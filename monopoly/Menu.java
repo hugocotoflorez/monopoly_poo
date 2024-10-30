@@ -180,9 +180,9 @@ public class Menu {
                     else if (com[1].equals("edificios"))
                         listarEdificios();
                 }
-                if (com.length == 3){
-                    if(com[1].equals("edificios"))
-                    listarEdificios(this.tablero.getGruposMap().get(com[2]));
+                if (com.length == 3) {
+                    if (com[1].equals("edificios"))
+                        listarEdificios(this.tablero.getGruposMap().get(com[2]));
                 }
                 break;
 
@@ -499,7 +499,7 @@ public class Menu {
             elegir_carta(suerte);
         }
 
-        else{
+        else {
             avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
         }
     }
@@ -599,16 +599,17 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
     private void listarVenta() {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 10; j++) {
-                if (tablero.getPosiciones().get(i).get(j).getDuenho().esBanca() &&
-                        (tablero.getPosiciones().get(i).get(j).getTipo().equals("solar") ||
-                                tablero.getPosiciones().get(i).get(j).getTipo().equals("transporte")
-                                || tablero.getPosiciones().get(i).get(j).getTipo().equals("servicios"))) {
-                    System.out.println(tablero.getPosiciones().get(i).get(j));
+
+        for (ArrayList<Casilla> ac : tablero.getPosiciones())
+            for (Casilla c : ac) {
+                if (c.getDuenho().esBanca() &&
+                        (c.getTipo().equals("solar") ||
+                                c.getTipo().equals("transporte")
+                                || c.getTipo().equals("servicios"))) {
+
+                    System.out.println(c);
                 }
             }
-        }
 
         for (int i = 0; i < 40; i++) {
             if (this.tablero.obtenerCasilla(i).getDuenho().esBanca()
@@ -643,11 +644,11 @@ public class Menu {
     }
 
     // Método que muestra todos los edifcios construidos en la partida
-    private void listarEdificios(){
+    private void listarEdificios() {
 
-        for(int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
 
-            for(int j = 0; j < 10; j++){
+            for (int j = 0; j < 10; j++) {
 
                 this.tablero.getPosiciones().get(i).get(j).listar_edificios_casilla();
 
@@ -657,17 +658,16 @@ public class Menu {
     }
 
     // Método que muestra todos los elementos de un grupo dado el color
-    private void listarEdificios(Grupo grupo){
-        if(grupo == null) {
+    private void listarEdificios(Grupo grupo) {
+        if (grupo == null) {
             System.out.println("Ese grupo no existe.");
             return;
         }
-        for (int i = 0; i < grupo.getNumCasillas(); i++){
+        for (int i = 0; i < grupo.getNumCasillas(); i++) {
 
-           grupo.getMiembros().get(i).listar_edificios_casilla(); 
+            grupo.getMiembros().get(i).listar_edificios_casilla();
 
         }
-
 
     }
 
@@ -681,8 +681,9 @@ public class Menu {
         System.out.println("No se ha encontrado este jugador.\n");
     }
 
-    //FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA------------------------------------
-    private String buscarCasillasMasRentables(){
+    // FUNCIONES PARA MOSTRAR ESTADISTICAS
+    // PARTIDA------------------------------------
+    private String buscarCasillasMasRentables() {
         String ret = new String();
         float maxrecaudado = tablero.posicion_salida().getRecaudado();
         for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
@@ -701,29 +702,30 @@ public class Menu {
         }
         return ret;
     }
-    
-    private String buscarCasillaMasFrecuentada(){
+
+    private String buscarCasillaMasFrecuentada() {
         String ret = new String();
         int maxvisitas = this.tablero.posicion_salida().totalVisitas();
-        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
-            for(Casilla c: Lado){
-                if(c.totalVisitas() >= maxvisitas ) maxvisitas = c.totalVisitas();
+        for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
+            for (Casilla c : Lado) {
+                if (c.totalVisitas() >= maxvisitas)
+                    maxvisitas = c.totalVisitas();
             }
         }
-        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
-            for(Casilla c: Lado){
-                if(c.totalVisitas() == maxvisitas ){
+        for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
+            for (Casilla c : Lado) {
+                if (c.totalVisitas() == maxvisitas) {
                     ret += c.getNombre();
-                    ret+= ", ";
+                    ret += ", ";
                 }
             }
         }
         return ret;
     }
-    //FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
+    // FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
 
     private void mostrarestadisticaspartida() {
-        System.out.println("Casillas más rentables: " + this.buscarCasillasMasRentables() );
+        System.out.println("Casillas más rentables: " + this.buscarCasillasMasRentables());
         System.out.println("Casillas más frecuentadas: " + this.buscarCasillaMasFrecuentada());
     }
 
