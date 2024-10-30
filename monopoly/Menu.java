@@ -376,17 +376,29 @@ public class Menu {
     }
 
     private void mover(int valor1, int valor2) {
-        int desplazamiento = valor1 + valor2;
-        System.out
-                .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
-                        + this.avatares.get(turno).getCasilla().getNombre());
-        /*
-         * El primer print se completa despues de mover el avatar, por lo que en el
-         * medio
-         * del mensaje del print se llama a moverAvatar
-         */
-        this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
-        System.out.println(" hasta" + avatares.get(turno).getCasilla().getNombre());
+        /* Movimiento default */
+        if (!movimientoAvanzado) {
+            int desplazamiento = valor1 + valor2;
+            System.out
+                    .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
+                            + this.avatares.get(turno).getCasilla().getNombre());
+            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
+            System.out.println(" hasta" + avatares.get(turno).getCasilla().getNombre());
+            return;
+        }
+        switch(this.avatares.get(turno).getTipo())
+        {
+            case "Coche":
+            break;
+            case "Esfinge":
+            break;
+            case "Somprero":
+            break;
+            case "Pelota":
+            break;
+        }
+        movimientoAvanzado = false;
+
     }
 
     private void pasarPorSalida(int casillaantes) {
@@ -589,20 +601,24 @@ public class Menu {
         System.out.println("No se ha encontrado este jugador.\n");
     }
 
+    // FUNCIONES PARA MOSTRAR ESTADISTICAS
+    // PARTIDA------------------------------------
+
     //FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA------------------------------------
     private String buscarCasillasMasRentables(){
         String ret = new String();
         float maxrecaudado = tablero.posicion_salida().getRecaudado();
-        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
-            for(Casilla c: Lado){
-                if (c.getRecaudado() >= maxrecaudado) maxrecaudado = c.getRecaudado();
+        for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
+            for (Casilla c : Lado) {
+                if (c.getRecaudado() >= maxrecaudado)
+                    maxrecaudado = c.getRecaudado();
             }
         }
-        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
-            for(Casilla c: Lado){
-                if (c.getRecaudado() == maxrecaudado){
+        for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
+            for (Casilla c : Lado) {
+                if (c.getRecaudado() == maxrecaudado) {
                     ret += c.getNombre();
-                    ret+= ", ";
+                    ret += ", ";
                 }
             }
         }
