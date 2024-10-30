@@ -345,7 +345,6 @@ public class Menu {
         if (this.lanzamientos < 2 && !this.jugadores.get(turno).getEnCarcel() && !this.tirado) {
 
             int casillaantes = avatares.get(turno).getCasilla().getPosicion();
-            int casillanueva;
             this.tirado = true;
             System.out.println("Tirada: " + valor1 + ", " + valor2);
             this.lanzamientos += 1;
@@ -357,57 +356,14 @@ public class Menu {
             this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
             System.out.println(avatares.get(turno).getCasilla().getNombre());
 
-            casillanueva = avatares.get(turno).getCasilla().getPosicion();
-            if ((casillaantes > casillanueva)) {
-
-                // !!!!!! si se modifica algo de esto hay que modificarlo tambien en Carta
-                System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
-                jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
-                jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
-                jugadores.get(turno).setPasarPorCasillaDeSalida(
-                        jugadores.get(turno).getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
-                System.out.println("Llevas " + jugadores.get(turno).getVueltas() + " vueltas.");
-
-                int vueltasmin = this.jugadores.get(turno).getVueltas();
-
-                for (Jugador j : this.jugadores) {
-                    if (!j.esBanca() && j.getVueltas() < vueltasmin) {
-                        vueltasmin = j.getVueltas();
-                    }
-                }
-
-                if ((this.jugadores.get(turno).getVueltas() == vueltasmin) && (vueltasmin % 4 == 0)) {
-                    System.out.println(
-                            "Todos los jugadores han dado un múltiplo de 4 vueltas, se va a incrementar el precio de los solares en un 10%.");
-                    this.tablero.actualizarValorSolares();
-                }
-            }
+            pasarPorSalida(casillaantes);
 
             if (dadosDobles(valor1, valor2)) {
                 this.tirado = false;
                 System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
             }
 
-            /*
-             * En estos casos no se evalua casilla, sino que la accion se realiza
-             * desde aqui. Si esto es un error borrar los else-if pero el de caja y suerte
-             * si que no puede ejecutarse evaluar casilla despues
-             */
-            if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
-                jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
-            }
-
-            else if (avatares.get(turno).getCasilla().getTipo().equals("suerte")) {
-                elegir_carta(suerte);
-            }
-
-            else if (avatares.get(turno).getCasilla().getTipo().equals("caja")) {
-                elegir_carta(suerte);
-            }
-
-            else
-                //avatares.get(turno).getCasilla() TODO
-                avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
+            evaluarAccion(desplazamiento);
 
         } else if (this.lanzamientos >= 2 && !this.tirado) {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
@@ -416,6 +372,57 @@ public class Menu {
         } else if (this.jugadores.get(turno).getEnCarcel()) {
             System.out.println("Oh no! Estás en la cárcel!");
         }
+    }
+
+    private void pasarPorSalida(int casillaantes) {
+        int casillanueva;
+        casillanueva = avatares.get(turno).getCasilla().getPosicion();
+        if ((casillaantes > casillanueva)) {
+
+            // !!!!!! si se modifica algo de esto hay que modificarlo tambien en Carta
+            System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
+            jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
+            jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
+            jugadores.get(turno).setPasarPorCasillaDeSalida(
+                    jugadores.get(turno).getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
+            System.out.println("Llevas " + jugadores.get(turno).getVueltas() + " vueltas.");
+
+            int vueltasmin = this.jugadores.get(turno).getVueltas();
+
+            for (Jugador j : this.jugadores) {
+                if (!j.esBanca() && j.getVueltas() < vueltasmin) {
+                    vueltasmin = j.getVueltas();
+                }
+            }
+
+            if ((this.jugadores.get(turno).getVueltas() == vueltasmin) && (vueltasmin % 4 == 0)) {
+                System.out.println(
+                        "Todos los jugadores han dado un múltiplo de 4 vueltas, se va a incrementar el precio de los solares en un 10%.");
+                this.tablero.actualizarValorSolares();
+            }
+        }
+    }
+
+    private void evaluarAccion(int desplazamiento) {
+        /*
+         * En estos casos no se evalua casilla, sino que la accion se realiza
+         * desde aqui. Si esto es un error borrar los else-if pero el de caja y suerte
+         * si que no puede ejecutarse evaluar casilla despues
+         */
+        if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
+            jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
+        }
+
+        else if (avatares.get(turno).getCasilla().getTipo().equals("suerte")) {
+            elegir_carta(suerte);
+        }
+
+        else if (avatares.get(turno).getCasilla().getTipo().equals("caja")) {
+            elegir_carta(suerte);
+        }
+
+        else
+            avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
     }
 
     private void lanzarDadosCarcel() {
