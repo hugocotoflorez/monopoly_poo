@@ -142,7 +142,6 @@ public class Menu {
                 System.out.println("ver - muestra el tablero");
                 System.out.println("clear - limpia la pantalla");
                 System.out.println("estadisticas <Jugador>");
-                System.out.println("estadisticas");
                 break;
 
             case "default":
@@ -499,9 +498,8 @@ public class Menu {
             elegir_carta(suerte);
         }
 
-        else {
+        else
             avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
-        }
     }
 
     private void lanzarDadosCarcel() {
