@@ -20,6 +20,7 @@ public class Casilla {
     private ArrayList<Avatar> avatares = new ArrayList<Avatar>(); // Avatares que están situados en la casilla.
     private ArrayList<Edificio> edificios;
     private ArrayList<Integer> caidasEnCasilla = new ArrayList<Integer>(6); // Cuenta el numero de veces que el jugador iesimo cayó en la casilla
+    public float recaudado = 0;
 
     private boolean hipotecada;
 
@@ -219,6 +220,7 @@ public class Casilla {
                             c.getImpuesto() + " a " + c.getDuenho().getNombre());
                     actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
                     c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
+                    c.recaudado += c.impuesto;
                     break;
                 }
                 /*
@@ -262,6 +264,7 @@ public class Casilla {
                             c.impuesto + " a " + c.getDuenho().getNombre());
                     actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
                     c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
+                    c.recaudado += c.impuesto;
                     break;
                 }
                 System.out.println("Se puede comprar la casilla " + c.getNombre());
@@ -284,6 +287,7 @@ public class Casilla {
                             c.impuesto + " a " + c.getDuenho().getNombre());
                     actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
                     c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
+                    c.recaudado += c.impuesto;
                     break;
                 }
                 System.out.println("Se puede comprar la casilla " + c.getNombre());
