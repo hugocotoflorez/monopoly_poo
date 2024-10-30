@@ -571,11 +571,11 @@ public class Casilla {
         return (this.obtenerNumeroHoteles() >= 2 && this.getCasillaEdificable());
     }
 
-    public void listar_edificios_casilla(Casilla casilla){
+    public void listar_edificios_casilla(){
 
-        for(int i = 0; i< edificios.size(); i++){
+        for(int i = 0; i< this.edificios.size(); i++){
 
-            
+            this.edificios.get(i).toString();
 
         }
 
