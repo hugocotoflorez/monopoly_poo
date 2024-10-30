@@ -37,69 +37,127 @@ El valor inicial de una casa y de un hotel es el 60% del valor inicial del solar
 
  El valor inicial de una pista de deporte es el 125% del solar en el que se edifica.                               CHECK¿?
 
+ Listar edificios construidos - Hacer funcion listar edificios en Casilla y llamarla en bucle desde tablero
+
+ IDs unicos por cada edificio                                                                                      CHECK¿?
+
+ Listar edificios construidos en un grupo
+
+ Añadir prints a edificar
+
+ Vender edificios
+
 */
 package monopoly;
 
 public class Edificio {
-    private String tipo;        // Piscina/Edificios/Hoteles
-    private float precio;       // Precio de los edificios
-    private Casilla casilla;    // Los edificios se situan en casillas
 
-    public String getTipo(){
+    private String ID;
+    private String tipo; // Piscina/Edificios/Hoteles
+    private float precio; // Precio de los edificios
+    private Casilla casilla; // Los edificios se situan en casillas
+
+    public String getTipo() {
 
         return this.tipo;
 
     }
 
-    public void setTipo(String tipo){
+    public void setTipo(String tipo) {
 
-        if(tipo.equals("Casa") || tipo.equals("Hotel") || tipo.equals("Piscina") || tipo.equals("Pista de deportes"))
+        if (tipo.equals("Casa") || tipo.equals("Hotel") || tipo.equals("Piscina") || tipo.equals("Pista de deportes"))
             this.tipo = tipo;
 
     }
 
-    public void setPrecio(float precio){
+    public void setPrecio(float precio) {
 
-        if(precio > 0){
+        if (precio > 0) {
 
             this.precio = precio;
 
         }
     }
-    public float getPrecio(){
+
+    public float getPrecio() {
 
         return this.precio;
 
     }
-    public void setCasilla(Casilla casilla){
+
+    public void setCasilla(Casilla casilla) {
 
         this.casilla = casilla;
 
     }
 
-    private Casilla getCasilla(){
+    private Casilla getCasilla() {
 
         return this.casilla;
 
     }
 
-    public Edificio(String tipo, Casilla casilla){
+    public String getID() {
 
-        this.tipo = tipo;
-        this.casilla = casilla;
+        return this.ID;
 
+    }
 
-        if(this.tipo.equals("Casa") || this.tipo.equals("Hotel"))
-            this.precio = casilla.getValor() * 0.60f;
+    public void setID(String tipo, int num) {
 
-        if(this.tipo.equals("Piscina"))
-            this.precio = casilla.getValor() * 0.40f;
+        this.ID = tipo;
+
+    }
+
+    public Edificio(String tipo, Casilla casilla, int ID) {
+
+        if (casilla.getTipo().equals("Solar")) {
+
+            if (tipo.equals("Casa")) {
+                
+                this.tipo = "Casa";
+                this.casilla = casilla;
+
+                this.ID = "Casa-";
+                this.ID += Valor.NumeroCasasConstruidas;
+
+                this.precio = casilla.getValor() * 0.60f;
             
-        if(this.tipo.equals("Pista de deportes"))
-            this.precio = casilla.getValor() * 1.25f;
+            }
+            if (tipo.equals("Hotel")) {
 
-        //Aqui se incrementará el precio de la casilla
-        
+                this.tipo = "Hotel";
+                this.casilla = casilla;
+
+                this.ID = "Hotel-";
+                this.ID += Valor.NumeroHotelesConstruidos;
+
+                this.precio = casilla.getValor() * 0.60f;
+
+            
+            }
+            if (tipo.equals("Piscina")) {
+
+                this.tipo = "Piscina";
+                this.casilla = casilla;
+                
+                this.ID = "Piscina-";
+                this.ID += Valor.NumeroPiscinasConstruidas;
+
+                this.precio = casilla.getValor() * 0.40f;
+            
+            }
+            if (tipo.equals("Pista de deportes")) {
+
+                this.tipo = "Pista de deportes";
+                this.casilla = casilla;
+
+                this.ID = "Pista de deportes-";
+                this.ID += Valor.NumeroPistasConstruidos;
+                
+                this.precio = casilla.getValor() * 1.25f;
+            }
+        }
 
     }
 
