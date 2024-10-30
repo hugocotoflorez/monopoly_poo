@@ -50,6 +50,8 @@ El valor inicial de una casa y de un hotel es el 60% del valor inicial del solar
  Actualizar describir Casilla
 
  Actualizar describir Jugador
+
+ Agregar opciones al menú
 */
 package monopoly;
 
