@@ -19,7 +19,7 @@ public class Casilla {
     private float hipoteca; // Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares = new ArrayList<Avatar>(); // Avatares que están situados en la casilla.
     private ArrayList<Edificio> edificios;
-    private ArrayList<Integer> caidasEnCasilla = new ArrayList<Integer>(6); // Cuenta el numero de veces que el jugador iesimo cayó en la casilla
+    private ArrayList<Integer> caidasEnCasilla; // Cuenta el numero de veces que el jugador iesimo cayó en la casilla
     public float recaudado = 0;
 
     private boolean hipotecada;
@@ -42,6 +42,7 @@ public class Casilla {
         this.impuesto = valor * 0.1f;
         this.hipotecada = false;
 
+        this.caidasEnCasilla = new ArrayList<Integer>(6);
         for(int i = 0; i < 6; i++) caidasEnCasilla.set(i, 0);
     }
 
@@ -56,6 +57,7 @@ public class Casilla {
         this.impuesto = impuesto;
         this.duenho = duenho;
 
+        this.caidasEnCasilla = new ArrayList<Integer>(6);
         for(int i = 0; i < 6; i++) caidasEnCasilla.set(i, 0);
     }
 
@@ -72,6 +74,7 @@ public class Casilla {
         this.posicion = posicion;
         this.duenho = duenho;
 
+        this.caidasEnCasilla = new ArrayList<Integer>(6);
         for(int i = 0; i < 6; i++) caidasEnCasilla.set(i, 0);
     }
 
