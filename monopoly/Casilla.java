@@ -56,7 +56,7 @@ public class Casilla {
         this.impuesto = impuesto;
         this.duenho = duenho;
 
-        for(int i = 0; i < 6; i++) caidasEnCasilla.set(0, 0);
+        for(int i = 0; i < 6; i++) caidasEnCasilla.set(i, 0);
     }
 
     /*
@@ -72,7 +72,7 @@ public class Casilla {
         this.posicion = posicion;
         this.duenho = duenho;
 
-        for(int i = 0; i < 6; i++) caidasEnCasilla.set(0, 0);
+        for(int i = 0; i < 6; i++) caidasEnCasilla.set(i, 0);
     }
 
     // GETTERS
