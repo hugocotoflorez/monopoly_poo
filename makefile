@@ -14,7 +14,7 @@ CLASSES_PARTIDA = $(SRC_PARTIDA)/Avatar.java $(SRC_PARTIDA)/Dado.java $(SRC_PART
 MAIN_CLASS = monopoly.MonopolyETSE
 
 # Objetivo que compila y ejecuta el proyecto
-all: compile run
+all: compile run clean
 
 # Regla para compilar todos los archivos .java
 compile:
