@@ -21,7 +21,7 @@ public class Menu {
                               // decir, si ha pagado sus deudas.
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
-
+    private boolean movimientoAvanzado = false;
     /*
      * Poner un scanner nuevo para cada funcion en la que se necesita daba error
      * porque segun lo que la intuicion me dice no se pueden abrir dos scanners
@@ -345,21 +345,13 @@ public class Menu {
         if (this.lanzamientos < 2 && !this.jugadores.get(turno).getEnCarcel() && !this.tirado) {
 
             int casillaantes = avatares.get(turno).getCasilla().getPosicion();
-            int desplazamiento = valor1 + valor2;
             this.tirado = true;
             this.lanzamientos += 1;
             System.out.println("Tirada: " + valor1 + ", " + valor2);
-            System.out
-                    .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
-                            + this.avatares.get(turno).getCasilla().getNombre());
-            /*
-             * El primer print se completa despues de mover el avatar, por lo que en el
-             * medio
-             * del mensaje del print se llama a moverAvatar
-             */
-            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
-            System.out.println(" hasta" + avatares.get(turno).getCasilla().getNombre());
 
+            mover(valor1, valor2);
+
+            // Comprueba si pasa por salida
             pasarPorSalida(casillaantes);
 
             if (dadosDobles(valor1, valor2)) {
@@ -367,7 +359,7 @@ public class Menu {
                 System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
             }
 
-            evaluarAccion(desplazamiento);
+            evaluarAccion(valor1 + valor2);
 
         } else if (this.lanzamientos >= 2 && !this.tirado) {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
@@ -376,6 +368,20 @@ public class Menu {
         } else if (this.jugadores.get(turno).getEnCarcel()) {
             System.out.println("Oh no! Estás en la cárcel!");
         }
+    }
+
+    private void mover(int valor1, int valor2) {
+        int desplazamiento = valor1 + valor2;
+        System.out
+                .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
+                        + this.avatares.get(turno).getCasilla().getNombre());
+        /*
+         * El primer print se completa despues de mover el avatar, por lo que en el
+         * medio
+         * del mensaje del print se llama a moverAvatar
+         */
+        this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
+        System.out.println(" hasta" + avatares.get(turno).getCasilla().getNombre());
     }
 
     private void pasarPorSalida(int casillaantes) {
@@ -577,10 +583,10 @@ public class Menu {
         System.out.println("No se ha encontrado este jugador.\n");
     }
 
+    // FUNCIONES PARA MOSTRAR ESTADISTICAS
+    // PARTIDA------------------------------------
 
-    //FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA------------------------------------
-
-    //FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
+    // FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
     private void mostrarestadisticaspartida() {
 
     }
