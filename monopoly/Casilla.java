@@ -726,8 +726,11 @@ public class Casilla {
 
         if (this.getDuenho().equals(duenhoEdificio))
             for (Edificio e : this.edificios)
-                if (e.getTipo().equals(tipoEdificio))
+                if (e.getTipo().equals(tipoEdificio)){
                     edificios.remove(e);
+                    duenhoEdificio.sumarFortuna((e.getPrecio()/2));
+                    return;
+                }
 
     }
 }
