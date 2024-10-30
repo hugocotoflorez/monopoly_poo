@@ -348,16 +348,20 @@ public class Menu {
         if (this.lanzamientos < 2 && !this.jugadores.get(turno).getEnCarcel() && !this.tirado) {
 
             int casillaantes = avatares.get(turno).getCasilla().getPosicion();
-            this.tirado = true;
-            System.out.println("Tirada: " + valor1 + ", " + valor2);
-            this.lanzamientos += 1;
             int desplazamiento = valor1 + valor2;
+            this.tirado = true;
+            this.lanzamientos += 1;
+            System.out.println("Tirada: " + valor1 + ", " + valor2);
             System.out
                     .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
-                            + this.avatares.get(turno).getCasilla().getNombre() + " hasta ");
-
+                            + this.avatares.get(turno).getCasilla().getNombre());
+            /*
+             * El primer print se completa despues de mover el avatar, por lo que en el
+             * medio
+             * del mensaje del print se llama a moverAvatar
+             */
             this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
-            System.out.println(avatares.get(turno).getCasilla().getNombre());
+            System.out.println(" hasta" + avatares.get(turno).getCasilla().getNombre());
 
             pasarPorSalida(casillaantes);
 

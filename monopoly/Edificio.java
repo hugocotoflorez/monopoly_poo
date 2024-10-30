@@ -1,16 +1,16 @@
 /*Edificaciones:
 
- En cada casilla de solar se pueden construir edificios.
+ En cada casilla de solar se pueden construir edificios.                                                           CHECK¿?
 
- Los edificios pueden ser de cuatro tipos: casas, hoteles, piscinas y pistas de deporte.
+ Los edificios pueden ser de cuatro tipos: casas, hoteles, piscinas y pistas de deporte.                           CHECK¿?
 
  La construcción de cada edificio tiene un coste que dependerá (1) del tipo al que pertenece y (2) del
 solar en el que se construye. Por tanto, cada solar tiene un coste de construcción para cada tipo de
-edificio.
+edificio.                                                                                                           CHECK¿?
 
  En un solar se puede construir una casa si dicho solar pertenece al jugador cuyo avatar se encuentra
 en la casilla y si (1) el avatar ha caído más de dos veces en esa misma casilla o (2) el jugador posee el
-grupo de casillas a la que pertenece dicha casilla.                                                                 TODO 
+grupo de casillas a la que pertenece dicha casilla.                                                                 TODO  - Modificar esEdificable
 
  En un solar se puede construir un hotel si en dicho solar ya se han construido cuatro casas y, además,
 se deberán substituir las casas por el hotel.                                                                       CHECK¿?
@@ -23,13 +23,13 @@ se deberán substituir las casas por el hotel.                                  
 que se pueden construir en el grupo al que dicho solar pertenece: si el grupo consta de dos casillas, se
 pueden construir, como máximo, 2 hoteles, 2 casas, 2 piscinas y 2 pistas de deporte; mientras que, si el
 grupo está compuesto por tres casillas, se puede construir, como máximo, 3 hoteles, 3 casas, 3 piscinas
-y 3 pistas de deporte.                                                                                             CHECK¿?
+y 3 pistas de deporte.                                                                                              CHECK¿?
 
  Cada edificio tiene un coste de alquiler que depende (1) del tipo al que pertenece y (2) de la propiedad
-o casilla en la que se ha construido.
+o casilla en la que se ha construido.                                                                               TODO
 
  El coste de alquiler que debe pagar un avatar que cae en una propiedad con edificios será la suma del
-coste de alquiler de todos los edificios construidos en dicha propiedad
+coste de alquiler de todos los edificios construidos en dicha propiedad                                             TODO
 
 El valor inicial de una casa y de un hotel es el 60% del valor inicial del solar en el que se edifica.              CHECK¿?
 
@@ -98,6 +98,8 @@ public class Edificio {
         if(this.tipo.equals("Pista de deportes"))
             this.precio = casilla.getValor() * 1.25f;
 
+        //Aqui se incrementará el precio de la casilla
+        
 
     }
 

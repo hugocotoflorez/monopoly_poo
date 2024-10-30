@@ -570,7 +570,7 @@ public class Casilla {
         return (this.obtenerNumeroHoteles() >= 2 && this.getCasillaEdificable());
     }
 
-    public void edificar(String tipo, Jugador duenhoGrupo) { // Restar precio de la edificación al Jugador
+    public void edificar(String tipo, Jugador duenhoGrupo) {
                                                              // Aumentar el alquiler de la casilla dependiendo de la
                                                              // edificación
 
@@ -580,9 +580,14 @@ public class Casilla {
                 case "Casa": // Como máximo puede haver 4 casas
 
                     if (this.esCasaEdificable()) {
-                        this.edificios.add(new Edificio(tipo, this));
+
+                        Edificio Casa = new Edificio(tipo, this);
+                        this.edificios.add(Casa);
+                        duenhoGrupo.sumarFortuna(-Casa.getPrecio());
                         return;
+
                     }
+
                     System.out.println("No puedes edificar una Casa en estos momentos.");
                     break;
 
@@ -590,11 +595,16 @@ public class Casilla {
                               // Además las casas serán eliminadas
 
                     if (this.esHotelEdificable()) {
+
                         for (Edificio e : this.edificios) {
+
                             if (e.getTipo().equals("Casa"))
                                 this.edificios.remove(e);
                         }
-                        this.edificios.add(new Edificio(tipo, this));
+
+                        Edificio Hotel = new Edificio(tipo,this);
+                        this.edificios.add(Hotel);
+                        duenhoGrupo.sumarFortuna(-Hotel.getPrecio());
                         return;
                     }
                     System.out.println("No puedes edificar un Hotel en estos momentos.");
@@ -603,17 +613,25 @@ public class Casilla {
                 case "Piscina": // Numero de hoteles >= 1
                                 // Numero de casas >= 2
                     if (this.esPiscinaEdificable()) {
-                        this.edificios.add(new Edificio(tipo, this));
+
+                        Edificio Piscina = new Edificio(tipo,this);
+                        this.edificios.add(Piscina);
+                        duenhoGrupo.sumarFortuna(-Piscina.getPrecio());
                         return;
+
                     }
                     System.out.println("No puedes edificar una Piscina en estos momentos.");
                     break;
 
                 case "Pista": // Numero de hoteles >= 2
-                    if (this.esPiscinaEdificable()) {
-                        this.edificios.add(new Edificio("Pista de deportes", this));
+                    if (this.esPistaEdificable()) {
+
+                        Edificio Pista = new Edificio("Pista de deportes", this);
+                        this.edificios.add(Pista);
+                        duenhoGrupo.sumarFortuna(-Pista.getPrecio());
                         return;
                     }
+
                     System.out.println("No puedes edificar una Pista de deportes en estos momentos.");
                     break;
                 default:
