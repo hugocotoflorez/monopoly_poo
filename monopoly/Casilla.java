@@ -174,6 +174,13 @@ public class Casilla {
         if(jugador < 6 && jugador >= 0) this.caidasEnCasilla[jugador] += 1;
     }
 
+    //Método para que me diga el total de visitas de la casilla
+    public int totalVisitas(){
+        int ret = 0;
+        for(int i = 0; i<6; i++) ret+=caidasEnCasilla[i];
+        return ret;
+    }
+
    
 
     public void hipotecar(Jugador actual) {

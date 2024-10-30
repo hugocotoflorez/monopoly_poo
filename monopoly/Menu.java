@@ -447,8 +447,10 @@ public class Menu {
             elegir_carta(suerte);
         }
 
-        else
+        else{
+            avatares.get(turno).getCasilla().actualizarCaidasEnCasilla(turno-1); //-1 para ignorar la banca;
             avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
+        }
     }
 
     private void lanzarDadosCarcel() {
@@ -602,9 +604,8 @@ public class Menu {
     // FUNCIONES PARA MOSTRAR ESTADISTICAS
     // PARTIDA------------------------------------
 
-    // FUNCIONES PARA MOSTRAR ESTADISTICAS
-    // PARTIDA------------------------------------
-    private String buscarCasillasMasRentables() {
+    //FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA------------------------------------
+    private String buscarCasillasMasRentables(){
         String ret = new String();
         float maxrecaudado = tablero.posicion_salida().getRecaudado();
         for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
@@ -623,10 +624,29 @@ public class Menu {
         }
         return ret;
     }
-
-    // FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
+    
+    private String buscarCasillaMasFrecuentada(){
+        String ret = new String();
+        int maxvisitas = this.tablero.posicion_salida().totalVisitas();
+        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
+            for(Casilla c: Lado){
+                if(c.totalVisitas() >= maxvisitas ) maxvisitas = c.totalVisitas();
+            }
+        }
+        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
+            for(Casilla c: Lado){
+                if(c.totalVisitas() == maxvisitas ){
+                    ret += c.getNombre();
+                    ret+= ", ";
+                }
+            }
+        }
+        return ret;
+    }
+    //FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
     private void mostrarestadisticaspartida() {
-        System.out.println("Casilla más rentable: " + this.buscarCasillasMasRentables());
+        System.out.println("Casillas más rentables: " + this.buscarCasillasMasRentables() );
+        System.out.println("Casillas más frecuentadas: " + this.buscarCasillaMasFrecuentada());
     }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
