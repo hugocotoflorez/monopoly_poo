@@ -701,18 +701,18 @@ public class Menu {
         return ret;
     }
 
-    private String buscarCasillaMasFrecuentada() {
+    private String buscarGruposMasRentables(){
         String ret = new String();
-        int maxvisitas = this.tablero.posicion_salida().totalVisitas();
+        float maxrecaudado = tablero.getGrupoMap().get("Verde").;
         for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
             for (Casilla c : Lado) {
-                if (c.totalVisitas() >= maxvisitas)
-                    maxvisitas = c.totalVisitas();
+                if (c.getRecaudado() >= maxrecaudado)
+                    maxrecaudado = c.getRecaudado();
             }
         }
         for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
             for (Casilla c : Lado) {
-                if (c.totalVisitas() == maxvisitas) {
+                if (c.getRecaudado() == maxrecaudado) {
                     ret += c.getNombre();
                     ret += ", ";
                 }
@@ -720,7 +720,26 @@ public class Menu {
         }
         return ret;
     }
-    // FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
+    
+    private String buscarCasillaMasFrecuentada(){
+        String ret = new String();
+        int maxvisitas = this.tablero.posicion_salida().totalVisitas();
+        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
+            for(Casilla c: Lado){
+                if(c.totalVisitas() >= maxvisitas ) maxvisitas = c.totalVisitas();
+            }
+        }
+        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
+            for(Casilla c: Lado){
+                if(c.totalVisitas() == maxvisitas ){
+                    ret += c.getNombre();
+                    ret+= ", ";
+                }
+            }
+        }
+        return ret;
+    }
+    //FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
 
     private void mostrarestadisticaspartida() {
         System.out.println("Casillas más rentables: " + this.buscarCasillasMasRentables());

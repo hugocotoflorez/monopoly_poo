@@ -94,4 +94,13 @@ class Grupo {
             m.setImpuesto(m.getImpuesto()*2);
         }
     }
+
+    //Función devuelve el total de recaudados de un grupo de un color en concreto
+    public float totalRecaudado(){
+        float ret = 0;
+        for(Casilla c: this.miembros){
+            ret += c.getRecaudado();
+        }
+        return ret;
+    }
 }

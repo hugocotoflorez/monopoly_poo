@@ -11,6 +11,7 @@ public class Avatar {
     private String tipo; // Sombrero, Esfinge, Pelota, Coche
     private Jugador jugador; // Un jugador al que pertenece ese avatar.
     private Casilla lugar; // Los avatares se sitúan en casillas del tablero.
+    private int turno;
 
     // Constructor vacío
     public Avatar() {
@@ -67,6 +68,14 @@ public class Avatar {
         return this.tipo;
     }
 
+    public int getTurno(){
+        return this.turno;
+    }
+
+    public Casilla getCasilla() {
+        return this.lugar;
+    }
+
     // SETTERS
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
@@ -80,9 +89,12 @@ public class Avatar {
         this.lugar = lugar;
     }
 
-    public Casilla getCasilla() {
-        return this.lugar;
+    public void setTurno(int turno){
+        this.turno = turno;
     }
+
+    
+
 
     static Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valor) {
         valor = valor % 40;
@@ -97,6 +109,7 @@ public class Avatar {
         this.lugar.eliminarAvatarCasilla(this.id);
         this.lugar = casilla;
         this.lugar.anhadirAvatarCasilla(this);
+        casilla.actualizarCaidasEnCasilla(this.turno);
     }
 
     /*

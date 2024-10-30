@@ -52,6 +52,7 @@ public class Jugador {
 
         this.nombre = nombre;
         this.avatar = new Avatar(tipoAvatar, inicio, avCreados);
+        this.avatar.setTurno(avCreados.size());
         this.avatar.setTipo(tipoAvatar);
         this.avatar.setLugar(inicio);
         this.fortuna = Valor.FORTUNA_INICIAL;
