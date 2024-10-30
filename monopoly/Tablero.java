@@ -58,6 +58,10 @@ public class Tablero {
         return this.posiciones.get(posicion / 10).get(posicion % 10);
     }
 
+    public HashMap<String, Grupo> getGruposMap(){
+        return this.grupos;
+    }
+    
     // Método para insertar las casillas del lado norte.
     private void insertarLadoNorte() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();

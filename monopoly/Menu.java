@@ -132,6 +132,7 @@ public class Menu {
                 System.out.println("listar jugadores");
                 System.out.println("listar avatares");
                 System.out.println("lanzar dados");
+                System.out.println("cambiar modo");
                 System.out.println("acabar - acaba el turno");
                 System.out.println("salir (carcel)");
                 System.out.println("describir jugador  <nombre>");
@@ -141,7 +142,6 @@ public class Menu {
                 System.out.println("ver - muestra el tablero");
                 System.out.println("clear - limpia la pantalla");
                 System.out.println("estadisticas <Jugador>");
-                System.out.println("estadisticas");
                 break;
 
             case "default":
@@ -176,6 +176,12 @@ public class Menu {
                         listarJugadores();
                     else if (com[1].equals("avatares"))
                         listarAvatares();
+                    else if (com[1].equals("edificios"))
+                        listarEdificios();
+                }
+                if (com.length == 3){
+                    if(com[1].equals("edificios"))
+                    listarEdificios(this.tablero.getGruposMap().get(com[2]));
                 }
                 break;
 
@@ -188,6 +194,11 @@ public class Menu {
                     } else
                         System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
                 }
+                break;
+
+            case "cambiar":
+                if (com.length == 2 && com[1].equals("modo"))
+                    cambairModo();
                 break;
 
             case "l":
@@ -379,27 +390,66 @@ public class Menu {
     private void mover(int valor1, int valor2) {
         /* Movimiento default */
         if (!movimientoAvanzado) {
-            int desplazamiento = valor1 + valor2;
-            System.out
-                    .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
-                            + this.avatares.get(turno).getCasilla().getNombre());
-            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
-            System.out.println(" hasta" + avatares.get(turno).getCasilla().getNombre());
-            return;
+            moverNormal(valor1, valor2);
         }
-        switch(this.avatares.get(turno).getTipo())
-        {
+        switch (this.avatares.get(turno).getTipo()) {
             case "Coche":
-            break;
-            case "Esfinge":
-            break;
-            case "Somprero":
-            break;
+                moverCoche(valor1, valor2);
+                break;
             case "Pelota":
-            break;
+                moverPelota(valor1, valor2);
+                break;
+            case "Esfinge":
+                /* No para esta entrega */
+                moverEsfinge(valor1, valor2);
+                break;
+            case "Somprero":
+                /* No para esta entrega */
+                moverSombrero(valor1, valor2);
+                break;
         }
-        movimientoAvanzado = false;
+    }
 
+    private void moverNormal(int valor1, int valor2) {
+        int desplazamiento = valor1 + valor2;
+        System.out
+                .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
+                        + this.avatares.get(turno).getCasilla().getNombre());
+        this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
+        System.out.println(" hasta" + avatares.get(turno).getCasilla().getNombre());
+    }
+
+    private void moverCoche(int valor1, int valor2) {
+        /*
+         * Coche: si el valor de los dados es mayor que 4, avanza tantas casillas como
+         * dicho valor y puede seguir lanzando los dados tres veces más mientras el
+         * valor sea mayor que 4. Durante el turno solo se puede realizar una sola
+         * compra de propiedades, servicios o transportes, aunque se podría hacer en
+         * cualesquiera de los 4 intentos posibles. Sin embargo, se puede edificar
+         * cualquier tipo de edificio en cualquier intento. Si el valor de los dados es
+         * menor que 4, el avatar retrocederá el número de casillas correspondientes y
+         * además no puede volver a lanzar los dados en los siguientes dos turnos.
+         */
+    }
+
+    private void moverPelota(int valor1, int valor2) {
+    }
+
+    /* No para esta entrega */
+    private void moverEsfinge(int valor1, int valor2) {
+    }
+
+    /* No para esta entrega */
+    private void moverSombrero(int valor1, int valor2) {
+    }
+
+    private void cambairModo() {
+        movimientoAvanzado = !movimientoAvanzado;
+
+        if (movimientoAvanzado)
+            System.out.println("Se ha activado el modo avanzado");
+        else
+            System.out.println("Se ha desactivado el modo avanzado");
     }
 
     private void pasarPorSalida(int casillaantes) {
@@ -448,9 +498,8 @@ public class Menu {
             elegir_carta(suerte);
         }
 
-        else{
+        else
             avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
-        }
     }
 
     private void lanzarDadosCarcel() {
@@ -591,6 +640,35 @@ public class Menu {
         }
     }
 
+    // Método que muestra todos los edifcios construidos en la partida
+    private void listarEdificios(){
+
+        for(int i = 0; i < 4; i++){
+
+            for(int j = 0; j < 10; j++){
+
+                this.tablero.getPosiciones().get(i).get(j).listar_edificios_casilla();
+
+            }
+
+        }
+    }
+
+    // Método que muestra todos los elementos de un grupo dado el color
+    private void listarEdificios(Grupo grupo){
+        if(grupo == null) {
+            System.out.println("Ese grupo no existe.");
+            return;
+        }
+        for (int i = 0; i < grupo.getNumCasillas(); i++){
+
+           grupo.getMiembros().get(i).listar_edificios_casilla(); 
+
+        }
+
+
+    }
+
     private void mostrarestadisticasjugador(String nombre) {
         for (Jugador J : this.jugadores) {
             if (J.getNombre().equals(nombre)) {
@@ -601,8 +679,12 @@ public class Menu {
         System.out.println("No se ha encontrado este jugador.\n");
     }
 
-    //FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA------------------------------------
-    private String buscarCasillasMasRentables(){
+    // FUNCIONES PARA MOSTRAR ESTADISTICAS
+    // PARTIDA------------------------------------
+
+    // FUNCIONES PARA MOSTRAR ESTADISTICAS
+    // PARTIDA------------------------------------
+    private String buscarCasillasMasRentables() {
         String ret = new String();
         float maxrecaudado = tablero.posicion_salida().getRecaudado();
         for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
@@ -663,8 +745,7 @@ public class Menu {
     //FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
 
     private void mostrarestadisticaspartida() {
-        System.out.println("Casillas más rentables: " + this.buscarCasillasMasRentables() );
-        System.out.println("Casillas más frecuentadas: " + this.buscarCasillaMasFrecuentada());
+        System.out.println("Casilla más rentable: " + this.buscarCasillasMasRentables());
     }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
