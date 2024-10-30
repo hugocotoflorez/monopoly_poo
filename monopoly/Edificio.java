@@ -37,11 +37,11 @@ El valor inicial de una casa y de un hotel es el 60% del valor inicial del solar
 
  El valor inicial de una pista de deporte es el 125% del solar en el que se edifica.                               CHECK¿?
 
- Listar edificios construidos - Hacer funcion listar edificios en Casilla y llamarla en bucle desde tablero
+ Listar edificios construidos                                                                                      CHECK¿?
 
  IDs unicos por cada edificio                                                                                      CHECK¿?
 
- Listar edificios construidos en un grupo
+ Listar edificios construidos en un grupo                                                                          CHECK¿?
 
  Añadir prints a edificar
 

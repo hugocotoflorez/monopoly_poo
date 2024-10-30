@@ -586,6 +586,8 @@ public class Casilla {
                                                              // edificación
         if (this.grupo.esDuenhoGrupo(duenhoGrupo)) {
 
+            int numero_veces_caidas = this.caidasEnCasilla[duenhoGrupo.getAvatar().getTurno()];
+            
             switch (tipo) {
                 case "Casa": // Como máximo puede haver 4 casas
 
