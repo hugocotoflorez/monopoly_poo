@@ -1,7 +1,11 @@
 package monopoly;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import javax.xml.transform.stax.StAXResult;
 
@@ -714,42 +718,37 @@ public class Menu {
         return ret;
     }
 
-    /*
-     * private String buscarGruposMasRentables(){
-     * String ret = new String();
-     * float maxrecaudado = tablero.getGrupoMap().get("Rojo").totalRecaudado();
-     * for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
-     * for (Casilla c : Lado) {
-     * if (c.getRecaudado() >= maxrecaudado)
-     * maxrecaudado = c.getRecaudado();
-     * }
-     * }
-     * for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
-     * for (Casilla c : Lado) {
-     * if (c.getRecaudado() == maxrecaudado) {
-     * ret += c.getNombre();
-     * ret += ", ";
-     * }
-     * }
-     * }
-     * return ret;
-     * }
-     */
-
-    private String buscarCasillaMasFrecuentada() {
+    private String buscarGruposMasRentables(){
         String ret = new String();
-        int maxvisitas = this.tablero.posicion_salida().totalVisitas();
-        for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
-            for (Casilla c : Lado) {
-                if (c.totalVisitas() >= maxvisitas)
-                    maxvisitas = c.totalVisitas();
+        float maxrecaudado = tablero.getGruposMap().get("Rojo").totalRecaudado();
+        Set<Map.Entry<String, Grupo>> entradas = tablero.getGruposMap().entrySet();
+        for (Map.Entry<String,Grupo> e: entradas){
+            Grupo g = e.getValue();
+            if (g.totalRecaudado() >= maxrecaudado) maxrecaudado = g.totalRecaudado();
+        }
+        for (Map.Entry<String,Grupo> e: entradas){
+            Grupo g = e.getValue();
+            if (g.totalRecaudado() == maxrecaudado){
+                ret += e.getKey();
+                ret += ", ";
             }
         }
-        for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
-            for (Casilla c : Lado) {
-                if (c.totalVisitas() == maxvisitas) {
+        return ret;
+    }
+    
+    private String buscarCasillaMasFrecuentada(){
+        String ret = new String();
+        int maxvisitas = this.tablero.posicion_salida().totalVisitas();
+        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
+            for(Casilla c: Lado){
+                if(c.totalVisitas() >= maxvisitas ) maxvisitas = c.totalVisitas();
+            }
+        }
+        for(ArrayList<Casilla> Lado: this.tablero.getPosiciones()){
+            for(Casilla c: Lado){
+                if(c.totalVisitas() == maxvisitas ){
                     ret += c.getNombre();
-                    ret += ", ";
+                    ret+= ", ";
                 }
             }
         }
@@ -759,6 +758,7 @@ public class Menu {
 
     private void mostrarestadisticaspartida() {
         System.out.println("Casillas más rentables: " + this.buscarCasillasMasRentables());
+        System.out.println("Grupos más rentables: " + this.buscarGruposMasRentables());
         System.out.println("Casillas más frecuentadas: " + this.buscarCasillaMasFrecuentada());
     }
 
