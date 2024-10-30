@@ -63,7 +63,7 @@ public class Avatar {
         return this.jugador;
     }
 
-    public String getTipo(){
+    public String getTipo() {
         return this.tipo;
     }
 
@@ -84,14 +84,18 @@ public class Avatar {
         return this.lugar;
     }
 
-    static Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valor){
-        valor = valor%40;
+    static Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valor) {
+        valor = valor % 40;
         return casillas.get(valor / 10).get(valor % 10);
     }
 
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
+        moverAvatar(obtenerCasilla(casillas, valorTirada + this.lugar.getPosicion() - 1));
+    }
+
+    public void moverAvatar(Casilla casilla) {
         this.lugar.eliminarAvatarCasilla(this.id);
-        this.lugar = obtenerCasilla(casillas, valorTirada + this.lugar.getPosicion() - 1);
+        this.lugar = casilla;
         this.lugar.anhadirAvatarCasilla(this);
     }
 
@@ -120,15 +124,16 @@ public class Avatar {
         this.id = letra;
     }
 
-    public String getInfo(){
-    String ret = """
-        id: %s,
-        tipo: %s,
-        casilla: %s,
-        jugador: %s
-            """.formatted(this.id, this.tipo, this.lugar.getNombre(), this.jugador.getNombre());
-    return ret;
-}
+    public String getInfo() {
+        String ret = """
+                id: %s,
+                tipo: %s,
+                casilla: %s,
+                jugador: %s
+                    """.formatted(this.id, this.tipo, this.lugar.getNombre(), this.jugador.getNombre());
+        return ret;
+    }
+
     @Override
     public String toString() {
         return this.id;

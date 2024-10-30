@@ -22,6 +22,15 @@ public class Menu {
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
 
+    /*
+     * Poner un scanner nuevo para cada funcion en la que se necesita daba error
+     * porque segun lo que la intuicion me dice no se pueden abrir dos scanners
+     * para System.in, por lo que si abrias y cerrabas uno en una funcion que se
+     * ejecutase en el medio de un ciclo de vida de un scanner en otra funcion esta
+     * fallaria
+     */
+    private Scanner scanner = new Scanner(System.in);
+
     private boolean debeActualizar = false;
 
     private ArrayList<Carta> suerte;
@@ -54,19 +63,18 @@ public class Menu {
     }
 
     /*
-     * Cuando se caiga en una casilla que hay que lanzar cartas, se tiene que llamar
+     * Cuando se caiga en una casilla en la cual hay que lanzar cartas, se tiene que
+     * llamar
      * a esta funcion.
      */
     private void elegir_carta(ArrayList<Carta> baraja) {
         int n;
-        Scanner scanner = new Scanner(System.in);
 
         do {
             System.out.println("Elige una carta del 1 al 6: ");
-            n = Integer.parseInt(scanner.next());
+            n = Integer.parseInt(this.scanner.next());
 
-        } while (0 < n && n <= 6);
-        scanner.close();
+        } while (n < 1 || n > 6);
 
         Carta.barajar(baraja);
         Carta c = Carta.obtenerCarta(baraja, n);
@@ -90,32 +98,16 @@ public class Menu {
         this.turno = 1;
         this.dado1 = new Dado();
         this.dado2 = new Dado();
-        Scanner scanner = new Scanner(System.in);
         Jugador banca = new Jugador();
         this.avatares.add(null); // avatar banca
         this.jugadores.add(banca);
         this.tablero = new Tablero(banca);
-        System.out.println(Valor.BOLD + "OPCIONES:" + Valor.RESET);
-        System.out.println("> crear jugador <nombre> <tipo_avatar>");
-        System.out.println("> jugador - jugador con el turno");
-        System.out.println("> listar enventa");
-        System.out.println("> listar jugadores");
-        System.out.println("> listar avatares");
-        System.out.println("> lanzar dados");
-        System.out.println("> acabar - acaba el turno");
-        System.out.println("> salir (carcel)");
-        System.out.println("> describir jugador  <nombre>");
-        System.out.println("> describir avatar <letra");
-        System.out.println("> comprar <casilla>");
-        System.out.println("> bancarrota - acaba la partida para ese jugador");
-        System.out.println("> ver - muestra el tablero");
-        System.out.println("> clear - limpia la pantalla");
-        System.out.println("> estadisticas <Jugador>");
+        analizarComando("opciones");
         while (!partida_finalizada) {
             System.out.print("\n[>]: ");
-            analizarComando(scanner.nextLine());
+            analizarComando(this.scanner.nextLine());
         }
-        scanner.close();
+        this.scanner.close();
         acabarPartida();
     }
 
@@ -130,6 +122,7 @@ public class Menu {
         switch (com[0]) {
             case "opciones":
             case "?":
+                System.out.println(Valor.BOLD + "Opciones" + Valor.RESET);
                 System.out.println("crear jugador <nombre> <tipo_avatar>");
                 System.out.println("jugador - jugador con el turno");
                 System.out.println("listar enventa");
@@ -148,8 +141,8 @@ public class Menu {
                 break;
 
             case "default":
-                analizarComando("crear jugador Guille Coche");
-                analizarComando("crear jugador Hugo Esfinge");
+                analizarComando("crear jugador Jugador1 Coche");
+                analizarComando("crear jugador Jugador2 Esfinge");
                 break;
 
             case "crear":
@@ -183,7 +176,6 @@ public class Menu {
                 break;
 
             case "lanzar":
-
                 if (com.length == 2 && com[1].equals("dados")) {
                     if (jugadores.size() >= 3) { // iniciar la partida
                         partida_empezada = true;
@@ -256,6 +248,7 @@ public class Menu {
                 this.partida_finalizada = true;
                 break;
 
+            case "c":
             case "clear":
                 System.out.print("\033[H\033[2J");
                 break;
@@ -395,10 +388,25 @@ public class Menu {
                 System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
             }
 
+            /*
+             * En estos casos no se evalua casilla, sino que la accion se realiza
+             * desde aqui. Si esto es un error borrar los else-if pero el de caja y suerte
+             * si que no puede ejecutarse evaluar casilla despues
+             */
             if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
                 jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
             }
-            avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
+
+            else if (avatares.get(turno).getCasilla().getTipo().equals("suerte")) {
+                elegir_carta(suerte);
+            }
+
+            else if (avatares.get(turno).getCasilla().getTipo().equals("caja")) {
+                elegir_carta(suerte);
+            }
+
+            else
+                avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
 
         } else if (this.lanzamientos >= 2 && !this.tirado) {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
@@ -409,7 +417,7 @@ public class Menu {
         }
     }
 
-    private void lanzarDadosCarcel(Jugador banca) {
+    private void lanzarDadosCarcel() {
 
         this.dado1.hacerTirada();
         this.dado2.hacerTirada();
@@ -426,7 +434,7 @@ public class Menu {
             System.out.println("No has sacado dobles! Dado1: " + dado1.getValor() + " Dado2: " + dado2.getValor());
             System.out.println("Oh no! Llevas tres turnos en la cárcel paga " + Valor.PAGO_SALIR_CARCEL);
             this.tirado = false;
-            pagarCarcel(banca);
+            pagarCarcel();
             return;
         } else if (this.tirado) {
             System.out.println("Ya has tirado este turno! ");
@@ -439,7 +447,7 @@ public class Menu {
 
     }
 
-    private void pagarCarcel(Jugador banca) {
+    private void pagarCarcel() {
         if (!this.tirado) {
             this.tirado = false;
             this.jugadores.get(turno).setEnCarcel(false);
@@ -448,8 +456,8 @@ public class Menu {
                     "Has pagado " + Valor.PAGO_SALIR_CARCEL + " para salir de la carcel. Puedes lanzar los dados.");
             this.jugadores.get(turno).setPagoTasasEImpuestos(
                     this.jugadores.get(turno).getPagoTasasEImpuestos() + Valor.PAGO_SALIR_CARCEL);
-            banca.sumarGastos(Valor.PAGO_SALIR_CARCEL);
-            System.out.println("El bote de la banca ahora es " + banca.getGastos());
+            this.jugadores.get(0).sumarGastos(Valor.PAGO_SALIR_CARCEL);
+            System.out.println("El bote de la banca ahora es " + this.jugadores.get(0).getGastos());
         } else {
             System.out.println("Ya has tirado este turno!");
         }
@@ -478,27 +486,27 @@ public class Menu {
     // carcel'.
     private void salirCarcel() {
 
-        if (this.jugadores.get(turno).getEnCarcel() == true) {
-            Scanner scanner = new Scanner(System.in);
+        if (this.jugadores.get(turno).getEnCarcel() == true && this.tirado == false) {
             System.out.println("Como quieres salir de la cárcel?");
             System.out.println("1) Lanzar dados (sacando dobles)");
             System.out.println("2) Pagando el impuesto " + Valor.PAGO_SALIR_CARCEL);
             System.out.printf("[>]: ");
-            char opcion = scanner.next().charAt(0);
+            char opcion = this.scanner.next().charAt(0);
             switch (opcion) {
                 case '1':
-                    lanzarDadosCarcel(banca);
+                    lanzarDadosCarcel();
                     break;
                 case '2':
-                    pagarCarcel(banca);
+                    pagarCarcel();
                     break;
                 default:
                     System.out.println("Opcion incorrecta");
                     break;
             }
-            scanner.close();
-        } else {
-            System.out.println("El jugador " + this.jugadores.get(turno).getNombre() + " no está en la cárcel.");
+        } else if (this.jugadores.get(turno).getEnCarcel() == false) {
+            System.out.println("El jugador " + this.jugadores.get(turno).getNombre() + " no puede en la cárcel.");
+        } else if (this.tirado == true) {
+            System.out.println("Ya has tirado en este turno!");
         }
     }
 
@@ -583,7 +591,8 @@ public class Menu {
 
     // Método que finaliza la partida
     public static void acabarPartida() {
-        System.out.println("FINALIZANDO PARTIDA");
+        System.out.println("Finalizando partida");
+        /* Esto es un poco criminal */
         System.exit(0);
     }
 
