@@ -701,9 +701,9 @@ public class Menu {
         return ret;
     }
 
-    private String buscarGruposMasRentables(){
+    /*private String buscarGruposMasRentables(){
         String ret = new String();
-        float maxrecaudado = tablero.getGrupoMap().get("Verde").;
+        float maxrecaudado = tablero.getGrupoMap().get("Rojo").totalRecaudado();
         for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
             for (Casilla c : Lado) {
                 if (c.getRecaudado() >= maxrecaudado)
@@ -719,7 +719,7 @@ public class Menu {
             }
         }
         return ret;
-    }
+    }*/
     
     private String buscarCasillaMasFrecuentada(){
         String ret = new String();
