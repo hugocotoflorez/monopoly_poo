@@ -2,6 +2,9 @@ package monopoly;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.xml.transform.stax.StAXResult;
+
 import partida.*;
 
 public class Menu {
@@ -21,7 +24,7 @@ public class Menu {
                               // decir, si ha pagado sus deudas.
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
-
+    private boolean movimientoAvanzado = false;
     /*
      * Poner un scanner nuevo para cada funcion en la que se necesita daba error
      * porque segun lo que la intuicion me dice no se pueden abrir dos scanners
@@ -331,35 +334,29 @@ public class Menu {
         lanzarDados(dado1.getValor(), dado2.getValor());
     }
 
-    private Jugador jugadorMenosVueltas(ArrayList<Jugador> jugadores) {
-        Jugador min_j;
-        min_j = jugadores.get(0);
-        for (Jugador a : jugadores)
-            if (a.getVueltas() < min_j.getVueltas())
-                min_j = a;
-        return min_j;
-    }
+    /*
+     * private Jugador jugadorMenosVueltas(ArrayList<Jugador> jugadores) {
+     * Jugador min_j;
+     * min_j = jugadores.get(0);
+     * for (Jugador a : jugadores)
+     * if (a.getVueltas() < min_j.getVueltas())
+     * min_j = a;
+     * return min_j;
+     * }
+     */
 
     // sobrecarga de lanzar dados en la cual elegimos qué valor sacan los dados
     private void lanzarDados(int valor1, int valor2) {
         if (this.lanzamientos < 2 && !this.jugadores.get(turno).getEnCarcel() && !this.tirado) {
 
             int casillaantes = avatares.get(turno).getCasilla().getPosicion();
-            int desplazamiento = valor1 + valor2;
             this.tirado = true;
             this.lanzamientos += 1;
             System.out.println("Tirada: " + valor1 + ", " + valor2);
-            System.out
-                    .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
-                            + this.avatares.get(turno).getCasilla().getNombre());
-            /*
-             * El primer print se completa despues de mover el avatar, por lo que en el
-             * medio
-             * del mensaje del print se llama a moverAvatar
-             */
-            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
-            System.out.println(" hasta" + avatares.get(turno).getCasilla().getNombre());
 
+            mover(valor1, valor2);
+
+            // Comprueba si pasa por salida
             pasarPorSalida(casillaantes);
 
             if (dadosDobles(valor1, valor2)) {
@@ -367,7 +364,7 @@ public class Menu {
                 System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
             }
 
-            evaluarAccion(desplazamiento);
+            evaluarAccion(valor1 + valor2);
 
         } else if (this.lanzamientos >= 2 && !this.tirado) {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
@@ -378,9 +375,34 @@ public class Menu {
         }
     }
 
+    private void mover(int valor1, int valor2) {
+        /* Movimiento default */
+        if (!movimientoAvanzado) {
+            int desplazamiento = valor1 + valor2;
+            System.out
+                    .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
+                            + this.avatares.get(turno).getCasilla().getNombre());
+            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
+            System.out.println(" hasta" + avatares.get(turno).getCasilla().getNombre());
+            return;
+        }
+        switch(this.avatares.get(turno).getTipo())
+        {
+            case "Coche":
+            break;
+            case "Esfinge":
+            break;
+            case "Somprero":
+            break;
+            case "Pelota":
+            break;
+        }
+        movimientoAvanzado = false;
+
+    }
+
     private void pasarPorSalida(int casillaantes) {
-        int casillanueva;
-        casillanueva = avatares.get(turno).getCasilla().getPosicion();
+        int casillanueva = avatares.get(turno).getCasilla().getPosicion();
         if ((casillaantes > casillanueva)) {
 
             // !!!!!! si se modifica algo de esto hay que modificarlo tambien en Carta
@@ -577,12 +599,34 @@ public class Menu {
         System.out.println("No se ha encontrado este jugador.\n");
     }
 
+    // FUNCIONES PARA MOSTRAR ESTADISTICAS
+    // PARTIDA------------------------------------
 
-    //FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA------------------------------------
+    // FUNCIONES PARA MOSTRAR ESTADISTICAS
+    // PARTIDA------------------------------------
+    private String buscarCasillasMasRentables() {
+        String ret = new String();
+        float maxrecaudado = tablero.posicion_salida().getRecaudado();
+        for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
+            for (Casilla c : Lado) {
+                if (c.getRecaudado() >= maxrecaudado)
+                    maxrecaudado = c.getRecaudado();
+            }
+        }
+        for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
+            for (Casilla c : Lado) {
+                if (c.getRecaudado() == maxrecaudado) {
+                    ret += c.getNombre();
+                    ret += ", ";
+                }
+            }
+        }
+        return ret;
+    }
 
-    //FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
+    // FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
     private void mostrarestadisticaspartida() {
-
+        System.out.println("Casilla más rentable: " + this.buscarCasillasMasRentables());
     }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
