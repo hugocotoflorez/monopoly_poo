@@ -622,6 +622,9 @@ public class Casilla {
 
                         Valor.NumeroCasasConstruidas++;
 
+                        System.out.println("Se ha edificado una casa en " + this.getNombre() + "La fortuna de "
+                         + duenhoGrupo.getNombre() + " se reduce en " + Casa.getPrecio());
+
                         return;
 
                     }
@@ -647,6 +650,9 @@ public class Casilla {
 
                         Valor.NumeroHotelesConstruidos++;
 
+                        System.out.println("Se ha edificado un hotel en " + this.getNombre() + "La fortuna de "
+                        + duenhoGrupo.getNombre() + " se reduce en " + Hotel.getPrecio());
+
                         return;
                     }
                     System.out.println("No puedes edificar un Hotel en estos momentos.");
@@ -663,6 +669,9 @@ public class Casilla {
 
                         Valor.NumeroPiscinasConstruidas++;
 
+                        System.out.println("Se ha edificado una piscina en " + this.getNombre() + "La fortuna de "
+                        + duenhoGrupo.getNombre() + " se reduce en " + Piscina.getPrecio());
+
                         return;
 
                     }
@@ -678,6 +687,9 @@ public class Casilla {
                         duenhoGrupo.sumarFortuna(-Pista.getPrecio());
 
                         Valor.NumeroPistasConstruidos++;
+
+                        System.out.println("Se ha edificado una Pista de Deportes en " + this.getNombre() + "La fortuna de "
+                        + duenhoGrupo.getNombre() + " se reduce en " + Pista.getPrecio());
 
                         return;
                     }

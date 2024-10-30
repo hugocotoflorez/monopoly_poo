@@ -41,7 +41,7 @@ El valor inicial de una casa y de un hotel es el 60% del valor inicial del solar
 
  IDs unicos por cada edificio                                                                                      CHECK¿?
 
- Listar edificios construidos en un grupo                                                                          REHACER MIRAR GUION
+ Listar edificios construidos en un grupo                                                                          CHECK¿?
 
  Añadir prints a edificar
 
