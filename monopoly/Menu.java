@@ -406,6 +406,7 @@ public class Menu {
             }
 
             else
+                //avatares.get(turno).getCasilla() TODO
                 avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
 
         } else if (this.lanzamientos >= 2 && !this.tirado) {

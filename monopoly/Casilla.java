@@ -108,6 +108,15 @@ public class Casilla {
         return this.hipoteca;
     }
 
+    public ArrayList<Integer> getCaidasEnCasilla(){
+        return this.caidasEnCasilla;
+    }
+
+    public boolean getHipotecada() {
+
+        return this.hipotecada;
+    }
+
     // SETTERS
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -141,6 +150,12 @@ public class Casilla {
         this.hipoteca = hipoteca;
     }
 
+    public void setHipotecada(boolean hipotecada) {
+
+        this.hipotecada = hipotecada;
+    }
+
+
     // Método utilizado para añadir un avatar al array de avatares en casilla.
     public void anhadirAvatar(Avatar av) {
         this.avatares.add(av);
@@ -151,15 +166,12 @@ public class Casilla {
         this.avatares.remove(av);
     }
 
-    public boolean getHipotecada() {
-
-        return this.hipotecada;
+    //Método para incrementar en 1 el número de veces que se cayó en una casilla.
+    public void actualizarCaidasEnCasilla(int jugador){
+        if(jugador < 6 && jugador >= 0) this.caidasEnCasilla.set(jugador, this.caidasEnCasilla.get(jugador)+1);
     }
 
-    public void setHipotecada(boolean hipotecada) {
-
-        this.hipotecada = hipotecada;
-    }
+   
 
     public void hipotecar(Jugador actual) {
 
