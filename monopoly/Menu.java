@@ -141,6 +141,7 @@ public class Menu {
                 System.out.println("ver - muestra el tablero");
                 System.out.println("clear - limpia la pantalla");
                 System.out.println("estadisticas <Jugador>");
+                System.out.println("estadisticas");
                 break;
 
             case "default":
@@ -448,7 +449,6 @@ public class Menu {
         }
 
         else{
-            avatares.get(turno).getCasilla().actualizarCaidasEnCasilla(turno-1); //-1 para ignorar la banca;
             avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
         }
     }
@@ -601,9 +601,6 @@ public class Menu {
         System.out.println("No se ha encontrado este jugador.\n");
     }
 
-    // FUNCIONES PARA MOSTRAR ESTADISTICAS
-    // PARTIDA------------------------------------
-
     //FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA------------------------------------
     private String buscarCasillasMasRentables(){
         String ret = new String();
@@ -644,6 +641,7 @@ public class Menu {
         return ret;
     }
     //FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
+
     private void mostrarestadisticaspartida() {
         System.out.println("Casillas más rentables: " + this.buscarCasillasMasRentables() );
         System.out.println("Casillas más frecuentadas: " + this.buscarCasillaMasFrecuentada());
