@@ -19,7 +19,7 @@ public class Casilla {
     private float hipoteca; // Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares = new ArrayList<Avatar>(); // Avatares que están situados en la casilla.
     private ArrayList<Edificio> edificios;
-    private ArrayList<Integer> caidasEnCasilla; // Cuenta el numero de veces que el jugador iesimo cayó en la casilla
+    private ArrayList<Integer> caidasEnCasilla = new ArrayList<Integer>(6); // Cuenta el numero de veces que el jugador iesimo cayó en la casilla
 
     private boolean hipotecada;
 
@@ -41,6 +41,7 @@ public class Casilla {
         this.impuesto = valor * 0.1f;
         this.hipotecada = false;
 
+        for(int i = 0; i < 6; i++) caidasEnCasilla.set(0, 0);
     }
 
     /*
@@ -53,6 +54,8 @@ public class Casilla {
         this.posicion = posicion;
         this.impuesto = impuesto;
         this.duenho = duenho;
+
+        for(int i = 0; i < 6; i++) caidasEnCasilla.set(0, 0);
     }
 
     /*
@@ -67,6 +70,8 @@ public class Casilla {
         this.tipo = tipo;
         this.posicion = posicion;
         this.duenho = duenho;
+
+        for(int i = 0; i < 6; i++) caidasEnCasilla.set(0, 0);
     }
 
     // GETTERS
@@ -189,7 +194,7 @@ public class Casilla {
      * en caso de no cumplirlas.
      */
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
-        Casilla c = this;// sorry
+        Casilla c = this;
         switch (c.getTipo()) {
             // supuestamente acabado
             case "solar":
