@@ -571,6 +571,16 @@ public class Casilla {
         return (this.obtenerNumeroHoteles() >= 2 && this.getCasillaEdificable());
     }
 
+    public void listar_edificios_casilla(Casilla casilla){
+
+        for(int i = 0; i< edificios.size(); i++){
+
+            
+
+        }
+
+    }
+
     public void edificar(String tipo, Jugador duenhoGrupo) {
                                                              // Aumentar el alquiler de la casilla dependiendo de la
                                                              // edificación
@@ -643,7 +653,7 @@ public class Casilla {
                         duenhoGrupo.sumarFortuna(-Pista.getPrecio());
 
                         Valor.NumeroPistasConstruidos++;
-                        
+
                         return;
                     }
 

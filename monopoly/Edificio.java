@@ -161,4 +161,32 @@ public class Edificio {
 
     }
 
+
+    @Override 
+    public String toString(){
+
+/* FORMATO DE EJEMPLO
+    {
+        id: casa-2,
+        propietario: Pedro,
+        casilla: Solar1,
+        grupo: negro
+        coste: 600000
+        },
+
+*/
+
+        String ret = new String();
+
+        ret +=   "{\n";
+        ret += ("   id: " + this.ID + "\n");
+        ret += ("   propietario: " +this.casilla.getDuenho() + "\n");
+        ret += ("   casilla: " + this.casilla.getNombre() + "\n");
+        ret += ("   grupo: " + this.casilla.getGrupo().getColor() + "\n");
+        ret += ("  coste: " +this.precio + "\n");
+        ret +=   "}\n";
+
+        return ret;
+    }
+
 }
