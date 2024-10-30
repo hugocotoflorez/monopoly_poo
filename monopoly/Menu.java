@@ -1,5 +1,6 @@
 package monopoly;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -434,6 +435,12 @@ public class Menu {
          * menor que 4, el avatar retrocederá el número de casillas correspondientes y
          * además no puede volver a lanzar los dados en los siguientes dos turnos.
          */
+        System.err.println("[!]: Estas usando codigo sin acabar!!");
+        int desplazamiento = valor1 + valor2;
+        if (desplazamiento > 4) {
+            moverNormal(valor1, valor2);
+            this.tirado = false; // se puede seguir tirando
+        }
     }
 
     private void moverPelota(int valor1, int valor2) {
@@ -450,6 +457,23 @@ public class Menu {
          * alquiler si no pertenece al jugador. Si una de esas casillas es Ir a Cárcel,
          * entonces no se parará en las subsiguientes casillas
          */
+        System.err.println("[!]: Estas usando codigo sin acabar!!");
+        int desplazamiento = valor1 + valor2;
+        if (desplazamiento > 4) {
+            for (int i = 5; i < desplazamiento; i += 2) {
+                /*
+                 * Hay que hacer algo tipo evaluar casilla pero que si se puede comprar la pueda
+                 * comprar y sino siga avanzando o no se algo raro. Puedo utilizar el valor de
+                 * retorno de evaluar casilla y hacerle algo tipo un menu nuevo para comprar
+                 * propiedades, no se
+                 */
+                if (i == 5)
+                    mover(5, 0);
+                else
+                    mover(2, 0);
+            }
+        } else {
+        }
     }
 
     /* No para esta entrega */
