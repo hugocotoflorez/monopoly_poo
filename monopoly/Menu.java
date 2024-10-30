@@ -621,6 +621,26 @@ public class Menu {
         }
         return ret;
     }
+
+    private String buscarGruposMasRentables(){
+        String ret = new String();
+        float maxrecaudado = tablero.getGrupoMap().get("Verde").;
+        for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
+            for (Casilla c : Lado) {
+                if (c.getRecaudado() >= maxrecaudado)
+                    maxrecaudado = c.getRecaudado();
+            }
+        }
+        for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
+            for (Casilla c : Lado) {
+                if (c.getRecaudado() == maxrecaudado) {
+                    ret += c.getNombre();
+                    ret += ", ";
+                }
+            }
+        }
+        return ret;
+    }
     
     private String buscarCasillaMasFrecuentada(){
         String ret = new String();
