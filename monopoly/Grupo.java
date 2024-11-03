@@ -158,7 +158,6 @@ class Grupo {
     }
 
     public float getValor() {
-        float ret;
         switch (this.colorGrupo) {
             case "Negro": // G1
                 return Valor.GRUPO_1;
@@ -176,8 +175,8 @@ class Grupo {
                 return Valor.GRUPO_7;
             case "Azul": // G8
                 return Valor.GRUPO_8;
-
         }
+        return 0;
     }
 }
 
