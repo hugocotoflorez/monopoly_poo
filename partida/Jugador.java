@@ -17,6 +17,7 @@ public class Jugador {
     private int vueltas = 0; // Cuenta las vueltas dadas al tablero.
     private ArrayList<Casilla> propiedades = new ArrayList<Casilla>(); // Propiedades que posee el jugador.
     private int tirada;
+    private int numerotiradas = 0;
 
     private float dineroInvertido = 0;
     private float pagoTasasEImpuestos = 0;
@@ -126,6 +127,17 @@ public class Jugador {
         return this.vecesEnLaCarcel;
     }
 
+    public int getNumeroTiradas(){
+        return this.numerotiradas;
+    }
+
+    public int getTirada(){
+        return this.tirada;
+    }
+
+    public ArrayList<Casilla> getPropiedades(){
+        return this.propiedades;
+    }
 
     // SETTERS
     public void setFortuna(float fortuna) {
@@ -177,6 +189,14 @@ public class Jugador {
         this.vecesEnLaCarcel = valor;
     }
 
+    public void setNumeroTiradas(int valor){
+        this.numerotiradas = valor;
+    }
+
+    public void setTirada(int tirada){
+        this.tirada = tirada;
+    }
+
 
     // Método para añadir una propiedad al jugador. Como parámetro, la casilla a
     // añadir.
@@ -191,17 +211,6 @@ public class Jugador {
         }
     }
 
-    public int getTirada(){
-        return this.tirada;
-    }
-    public void setTirada(int tirada){
-        this.tirada = tirada;
-    }
-    public ArrayList<Casilla> getPropiedades(){
-
-        return this.propiedades;
-        
-    }
 
     // Método para añadir fortuna a un jugador
     // Como parámetro se pide el valor a añadir. Si hay que restar fortuna, se
@@ -240,6 +249,10 @@ public class Jugador {
 
     public boolean esBanca() {
         return this.avatar == null;
+    }
+
+    public void sumarNumeroTiradas(){
+        this.numerotiradas ++;
     }
 
     /*
@@ -296,5 +309,15 @@ public class Jugador {
                 """.formatted(this.nombre, avatar != null ? this.avatar.getId() : "", fortuna,
                 propiedades != null ? this.propiedades : "", "Sin implementar", "Sin implementar");
 
+    }
+
+    public float score(){
+        float ret = 0;
+        ret += this.fortuna;
+        for (Casilla c: propiedades){
+            ret += c.getValor();
+        }
+        //TODO falta añadir el valor de los edificios que tenga (ayuda guille)
+        return ret;
     }
 }

@@ -371,6 +371,7 @@ public class Menu {
             this.tirado = true;
             this.lanzamientos += 1;
             System.out.println("Tirada: " + valor1 + ", " + valor2);
+            this.jugadores.get(turno).sumarNumeroTiradas();
 
             mover(valor1, valor2);
 
@@ -788,12 +789,63 @@ public class Menu {
         }
         return ret;
     }
+
+    private String buscarJugadorMasVueltas(){
+        String ret = new String();
+        int maxvueltas = this.jugadores.get(1).getVueltas();
+        for (Jugador j: this.jugadores){
+            if(!j.esBanca() && j.getVueltas() >= maxvueltas){
+                maxvueltas = j.getVueltas();
+            }
+        }
+        for (Jugador j: this.jugadores){
+            if(!j.esBanca() && j.getVueltas() == maxvueltas){
+                ret += j.getNombre();
+                ret += ", ";
+            }
+        }
+        return ret;
+    }
+
+    private String buscarJugadorMasDados(){
+        String ret = new String();
+        int maxdados = this.jugadores.get(1).getNumeroTiradas();
+        for (Jugador j: this.jugadores){
+            if(!j.esBanca() && j.getNumeroTiradas() >= maxdados){
+                maxdados = j.getNumeroTiradas();
+            }
+        }
+        for (Jugador j: this.jugadores){
+            if(!j.esBanca() && j.getNumeroTiradas() == maxdados){
+                ret += j.getNombre();
+                ret += ", ";
+            }
+        }
+        return ret;
+    }
+
+    private Jugador buscarJugadorEnCabeza(){
+        String ret = new String();
+        float maxscore = this.jugadores.get(1).score();
+        Jugador ganador = this.jugadores.get(1);
+        for (Jugador j: this.jugadores){
+            if(!j.esBanca() && j.score() >= maxscore){
+                maxscore = j.score();
+                ganador = j;
+            }
+        }
+        return ganador;
+    }
+    
     // FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
 
     private void mostrarEstadisticasPartida() {
         System.out.println("Casillas más rentables: " + this.buscarCasillasMasRentables());
         System.out.println("Grupos más rentables: " + this.buscarGruposMasRentables());
         System.out.println("Casillas más frecuentadas: " + this.buscarCasillaMasFrecuentada());
+        System.out.println("Jugador que ha dado más vueltas: " + this.buscarJugadorMasVueltas());
+        System.out.println("Jugador que ha lanzado los dados más veces: " + this.buscarJugadorMasDados());
+        System.out.println("Jugador que va ganando: " + this.buscarJugadorEnCabeza().getNombre());
     }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
