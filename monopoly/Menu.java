@@ -148,6 +148,7 @@ public class Menu {
                 System.out.println("ver - muestra el tablero");
                 System.out.println("clear - limpia la pantalla");
                 System.out.println("estadisticas <Jugador>");
+                System.out.println("estadisticas");
                 break;
 
             case "default":
@@ -824,17 +825,22 @@ public class Menu {
         return ret;
     }
 
-    private Jugador buscarJugadorEnCabeza(){
+    private String buscarJugadorEnCabeza(){
         String ret = new String();
         float maxscore = this.jugadores.get(1).score();
         Jugador ganador = this.jugadores.get(1);
         for (Jugador j: this.jugadores){
             if(!j.esBanca() && j.score() >= maxscore){
                 maxscore = j.score();
-                ganador = j;
             }
         }
-        return ganador;
+        for (Jugador j: this.jugadores){
+            if(!j.esBanca() && j.score() == maxscore){
+                ret += j.getNombre();
+                ret += ", ";
+            }
+        }
+        return ret;
     }
     
     // FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
@@ -845,7 +851,7 @@ public class Menu {
         System.out.println("Casillas más frecuentadas: " + this.buscarCasillaMasFrecuentada());
         System.out.println("Jugador que ha dado más vueltas: " + this.buscarJugadorMasVueltas());
         System.out.println("Jugador que ha lanzado los dados más veces: " + this.buscarJugadorMasDados());
-        System.out.println("Jugador que va ganando: " + this.buscarJugadorEnCabeza().getNombre());
+        System.out.println("Jugador que va ganando: " + this.buscarJugadorEnCabeza());
     }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
