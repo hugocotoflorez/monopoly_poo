@@ -559,9 +559,10 @@ public class Menu {
             if (jugadores.get(turno).estaBancarrota()){
                 solvente = false;
                 System.out.println("El jugador "+ jugadores.get(turno).getNombre() + "está en bancarrota.");
+                char opcion;
                 do{
                     System.out.println(("¿Deseas seguir jugando? (S/N): "));
-                    char opcion = this.scanner.next().charAt(0);
+                    opcion = this.scanner.next().charAt(0);
                     switch (opcion){
                         case 's':
                         case 'S':
