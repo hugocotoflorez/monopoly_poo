@@ -1,5 +1,8 @@
 package monopoly;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,6 +32,7 @@ public class Menu {
     private boolean partida_finalizada = false;
     private boolean movimientoAvanzado = false;
     private boolean movimientoAvanzadoSePuedeCambiar = true;
+    private int contadorTiradasCoche = 0;
     /*
      * Poner un scanner nuevo para cada funcion en la que se necesita daba error
      * porque segun lo que la intuicion me dice no se pueden abrir dos scanners
@@ -69,6 +73,17 @@ public class Menu {
         comunidad.add(new Carta(Carta.desc12, "comunidad", 6));
     }
 
+    public void cargarArchivo(String archivo) {
+        try (BufferedReader lector = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            while ((linea = lector.readLine()) != null) {
+                System.out.println("Evaluando: "+ linea);
+                analizarComando(linea);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /*
      * Cuando se caiga en una casilla en la cual hay que lanzar cartas, se tiene que
@@ -144,7 +159,7 @@ public class Menu {
                 System.out.println("describir avatar <letra");
                 System.out.println("comprar <casilla>");
                 System.out.println("bancarrota - acaba la partida para ese jugador");
-                System.out.println("ver - muestra el tablero");
+               System.out.println("ver - muestra el tablero");
                 System.out.println("clear - limpia la pantalla");
                 System.out.println("estadisticas <Jugador>");
                 System.out.println("estadisticas");
@@ -155,6 +170,12 @@ public class Menu {
                 analizarComando("crear jugador Jugador1 Coche");
                 analizarComando("crear jugador Jugador2 Esfinge");
                 break;
+
+                case "archivo":
+                if (com.length == 2) {
+                    cargarArchivo(com[1]);
+                }
+                    break;
 
             case "crear":
                 if (partida_empezada) {
@@ -263,9 +284,9 @@ public class Menu {
                 } else
                     System.out.println("Opcion incorrecta. [? para ver las opciones]");
                 break;
-            
+
             case "hipotecar":
-                if(com.length==2){
+                if (com.length == 2) {
                     accionhipotecar(com[1]);
                 }
 
@@ -291,7 +312,6 @@ public class Menu {
                 break;
         }
     }
-
 
     /*
      * Método que realiza las acciones asociadas al comando 'describir jugador'.
@@ -342,11 +362,12 @@ public class Menu {
      */
     private void descCasilla(String nombre) {
         Casilla c = this.tablero.encontrar_casilla(nombre);
-        if (c!=null) System.out.println(c.infoCasilla());
-        else System.out.println("La casilla " + nombre + " no existe.");
+        if (c != null)
+            System.out.println(c.infoCasilla());
+        else
+            System.out.println("La casilla " + nombre + " no existe.");
     }
 
-    
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar
     // dados'.
     private boolean dadosDobles(int valor1, int valor2) {
@@ -382,8 +403,7 @@ public class Menu {
 
             mover(valor1, valor2);
 
-            // Comprueba si pasa por salida
-            pasarPorSalida(casillaantes);
+            // Pasar por salida ahora se hace en mover
 
             if (dadosDobles(valor1, valor2)) {
                 this.tirado = false;
@@ -432,6 +452,10 @@ public class Menu {
                         + this.avatares.get(turno).getCasilla().getNombre());
         this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
         System.out.println(" hasta " + avatares.get(turno).getCasilla().getNombre());
+
+        // Comprueba si pasa por salida
+        pasarPorSalida(valor1 + valor2);
+
     }
 
     private void moverCoche(int valor1, int valor2) {
@@ -453,7 +477,15 @@ public class Menu {
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
             moverNormal(valor1, valor2);
-            this.tirado = false; // se puede seguir tirando
+            // actualiza contador coche y si el contador es 4 se pone a 0 y
+            // this.tirado es false por lo que no se puede seguir tirando
+            this.tirado = (contadorTiradasCoche = contadorTiradasCoche + 1 % 4) != 0;
+
+            // Comprueba si pasa por salida
+            pasarPorSalida(valor1 + valor2);
+        } else {
+            contadorTiradasCoche = 0;
+            moverAtras(valor1, valor2);
         }
     }
 
@@ -476,31 +508,54 @@ public class Menu {
         if (desplazamiento > 4) {
             for (int i = 5; i < desplazamiento; i += 2) {
                 /*
-                 * Hay que hacer algo tipo evaluar casilla pero que si se puede comprar la pueda
+                 * TODO Hay que hacer algo tipo evaluar casilla pero que si se puede comprar la
+                 * pueda
                  * comprar y sino siga avanzando o no se algo raro. Puedo utilizar el valor de
                  * retorno de evaluar casilla y hacerle algo tipo un menu nuevo para comprar
                  * propiedades, no se
                  */
-                if (i == 5)
+                if (i == 5) // primer salto
                     moverNormal(5, 0);
-                else
+                else // saltos restantes
                     moverNormal(2, 0);
+
+                // Comprueba si pasa por salida
+                pasarPorSalida(valor1 + valor2);
             }
         } else {
+            // retroceder
+            moverAtras(valor1, valor2);
         }
     }
 
     /* No para esta entrega */
     private void moverEsfinge(int valor1, int valor2) {
+        System.out.println("Movimendo normal, no para esta entrega");
+        moverNormal(valor1, valor2);
     }
 
     /* No para esta entrega */
     private void moverSombrero(int valor1, int valor2) {
+        System.out.println("Movimendo normal, no para esta entrega");
+        moverNormal(valor1, valor2);
+    }
+
+    private void moverAtras(int valor1, int valor2) {
+        int desplazamiento = valor1 + valor2;
+        System.out
+                .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento
+                        + " hacia atras desde "
+                        + this.avatares.get(turno).getCasilla().getNombre());
+        this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), 40 - desplazamiento);
+        System.out.println(" hasta " + avatares.get(turno).getCasilla().getNombre());
+        // Comprueba si pasa por salida hacia atras
+        pasarPorSalidaHaciaAtras(valor1 + valor2);
+
     }
 
     private void cambairModo() {
         if (!movimientoAvanzadoSePuedeCambiar) {
-            /* Esto no se si deberia existir o si se puede cambiar DUDA */
+            /* Esto no se si deberia existir o si se puede cambiar (DUDA) */
             System.out.println("Ya cambiaste de modo en este turno!");
             return;
         }
@@ -514,9 +569,9 @@ public class Menu {
             System.out.println("Se ha desactivado el modo avanzado");
     }
 
-    private void pasarPorSalida(int casillaantes) {
+    private void pasarPorSalida(int desplazamiento) {
         int casillanueva = avatares.get(turno).getCasilla().getPosicion();
-        if ((casillaantes > casillanueva)) {
+        if ((casillanueva < desplazamiento)) {
 
             // !!!!!! si se modifica algo de esto hay que modificarlo tambien en Carta
             System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
@@ -542,6 +597,24 @@ public class Menu {
         }
     }
 
+    private void pasarPorSalidaHaciaAtras(int desplazamiento) {
+        /*
+         * TODO esta funcion resta cuando pasas por salida, creo que no se podia hacer
+         * asi pero asi era mas facil, despues ya lo arreglo
+         */
+        int casillanueva = avatares.get(turno).getCasilla().getPosicion();
+        if ((casillanueva > desplazamiento)) {
+
+            System.out.println("¡Has pasado por la Salida hacia atras! Perdiste" + Valor.SUMA_VUELTA);
+            jugadores.get(turno).sumarFortuna(-Valor.SUMA_VUELTA);
+            jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() - 1);
+            jugadores.get(turno).setPasarPorCasillaDeSalida(
+                    jugadores.get(turno).getPasarPorCasillaDeSalida() - Valor.SUMA_VUELTA);
+            System.out.println("Llevas " + jugadores.get(turno).getVueltas() + " vueltas.");
+
+        }
+    }
+
     private void evaluarAccion(int desplazamiento) {
         /*
          * En estos casos no se evalua casilla, sino que la accion se realiza
@@ -560,19 +633,24 @@ public class Menu {
             elegir_carta(suerte);
         }
 
-        else{
-            solvente = avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
-            if(!solvente){
-                System.out.println("El jugador " + jugadores.get(turno).getNombre() + " está en bancarrota. Su fortuna actual es " + jugadores.get(turno).getFortuna());
+        else {
+            // evaluar casilla
+            solvente = avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0),
+                    desplazamiento);
+            if (!solvente) {
+                System.out.println("El jugador " + jugadores.get(turno).getNombre()
+                        + " está en bancarrota. Su fortuna actual es " + jugadores.get(turno).getFortuna());
                 char opcion;
-                do{
+                do {
                     System.out.println(("¿Deseas seguir jugando? (S/N): "));
                     opcion = this.scanner.next().charAt(0);
-                    switch (opcion){
+                    switch (opcion) {
                         case 's':
                         case 'S':
-                            System.out.println("Para saldar tus deudas, debes hipotecar tus propiedades antes de acabar tu turno.");
-                            System.out.println("Si te quedas sin propiedades que hipotecar y aún no has saldado tus deudas, tendrás que declararte en bancarrota.");
+                            System.out.println(
+                                    "Para saldar tus deudas, debes hipotecar tus propiedades antes de acabar tu turno.");
+                            System.out.println(
+                                    "Si te quedas sin propiedades que hipotecar y aún no has saldado tus deudas, tendrás que declararte en bancarrota.");
                             break;
                         case 'n':
                         case 'N':
@@ -583,17 +661,21 @@ public class Menu {
                             System.out.println("Opción errónea.");
                             break;
                     }
-                }while(opcion != 'S' && opcion != 's' && opcion != 'n' && opcion != 'n' && opcion != 'N'); 
+                } while (opcion != 'S' && opcion != 's' && opcion != 'n' && opcion != 'N');
             }
         }
     }
-
 
     private void bancarrota() {
 
         Jugador actual = this.jugadores.get(turno); // Jugador actual
 
-        if (actual.getAvatar().getCasilla().getDuenho().esBanca() || !actual.estaBancarrota()) { // Si está en bancarrota por la banca o si se declaró voluntariamente en bancarrota
+        if (actual.getAvatar().getCasilla().getDuenho().esBanca() || !actual.estaBancarrota()) { // Si está en
+                                                                                                 // bancarrota por la
+                                                                                                 // banca o si se
+                                                                                                 // declaró
+                                                                                                 // voluntariamente en
+                                                                                                 // bancarrota
             for (Casilla c : actual.getPropiedades()) {
                 actual.eliminarPropiedad(c);
                 banca.anhadirPropiedad(c);
@@ -602,37 +684,38 @@ public class Menu {
             }
             System.out.println("El jugador " + actual.getNombre()
                     + " se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban.");
-            //TODO quitar edificios
+            // TODO quitar edificios
         }
 
         if (!actual.getAvatar().getCasilla().getDuenho().esBanca()) { // Si es otro jugador
             for (Casilla c : actual.getPropiedades()) {
-                actual.eliminarPropiedad(c); //TODO no se puede modificar un array mientras se recorre! usar iterator
+                actual.eliminarPropiedad(c); // TODO no se puede modificar un array mientras se recorre! usar iterator
                 actual.getAvatar().getCasilla().getDuenho().anhadirPropiedad(c);
                 c.setDuenho(actual.getAvatar().getCasilla().getDuenho());
             }
             System.out.println("El jugador " + actual.getNombre()
                     + " se ha declarado en bancarrota. Sus propiedades y fortuna pasan a "
                     + actual.getAvatar().getCasilla().getDuenho().getNombre());
-            //TODO quitar edificios
+            // TODO quitar edificios
         }
 
         this.jugadores.remove(turno);
     }
 
-    private void accionhipotecar(String nombre){
+    private void accionhipotecar(String nombre) {
         Casilla c = this.tablero.encontrar_casilla(nombre);
-        if (c!=null){
+        if (c != null) {
             c.hipotecar(jugadores.get(turno));
 
-            if(!jugadores.get(turno).estaBancarrota()){
+            if (!jugadores.get(turno).estaBancarrota()) {
                 solvente = true;
             }
 
-            else System.out.println("Aún no has saldado tus deudas.");
-        }
-        else System.out.println("La casilla " + nombre + " no existe.");
-        
+            else
+                System.out.println("Aún no has saldado tus deudas.");
+        } else
+            System.out.println("La casilla " + nombre + " no existe.");
+
     }
 
     private void lanzarDadosCarcel() {
@@ -678,7 +761,8 @@ public class Menu {
             System.out.println("El bote de la banca ahora es " + this.jugadores.get(0).getGastos());
         } else if (this.tirado) {
             System.out.println("Ya has tirado este turno!");
-        } else if(this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL) System.out.println("No tienes fortuna suficiente. Necesitas " + Valor.PAGO_SALIR_CARCEL);
+        } else if (this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL)
+            System.out.println("No tienes fortuna suficiente. Necesitas " + Valor.PAGO_SALIR_CARCEL);
     }
 
     /*
@@ -899,7 +983,7 @@ public class Menu {
             System.out.println("La partida todavia no ha empezado. ");
         } else if (!this.tirado) {
             System.out.println("No has lanzado los dados este turno");
-        } else if(!this.solvente){
+        } else if (!this.solvente) {
             System.out.println("No has saldado tus deudas, hipoteca tus propiedades.");
         }
     }
@@ -910,10 +994,6 @@ public class Menu {
         /* Esto es un poco criminal */
         System.exit(0);
     }
-    // FUNCIONES PARA EDIFICAR
-    private void edificar(String tipo){
 
-        this.jugadores.get(this.turno).getAvatar().getCasilla().edificar(tipo, this.jugadores.get(this.turno));
 
-    }
 }
