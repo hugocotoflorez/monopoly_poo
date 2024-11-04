@@ -70,6 +70,7 @@ public class Menu {
         comunidad.add(new Carta(Carta.desc12, "comunidad", 6));
     }
 
+
     /*
      * Cuando se caiga en una casilla en la cual hay que lanzar cartas, se tiene que
      * llamar
@@ -553,8 +554,36 @@ public class Menu {
             elegir_carta(suerte);
         }
 
-        else
+        else{
             avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
+            if (jugadores.get(turno).estaBancarrota()){
+                solvente = false;
+                System.out.println("El jugador "+ jugadores.get(turno).getNombre() + "está en bancarrota.");
+                do{
+                    System.out.println(("¿Deseas seguir jugando? (S/N): "));
+                    char opcion = this.scanner.next().charAt(0);
+                    switch (opcion){
+                        case 's':
+                        case 'S':
+                            solucionarBancarrota(jugadores.get(turno));
+                            break;
+                        case 'n':
+                        case 'N':
+                            bancarrota();
+                            break;
+                        default:
+                            System.out.println("Opción errónea.");
+                            break;
+                    }
+                }while(opcion != 'S' && opcion != 's' && opcion != n && opcion != 'n' && opcion != 'N'):
+                
+            }
+        }
+    }
+
+    //Método para hipotecar las propiedades de un jugador si queda en bancarrota
+    public void solucionarBancarrota(Jugador j){
+        
     }
 
     private void lanzarDadosCarcel() {

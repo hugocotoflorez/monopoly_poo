@@ -227,6 +227,7 @@ public class Casilla {
         this.hipotecada = false;
     }
 
+
     /*
      * Método para evaluar qué hacer en una casilla concreta. Parámetros:
      * - Jugador cuyo avatar está en esa casilla.
@@ -247,11 +248,14 @@ public class Casilla {
                     // la casilla
                     actual.sumarFortuna(-c.getImpuesto());// revisar
                     c.getDuenho().sumarFortuna(c.getImpuesto());
+                    if(actual.estaBancarrota()){}
+                    else{
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
                             c.getImpuesto() + " a " + c.getDuenho().getNombre());
                     actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
                     c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
                     c.recaudado += c.impuesto;
+                    }
                     break;
                 }
                 /*

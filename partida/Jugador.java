@@ -221,7 +221,6 @@ public class Jugador {
 
     // Método para comprobar si un jugador está en bancarrota
     public boolean estaBancarrota() {
-        if(this.fortuna<0) System.out.println("El jugador "+ nombre + "está en bancarrota.");
         return this.fortuna < 0;
     }
 
