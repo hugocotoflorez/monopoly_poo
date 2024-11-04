@@ -114,9 +114,8 @@ public class Edificio {
 
     }
 
-    public Edificio(String tipo, Casilla casilla, int ID) {
+    public Edificio(String tipo, Casilla casilla) {
 
-        if (casilla.getTipo().equals("Solar")) {
 
             if (tipo.equals("Casa")) {
                 
@@ -162,7 +161,6 @@ public class Edificio {
                 
                 this.precio = casilla.getValor() * 1.25f;
             }
-        }
 
     }
 
@@ -184,10 +182,10 @@ public class Edificio {
         String ret = new String();
 
         ret +=   "{\n";
-        ret += ("   id: " + this.ID + "\n");
-        ret += ("   propietario: " +this.casilla.getDuenho() + "\n");
-        ret += ("   casilla: " + this.casilla.getNombre() + "\n");
-        ret += ("   grupo: " + this.casilla.getGrupo().getColor() + "\n");
+        ret += ("  id: " + this.ID + "\n");
+        ret += ("  propietario: " +this.casilla.getDuenho() + "\n");
+        ret += ("  casilla: " + this.casilla.getNombre() + "\n");
+        ret += ("  grupo: " + this.casilla.getGrupo().get + "\n");
         ret += ("  coste: " +this.precio + "\n");
         ret +=   "}\n";
 

@@ -282,6 +282,9 @@ public class Menu {
             case "clear":
                 System.out.print("\033[H\033[2J");
                 break;
+            case "edificar":
+                if (com.length == 2)
+                    edificar(com[1]);
 
             default:
                 System.out.println("Opcion incorrecta. [? para ver las opciones]");
@@ -865,6 +868,7 @@ public class Menu {
         }
         return ret;
     }
+
     // FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
 
     private void mostrarEstadisticasPartida() {
@@ -906,6 +910,10 @@ public class Menu {
         /* Esto es un poco criminal */
         System.exit(0);
     }
+    // FUNCIONES PARA EDIFICAR
+    private void edificar(String tipo){
 
-    
+        this.jugadores.get(this.turno).getAvatar().getCasilla().edificar(tipo, this.jugadores.get(this.turno));
+
+    }
 }

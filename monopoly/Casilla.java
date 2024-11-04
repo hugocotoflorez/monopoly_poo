@@ -18,7 +18,7 @@ public class Casilla {
                             // solares/servicios/transportes o impuestos.
     private float hipoteca; // Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares = new ArrayList<Avatar>(); // Avatares que están situados en la casilla.
-    private ArrayList<Edificio> edificios;
+    private ArrayList<Edificio> edificios = new ArrayList<Edificio>();
     private int[] caidasEnCasilla = { 0, 0, 0, 0, 0, 0 }; // Cuenta el numero de veces que el jugador iesimo cayó en la
                                                           // casilla
     public float recaudado = 0;
@@ -632,9 +632,9 @@ public class Casilla {
 
     public void listar_edificios_casilla() {
 
-        for (int i = 0; i < this.edificios.size(); i++) {
+        for (Edificio e : this.edificios) {
 
-            this.edificios.get(i).toString();
+            System.out.println(e);
 
         }
 
@@ -718,14 +718,14 @@ public class Casilla {
 
                     if (this.esCasaEdificable()) {
 
-                        Edificio Casa = new Edificio(tipo, this, Valor.NumeroCasasConstruidas);
+                        Edificio Casa = new Edificio(tipo, this);
                         this.edificios.add(Casa);
 
                         duenhoGrupo.sumarFortuna(-Casa.getPrecio());
 
                         Valor.NumeroCasasConstruidas++;
 
-                        System.out.println("Se ha edificado una casa en " + this.getNombre() + "La fortuna de "
+                        System.out.println("Se ha edificado una casa en " + this.getNombre() + ". La fortuna de "
                                 + duenhoGrupo.getNombre() + " se reduce en " + Casa.getPrecio());
 
                         return;
@@ -746,7 +746,7 @@ public class Casilla {
                                 this.edificios.remove(e);
                         }
 
-                        Edificio Hotel = new Edificio(tipo, this, Valor.NumeroHotelesConstruidos);
+                        Edificio Hotel = new Edificio(tipo, this);
 
                         this.edificios.add(Hotel);
                         duenhoGrupo.sumarFortuna(-Hotel.getPrecio());
@@ -765,7 +765,7 @@ public class Casilla {
                                 // Numero de casas >= 2
                     if (this.esPiscinaEdificable()) {
 
-                        Edificio Piscina = new Edificio(tipo, this, Valor.NumeroPiscinasConstruidas);
+                        Edificio Piscina = new Edificio(tipo, this);
 
                         this.edificios.add(Piscina);
                         duenhoGrupo.sumarFortuna(-Piscina.getPrecio());
@@ -784,7 +784,7 @@ public class Casilla {
                 case "Pista": // Numero de hoteles >= 2
                     if (this.esPistaEdificable()) {
 
-                        Edificio Pista = new Edificio("Pista de deportes", this, Valor.NumeroPistasConstruidos);
+                        Edificio Pista = new Edificio("Pista de deportes", this);
 
                         this.edificios.add(Pista);
                         duenhoGrupo.sumarFortuna(-Pista.getPrecio());

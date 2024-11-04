@@ -295,6 +295,27 @@ public class Jugador {
                 """.formatted(this.dineroInvertido, this.pagoTasasEImpuestos, this.pagoDeAlquileres, this.cobroDeAlquileres, this.pasarPorCasillaDeSalida, this.premiosInversionesOBote, this.vecesEnLaCarcel);
         return ret;
     }
+    private String printEdificios(){
+        String ret = new String();
+        ret += "[";
+
+        for(Casilla c : this.propiedades){
+
+            if(c.getEdificios() != null){
+                for(Edificio e : c.getEdificios()){
+                    ret += e.getID();
+                    
+                    ret += ", ";
+                }
+            }
+
+        }
+        ret += "]";
+
+        return ret;
+
+    }
+
     @Override
     public String toString() {
         return """
@@ -306,7 +327,7 @@ public class Jugador {
                 | - Edificios: %s
 
                 """.formatted(this.nombre, avatar != null ? this.avatar.getId() : "", fortuna,
-                propiedades != null ? this.propiedades : "", "Sin implementar", "Sin implementar");
+                propiedades != null ? this.propiedades : "", "Sin implementar", this.printEdificios());
         //TODO listar hipotecas y edificios
     }
 
