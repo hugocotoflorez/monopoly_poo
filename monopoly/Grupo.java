@@ -7,6 +7,7 @@ import java.util.ArrayList;
 class Grupo {
 
     // Atributos
+    String ID;
     private ArrayList<Casilla> miembros; // Casillas miembros del grupo.
     private String colorGrupo; // Color del grupo
     private int numCasillas; // Número de casillas del grupo.
@@ -19,11 +20,12 @@ class Grupo {
      * Constructor para cuando el grupo está formado por DOS CASILLAS:
      * Requiere como parámetros las dos casillas miembro y el color del grupo.
      */
-    public Grupo(Casilla cas1, Casilla cas2, String colorGrupo) {
+    public Grupo(Casilla cas1, Casilla cas2, String colorGrupom, String ID) {
         this.miembros = new ArrayList<Casilla>();
         this.miembros.add(cas1);
         this.miembros.add(cas2);
         this.colorGrupo = colorGrupo;
+        this.ID = ID;
         this.numCasillas = 2;
         cas1.setGrupo(this);
         cas2.setGrupo(this);
@@ -33,12 +35,13 @@ class Grupo {
      * Constructor para cuando el grupo está formado por TRES CASILLAS:
      * Requiere como parámetros las tres casillas miembro y el color del grupo.
      */
-    public Grupo(Casilla cas1, Casilla cas2, Casilla cas3, String colorGrupo) {
+    public Grupo(Casilla cas1, Casilla cas2, Casilla cas3, String colorGrupo, String ID) {
         this.miembros = new ArrayList<Casilla>();
         this.miembros.add(cas1);
         this.miembros.add(cas2);
         this.miembros.add(cas3);
         this.colorGrupo = colorGrupo;
+        this.ID = ID;
         this.numCasillas = 3;
         cas1.setGrupo(this);
         cas2.setGrupo(this);
@@ -158,7 +161,7 @@ class Grupo {
     }
 
     public float getValor() {
-        switch (this.colorGrupo) {
+        switch (this.ID) {
             case "Negro": // G1
                 return Valor.GRUPO_1;
             case "Cyan": // G2
