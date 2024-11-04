@@ -248,14 +248,14 @@ public class Casilla {
                     // la casilla
                     actual.sumarFortuna(-c.getImpuesto());// revisar
                     c.getDuenho().sumarFortuna(c.getImpuesto());
-                    if(actual.estaBancarrota()){}
-                    else{
+
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
                             c.getImpuesto() + " a " + c.getDuenho().getNombre());
+
                     actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
                     c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
                     c.recaudado += c.impuesto;
-                    }
+                    
                     break;
                 }
                 /*
@@ -291,10 +291,12 @@ public class Casilla {
                 if (!c.esComprable(actual)) {
                     float p = c.getDuenho().cuantostransportes() * 0.25f * Valor.IMPUESTOS_TRANSPORTES;
                     c.setImpuesto(p);
+
                     actual.sumarFortuna(-c.impuesto);
                     this.getDuenho().sumarFortuna(c.impuesto);
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
                             c.impuesto + " a " + c.getDuenho().getNombre());
+                            
                     actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
                     c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
                     c.recaudado += c.impuesto;
@@ -312,10 +314,12 @@ public class Casilla {
                     int s = (c.getDuenho().cuantosservicios() >= 2) ? 10 : 4;
                     float p = Valor.IMPUESTO_SERVICIOS * s * tirada;
                     c.setImpuesto(p);
+
                     actual.sumarFortuna(-c.impuesto);
                     c.getDuenho().sumarFortuna(c.impuesto);
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
                             c.impuesto + " a " + c.getDuenho().getNombre());
+
                     actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
                     c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
                     c.recaudado += c.impuesto;
@@ -328,7 +332,9 @@ public class Casilla {
                 System.out.println("Has caído en una casilla de impuestos. Se te va a cobrar " + c.impuesto);
                 actual.sumarFortuna(-c.impuesto);
                 banca.sumarGastos(c.impuesto);
+
                 System.out.println("El bote de la banca ahora es " + banca.getGastos());
+
                 actual.setPagoTasasEImpuestos(actual.getPagoTasasEImpuestos() + c.impuesto);
                 break;
 
@@ -336,7 +342,7 @@ public class Casilla {
                 System.err.println("Hugo no añadio el tipo %s a evaluarCasilla");
 
         }
-        return actual.estaBancarrota();
+        return actual.getFortuna() > 0;
 
     }
 

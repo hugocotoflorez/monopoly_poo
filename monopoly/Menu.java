@@ -569,6 +569,7 @@ public class Menu {
                         case 's':
                         case 'S':
                             System.out.println("Para saldar tus deudas, debes hipotecar tus propiedades antes de acabar tu turno.");
+                            System.out.println("Si te quedas sin propiedades que hipotecar y aún no has saldado tus deudas, tendrás que declararte en bancarrota.");
                             break;
                         case 'n':
                         case 'N':
@@ -596,7 +597,7 @@ public class Menu {
                 c.setDuenho(banca);
             }
             System.out.println("El jugador " + actual.getNombre()
-                    + "se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban.");
+                    + " se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban.");
             //TODO pasar edificios
         }
 
