@@ -1,3 +1,21 @@
 crear jugador Hugo Coche
 crear jugador Guille Esfinge
-l 2 3
+l 1 0
+comprar Solar1
+acabar
+l 10 0
+acabar
+l 2 0
+comprar Solar2
+edificar Casa
+edificar Casa
+edificar Casa
+edificar Casa
+edificar Casa
+edificar Hotel
+edificar Piscina
+edificar Casa
+edificar Casa
+edificar Piscina
+describir jugador Hugo
+listar edificios

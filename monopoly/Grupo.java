@@ -20,7 +20,7 @@ class Grupo {
      * Constructor para cuando el grupo está formado por DOS CASILLAS:
      * Requiere como parámetros las dos casillas miembro y el color del grupo.
      */
-    public Grupo(Casilla cas1, Casilla cas2, String colorGrupom, String ID) {
+    public Grupo(Casilla cas1, Casilla cas2, String colorGrupo, String ID) {
         this.miembros = new ArrayList<Casilla>();
         this.miembros.add(cas1);
         this.miembros.add(cas2);
@@ -63,7 +63,7 @@ class Grupo {
     public String getID(){
 
         return this.ID;
-        
+
     }
 
     // SETTERS
@@ -122,7 +122,7 @@ class Grupo {
 
         /*
          * EJEMPLO DE REPRESENTACIÓN
-         * 
+         *
          * {
          * propiedad: Solar18,
          * hoteles: [hotel-1]
@@ -187,4 +187,3 @@ class Grupo {
         return 0;
     }
 }
-
