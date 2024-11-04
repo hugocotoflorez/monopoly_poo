@@ -60,6 +60,11 @@ class Grupo {
     public int getNumCasillas() {
         return this.numCasillas;
     }
+    public String getID(){
+
+        return this.ID;
+        
+    }
 
     // SETTERS
 

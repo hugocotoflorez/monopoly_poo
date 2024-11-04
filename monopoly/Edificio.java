@@ -185,7 +185,7 @@ public class Edificio {
         ret += ("  id: " + this.ID + "\n");
         ret += ("  propietario: " +this.casilla.getDuenho() + "\n");
         ret += ("  casilla: " + this.casilla.getNombre() + "\n");
-        ret += ("  grupo: " + this.casilla.getGrupo().get + "\n");
+        ret += ("  grupo: " + this.casilla.getGrupo().getID() + "\n");
         ret += ("  coste: " +this.precio + "\n");
         ret +=   "}\n";
 
