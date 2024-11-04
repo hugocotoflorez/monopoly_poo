@@ -149,6 +149,7 @@ public class Menu {
                 System.out.println("clear - limpia la pantalla");
                 System.out.println("estadisticas <Jugador>");
                 System.out.println("estadisticas");
+                System.out.println("hipotecar <casilla>");
                 break;
 
             case "default":
@@ -260,6 +261,11 @@ public class Menu {
                 } else
                     System.out.println("Opcion incorrecta. [? para ver las opciones]");
                 break;
+            
+            case "hipotecar":
+                if(com.length==2){
+                    
+                }
 
             case "ver":
                 System.out.println(this.tablero);
@@ -280,6 +286,7 @@ public class Menu {
                 break;
         }
     }
+
 
     /*
      * Método que realiza las acciones asociadas al comando 'describir jugador'.
@@ -329,17 +336,12 @@ public class Menu {
      * Parámetros: nombre de la casilla a describir.
      */
     private void descCasilla(String nombre) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 10; j++) {
-                if (tablero.getPosiciones().get(i).get(j).getNombre().equals(nombre)) {
-                    System.out.println(tablero.getPosiciones().get(i).get(j).infoCasilla());
-                    return;
-                }
-            }
-        }
-        System.out.println("La casilla " + nombre + " no existe.");
+        Casilla c = this.tablero.encontrar_casilla(nombre);
+        if (c!=null) System.out.println(c.infoCasilla());
+        else System.out.println("La casilla " + nombre + " no existe.");
     }
 
+    
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar
     // dados'.
     private boolean dadosDobles(int valor1, int valor2) {
@@ -555,10 +557,9 @@ public class Menu {
         }
 
         else{
-            avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
-            if (jugadores.get(turno).estaBancarrota()){
-                solvente = false;
-                System.out.println("El jugador "+ jugadores.get(turno).getNombre() + "está en bancarrota.");
+            solvente = avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
+            if(!solvente){
+                System.out.println("El jugador " + jugadores.get(turno).getNombre() + " está en bancarrota. Su fortuna actual es " + jugadores.get(turno).getFortuna());
                 char opcion;
                 do{
                     System.out.println(("¿Deseas seguir jugando? (S/N): "));
@@ -566,24 +567,65 @@ public class Menu {
                     switch (opcion){
                         case 's':
                         case 'S':
-                            solucionarBancarrota(jugadores.get(turno));
+                            System.out.println("Para saldar tus deudas, debes hipotecar tus propiedades antes de acabar tu turno.");
                             break;
                         case 'n':
                         case 'N':
                             bancarrota();
+                            solvente = true;
                             break;
                         default:
                             System.out.println("Opción errónea.");
                             break;
                     }
-                }while(opcion != 'S' && opcion != 's' && opcion != n && opcion != 'n' && opcion != 'N'):
-                
+                }while(opcion != 'S' && opcion != 's' && opcion != 'n' && opcion != 'n' && opcion != 'N'); 
             }
         }
     }
 
-    //Método para hipotecar las propiedades de un jugador si queda en bancarrota
-    public void solucionarBancarrota(Jugador j){
+
+    private void bancarrota() {
+
+        Jugador actual = this.jugadores.get(turno); // Jugador actual
+        if (actual.getAvatar().getCasilla().getDuenho().esBanca() || actual.getFortuna() > 0) { // Si la banca lo deja
+                                                                                                // en bancarrota
+            for (Casilla c : actual.getPropiedades()) {
+                actual.eliminarPropiedad(c);
+                banca.anhadirPropiedad(c);
+                c.setDuenho(banca);
+            }
+            System.out.println("El jugador " + actual.getNombre()
+                    + "se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban.");
+            //TODO pasar edificios
+        }
+
+        if (!actual.getAvatar().getCasilla().getDuenho().esBanca()) { // Si es otro jugador
+            for (Casilla c : actual.getPropiedades()) {
+                actual.eliminarPropiedad(c);
+                actual.getAvatar().getCasilla().getDuenho().anhadirPropiedad(c);
+                c.setDuenho(actual.getAvatar().getCasilla().getDuenho());
+            }
+            System.out.println("El jugador " + actual.getNombre()
+                    + " se ha declarado en bancarrota. Sus propiedades y fortuna pasan a "
+                    + actual.getAvatar().getCasilla().getDuenho().getNombre());
+            //TODO pasar edificios
+        }
+
+        this.jugadores.remove(turno);
+    }
+
+    private void accionhipotecar(String nombre){
+        Casilla c = this.tablero.encontrar_casilla(nombre);
+        if (c!=null){
+            c.hipotecar(jugadores.get(turno));
+
+            if(!jugadores.get(turno).estaBancarrota()){
+                solvente = true;
+            }
+
+            else System.out.println("Aún no has saldado tus deudas.");
+        }
+        else System.out.println("La casilla " + nombre + " no existe.");
         
     }
 
@@ -886,7 +928,7 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
-        if (partida_empezada && this.tirado) {
+        if (partida_empezada && this.tirado && this.solvente) {
 
             /* Esto no se donde meterlo, en cada turno se tiene que poner a true*/
             movimientoAvanzadoSePuedeCambiar = true;
@@ -894,6 +936,7 @@ public class Menu {
             int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
             this.tirado = false;
             this.lanzamientos = 0;
+
             if (this.turno < numero_jugadores) {
                 this.turno += 1;
                 System.out.println("El jugador actual es: " + this.jugadores.get(turno).getNombre());
@@ -905,6 +948,8 @@ public class Menu {
             System.out.println("La partida todavia no ha empezado. ");
         } else if (!this.tirado) {
             System.out.println("No has lanzado los dados este turno");
+        } else if(!this.solvente){
+            System.out.println("No has saldado tus deudas, hipoteca tus propiedades.");
         }
     }
 
@@ -915,32 +960,5 @@ public class Menu {
         System.exit(0);
     }
 
-    private void bancarrota() {
-
-        Jugador actual = this.jugadores.get(turno); // Jugador actual
-        if (actual.getAvatar().getCasilla().getDuenho().esBanca() || actual.getFortuna() > 0) { // Si la banca lo deja
-                                                                                                // en bancarrota
-            for (Casilla c : actual.getPropiedades()) {
-                actual.eliminarPropiedad(c);
-                banca.anhadirPropiedad(c);
-                c.setDuenho(banca);
-            }
-            System.out.println("El jugador " + actual.getNombre()
-                    + "se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban.");
-        }
-
-        if (!actual.getAvatar().getCasilla().getDuenho().esBanca()) { // Si es otro jugador
-            for (Casilla c : actual.getPropiedades()) {
-                actual.eliminarPropiedad(c);
-                actual.getAvatar().getCasilla().getDuenho().anhadirPropiedad(c);
-                c.setDuenho(actual.getAvatar().getCasilla().getDuenho());
-            }
-            System.out.println("El jugador " + actual.getNombre()
-                    + " se ha declarado en bancarrota. Sus propiedades y fortuna pasan a "
-                    + actual.getAvatar().getCasilla().getDuenho().getNombre());
-        }
-
-        this.jugadores.remove(turno);
-    }
-
+    
 }

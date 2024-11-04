@@ -342,7 +342,7 @@ public class Casilla {
                 System.err.println("Hugo no añadio el tipo %s a evaluarCasilla");
 
         }
-        return false;
+        return actual.estaBancarrota();
 
     }
 
