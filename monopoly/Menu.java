@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-import javax.xml.transform.stax.StAXResult;
 
 import partida.*;
 
@@ -400,6 +399,7 @@ public class Menu {
         if (!movimientoAvanzado) {
             moverNormal(valor1, valor2);
         }
+        else
         switch (this.avatares.get(turno).getTipo()) {
             case "Coche":
                 moverCoche(valor1, valor2);
