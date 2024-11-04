@@ -77,7 +77,7 @@ public class Menu {
         try (BufferedReader lector = new BufferedReader(new FileReader(archivo))) {
             String linea;
             while ((linea = lector.readLine()) != null) {
-                System.out.println("Evaluando: "+ linea);
+                System.out.println("Evaluando: " + linea);
                 analizarComando(linea);
             }
         } catch (IOException e) {
@@ -159,7 +159,7 @@ public class Menu {
                 System.out.println("describir avatar <letra");
                 System.out.println("comprar <casilla>");
                 System.out.println("bancarrota - acaba la partida para ese jugador");
-               System.out.println("ver - muestra el tablero");
+                System.out.println("ver - muestra el tablero");
                 System.out.println("clear - limpia la pantalla");
                 System.out.println("estadisticas <Jugador>");
                 System.out.println("estadisticas");
@@ -171,11 +171,11 @@ public class Menu {
                 analizarComando("crear jugador Jugador2 Esfinge");
                 break;
 
-                case "archivo":
+            case "archivo":
                 if (com.length == 2) {
                     cargarArchivo(com[1]);
                 }
-                    break;
+                break;
 
             case "crear":
                 if (partida_empezada) {
@@ -995,5 +995,11 @@ public class Menu {
         System.exit(0);
     }
 
+    // FUNCIONES PARA EDIFICAR
+    private void edificar(String tipo) {
+
+        this.jugadores.get(this.turno).getAvatar().getCasilla().edificar(tipo, this.jugadores.get(this.turno));
+
+    }
 
 }
