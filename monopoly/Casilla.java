@@ -39,6 +39,7 @@ public class Casilla {
         this.tipo = tipo;
         this.posicion = posicion;
         this.valor = valor;
+        this.hipoteca = valor/2;
         this.duenho = duenho;
         this.impuesto = valor * 0.1f;
         this.hipotecada = false;
@@ -214,6 +215,7 @@ public class Casilla {
             this.duenho.sumarFortuna(hipoteca);
             this.hipotecada = true;
         }
+        System.out.println("No puedes hipotecar esa casilla.");
 
     }
 
@@ -221,10 +223,13 @@ public class Casilla {
         if (this.duenho.equals(actual)
                 && (this.tipo.equals("solar") || this.tipo.equals("serv") || this.tipo.equals("transporte"))
                 && this.hipotecada == true) {
-
-            this.duenho.sumarFortuna(-hipoteca * 1.10f);
+            if (this.duenho.getFortuna() >= hipoteca*1.10f){
+                this.duenho.sumarFortuna(-hipoteca * 1.10f);
+                this.hipotecada = false;
+            } 
+            else System.out.println("No tienes suficiente fortuna. Necesitas " + hipoteca*1.10f);
         }
-        this.hipotecada = false;
+        else System.out.println("No puedes deshipotecar esa casilla.");
     }
 
 
@@ -246,15 +251,18 @@ public class Casilla {
                 if (!c.esComprable(actual)) {
                     // se le resta el impuesto y se lo da al jugador que tiene
                     // la casilla
-                    actual.sumarFortuna(-c.getImpuesto());// revisar
-                    c.getDuenho().sumarFortuna(c.getImpuesto());
+                    if (!this.hipotecada){
+                        actual.sumarFortuna(-c.getImpuesto());// revisar
+                        c.getDuenho().sumarFortuna(c.getImpuesto());
 
-                    System.out.println("El jugador " + actual.getNombre() + " paga " +
-                            c.getImpuesto() + " a " + c.getDuenho().getNombre());
+                        System.out.println("El jugador " + actual.getNombre() + " paga " +
+                                c.getImpuesto() + " a " + c.getDuenho().getNombre());
 
-                    actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
-                    c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
-                    c.recaudado += c.impuesto;
+                        actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
+                        c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
+                        c.recaudado += c.impuesto;
+                    }
+                    else System.out.println("El jugador " + this.getDuenho() + "no cobra alquiler porque la casilla está hipotecaada.");
                     
                     break;
                 }
@@ -289,17 +297,21 @@ public class Casilla {
                 break;
             case "transporte":
                 if (!c.esComprable(actual)) {
-                    float p = c.getDuenho().cuantostransportes() * 0.25f * Valor.IMPUESTOS_TRANSPORTES;
-                    c.setImpuesto(p);
+                    if (!this.hipotecada){
+                        float p = c.getDuenho().cuantostransportes() * 0.25f * Valor.IMPUESTOS_TRANSPORTES;
+                        c.setImpuesto(p);
 
-                    actual.sumarFortuna(-c.impuesto);
-                    this.getDuenho().sumarFortuna(c.impuesto);
-                    System.out.println("El jugador " + actual.getNombre() + " paga " +
-                            c.impuesto + " a " + c.getDuenho().getNombre());
-                            
-                    actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
-                    c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
-                    c.recaudado += c.impuesto;
+                        actual.sumarFortuna(-c.impuesto);
+                        this.getDuenho().sumarFortuna(c.impuesto);
+                        System.out.println("El jugador " + actual.getNombre() + " paga " +
+                                c.impuesto + " a " + c.getDuenho().getNombre());
+                                
+                        actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
+                        c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
+                        c.recaudado += c.impuesto;
+                    }
+                    else System.out.println("El jugador " + this.getDuenho() + "no cobra alquiler porque la casilla está hipotecaada.");
+
                     break;
                 }
                 System.out.println("Se puede comprar la casilla " + c.getNombre());
@@ -311,18 +323,22 @@ public class Casilla {
 
             case "serv":
                 if (!c.esComprable(actual)) {
-                    int s = (c.getDuenho().cuantosservicios() >= 2) ? 10 : 4;
-                    float p = Valor.IMPUESTO_SERVICIOS * s * tirada;
-                    c.setImpuesto(p);
+                    if(!this.hipotecada){
+                        int s = (c.getDuenho().cuantosservicios() >= 2) ? 10 : 4;
+                        float p = Valor.IMPUESTO_SERVICIOS * s * tirada;
+                        c.setImpuesto(p);
 
-                    actual.sumarFortuna(-c.impuesto);
-                    c.getDuenho().sumarFortuna(c.impuesto);
-                    System.out.println("El jugador " + actual.getNombre() + " paga " +
-                            c.impuesto + " a " + c.getDuenho().getNombre());
+                        actual.sumarFortuna(-c.impuesto);
+                        c.getDuenho().sumarFortuna(c.impuesto);
+                        System.out.println("El jugador " + actual.getNombre() + " paga " +
+                                c.impuesto + " a " + c.getDuenho().getNombre());
 
-                    actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
-                    c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
-                    c.recaudado += c.impuesto;
+                        actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
+                        c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
+                        c.recaudado += c.impuesto;
+                    }
+                    else System.out.println("El jugador " + this.getDuenho() + "no cobra alquiler porque la casilla está hipotecaada.");
+
                     break;
                 }
                 System.out.println("Se puede comprar la casilla " + c.getNombre());

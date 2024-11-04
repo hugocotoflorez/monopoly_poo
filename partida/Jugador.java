@@ -307,7 +307,7 @@ public class Jugador {
 
                 """.formatted(this.nombre, avatar != null ? this.avatar.getId() : "", fortuna,
                 propiedades != null ? this.propiedades : "", "Sin implementar", "Sin implementar");
-
+        //TODO listar hipotecas y edificios
     }
 
     public float score(){

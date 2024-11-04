@@ -3,7 +3,7 @@ package monopoly;
 public class Valor {
     // Se incluyen una serie de constantes útiles para no repetir valores.
     public static final float FORTUNA_BANCA = 500000;
-    public static final float FORTUNA_INICIAL = 1;
+    public static final float FORTUNA_INICIAL = 600000;
     public static final float SUMA_VUELTA = 1301328.584f; // Se aproxima a la media de los precios de los solares del
                                                           // tablero.
 

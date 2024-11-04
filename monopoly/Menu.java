@@ -589,12 +589,13 @@ public class Menu {
     private void bancarrota() {
 
         Jugador actual = this.jugadores.get(turno); // Jugador actual
-        if (actual.getAvatar().getCasilla().getDuenho().esBanca() || actual.getFortuna() > 0) { // Si la banca lo deja
-                                                                                                // en bancarrota
+
+        if (actual.getAvatar().getCasilla().getDuenho().esBanca() || !actual.estaBancarrota()) { // Si está en bancarrota por la banca o si se declaró voluntariamente en bancarrota
             for (Casilla c : actual.getPropiedades()) {
                 actual.eliminarPropiedad(c);
                 banca.anhadirPropiedad(c);
                 c.setDuenho(banca);
+                c.setHipotecada(false);
             }
             System.out.println("El jugador " + actual.getNombre()
                     + " se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban.");
@@ -603,7 +604,7 @@ public class Menu {
 
         if (!actual.getAvatar().getCasilla().getDuenho().esBanca()) { // Si es otro jugador
             for (Casilla c : actual.getPropiedades()) {
-                actual.eliminarPropiedad(c);
+                actual.eliminarPropiedad(c); //TODO no se puede modificar un array mientras se recorre! usar iterator
                 actual.getAvatar().getCasilla().getDuenho().anhadirPropiedad(c);
                 c.setDuenho(actual.getAvatar().getCasilla().getDuenho());
             }
@@ -662,7 +663,7 @@ public class Menu {
     }
 
     private void pagarCarcel() {
-        if (!this.tirado) {
+        if (!this.tirado && this.jugadores.get(turno).getFortuna() >= Valor.PAGO_SALIR_CARCEL) {
             this.tirado = false;
             this.jugadores.get(turno).setEnCarcel(false);
             this.jugadores.get(turno).sumarFortuna(-Valor.PAGO_SALIR_CARCEL);
@@ -672,9 +673,9 @@ public class Menu {
                     this.jugadores.get(turno).getPagoTasasEImpuestos() + Valor.PAGO_SALIR_CARCEL);
             this.jugadores.get(0).sumarGastos(Valor.PAGO_SALIR_CARCEL);
             System.out.println("El bote de la banca ahora es " + this.jugadores.get(0).getGastos());
-        } else {
+        } else if (this.tirado) {
             System.out.println("Ya has tirado este turno!");
-        }
+        } else if(this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL) System.out.println("No tienes fortuna suficiente. Necesitas " + Valor.PAGO_SALIR_CARCEL);
     }
 
     /*
