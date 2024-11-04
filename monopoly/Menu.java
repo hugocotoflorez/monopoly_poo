@@ -266,7 +266,7 @@ public class Menu {
             
             case "hipotecar":
                 if(com.length==2){
-                    
+                    accionhipotecar(com[1]);
                 }
 
             case "ver":
@@ -598,7 +598,7 @@ public class Menu {
             }
             System.out.println("El jugador " + actual.getNombre()
                     + " se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban.");
-            //TODO pasar edificios
+            //TODO quitar edificios
         }
 
         if (!actual.getAvatar().getCasilla().getDuenho().esBanca()) { // Si es otro jugador
@@ -610,7 +610,7 @@ public class Menu {
             System.out.println("El jugador " + actual.getNombre()
                     + " se ha declarado en bancarrota. Sus propiedades y fortuna pasan a "
                     + actual.getAvatar().getCasilla().getDuenho().getNombre());
-            //TODO pasar edificios
+            //TODO quitar edificios
         }
 
         this.jugadores.remove(turno);
