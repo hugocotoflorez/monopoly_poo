@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-
 import partida.*;
 
 public class Menu {
@@ -148,7 +147,6 @@ public class Menu {
                 System.out.println("ver - muestra el tablero");
                 System.out.println("clear - limpia la pantalla");
                 System.out.println("estadisticas <Jugador>");
-                System.out.println("estadisticas");
                 break;
 
             case "default":
@@ -210,10 +208,13 @@ public class Menu {
 
             case "l":
                 if (com.length == 3) {
-                    partida_empezada = true;
-                    int valor = Integer.parseInt(com[1]);
-                    int valor2 = Integer.parseInt(com[2]);
-                    lanzarDados(valor, valor2);
+                    if (jugadores.size() >= 3) { // iniciar la partida
+                        partida_empezada = true;
+                        int valor = Integer.parseInt(com[1]);
+                        int valor2 = Integer.parseInt(com[2]);
+                        lanzarDados(valor, valor2);
+                    } else
+                        System.out.println("No tienes suficientes jugadores creados! (Mínimo 2).");
                 }
                 break;
 
@@ -372,7 +373,6 @@ public class Menu {
             this.tirado = true;
             this.lanzamientos += 1;
             System.out.println("Tirada: " + valor1 + ", " + valor2);
-            this.jugadores.get(turno).sumarNumeroTiradas();
 
             mover(valor1, valor2);
 
@@ -399,8 +399,8 @@ public class Menu {
         /* Movimiento default */
         if (!movimientoAvanzado) {
             moverNormal(valor1, valor2);
+            return;
         }
-        else
         switch (this.avatares.get(turno).getTipo()) {
             case "Coche":
                 moverCoche(valor1, valor2);
@@ -746,7 +746,7 @@ public class Menu {
             System.out.println("Ese grupo no existe.");
             return;
         }
-            grupo.toString();
+        grupo.toString();
 
     }
 
@@ -820,75 +820,19 @@ public class Menu {
         }
         return ret;
     }
-
-    private String buscarJugadorMasVueltas(){
-        String ret = new String();
-        int maxvueltas = this.jugadores.get(1).getVueltas();
-        for (Jugador j: this.jugadores){
-            if(!j.esBanca() && j.getVueltas() >= maxvueltas){
-                maxvueltas = j.getVueltas();
-            }
-        }
-        for (Jugador j: this.jugadores){
-            if(!j.esBanca() && j.getVueltas() == maxvueltas){
-                ret += j.getNombre();
-                ret += ", ";
-            }
-        }
-        return ret;
-    }
-
-    private String buscarJugadorMasDados(){
-        String ret = new String();
-        int maxdados = this.jugadores.get(1).getNumeroTiradas();
-        for (Jugador j: this.jugadores){
-            if(!j.esBanca() && j.getNumeroTiradas() >= maxdados){
-                maxdados = j.getNumeroTiradas();
-            }
-        }
-        for (Jugador j: this.jugadores){
-            if(!j.esBanca() && j.getNumeroTiradas() == maxdados){
-                ret += j.getNombre();
-                ret += ", ";
-            }
-        }
-        return ret;
-    }
-
-    private String buscarJugadorEnCabeza(){
-        String ret = new String();
-        float maxscore = this.jugadores.get(1).score();
-        Jugador ganador = this.jugadores.get(1);
-        for (Jugador j: this.jugadores){
-            if(!j.esBanca() && j.score() >= maxscore){
-                maxscore = j.score();
-            }
-        }
-        for (Jugador j: this.jugadores){
-            if(!j.esBanca() && j.score() == maxscore){
-                ret += j.getNombre();
-                ret += ", ";
-            }
-        }
-        return ret;
-    }
-    
     // FIN FUNCIONES PARA MOSTRAR ESTADISTICAS PARTIDA ------------------------
 
     private void mostrarEstadisticasPartida() {
         System.out.println("Casillas más rentables: " + this.buscarCasillasMasRentables());
         System.out.println("Grupos más rentables: " + this.buscarGruposMasRentables());
         System.out.println("Casillas más frecuentadas: " + this.buscarCasillaMasFrecuentada());
-        System.out.println("Jugador que ha dado más vueltas: " + this.buscarJugadorMasVueltas());
-        System.out.println("Jugador que ha lanzado los dados más veces: " + this.buscarJugadorMasDados());
-        System.out.println("Jugador que va ganando: " + this.buscarJugadorEnCabeza());
     }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
         if (partida_empezada && this.tirado) {
 
-            /* Esto no se donde meterlo, en cada turno se tiene que poner a true*/
+            /* Esto no se donde meterlo, en cada turno se tiene que poner a true */
             movimientoAvanzadoSePuedeCambiar = true;
 
             int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
