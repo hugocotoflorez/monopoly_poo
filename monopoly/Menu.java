@@ -428,7 +428,7 @@ public class Menu {
                 .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
                         + this.avatares.get(turno).getCasilla().getNombre());
         this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
-        System.out.println(" hasta" + avatares.get(turno).getCasilla().getNombre());
+        System.out.println(" hasta " + avatares.get(turno).getCasilla().getNombre());
     }
 
     private void moverCoche(int valor1, int valor2) {
