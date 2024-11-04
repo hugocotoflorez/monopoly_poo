@@ -292,8 +292,6 @@ public class Casilla {
                     float p = c.getDuenho().cuantostransportes() * 0.25f * Valor.IMPUESTOS_TRANSPORTES;
                     c.setImpuesto(p);
                     actual.sumarFortuna(-c.impuesto);
-                    if (actual.estaBancarrota())
-                        Menu.acabarPartida();
                     this.getDuenho().sumarFortuna(c.impuesto);
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
                             c.impuesto + " a " + c.getDuenho().getNombre());
@@ -315,8 +313,6 @@ public class Casilla {
                     float p = Valor.IMPUESTO_SERVICIOS * s * tirada;
                     c.setImpuesto(p);
                     actual.sumarFortuna(-c.impuesto);
-                    if (actual.estaBancarrota())
-                        Menu.acabarPartida();
                     c.getDuenho().sumarFortuna(c.impuesto);
                     System.out.println("El jugador " + actual.getNombre() + " paga " +
                             c.impuesto + " a " + c.getDuenho().getNombre());
@@ -331,8 +327,6 @@ public class Casilla {
             case "impuestos":
                 System.out.println("Has caído en una casilla de impuestos. Se te va a cobrar " + c.impuesto);
                 actual.sumarFortuna(-c.impuesto);
-                if (actual.estaBancarrota())
-                    Menu.acabarPartida();
                 banca.sumarGastos(c.impuesto);
                 System.out.println("El bote de la banca ahora es " + banca.getGastos());
                 actual.setPagoTasasEImpuestos(actual.getPagoTasasEImpuestos() + c.impuesto);
