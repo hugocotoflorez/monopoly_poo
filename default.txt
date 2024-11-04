@@ -1,0 +1,3 @@
+crear jugador Hugo Coche
+crear jugador Guille Esfinge
+l 2 3

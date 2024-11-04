@@ -226,7 +226,7 @@ public class Casilla {
             if (this.duenho.getFortuna() >= hipoteca*1.10f){
                 this.duenho.sumarFortuna(-hipoteca * 1.10f);
                 this.hipotecada = false;
-            } 
+            }
             else System.out.println("No tienes suficiente fortuna. Necesitas " + hipoteca*1.10f);
         }
         else System.out.println("No puedes deshipotecar esa casilla.");
@@ -248,6 +248,7 @@ public class Casilla {
         switch (c.getTipo()) {
             // supuestamente acabado
             case "solar":
+
                 if (!c.esComprable(actual)) {
                     // se le resta el impuesto y se lo da al jugador que tiene
                     // la casilla
@@ -263,7 +264,7 @@ public class Casilla {
                         c.recaudado += c.impuesto;
                     }
                     else System.out.println("El jugador " + this.getDuenho() + "no cobra alquiler porque la casilla está hipotecaada.");
-                    
+
                     break;
                 }
                 /*
@@ -305,7 +306,7 @@ public class Casilla {
                         this.getDuenho().sumarFortuna(c.impuesto);
                         System.out.println("El jugador " + actual.getNombre() + " paga " +
                                 c.impuesto + " a " + c.getDuenho().getNombre());
-                                
+
                         actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
                         c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
                         c.recaudado += c.impuesto;
