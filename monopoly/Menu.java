@@ -165,6 +165,7 @@ public class Menu {
                 System.out.println("estadisticas <Jugador>");
                 System.out.println("estadisticas");
                 System.out.println("hipotecar <casilla>");
+                System.out.println("deshipotecar <casilla>");
                 break;
 
             case "default":
