@@ -61,7 +61,7 @@ public class Tablero {
     public HashMap<String, Grupo> getGruposMap(){
         return this.grupos;
     }
-    
+
     // Método para insertar las casillas del lado norte.
     private void insertarLadoNorte() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
@@ -76,7 +76,7 @@ public class Tablero {
         lado.add(new Casilla("Serv2", "serv", 29, Valor.SERVICIOS, banca));
         lado.add(new Casilla("Solar17", "solar", 30, Valor.GRUPO_6, banca));
 
-        
+
         //lado.get(1).setImpuesto(Valor.GRUPO_5*0.10f); lado.get(3).setImpuesto(Valor.GRUPO_5*0.10f); lado.get(4).setImpuesto(Valor.GRUPO_5*0.10f);
         //lado.get(6).setImpuesto(Valor.GRUPO_6*0.10f);lado.get(7).setImpuesto(Valor.GRUPO_6*0.10f); lado.get(9).setImpuesto(Valor.GRUPO_6*0.10f);
         lado.get(5).setImpuesto(Valor.IMPUESTOS_TRANSPORTES);
@@ -185,6 +185,14 @@ public class Tablero {
         ret += char_vertical;
         ret += '\n';
 
+        // avatares del lado norte
+        for (Casilla c : posiciones.get(2))
+            ret += char_vertical + String.format("%s", c.printAvatares());
+
+        ret += char_vertical + String.format("%s", posiciones.get(3).get(0).printAvatares());
+        ret += char_vertical;
+        ret += '\n';
+
         // borde inferior del lado norte
         ret += char_vertical_right;
         for (int i = 0; i < 11; i++) {
@@ -205,6 +213,12 @@ public class Tablero {
             ret += char_vertical;
             ret += String.valueOf(' ').repeat(Casilla.casillaWidth * 9 - 1);
             ret += char_vertical + String.format("%s", posiciones.get(3).get(i + 1).printCasilla());
+            ret += char_vertical;
+            ret += '\n';
+            ret += char_vertical + String.format("%s", posiciones.get(1).get(9 - i).printAvatares());
+            ret += char_vertical;
+            ret += String.valueOf(' ').repeat(Casilla.casillaWidth * 9 - 1);
+            ret += char_vertical + String.format("%s", posiciones.get(3).get(i + 1).printAvatares());
             ret += char_vertical;
             ret += '\n';
             if (i != 8) {
@@ -237,6 +251,11 @@ public class Tablero {
         ret += char_vertical + String.format("%s", posiciones.get(1).get(0).printCasilla());
         for (int i = 9; i>=0; i--)
             ret += char_vertical + String.format("%s", posiciones.get(0).get(i).printCasilla());
+        ret += char_vertical;
+        ret += '\n';
+        ret += char_vertical + String.format("%s", posiciones.get(1).get(0).printAvatares());
+        for (int i = 9; i>=0; i--)
+            ret += char_vertical + String.format("%s", posiciones.get(0).get(i).printAvatares());
         ret += char_vertical;
         ret += '\n';
 

@@ -25,7 +25,7 @@ public class Casilla {
 
     private boolean hipotecada;
 
-    public static final int casillaWidth = 19;
+    public static final int casillaWidth = 10;
 
     /*
      * Constructor para casillas tipo Solar, Servicios o Transporte:
@@ -523,9 +523,12 @@ public class Casilla {
     public String printCasilla() {
         String data = new String();
         data += this.nombre;
-        data += " ";
-        for (Avatar av : this.avatares)
-            data += av.getId();
+        /*
+         * En printAvatares
+         * data += " ";
+         * for (Avatar av : this.avatares)
+         * data += av.getId();
+         */
         // data = data.substring(0, data.length()-this.avatares.size());
 
         /*
@@ -534,6 +537,13 @@ public class Casilla {
          */
         return (this.grupo != null ? this.grupo.getColor() : Valor.WHITE) +
                 Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET;
+    }
+
+    public String printAvatares() {
+        String data = new String();
+        for (Avatar av : this.avatares)
+            data += av.getId() + " ";
+        return Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1)+ Valor.RESET;
     }
 
     private void check(Boolean x) {
