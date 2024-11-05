@@ -432,7 +432,7 @@ public class Menu {
                 System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
             }
 
-            evaluarAccion(valor1 + valor2);
+            // evaluarAcceion ahora esta en mover
 
         } else if (this.lanzamientos >= 2 && !this.tirado) {
             this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
@@ -447,22 +447,27 @@ public class Menu {
         /* Movimiento default */
         if (!movimientoAvanzado) {
             moverNormal(valor1, valor2);
+            evaluarAccion(valor1 + valor2);
             return;
         }
         switch (this.avatares.get(turno).getTipo()) {
             case "Coche":
                 moverCoche(valor1, valor2);
+                evaluarAccion(valor1 + valor2);
                 break;
             case "Pelota":
                 moverPelota(valor1, valor2);
+                // evaluar accion se hace dentro de moverPelota
                 break;
             case "Esfinge":
                 /* No para esta entrega */
                 moverEsfinge(valor1, valor2);
+                evaluarAccion(valor1 + valor2);
                 break;
             case "Somprero":
                 /* No para esta entrega */
                 moverSombrero(valor1, valor2);
+                evaluarAccion(valor1 + valor2);
                 break;
         }
     }
@@ -508,6 +513,8 @@ public class Menu {
         } else {
             contadorTiradasCoche = 0;
             moverAtras(valor1, valor2);
+            // Comprueba si pasa por salida hacia atras
+            pasarPorSalidaHaciaAtras(valor1 + valor2);
         }
     }
 
@@ -529,13 +536,7 @@ public class Menu {
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
             for (int i = 5; i < desplazamiento; i += 2) {
-                /*
-                 * TODO Hay que hacer algo tipo evaluar casilla pero que si se puede comprar la
-                 * pueda
-                 * comprar y sino siga avanzando o no se algo raro. Puedo utilizar el valor de
-                 * retorno de evaluar casilla y hacerle algo tipo un menu nuevo para comprar
-                 * propiedades, no se
-                 */
+
                 if (i == 5) // primer salto
                     moverNormal(5, 0);
                 else // saltos restantes
@@ -543,10 +544,20 @@ public class Menu {
 
                 // Comprueba si pasa por salida
                 pasarPorSalida(valor1 + valor2);
+
+                // evalua casilla o hace la accion que deba hacer
+                evaluarAccion(valor1 + valor2);
+
+                // si va a la carcel deja de moverse
+                if (jugadores.get(turno).getEnCarcel())
+                    break;
+
             }
         } else {
             // retroceder
             moverAtras(valor1, valor2);
+            // Comprueba si pasa por salida hacia atras
+            pasarPorSalidaHaciaAtras(valor1 + valor2);
         }
     }
 
@@ -570,8 +581,6 @@ public class Menu {
                         + this.avatares.get(turno).getCasilla().getNombre());
         this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), 40 - desplazamiento);
         System.out.println(" hasta " + avatares.get(turno).getCasilla().getNombre());
-        // Comprueba si pasa por salida hacia atras
-        pasarPorSalidaHaciaAtras(valor1 + valor2);
 
     }
 
