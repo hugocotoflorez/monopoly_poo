@@ -32,6 +32,7 @@ public class Menu {
     private boolean movimientoAvanzadoSePuedeCambiar = true;
     private int contadorTiradasCoche = 0;
     private boolean jugador_puede_comprar = true;
+    private int lanzamientos_dobles = 0;
     /*
      * Poner un scanner nuevo para cada funcion en la que se necesita daba error
      * porque segun lo que la intuicion me dice no se pueden abrir dos scanners
@@ -76,7 +77,7 @@ public class Menu {
         try (BufferedReader lector = new BufferedReader(new FileReader(archivo))) {
             String linea;
             while ((linea = lector.readLine()) != null) {
-                System.out.println("Evaluando: " + linea);
+                System.out.println("[>]: " + linea);
                 analizarComando(linea);
             }
         } catch (IOException e) {
@@ -149,7 +150,7 @@ public class Menu {
                  * desplazar hacia abajo el contenido de la consola porque no entra. En otras
                  * terminales va bien.
                  */
-                boolean USECOLORS = false;
+                boolean USECOLORS = true;
 
                 if (USECOLORS)
                     System.out.print("\033[1;47;30m");
@@ -191,7 +192,7 @@ public class Menu {
 
             case "default":
                 analizarComando("crear jugador Jugador1 Coche");
-                analizarComando("crear jugador Jugador2 Esfinge");
+                analizarComando("crear jugador Jugador2 Pelota");
                 break;
 
             case "archivo":
@@ -272,6 +273,7 @@ public class Menu {
             case "salir":
                 salirCarcel();
                 break;
+
             case "bancarrota":
                 bancarrota();
                 break;
@@ -290,8 +292,8 @@ public class Menu {
                             descCasilla(com[1]);
                             break;
                     }
-                    break;
                 }
+                break;
 
             case "comprar":
                 if (com.length == 2) {
@@ -312,6 +314,7 @@ public class Menu {
                 if (com.length == 2) {
                     accionhipotecar(com[1]);
                 }
+                break;
 
             case "ver":
                 System.out.println(this.tablero);
@@ -326,9 +329,11 @@ public class Menu {
             case "clear":
                 System.out.print("\033[H\033[2J");
                 break;
+
             case "edificar":
                 if (com.length == 2)
                     edificar(com[1]);
+                break;
 
             default:
                 System.out.println("Opcion incorrecta. [? para ver las opciones]");
@@ -417,7 +422,14 @@ public class Menu {
 
     // sobrecarga de lanzar dados en la cual elegimos qué valor sacan los dados
     private void lanzarDados(int valor1, int valor2) {
-        if (this.lanzamientos < 2 && !this.jugadores.get(turno).getEnCarcel() && !this.tirado) {
+
+        if (this.jugadores.get(turno).getEnCarcel()) {
+            System.out.println("Oh no! Estás en la cárcel!");
+
+        } else if (this.tirado) {
+            System.out.println("Ya has tirado en este turno!");
+
+        } else {
 
             this.tirado = true;
             this.lanzamientos += 1;
@@ -427,19 +439,23 @@ public class Menu {
 
             // Pasar por salida ahora se hace en mover
 
-            if (dadosDobles(valor1, valor2)) {
+            if (dadosDobles(valor1, valor2)
+                    /* Si esta usando el movimiento avanzado del coche no cuenta */
+                    && !(this.jugadores.get(turno).getAvatar().getTipo().equals("Coche") && movimientoAvanzado)) {
+
                 this.tirado = false;
+                this.lanzamientos_dobles++;
+
                 System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
+
+                if (this.lanzamientos_dobles == 3) {
+                    this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
+                    System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
+                    this.tirado = true;
+                }
             }
 
             // evaluarAcceion ahora esta en mover
-
-        } else if (this.lanzamientos >= 2 && !this.tirado) {
-            this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
-            System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
-            this.tirado = true;
-        } else if (this.jugadores.get(turno).getEnCarcel()) {
-            System.out.println("Oh no! Estás en la cárcel!");
         }
     }
 
@@ -506,7 +522,10 @@ public class Menu {
             moverNormal(valor1, valor2);
             // actualiza contador coche y si el contador es 4 se pone a 0 y
             // this.tirado es false por lo que no se puede seguir tirando
-            this.tirado = (contadorTiradasCoche = contadorTiradasCoche + 1 % 4) != 0;
+            contadorTiradasCoche++;
+            this.tirado = (contadorTiradasCoche % 4) == 0;
+            System.out.println("Se puede volver a tirar? " + !this.tirado);
+            System.out.println("Tiradas coche = " + contadorTiradasCoche);
             // Comprueba si pasa por salida
             pasarPorSalida(valor1 + valor2);
 
@@ -602,6 +621,12 @@ public class Menu {
 
     private void pasarPorSalida(int desplazamiento) {
         int casillanueva = avatares.get(turno).getCasilla().getPosicion();
+        /*
+         * Si estas en una casilla que la posicion de la casilla es menor que
+         * la tirada quiere decir que pasaste por salida. Por ejemplo, si desde la
+         * salida 0 me muevo 5 caigo en la casilla 5, por lo que para que sea menor tuve
+         * que moverme desde una casilla de antes de la salida.
+         */
         if ((casillanueva < desplazamiento)) {
 
             // !!!!!! si se modifica algo de esto hay que modificarlo tambien en Carta
@@ -634,7 +659,12 @@ public class Menu {
          * asi pero asi era mas facil, despues ya lo arreglo
          */
         int casillanueva = avatares.get(turno).getCasilla().getPosicion();
-        if ((casillanueva > desplazamiento)) {
+        /*
+         * Si la casilla anterior, que se obtiene de sumarle el desplazamiento a la
+         * casilla actual porque se va hacia atras, esta fuera de los indices del
+         * tablero quiere decir que paso por salida
+         */
+        if ((casillanueva + desplazamiento >= 40)) {
 
             System.out.println("¡Has pasado por la Salida hacia atras! Perdiste" + Valor.SUMA_VUELTA);
             jugadores.get(turno).sumarFortuna(-Valor.SUMA_VUELTA);
@@ -1018,6 +1048,7 @@ public class Menu {
             /* Esto no se donde meterlo, en cada turno se tiene que poner a true */
             movimientoAvanzadoSePuedeCambiar = true;
             jugador_puede_comprar = true;
+            lanzamientos_dobles = 0;
 
             int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
             this.tirado = false;
