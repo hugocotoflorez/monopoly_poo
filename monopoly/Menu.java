@@ -28,7 +28,7 @@ public class Menu {
                               // decir, si ha pagado sus deudas.
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
-    private boolean movimientoAvanzado = false;
+    private boolean[] movimientoAvanzado= {false, false, false, false, false};
     private boolean movimientoAvanzadoSePuedeCambiar = true;
     private int contadorTiradasCoche = 0;
     private boolean jugador_puede_comprar = true;
@@ -441,7 +441,7 @@ public class Menu {
 
             if (dadosDobles(valor1, valor2)
                     /* Si esta usando el movimiento avanzado del coche no cuenta */
-                    && !(this.jugadores.get(turno).getAvatar().getTipo().equals("Coche") && movimientoAvanzado)) {
+                    && !(this.jugadores.get(turno).getAvatar().getTipo().equals("Coche") && movimientoAvanzado[turno-1])){
 
                 this.tirado = false;
                 this.lanzamientos_dobles++;
@@ -459,7 +459,7 @@ public class Menu {
 
     private void mover(int valor1, int valor2) {
         /* Movimiento default */
-        if (!movimientoAvanzado) {
+        if (!movimientoAvanzado[turno-1]) {
             moverNormal(valor1, valor2);
             evaluarAccion(valor1 + valor2);
             return;
@@ -524,8 +524,6 @@ public class Menu {
             this.tirado = (contadorTiradasCoche % 4) == 0;
             System.out.println("Se puede volver a tirar? " + !this.tirado);
             System.out.println("Tiradas coche = " + contadorTiradasCoche);
-            // Comprueba si pasa por salida
-            pasarPorSalida(valor1 + valor2);
 
         } else {
             contadorTiradasCoche = 0;
@@ -558,9 +556,6 @@ public class Menu {
                     moverNormal(5, 0);
                 else // saltos restantes
                     moverNormal(2, 0);
-
-                // Comprueba si pasa por salida
-                pasarPorSalida(valor1 + valor2);
 
                 // evalua casilla o hace la accion que deba hacer
                 evaluarAccion(valor1 + valor2);
@@ -608,10 +603,10 @@ public class Menu {
             return;
         }
 
-        movimientoAvanzado = !movimientoAvanzado;
+        movimientoAvanzado[turno-1] = !movimientoAvanzado[turno-1];
         movimientoAvanzadoSePuedeCambiar = false;
 
-        if (movimientoAvanzado)
+        if (movimientoAvanzado[turno-1])
             System.out.println("Se ha activado el modo avanzado");
         else
             System.out.println("Se ha desactivado el modo avanzado");
@@ -620,12 +615,12 @@ public class Menu {
     private void pasarPorSalida(int desplazamiento) {
         int casillanueva = avatares.get(turno).getCasilla().getPosicion();
         /*
-         * Si estas en una casilla que la posicion de la casilla mas uno es menor que
+         * Si estas en una casilla que la posicion de la casilla es menor que
          * la tirada quiere decir que pasaste por salida. Por ejemplo, si desde la
-         * salida 0 me muevo 5 caigo en la casilla 4, por lo que para que sea menor tuve
+         * salida 0 me muevo 5 caigo en la casilla 5, por lo que para que sea menor tuve
          * que moverme desde una casilla de antes de la salida.
          */
-        if ((casillanueva + 1 < desplazamiento)) {
+        if ((casillanueva < desplazamiento)) {
 
             // !!!!!! si se modifica algo de esto hay que modificarlo tambien en Carta
             System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
