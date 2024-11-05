@@ -446,8 +446,6 @@ public class Menu {
                 this.tirado = false;
                 this.lanzamientos_dobles++;
 
-                System.out.println("Has sacado dobles! Puedes volver a lanzar los dados. ");
-
                 if (this.lanzamientos_dobles == 3) {
                     this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
                     System.out.println("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
@@ -551,7 +549,7 @@ public class Menu {
          * alquiler si no pertenece al jugador. Si una de esas casillas es Ir a Cárcel,
          * entonces no se parará en las subsiguientes casillas
          */
-        System.err.println("[!]: Estas usando codigo sin acabar!!(MoverPelota)");
+        System.err.println("[!]: Esto puede que no funcione (MoverPelota)");
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
             for (int i = 5; i < desplazamiento; i += 2) {
@@ -622,12 +620,12 @@ public class Menu {
     private void pasarPorSalida(int desplazamiento) {
         int casillanueva = avatares.get(turno).getCasilla().getPosicion();
         /*
-         * Si estas en una casilla que la posicion de la casilla es menor que
+         * Si estas en una casilla que la posicion de la casilla mas uno es menor que
          * la tirada quiere decir que pasaste por salida. Por ejemplo, si desde la
-         * salida 0 me muevo 5 caigo en la casilla 5, por lo que para que sea menor tuve
+         * salida 0 me muevo 5 caigo en la casilla 4, por lo que para que sea menor tuve
          * que moverme desde una casilla de antes de la salida.
          */
-        if ((casillanueva < desplazamiento)) {
+        if ((casillanueva + 1 < desplazamiento)) {
 
             // !!!!!! si se modifica algo de esto hay que modificarlo tambien en Carta
             System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
