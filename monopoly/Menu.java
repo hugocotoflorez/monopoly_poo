@@ -3,10 +3,7 @@ package monopoly;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
@@ -146,26 +143,49 @@ public class Menu {
         switch (com[0]) {
             case "opciones":
             case "?":
-                System.out.println(Valor.BOLD + "Opciones" + Valor.RESET);
-                System.out.println("crear jugador <nombre> <tipo_avatar>");
-                System.out.println("jugador - jugador con el turno");
-                System.out.println("listar enventa");
-                System.out.println("listar jugadores");
-                System.out.println("listar avatares");
-                System.out.println("lanzar dados");
-                System.out.println("cambiar modo");
-                System.out.println("acabar - acaba el turno");
-                System.out.println("salir (carcel)");
-                System.out.println("describir jugador  <nombre>");
-                System.out.println("describir avatar <letra");
-                System.out.println("comprar <casilla>");
-                System.out.println("bancarrota - acaba la partida para ese jugador");
-                System.out.println("ver - muestra el tablero");
-                System.out.println("clear - limpia la pantalla");
-                System.out.println("estadisticas <Jugador>");
-                System.out.println("estadisticas");
-                System.out.println("hipotecar <casilla>");
-                System.out.println("deshipotecar <casilla>");
+                /*
+                 * El color de fondo da problemas con la terminal de vscode si tiene que
+                 * desplazar hacia abajo el contenido de la consola porque no entra. En otras
+                 * terminales va bien.
+                 */
+                boolean USECOLORS = false;
+
+                if (USECOLORS)
+                    System.out.print("\033[1;47;30m");
+                System.out.print(Valor.BOLD + "Opciones                                      \r\n" + Valor.RESET);
+                if (USECOLORS)
+                    System.out.print("\033[40;37m");
+                System.out.print("crear jugador <nombre> <tipo_avatar>          \r\n");
+                System.out.print("jugador - jugador con el turno                \r\n");
+                System.out.print("listar enventa                                \r\n");
+                System.out.print("listar jugadores                              \r\n");
+                System.out.print("listar avatares                               \r\n");
+                System.out.print("lanzar dados                                  \r\n");
+                System.out.print("cambiar modo                                  \r\n");
+                System.out.print("acabar - acaba el turno                       \r\n");
+                System.out.print("salir (carcel)                                \r\n");
+                System.out.print("describir jugador  <nombre>                   \r\n");
+                System.out.print("describir avatar <letra                       \r\n");
+                System.out.print("comprar <casilla>                             \r\n");
+                System.out.print("bancarrota - acaba la partida para ese jugador\r\n");
+                System.out.print("ver - muestra el tablero                      \r\n");
+                System.out.print("clear - limpia la pantalla                    \r\n");
+                System.out.print("estadisticas <Jugador>                        \r\n");
+                System.out.print("estadisticas                                  \r\n");
+                System.out.print("hipotecar <casilla>                           \r\n");
+                System.out.print("deshipotecar <casilla>                        \r\n");
+                System.out.print("----------------------------------------------\r\n");
+                System.out.print("opciones, ? -> Muestra las opciones           \r\n");
+                System.out.print("a -> acabar                                   \r\n");
+                System.out.print("q, SALIR -> acaba la ejecucion del programa   \r\n");
+                System.out.print("c, clear -> limpia la pantalla                \r\n");
+                System.out.print("l x y -> lanzar dados, con resultado x e y    \r\n");
+                System.out.print("default -> crea dos jugadores                 \r\n");
+                System.out.print("archivo file -> ejecuta comandos en file      \r\n");
+                System.out.print("----------------------------------------------\r\n");
+                if (USECOLORS)
+                    System.out.print(Valor.RESET);
+
                 break;
 
             case "default":
@@ -398,7 +418,6 @@ public class Menu {
     private void lanzarDados(int valor1, int valor2) {
         if (this.lanzamientos < 2 && !this.jugadores.get(turno).getEnCarcel() && !this.tirado) {
 
-            int casillaantes = avatares.get(turno).getCasilla().getPosicion();
             this.tirado = true;
             this.lanzamientos += 1;
             System.out.println("Tirada: " + valor1 + ", " + valor2);
@@ -671,9 +690,13 @@ public class Menu {
     private void bancarrota() {
         Jugador actual = this.jugadores.get(turno); // Jugador actual
         Iterator<Casilla> itcas = actual.getPropiedades().iterator();
-        
-        if (actual.getAvatar().getCasilla().getDuenho().esBanca() || !actual.estaBancarrota()) { // Si está en bancarrota por la banca o si se declaró voluntariamente
-            while(itcas.hasNext()){
+
+        if (actual.getAvatar().getCasilla().getDuenho().esBanca() || !actual.estaBancarrota()) { // Si está en
+                                                                                                 // bancarrota por la
+                                                                                                 // banca o si se
+                                                                                                 // declaró
+                                                                                                 // voluntariamente
+            while (itcas.hasNext()) {
                 Casilla c = itcas.next();
                 actual.eliminarPropiedad(c);
                 this.jugadores.get(0).anhadirPropiedad(c);
@@ -686,7 +709,7 @@ public class Menu {
         }
 
         if (!actual.getAvatar().getCasilla().getDuenho().esBanca()) { // Si es por otro jugador
-            while(itcas.hasNext()){
+            while (itcas.hasNext()) {
                 Casilla c = itcas.next();
                 actual.eliminarPropiedad(c);
                 actual.getAvatar().getCasilla().getDuenho().anhadirPropiedad(c);
@@ -736,7 +759,7 @@ public class Menu {
             System.out.println("Oh no! Llevas tres turnos en la cárcel paga " + Valor.PAGO_SALIR_CARCEL);
             this.tirado = false;
             pagarCarcel();
-            if(this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL){
+            if (this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL) {
                 System.out.println("Como no puedes pagar para salir de la cárcel, se te declara en bancarrota.");
                 bancarrota();
             }
@@ -760,14 +783,14 @@ public class Menu {
             System.out.println(
                     "Has pagado " + Valor.PAGO_SALIR_CARCEL + " para salir de la carcel. Puedes lanzar los dados.");
             this.jugadores.get(turno).setPagoTasasEImpuestos(
-            this.jugadores.get(turno).getPagoTasasEImpuestos() + Valor.PAGO_SALIR_CARCEL);
+                    this.jugadores.get(turno).getPagoTasasEImpuestos() + Valor.PAGO_SALIR_CARCEL);
             this.jugadores.get(0).sumarGastos(Valor.PAGO_SALIR_CARCEL);
             System.out.println("El bote de la banca ahora es " + this.jugadores.get(0).getGastos());
         } else if (this.tirado) {
             System.out.println("Ya has tirado este turno!");
         } else if (this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL)
             System.out.println("No tienes fortuna suficiente. Necesitas " + Valor.PAGO_SALIR_CARCEL);
-        
+
     }
 
     /*
