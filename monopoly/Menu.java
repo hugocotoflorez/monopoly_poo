@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -667,39 +668,37 @@ public class Menu {
     }
 
     private void bancarrota() {
-
         Jugador actual = this.jugadores.get(turno); // Jugador actual
-
-        if (actual.getAvatar().getCasilla().getDuenho().esBanca() || !actual.estaBancarrota()) { // Si está en
-                                                                                                 // bancarrota por la
-                                                                                                 // banca o si se
-                                                                                                 // declaró
-                                                                                                 // voluntariamente en
-                                                                                                 // bancarrota
-            for (Casilla c : actual.getPropiedades()) {
+        Iterator<Casilla> itcas = actual.getPropiedades().iterator();
+        
+        if (actual.getAvatar().getCasilla().getDuenho().esBanca() || !actual.estaBancarrota()) { // Si está en bancarrota por la banca o si se declaró voluntariamente
+            while(itcas.hasNext()){
+                Casilla c = itcas.next();
                 actual.eliminarPropiedad(c);
-                banca.anhadirPropiedad(c);
+                this.jugadores.get(0).anhadirPropiedad(c);
                 c.setDuenho(banca);
                 c.setHipotecada(false);
             }
             System.out.println("El jugador " + actual.getNombre()
                     + " se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban.");
-            // TODO quitar edificios
+            // TODO quitar edificios a la casilla cuando esta pasa a la banca
         }
 
-        if (!actual.getAvatar().getCasilla().getDuenho().esBanca()) { // Si es otro jugador
-            for (Casilla c : actual.getPropiedades()) {
-                actual.eliminarPropiedad(c); // TODO no se puede modificar un array mientras se recorre! usar iterator
+        if (!actual.getAvatar().getCasilla().getDuenho().esBanca()) { // Si es por otro jugador
+            while(itcas.hasNext()){
+                Casilla c = itcas.next();
+                actual.eliminarPropiedad(c);
                 actual.getAvatar().getCasilla().getDuenho().anhadirPropiedad(c);
                 c.setDuenho(actual.getAvatar().getCasilla().getDuenho());
+                c.setHipotecada(false);
             }
             System.out.println("El jugador " + actual.getNombre()
                     + " se ha declarado en bancarrota. Sus propiedades y fortuna pasan a "
                     + actual.getAvatar().getCasilla().getDuenho().getNombre());
-            // TODO quitar edificios
         }
 
         this.jugadores.remove(turno);
+        this.avatares.remove(turno);
     }
 
     private void accionhipotecar(String nombre) {
@@ -736,6 +735,10 @@ public class Menu {
             System.out.println("Oh no! Llevas tres turnos en la cárcel paga " + Valor.PAGO_SALIR_CARCEL);
             this.tirado = false;
             pagarCarcel();
+            if(this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL){
+                System.out.println("Como no puedes pagar para salir de la cárcel, se te declara en bancarrota.");
+                bancarrota();
+            }
             return;
         } else if (this.tirado) {
             System.out.println("Ya has tirado este turno! ");
@@ -756,13 +759,14 @@ public class Menu {
             System.out.println(
                     "Has pagado " + Valor.PAGO_SALIR_CARCEL + " para salir de la carcel. Puedes lanzar los dados.");
             this.jugadores.get(turno).setPagoTasasEImpuestos(
-                    this.jugadores.get(turno).getPagoTasasEImpuestos() + Valor.PAGO_SALIR_CARCEL);
+            this.jugadores.get(turno).getPagoTasasEImpuestos() + Valor.PAGO_SALIR_CARCEL);
             this.jugadores.get(0).sumarGastos(Valor.PAGO_SALIR_CARCEL);
             System.out.println("El bote de la banca ahora es " + this.jugadores.get(0).getGastos());
         } else if (this.tirado) {
             System.out.println("Ya has tirado este turno!");
         } else if (this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL)
             System.out.println("No tienes fortuna suficiente. Necesitas " + Valor.PAGO_SALIR_CARCEL);
+        
     }
 
     /*
