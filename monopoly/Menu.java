@@ -31,6 +31,7 @@ public class Menu {
     private boolean movimientoAvanzado = false;
     private boolean movimientoAvanzadoSePuedeCambiar = true;
     private int contadorTiradasCoche = 0;
+    private boolean jugador_puede_comprar = true;
     /*
      * Poner un scanner nuevo para cada funcion en la que se necesita daba error
      * porque segun lo que la intuicion me dice no se pueden abrir dos scanners
@@ -494,16 +495,16 @@ public class Menu {
          * DUDAS:
          * se vuelve a tirar cuando se sacan dobles? como afecta?
          */
-        System.err.println("[!]: Estas usando codigo sin acabar!! (moverCoche)");
+        System.err.println("[!]: Puede que no funcione (moverCoche)");
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
             moverNormal(valor1, valor2);
             // actualiza contador coche y si el contador es 4 se pone a 0 y
             // this.tirado es false por lo que no se puede seguir tirando
             this.tirado = (contadorTiradasCoche = contadorTiradasCoche + 1 % 4) != 0;
-
             // Comprueba si pasa por salida
             pasarPorSalida(valor1 + valor2);
+
         } else {
             contadorTiradasCoche = 0;
             moverAtras(valor1, valor2);
@@ -802,6 +803,12 @@ public class Menu {
 
         Casilla casilla = tablero.encontrar_casilla(nombre);
 
+        /* Para la mierda del coche */
+        if (!jugador_puede_comprar) {
+            System.out.println("Ya has comprado en este turno!");
+            return;
+        }
+
         if (casilla == null) {
             System.out.println("La casilla no existe");
             return;
@@ -809,6 +816,12 @@ public class Menu {
         }
         if (this.tirado || lanzamientos > 0) {
             casilla.comprarCasilla(this.jugadores.get(turno), banca);
+
+            /*
+             * Solo se puede comprar 1 vez por turno, esto no influye a los jugadores
+             * normales pero si al coche.
+             */
+            jugador_puede_comprar = false;
         }
     }
 
@@ -995,6 +1008,7 @@ public class Menu {
 
             /* Esto no se donde meterlo, en cada turno se tiene que poner a true */
             movimientoAvanzadoSePuedeCambiar = true;
+            jugador_puede_comprar = true;
 
             int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
             this.tirado = false;
