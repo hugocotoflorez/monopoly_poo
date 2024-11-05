@@ -28,7 +28,7 @@ public class Menu {
                               // decir, si ha pagado sus deudas.
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
-    private boolean[] movimientoAvanzado= {false, false, false, false, false};
+    private boolean[] movimientoAvanzado = { false, false, false, false, false };
     private boolean movimientoAvanzadoSePuedeCambiar = true;
     private int contadorTiradasCoche = 0;
     private boolean jugador_puede_comprar = true;
@@ -122,14 +122,25 @@ public class Menu {
         this.dado1 = new Dado();
         this.dado2 = new Dado();
         Jugador banca = new Jugador();
+        String comando;
         this.avatares.add(null); // avatar banca
         this.jugadores.add(banca);
         this.tablero = new Tablero(banca);
         analizarComando("opciones");
+
+        /* Bucle principal de la partida */
+        System.out.print("\n[>]: ");
         while (!partida_finalizada) {
-            System.out.print("\n[>]: ");
-            analizarComando(this.scanner.nextLine());
+
+            // Para evitar que se lean comandos que no se de
+            // donde salen y den error
+            comando = this.scanner.nextLine();
+            if (comando.length() > 0) {
+                analizarComando(comando);
+                System.out.print("\n[>]: ");
+            }
         }
+
         this.scanner.close();
         acabarPartida();
     }
@@ -441,7 +452,8 @@ public class Menu {
 
             if (dadosDobles(valor1, valor2)
                     /* Si esta usando el movimiento avanzado del coche no cuenta */
-                    && !(this.jugadores.get(turno).getAvatar().getTipo().equals("Coche") && movimientoAvanzado[turno-1])){
+                    && !(this.jugadores.get(turno).getAvatar().getTipo().equals("Coche")
+                            && movimientoAvanzado[turno - 1])) {
 
                 this.tirado = false;
                 this.lanzamientos_dobles++;
@@ -459,7 +471,7 @@ public class Menu {
 
     private void mover(int valor1, int valor2) {
         /* Movimiento default */
-        if (!movimientoAvanzado[turno-1]) {
+        if (!movimientoAvanzado[turno - 1]) {
             moverNormal(valor1, valor2);
             evaluarAccion(valor1 + valor2);
             return;
@@ -603,10 +615,10 @@ public class Menu {
             return;
         }
 
-        movimientoAvanzado[turno-1] = !movimientoAvanzado[turno-1];
+        movimientoAvanzado[turno - 1] = !movimientoAvanzado[turno - 1];
         movimientoAvanzadoSePuedeCambiar = false;
 
-        if (movimientoAvanzado[turno-1])
+        if (movimientoAvanzado[turno - 1])
             System.out.println("Se ha activado el modo avanzado");
         else
             System.out.println("Se ha desactivado el modo avanzado");
