@@ -122,7 +122,7 @@ public class Menu {
         this.turno = 1;
         this.dado1 = new Dado();
         this.dado2 = new Dado();
-        Jugador banca = new Jugador();
+        this.banca = new Jugador();
         String comando;
         this.avatares.add(null); // avatar banca
         this.jugadores.add(banca);
@@ -359,9 +359,9 @@ public class Menu {
 
                 if (com.length == 4){
 
-                    
+
                     Casilla c = this.tablero.encontrar_casilla(com[2]);
-                    
+
                     if(c == null){
 
                         System.out.println("Nombre de casilla incorrecto!");
