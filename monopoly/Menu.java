@@ -627,7 +627,6 @@ public class Menu {
 
     private void cambairModo() {
         if (!movimientoAvanzadoSePuedeCambiar && this.lanzamientos == 0) {
-            /* Esto no se si deberia existir o si se puede cambiar (DUDA) */
             System.out.println("Ya cambiaste de modo en este turno!");
             return;
         }
