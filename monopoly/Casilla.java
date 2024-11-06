@@ -853,4 +853,5 @@ public class Casilla {
     public void desEdificar(){
 
         this.edificios.clear();
+    }
 }
