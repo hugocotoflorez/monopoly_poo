@@ -988,7 +988,7 @@ public class Menu {
             System.out.println("Ese grupo no existe.");
             return;
         }
-        grupo.toString();
+        System.out.println(grupo.toString());
 
     }
 
