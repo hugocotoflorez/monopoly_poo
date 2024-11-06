@@ -35,7 +35,6 @@ public class Menu {
     private int lanzamientos_dobles = 0;
     private ArrayList<Casilla> casillasVisitadas = new ArrayList<Casilla>();
 
-
     /*
      * Poner un scanner nuevo para cada funcion en la que se necesita daba error
      * porque segun lo que la intuicion me dice no se pueden abrir dos scanners
@@ -333,7 +332,7 @@ public class Menu {
                 }
                 break;
             case "deshipotecar":
-                if(com.length == 2){
+                if (com.length == 2) {
                     acciondeshipotecar(com[1]);
                 }
 
@@ -357,18 +356,17 @@ public class Menu {
                 break;
             case "vender":
 
-                if (com.length == 4){
-
+                if (com.length == 4) {
 
                     Casilla c = this.tablero.encontrar_casilla(com[2]);
 
-                    if(c == null){
+                    if (c == null) {
 
                         System.out.println("Nombre de casilla incorrecto!");
                         return;
                     }
 
-                    for (int i = 0; i < Integer.parseInt(com[3]); i++ )
+                    for (int i = 0; i < Integer.parseInt(com[3]); i++)
 
                         c.desEdificar(com[1], this.jugadores.get(turno));
                 }
@@ -471,6 +469,7 @@ public class Menu {
                     && !(this.jugadores.get(turno).getAvatar().getTipo().equals("Coche")
                             && movimientoAvanzado[turno - 1])) {
 
+                jugador_puede_comprar = true;
                 this.tirado = false;
                 this.lanzamientos_dobles++;
                 System.out.println(("Has sacado dobles! Puedes tirar otra vez."));
@@ -586,9 +585,9 @@ public class Menu {
                 else // saltos restantes
                     moverNormal(2, 0);
 
-                    // anade la casilla en la que cae a las que puede comprar
-                    casillasVisitadas.add(jugadores.get(turno).getAvatar().getCasilla());
-                    // evalua casilla o hace la accion que deba hacer
+                // anade la casilla en la que cae a las que puede comprar
+                casillasVisitadas.add(jugadores.get(turno).getAvatar().getCasilla());
+                // evalua casilla o hace la accion que deba hacer
                 evaluarAccion(valor1 + valor2);
 
                 // si va a la carcel deja de moverse
@@ -678,10 +677,7 @@ public class Menu {
     }
 
     private void pasarPorSalidaHaciaAtras(int desplazamiento) {
-        /*
-         * TODO esta funcion resta cuando pasas por salida, creo que no se podia hacer
-         * asi pero asi era mas facil, despues ya lo arreglo
-         */
+
         int casillanueva = avatares.get(turno).getCasilla().getPosicion();
         /*
          * Si la casilla anterior, que se obtiene de sumarle el desplazamiento a la
@@ -707,6 +703,7 @@ public class Menu {
          * si que no puede ejecutarse evaluar casilla despues
          */
         if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
+            jugador_puede_comprar = false;
             jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
         }
 
@@ -895,12 +892,19 @@ public class Menu {
 
         }
         if (lanzamientos > 0) {
-            casilla.comprarCasilla(this.jugadores.get(turno), this.banca, movimientoAvanzado[turno-1], casillasVisitadas);
+            {
+                System.out.println("Comprando casilla " + casilla.getNombre() + " avatar "
+                        + this.jugadores.get(turno).getAvatar().getTipo() + " movAv " + movimientoAvanzado[turno - 1] +
+                        " casillas -> " + casillasVisitadas);
+                casilla.comprarCasilla(this.jugadores.get(turno), this.banca, movimientoAvanzado[turno - 1],
+                        casillasVisitadas);
+            }
 
             /*
-             * Solo se puede comprar 1 vez por turno si es el coche
+             * Esta variable se pone a true si los dados son dobles, asi para los que
+             * se mueven mas de una vez o pueden comprar mas de una no les dejan
              */
-            jugador_puede_comprar = false || !this.jugadores.get(turno).getAvatar().getTipo().equals("Coche");
+            jugador_puede_comprar = false;
         }
     }
 
