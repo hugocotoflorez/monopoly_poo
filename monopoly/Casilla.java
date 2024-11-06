@@ -695,6 +695,12 @@ public class Casilla {
     // Para casillas edificadas, recalcula el impuesto cada vez que se conestruye un
     // edificio
     private void actualizarValorCasilla() {
+        
+        if(this.edificios.size() == 0){
+        
+            return;
+        
+        }
 
         int numeroCasas = this.obtenerNumeroCasas();
         int numeroHoteles = this.obtenerNumeroHoteles();
@@ -706,57 +712,40 @@ public class Casilla {
         float nuevoImpuestoPiscinas = 0f;
         float nuevoImpuestoPistas = 0f;
 
+        float alquilerinicial = this.grupo.getValor();
+        if(this.grupo.esDuenhoGrupo(this.getDuenho())) alquilerinicial*=2;
+
         if (numeroCasas == 1) {
-
-            nuevoImpuestoCasas = this.grupo.getValor();
-            nuevoImpuestoCasas *= 5;
-
+            nuevoImpuestoCasas = 5*alquilerinicial;
         }
 
         if (numeroCasas == 2) {
-
-            nuevoImpuestoCasas = this.grupo.getValor();
-            nuevoImpuestoCasas *= 15;
+            nuevoImpuestoCasas = 15*alquilerinicial;
 
         }
-
         if (numeroCasas == 3) {
-
-            nuevoImpuestoCasas = this.grupo.getValor();
-            nuevoImpuestoCasas *= 35;
-
+            nuevoImpuestoCasas = 35*alquilerinicial;
         }
 
-        if (numeroCasas == 4) {
-
-            nuevoImpuestoCasas = this.grupo.getValor();
-            nuevoImpuestoCasas *= 50;
+        if (numeroCasas == 4) {;
+            nuevoImpuestoCasas = 50*alquilerinicial;
 
         }
 
         if (numeroHoteles >= 1) {
-
-            nuevoImpuestoHoteles = this.grupo.getValor();
-            nuevoImpuestoHoteles *= 70 * numeroHoteles;
-
+            nuevoImpuestoHoteles = 70*alquilerinicial*numeroHoteles;
         }
 
         if (numeroPiscinas >= 1) {
-
-            nuevoImpuestoPiscinas = this.grupo.getValor();
-            nuevoImpuestoPiscinas *= 25 * numeroPiscinas;
-
+            nuevoImpuestoPiscinas = 25*alquilerinicial*numeroPiscinas;
         }
 
         if (numeroPistas >= 1) {
-
-            nuevoImpuestoPistas = this.grupo.getValor();
-            nuevoImpuestoPistas *= 25 * numeroPistas;
+            nuevoImpuestoPistas  = 25*alquilerinicial*numeroPistas;
 
         }
 
-        this.setImpuesto(this.grupo.getValor() + nuevoImpuestoCasas + nuevoImpuestoHoteles + nuevoImpuestoPiscinas
-                + nuevoImpuestoPistas);
+        this.setImpuesto(alquilerinicial + nuevoImpuestoCasas + nuevoImpuestoHoteles + nuevoImpuestoPiscinas + nuevoImpuestoPistas);
 
     }
 
