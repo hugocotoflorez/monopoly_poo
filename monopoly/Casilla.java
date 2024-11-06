@@ -266,7 +266,7 @@ public class Casilla {
                         c.recaudado += c.impuesto;
                     } else if(this.hipotecada)
                         System.out.println("El jugador " + this.getDuenho()
-                                + "no cobra alquiler porque la casilla está hipotecaada.");
+                                + "no cobra alquiler porque la casilla está hipotecada.");
 
                     break;
                 }

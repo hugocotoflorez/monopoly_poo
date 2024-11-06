@@ -849,6 +849,7 @@ public class Menu {
             return;
         } else if (!dadosDobles(dado1.getValor(), dado2.getValor())) {
             System.out.println("No has sacado dobles! Dado1: " + dado1.getValor() + " Dado2: " + dado2.getValor());
+            this.lanzamientos += 1;
         }
         this.jugadores.get(turno).setTurnosCarcel(this.jugadores.get(turno).getTurnosCarcel() + 1);
         this.tirado = true;
