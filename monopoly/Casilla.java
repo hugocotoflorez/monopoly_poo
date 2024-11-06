@@ -1,9 +1,6 @@
 package monopoly;
 
-//soy imbecilsadjj
-import java.time.chrono.ThaiBuddhistChronology;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import partida.*;
 
@@ -267,7 +264,7 @@ public class Casilla {
                         c.recaudado += c.impuesto;
                     } else if(this.hipotecada)
                         System.out.println("El jugador " + this.getDuenho()
-                                + "no cobra alquiler porque la casilla está hipotecaada.");
+                                + "no cobra alquiler porque la casilla está hipotecada.");
 
                     break;
                 }
@@ -390,14 +387,13 @@ public class Casilla {
             System.out.println("No tienes suficiente fortuna.");
 
             /* Si es la pelota llama al metodo relacionado con la pelota */
-            if (solicitante.getAvatar().getTipo().equals("Pelota") &&
-                    movAv && !esComprable(casVis))
-                System.out.println("Esta casilla no se puede comprar.");
+        } else if (solicitante.getAvatar().getTipo().equals("Pelota") && movAv && !esComprable(casVis))
+            System.out.println("No caiste en esta casilla.");
 
-        } else if (!this.esComprable(solicitante)) {
+        else if ((!solicitante.getAvatar().getTipo().equals("Pelota") || !movAv) && !this.esComprable(solicitante))
             System.out.println("Esta casilla no se puede comprar.");
 
-        } else {
+        else {
             solicitante.setFortuna(fortuna_solicitante - this.valor);
             solicitante.anhadirPropiedad(this);
             solicitante.setDineroInvertido(solicitante.getDineroInvertido() + this.valor);
@@ -571,12 +567,6 @@ public class Casilla {
         return Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET;
     }
 
-    private void check(Boolean x) {
-        if (!x) {
-            System.exit(1);
-        }
-    }
-
     /* check return if x is true, else print message to stderr and raise an error */
     private void check(Boolean x, String msg) {
         if (!x) {
@@ -654,7 +644,7 @@ public class Casilla {
         }
 
         return !(this.grupo.obtenerNumCasasGrupo() == 3 && this.grupo.obtenerNumHotelesGrupo() == 3
-                    && this.grupo.obtenerNumPiscinasGrupo() == 3 && this.grupo.obtenerNumPistasGrupo() == 3);
+                && this.grupo.obtenerNumPiscinasGrupo() == 3 && this.grupo.obtenerNumPistasGrupo() == 3);
     }
 
     private boolean esConstruible(Jugador duenhoGrupo) {
@@ -699,6 +689,12 @@ public class Casilla {
     // Para casillas edificadas, recalcula el impuesto cada vez que se conestruye un
     // edificio
     private void actualizarValorCasilla() {
+        
+        if(this.edificios.size() == 0){
+        
+            return;
+        
+        }
 
         int numeroCasas = this.obtenerNumeroCasas();
         int numeroHoteles = this.obtenerNumeroHoteles();
@@ -710,57 +706,40 @@ public class Casilla {
         float nuevoImpuestoPiscinas = 0f;
         float nuevoImpuestoPistas = 0f;
 
+        float alquilerinicial = this.grupo.getValor();
+        if(this.grupo.esDuenhoGrupo(this.getDuenho())) alquilerinicial*=2;
+
         if (numeroCasas == 1) {
-
-            nuevoImpuestoCasas = this.grupo.getValor();
-            nuevoImpuestoCasas *= 5;
-
+            nuevoImpuestoCasas = 5*alquilerinicial;
         }
 
         if (numeroCasas == 2) {
-
-            nuevoImpuestoCasas = this.grupo.getValor();
-            nuevoImpuestoCasas *= 15;
+            nuevoImpuestoCasas = 15*alquilerinicial;
 
         }
-
         if (numeroCasas == 3) {
-
-            nuevoImpuestoCasas = this.grupo.getValor();
-            nuevoImpuestoCasas *= 35;
-
+            nuevoImpuestoCasas = 35*alquilerinicial;
         }
 
-        if (numeroCasas == 4) {
-
-            nuevoImpuestoCasas = this.grupo.getValor();
-            nuevoImpuestoCasas *= 50;
+        if (numeroCasas == 4) {;
+            nuevoImpuestoCasas = 50*alquilerinicial;
 
         }
 
         if (numeroHoteles >= 1) {
-
-            nuevoImpuestoHoteles = this.grupo.getValor();
-            nuevoImpuestoHoteles *= 70 * numeroHoteles;
-
+            nuevoImpuestoHoteles = 70*alquilerinicial*numeroHoteles;
         }
 
         if (numeroPiscinas >= 1) {
-
-            nuevoImpuestoPiscinas = this.grupo.getValor();
-            nuevoImpuestoPiscinas *= 25 * numeroPiscinas;
-
+            nuevoImpuestoPiscinas = 25*alquilerinicial*numeroPiscinas;
         }
 
         if (numeroPistas >= 1) {
-
-            nuevoImpuestoPistas = this.grupo.getValor();
-            nuevoImpuestoPistas *= 25 * numeroPistas;
+            nuevoImpuestoPistas  = 25*alquilerinicial*numeroPistas;
 
         }
 
-        this.setImpuesto(this.grupo.getValor() + nuevoImpuestoCasas + nuevoImpuestoHoteles + nuevoImpuestoPiscinas
-                + nuevoImpuestoPistas);
+        this.setImpuesto(alquilerinicial + nuevoImpuestoCasas + nuevoImpuestoHoteles + nuevoImpuestoPiscinas + nuevoImpuestoPistas);
 
     }
 

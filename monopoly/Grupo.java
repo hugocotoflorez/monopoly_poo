@@ -224,21 +224,21 @@ class Grupo {
     public float getValor() {
         switch (this.ID) {
             case "Negro": // G1
-                return Valor.GRUPO_1;
+                return Valor.GRUPO_1*0.1f;
             case "Cyan": // G2
-                return Valor.GRUPO_2;
+                return Valor.GRUPO_2*0.1f;
             case "Rosa": // G3
-                return Valor.GRUPO_3;
+                return Valor.GRUPO_3*0.1f;
             case "Amarillo": // G4
-                return Valor.GRUPO_4;
+                return Valor.GRUPO_4*0.1f;
             case "Rojo": // G5
-                return Valor.GRUPO_5;
+                return Valor.GRUPO_5*0.1f;
             case "Marron": // G6
-                return Valor.GRUPO_6;
+                return Valor.GRUPO_6*0.1f;
             case "Verde": // G7
-                return Valor.GRUPO_7;
+                return Valor.GRUPO_7*0.1f;
             case "Azul": // G8
-                return Valor.GRUPO_8;
+                return Valor.GRUPO_8*0.1f;
         }
         return 0;
     }
