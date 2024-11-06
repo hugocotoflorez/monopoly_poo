@@ -210,12 +210,13 @@ public class Casilla {
 
         if (this.duenho.equals(actual)
                 && (this.tipo.equals("solar") || this.tipo.equals("serv") || this.tipo.equals("transporte"))
-                && this.hipotecada == false) {
+                && this.hipotecada == false && this.edificios.size() == 0) {
 
             this.duenho.sumarFortuna(hipoteca);
             System.out.println("Hipotecas " + this.getNombre() + " por " + this.hipoteca);
             this.hipotecada = true;
-        } else
+        } else if(this.edificios.size()!=0) System.out.println("Vende los edificios de esta propiedad antes de hipotecarla.");
+        else
             System.out.println("No puedes hipotecar esa casilla.");
 
     }
@@ -442,7 +443,7 @@ public class Casilla {
      * Método para mostrar información sobre una casilla.
      * Devuelve una cadena con información específica de cada tipo de casilla.
      */
-    public String infoCasilla() {
+    public String infoCasilla() { //TODO
         String info = new String();
         if (this.tipo.equals("solar")) {
             info = """
@@ -705,10 +706,10 @@ public class Casilla {
 
     // Para casillas edificadas, recalcula el impuesto cada vez que se conestruye un
     // edificio
-    private void actualizarValorCasilla() {
-
-        if (this.edificios.size() == 0) {
-
+    public void actualizarValorCasilla() {
+        
+        if(this.edificios.size() == 0){
+        
             return;
 
         }
@@ -874,7 +875,7 @@ public class Casilla {
             }
 
         }
-        this.actualizarValorCasilla(); // Actualiza el valor de la casilla después de edificar
+
     }
 
     public void desEdificar(String tipoEdificio, Jugador duenhoEdificio) { // Hay que poner los prints en menu

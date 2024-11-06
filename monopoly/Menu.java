@@ -758,6 +758,7 @@ public class Menu {
             for (Casilla c : actual.getPropiedades()) {
                 banca.anhadirPropiedad(c);
                 c.setDuenho(banca);
+                c.getEdificios().clear();
                 c.setHipotecada(false);
             }
 
@@ -772,6 +773,7 @@ public class Menu {
             for (Casilla c : actual.getPropiedades()) {
                 actual.getAvatar().getCasilla().getDuenho().anhadirPropiedad(c);
                 c.setDuenho(actual.getAvatar().getCasilla().getDuenho());
+                c.getEdificios().clear();
                 c.setHipotecada(false); // TODO no sé si hay que hacer esto
             }
             actual.getPropiedades().clear();
@@ -1112,8 +1114,10 @@ public class Menu {
 
     // FUNCIONES PARA EDIFICAR
     private void edificar(String tipo) {
+        Casilla c = this.jugadores.get(turno).getAvatar().getCasilla();
+        c.edificar(tipo, this.jugadores.get(this.turno));
+        c.actualizarValorCasilla();
 
-        this.jugadores.get(this.turno).getAvatar().getCasilla().edificar(tipo, this.jugadores.get(this.turno));
 
     }
 
