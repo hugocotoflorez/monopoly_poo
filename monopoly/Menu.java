@@ -99,7 +99,7 @@ public class Menu {
 
         } while (n < 1 || n > 6);
 
-        Carta.barajar(baraja);
+        //Carta.barajar(baraja);
         Carta c = Carta.obtenerCarta(baraja, n);
         c.mostrarDescipcion();
         c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
@@ -933,16 +933,6 @@ public class Menu {
                     System.out.println(c);
                 }
             }
-
-        for (int i = 0; i < 40; i++) {
-            if (this.tablero.obtenerCasilla(i).getDuenho().esBanca()
-                    && (this.tablero.obtenerCasilla(i).getTipo().equals("solar")
-                            || this.tablero.obtenerCasilla(i).getTipo().equals("transporte")
-                            || this.tablero.obtenerCasilla(i).getTipo().equals("serv"))) {
-                System.out.println(this.tablero.obtenerCasilla(i).infoCasilla());
-            }
-
-        }
     }
 
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
