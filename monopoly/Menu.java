@@ -357,20 +357,11 @@ public class Menu {
 
                 if (com.length == 4) {
 
+                    desedificar(com[2], com[1], com[3]);
 
-                    Casilla c = this.tablero.encontrar_casilla(com[2]);
-
-                    if (c == null) {
-
-                        System.out.println("Nombre de casilla incorrecto!");
-                        return;
-                    }
-
-                    for (int i = 0; i < Integer.parseInt(com[3]); i++)
-
-                        c.desEdificar(com[1], this.jugadores.get(turno));
                 }
-
+                
+                break;
             default:
                 System.out.println("Opcion incorrecta. [? para ver las opciones]");
                 break;
@@ -1119,7 +1110,18 @@ public class Menu {
         c.edificar(tipo, this.jugadores.get(this.turno));
         c.actualizarValorCasilla();
 
+    }
 
+    private void desedificar(String casilla, String tipoedificio, String n) {
+
+        Casilla c = this.tablero.encontrar_casilla(casilla);
+        if (c == null) {
+
+            System.out.println("Nombre de casilla incorrecto!");
+            return;
+        }
+
+        c.desEdificar(tipoedificio, this.jugadores.get(turno), n);
     }
 
 }
