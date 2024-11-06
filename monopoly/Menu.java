@@ -42,8 +42,6 @@ public class Menu {
      */
     private Scanner scanner = new Scanner(System.in);
 
-    private boolean debeActualizar = false;
-
     private ArrayList<Carta> suerte;
     private ArrayList<Carta> comunidad;
 
@@ -177,7 +175,7 @@ public class Menu {
                 System.out.print("lanzar dados                                  \r\n");
                 System.out.print("cambiar modo                                  \r\n");
                 System.out.print("acabar - acaba el turno                       \r\n");
-                System.out.print("salir (carcel)                                \r\n");
+                System.out.print("salir - salir carcel)                         \r\n");
                 System.out.print("describir jugador  <nombre>                   \r\n");
                 System.out.print("describir avatar <letra                       \r\n");
                 System.out.print("comprar <casilla>                             \r\n");
@@ -189,7 +187,9 @@ public class Menu {
                 System.out.print("hipotecar <casilla>                           \r\n");
                 System.out.print("deshipotecar <casilla>                        \r\n");
                 System.out.print("listar edificios                              \r\n");
-                System.out.print("listar edificios <grupo>                      ");
+                System.out.print("listar edificios <grupo>                      \r\n");
+                System.out.print("edificar <tipo>                               \r\n");
+                System.out.print("vender <tipo> <solar> <cantidad>              \r\n");
                 System.out.print("----------------------------------------------\r\n");
                 System.out.print("opciones, ? -> Muestra las opciones           \r\n");
                 System.out.print("a -> acabar                                   \r\n");
@@ -329,6 +329,10 @@ public class Menu {
                     accionhipotecar(com[1]);
                 }
                 break;
+            case "deshipotecar":
+                if(com.length == 2){
+                    acciondeshipotecar(com[1]);
+                }
 
             case "ver":
                 System.out.println(this.tablero);
@@ -806,6 +810,15 @@ public class Menu {
 
             else
                 System.out.println("Aún no has saldado tus deudas.");
+        } else
+            System.out.println("La casilla " + nombre + " no existe.");
+
+    }
+
+    private void acciondeshipotecar(String nombre) {
+        Casilla c = this.tablero.encontrar_casilla(nombre);
+        if (c != null) {
+            c.deshipotecar(jugadores.get(turno));
         } else
             System.out.println("La casilla " + nombre + " no existe.");
 
