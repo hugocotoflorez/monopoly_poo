@@ -140,6 +140,7 @@ public class Menu {
                 System.out.print("\n[>]: ");
             }
         }
+        System.out.println("\rEl jugador " + this.jugadores.get(turno).getNombre() + " ha ganado.");
 
         this.scanner.close();
         acabarPartida();
@@ -769,6 +770,11 @@ public class Menu {
         this.tirado = true;
         this.jugadores.remove(turno);
         this.avatares.remove(turno);
+        if(this.jugadores.size() == 2){
+            partida_finalizada = true;
+            System.out.println("Sólo queda un jugador. La partida ha finalizado.");
+            return;
+        }
         acabarTurno();
     }
 
