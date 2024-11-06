@@ -400,7 +400,7 @@ public class Casilla {
             solicitante.setFortuna(fortuna_solicitante - this.valor);
             solicitante.anhadirPropiedad(this);
             solicitante.setDineroInvertido(solicitante.getDineroInvertido() + this.valor);
-
+            
             banca.eliminarPropiedad(this); /* No se porque estaba comentado */
             this.duenho = solicitante;
 

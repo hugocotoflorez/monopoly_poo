@@ -903,7 +903,7 @@ public class Menu {
 
         }
         if (lanzamientos > 0) {
-            casilla.comprarCasilla(this.jugadores.get(turno), banca, movimientoAvanzado[turno-1], casillasVisitadas);
+            casilla.comprarCasilla(this.jugadores.get(turno), this.jugadores.get(0), movimientoAvanzado[turno-1], casillasVisitadas);
 
             /*
              * Solo se puede comprar 1 vez por turno si es el coche
