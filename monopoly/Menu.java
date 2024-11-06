@@ -33,7 +33,7 @@ public class Menu {
     private int contadorTiradasCoche = 0;
     private boolean jugador_puede_comprar = true;
     private int lanzamientos_dobles = 0;
-    private ArrayList<Casilla> casillasVisitadas;
+    private ArrayList<Casilla> casillasVisitadas = new ArrayList<Casilla>();
 
 
     /*
@@ -586,7 +586,9 @@ public class Menu {
                 else // saltos restantes
                     moverNormal(2, 0);
 
-                // evalua casilla o hace la accion que deba hacer
+                    // anade la casilla en la que cae a las que puede comprar
+                    casillasVisitadas.add(jugadores.get(turno).getAvatar().getCasilla());
+                    // evalua casilla o hace la accion que deba hacer
                 evaluarAccion(valor1 + valor2);
 
                 // si va a la carcel deja de moverse
@@ -1070,12 +1072,13 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
-        if (partida_empezada && this.tirado && this.solvente) {
+        if (partida_empezada && lanzamientos > 0 && this.solvente) {
 
             /* Esto no se donde meterlo, en cada turno se tiene que poner a true */
             movimientoAvanzadoSePuedeCambiar = true;
             jugador_puede_comprar = true;
             lanzamientos_dobles = 0;
+            casillasVisitadas.removeAll(casillasVisitadas); // se borran todas las casillas
 
             int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
             this.tirado = false;
