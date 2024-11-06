@@ -156,7 +156,7 @@ class Grupo {
 
             ret += ("pistasDeDeporte: " + c.listar_edificios_grupo("Pista de deportes"));
 
-            ret += ("alquiler: ");
+            ret += ("alquiler: " + c.getImpuesto());
 
         }
 
