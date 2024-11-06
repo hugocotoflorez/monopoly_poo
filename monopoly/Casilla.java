@@ -1,8 +1,6 @@
 package monopoly;
 
-//soy imbecilsadjj
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import partida.*;
 
@@ -389,14 +387,13 @@ public class Casilla {
             System.out.println("No tienes suficiente fortuna.");
 
             /* Si es la pelota llama al metodo relacionado con la pelota */
-            if (solicitante.getAvatar().getTipo().equals("Pelota") &&
-                    movAv && !esComprable(casVis))
-                System.out.println("Esta casilla no se puede comprar.");
+        } else if (solicitante.getAvatar().getTipo().equals("Pelota") && movAv && !esComprable(casVis))
+            System.out.println("No caiste en esta casilla.");
 
-        } else if (!this.esComprable(solicitante)) {
+        else if ((!solicitante.getAvatar().getTipo().equals("Pelota") || !movAv) && !this.esComprable(solicitante))
             System.out.println("Esta casilla no se puede comprar.");
 
-        } else {
+        else {
             solicitante.setFortuna(fortuna_solicitante - this.valor);
             solicitante.anhadirPropiedad(this);
             solicitante.setDineroInvertido(solicitante.getDineroInvertido() + this.valor);
@@ -570,12 +567,6 @@ public class Casilla {
         return Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET;
     }
 
-    private void check(Boolean x) {
-        if (!x) {
-            System.exit(1);
-        }
-    }
-
     /* check return if x is true, else print message to stderr and raise an error */
     private void check(Boolean x, String msg) {
         if (!x) {
@@ -653,7 +644,7 @@ public class Casilla {
         }
 
         return !(this.grupo.obtenerNumCasasGrupo() == 3 && this.grupo.obtenerNumHotelesGrupo() == 3
-                    && this.grupo.obtenerNumPiscinasGrupo() == 3 && this.grupo.obtenerNumPistasGrupo() == 3);
+                && this.grupo.obtenerNumPiscinasGrupo() == 3 && this.grupo.obtenerNumPistasGrupo() == 3);
     }
 
     private boolean esConstruible(Jugador duenhoGrupo) {
