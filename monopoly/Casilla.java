@@ -760,7 +760,7 @@ public class Casilla {
 
     }
 
-    public void edificar(String tipo, Jugador duenhoGrupo) {
+    public void edificar(String tipo, Jugador duenhoGrupo) { //TODO no te debe dejar comprar si no tienes dinero
         // Aumentar el alquiler de la casilla dependiendo de la
         // edificación
         if (!this.tipo.equals("solar")) {
