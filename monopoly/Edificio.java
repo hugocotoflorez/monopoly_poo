@@ -49,9 +49,9 @@ El valor inicial de una casa y de un hotel es el 60% del valor inicial del solar
 
  Actualizar describir Casilla
 
- Actualizar describir Jugador
+ Actualizar describir Jugador                                                                                      CHECK¿?
 
- Agregar opciones al menú
+ Agregar opciones al menú                                                                                          Falta agregar desedificar
 */
 package monopoly;
 
@@ -115,7 +115,6 @@ public class Edificio {
     }
 
     public Edificio(String tipo, Casilla casilla) {
-
 
             if (tipo.equals("Casa")) {
 

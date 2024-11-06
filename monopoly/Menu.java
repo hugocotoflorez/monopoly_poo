@@ -140,7 +140,7 @@ public class Menu {
                 System.out.print("\n[>]: ");
             }
         }
-        System.out.println("El jugador " + this.jugadores.get(turno).getNombre() + " ha ganado.");
+        System.out.println("\rEl jugador " + this.jugadores.get(turno).getNombre() + " ha ganado.");
 
         this.scanner.close();
         acabarPartida();
@@ -346,6 +346,8 @@ public class Menu {
                 if (com.length == 2)
                     edificar(com[1]);
                 break;
+            case "vender":
+                if (com.length == 4)
 
             default:
                 System.out.println("Opcion incorrecta. [? para ver las opciones]");

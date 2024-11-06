@@ -2,6 +2,8 @@ package monopoly;
 
 //soy imbecilsadjj
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import partida.*;
 
 public class Casilla {
@@ -215,8 +217,8 @@ public class Casilla {
             this.duenho.sumarFortuna(hipoteca);
             System.out.println("Hipotecas " + this.getNombre() + " por " + this.hipoteca);
             this.hipotecada = true;
-        }
-        else System.out.println("No puedes hipotecar esa casilla.");
+        } else
+            System.out.println("No puedes hipotecar esa casilla.");
 
     }
 
@@ -544,7 +546,7 @@ public class Casilla {
         String data = new String();
         for (Avatar av : this.avatares)
             data += av.getId() + " ";
-        return Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1)+ Valor.RESET;
+        return Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET;
     }
 
     private void check(Boolean x) {
@@ -725,6 +727,12 @@ public class Casilla {
     public void edificar(String tipo, Jugador duenhoGrupo) {
         // Aumentar el alquiler de la casilla dependiendo de la
         // edificación
+        if (!this.tipo.equals("solar")) {
+
+            System.out.println("Solo se puede edificar en Solares!");
+            return;
+        }
+        
         if (esConstruible(duenhoGrupo)) {
 
             switch (tipo) {
@@ -840,5 +848,10 @@ public class Casilla {
                     return;
                 }
 
+    }
+
+    public void desEdificar(){
+
+        this.edificios.clear();
     }
 }
