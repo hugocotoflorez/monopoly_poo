@@ -66,6 +66,62 @@ class Grupo {
 
     }
 
+    public int obtenerNumCasasGrupo(){
+
+        int ret = 0;
+
+        for(int i = 0; i < this.numCasillas; i++){
+
+            ret += this.getMiembros().get(i).obtenerNumeroCasas();
+        
+        }
+
+        return ret;
+
+    }
+
+    public int obtenerNumHotelesGrupo(){
+
+        int ret = 0;
+        
+        for(int i = 0; i < this.numCasillas; i++){
+
+            ret += this.getMiembros().get(i).obtenerNumeroHoteles();
+        
+        }
+
+        return ret;
+
+    }
+
+    public int obtenerNumPistasGrupo(){
+
+        int ret = 0;
+        
+        for(int i = 0; i < this.numCasillas; i++){
+
+            ret += this.getMiembros().get(i).obtenerNumeroPistasDeporte();
+        
+        }
+
+        return ret;
+
+    }
+
+    public int obtenerNumPiscinasGrupo(){
+
+        int ret = 0;
+        
+        for(int i = 0; i < this.numCasillas; i++){
+
+            ret += this.getMiembros().get(i).obtenerNumeroPiscinas();
+        
+        }
+
+        return ret;
+
+    }
+
     // SETTERS
 
     /*

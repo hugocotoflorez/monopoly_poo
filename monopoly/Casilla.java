@@ -395,7 +395,6 @@ public class Casilla {
                     " ha comprado la casilla " + this.nombre +
                     ". Su fortuna actual es " + solicitante.getFortuna());
 
-
             if (this.tipo.equals("solar") && this.grupo.esDuenhoGrupo(solicitante)) {
                 System.out.println("El jugador " + solicitante.getNombre()
                         + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
@@ -584,7 +583,7 @@ public class Casilla {
         return this.nombre;
     }
 
-    private int obtenerNumeroCasas() {
+    public int obtenerNumeroCasas() {
         int ret = 0;
         for (Edificio e : this.edificios) {
             if (e.getTipo().equals("Casa"))
@@ -593,7 +592,7 @@ public class Casilla {
         return ret;
     }
 
-    private int obtenerNumeroHoteles() {
+    public int obtenerNumeroHoteles() {
         int ret = 0;
         for (Edificio e : this.edificios) {
             if (e.getTipo().equals("Hotel"))
@@ -602,7 +601,7 @@ public class Casilla {
         return ret;
     }
 
-    private int obtenerNumeroPiscinas() {
+    public int obtenerNumeroPiscinas() {
         int ret = 0;
         for (Edificio e : this.edificios) {
             if (e.getTipo().equals("Piscina"))
@@ -611,7 +610,7 @@ public class Casilla {
         return ret;
     }
 
-    private int obtenerNumeroPistasDeporte() {
+    public int obtenerNumeroPistasDeporte() {
         int ret = 0;
         for (Edificio e : this.edificios) {
             if (e.getTipo().equals("Pista de deportes"))
@@ -621,12 +620,16 @@ public class Casilla {
     }
 
     private boolean getCasillaEdificable() {
+
         if (this.grupo.getNumCasillas() == 2) {
-            return !(this.obtenerNumeroCasas() == 2 && this.obtenerNumeroHoteles() == 2
-                    && this.obtenerNumeroPiscinas() == 2 && this.obtenerNumeroPistasDeporte() == 2);
+
+            return !(this.grupo.obtenerNumCasasGrupo() == 2 && this.grupo.obtenerNumHotelesGrupo() == 2
+                    && this.grupo.obtenerNumPiscinasGrupo() == 2 && this.grupo.obtenerNumPistasGrupo() == 2);
+
         }
-        return !(this.obtenerNumeroCasas() == 3 && this.obtenerNumeroHoteles() == 3 && this.obtenerNumeroPiscinas() == 3
-                && this.obtenerNumeroPistasDeporte() == 3);
+        
+        return !(this.grupo.obtenerNumCasasGrupo() == 3 && this.grupo.obtenerNumHotelesGrupo() == 3
+                    && this.grupo.obtenerNumPiscinasGrupo() == 3 && this.grupo.obtenerNumPistasGrupo() == 3);
     }
 
     private boolean esConstruible(Jugador duenhoGrupo) {
@@ -741,7 +744,7 @@ public class Casilla {
             System.out.println("Solo se puede edificar en Solares!");
             return;
         }
-        
+
         if (esConstruible(duenhoGrupo)) {
 
             switch (tipo) {
@@ -859,7 +862,7 @@ public class Casilla {
 
     }
 
-    public void desEdificar(){
+    public void desEdificar() {
 
         this.edificios.clear();
     }
