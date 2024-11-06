@@ -254,7 +254,7 @@ public class Casilla {
                 if (!c.esComprable(actual)) {
                     // se le resta el impuesto y se lo da al jugador que tiene
                     // la casilla
-                    if (!this.hipotecada) {
+                    if (!this.hipotecada && !this.duenho.equals(actual)) {
                         actual.sumarFortuna(-c.getImpuesto());// revisar
                         c.getDuenho().sumarFortuna(c.getImpuesto());
 
@@ -400,7 +400,7 @@ public class Casilla {
             solicitante.setFortuna(fortuna_solicitante - this.valor);
             solicitante.anhadirPropiedad(this);
             solicitante.setDineroInvertido(solicitante.getDineroInvertido() + this.valor);
-            
+
             banca.eliminarPropiedad(this); /* No se porque estaba comentado */
             this.duenho = solicitante;
 
