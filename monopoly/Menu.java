@@ -457,6 +457,7 @@ public class Menu {
 
                 this.tirado = false;
                 this.lanzamientos_dobles++;
+                System.out.println(("Has sacado dobles! Puedes tirar otra vez."));
 
                 if (this.lanzamientos_dobles == 3) {
                     this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
