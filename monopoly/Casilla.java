@@ -851,7 +851,7 @@ public class Casilla {
     }
 
     public void desEdificar(String tipoEdificio, Jugador duenhoEdificio) { // Hay que poner los prints en menu
-
+        
         if (this.getDuenho().equals(duenhoEdificio))
             for (Edificio e : this.edificios)
                 if (e.getTipo().equals(tipoEdificio)) {
