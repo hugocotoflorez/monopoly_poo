@@ -262,7 +262,7 @@ public class Casilla {
                         actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
                         c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
                         c.recaudado += c.impuesto;
-                    } else if(this.hipotecada)
+                    } else if (this.hipotecada)
                         System.out.println("El jugador " + this.getDuenho()
                                 + "no cobra alquiler porque la casilla está hipotecada.");
 
@@ -657,7 +657,7 @@ public class Casilla {
     // Se cumplen los requisitos para construir?
 
     private boolean esCasaEdificable() {
-        
+
         if (this.obtenerNumeroHoteles() < 2)
             return (this.obtenerNumeroCasas() < 4 && this.getCasillaEdificable());
 
@@ -665,15 +665,32 @@ public class Casilla {
     }
 
     private boolean esHotelEdificable() {
-        return (this.obtenerNumeroCasas() == 4 && this.getCasillaEdificable());
+        
+        if (this.grupo.getNumCasillas() == 2)
+            return (this.obtenerNumeroCasas() == 4 && this.getCasillaEdificable() && this.obtenerNumeroHoteles() < 2);
+
+        return (this.obtenerNumeroCasas() == 4 && this.getCasillaEdificable() && this.obtenerNumeroHoteles() < 3);
+
     }
 
     private boolean esPiscinaEdificable() {
-        return (this.obtenerNumeroCasas() >= 2 && this.obtenerNumeroHoteles() >= 1 && this.getCasillaEdificable());
+
+        if (this.grupo.getNumCasillas() == 2)
+            return (this.obtenerNumeroCasas() >= 2 && this.obtenerNumeroHoteles() >= 1 && this.getCasillaEdificable()
+                    && this.obtenerNumeroPiscinas() < 2);
+
+        return (this.obtenerNumeroCasas() >= 2 && this.obtenerNumeroHoteles() >= 1 && this.getCasillaEdificable()
+                && this.obtenerNumeroPiscinas() < 3);
     }
 
     private boolean esPistaEdificable() {
-        return (this.obtenerNumeroHoteles() >= 2 && this.getCasillaEdificable());
+
+        if (this.grupo.getNumCasillas() == 2)
+            return (this.obtenerNumeroHoteles() >= 2 && this.getCasillaEdificable()
+                    && this.obtenerNumeroPistasDeporte() < 2);
+
+        return (this.obtenerNumeroHoteles() >= 2 && this.getCasillaEdificable()
+                && this.obtenerNumeroPistasDeporte() < 3);
     }
 
     public void listar_edificios_casilla() {
@@ -689,11 +706,11 @@ public class Casilla {
     // Para casillas edificadas, recalcula el impuesto cada vez que se conestruye un
     // edificio
     private void actualizarValorCasilla() {
-        
-        if(this.edificios.size() == 0){
-        
+
+        if (this.edificios.size() == 0) {
+
             return;
-        
+
         }
 
         int numeroCasas = this.obtenerNumeroCasas();
@@ -707,43 +724,46 @@ public class Casilla {
         float nuevoImpuestoPistas = 0f;
 
         float alquilerinicial = this.grupo.getValor();
-        if(this.grupo.esDuenhoGrupo(this.getDuenho())) alquilerinicial*=2;
+        if (this.grupo.esDuenhoGrupo(this.getDuenho()))
+            alquilerinicial *= 2;
 
         if (numeroCasas == 1) {
-            nuevoImpuestoCasas = 5*alquilerinicial;
+            nuevoImpuestoCasas = 5 * alquilerinicial;
         }
 
         if (numeroCasas == 2) {
-            nuevoImpuestoCasas = 15*alquilerinicial;
+            nuevoImpuestoCasas = 15 * alquilerinicial;
 
         }
         if (numeroCasas == 3) {
-            nuevoImpuestoCasas = 35*alquilerinicial;
+            nuevoImpuestoCasas = 35 * alquilerinicial;
         }
 
-        if (numeroCasas == 4) {;
-            nuevoImpuestoCasas = 50*alquilerinicial;
+        if (numeroCasas == 4) {
+            ;
+            nuevoImpuestoCasas = 50 * alquilerinicial;
 
         }
 
         if (numeroHoteles >= 1) {
-            nuevoImpuestoHoteles = 70*alquilerinicial*numeroHoteles;
+            nuevoImpuestoHoteles = 70 * alquilerinicial * numeroHoteles;
         }
 
         if (numeroPiscinas >= 1) {
-            nuevoImpuestoPiscinas = 25*alquilerinicial*numeroPiscinas;
+            nuevoImpuestoPiscinas = 25 * alquilerinicial * numeroPiscinas;
         }
 
         if (numeroPistas >= 1) {
-            nuevoImpuestoPistas  = 25*alquilerinicial*numeroPistas;
+            nuevoImpuestoPistas = 25 * alquilerinicial * numeroPistas;
 
         }
 
-        this.setImpuesto(alquilerinicial + nuevoImpuestoCasas + nuevoImpuestoHoteles + nuevoImpuestoPiscinas + nuevoImpuestoPistas);
+        this.setImpuesto(alquilerinicial + nuevoImpuestoCasas + nuevoImpuestoHoteles + nuevoImpuestoPiscinas
+                + nuevoImpuestoPistas);
 
     }
 
-    public void edificar(String tipo, Jugador duenhoGrupo) { //TODO no te debe dejar comprar si no tienes dinero
+    public void edificar(String tipo, Jugador duenhoGrupo) { // TODO no te debe dejar comprar si no tienes dinero
         // Aumentar el alquiler de la casilla dependiendo de la
         // edificación
         if (!this.tipo.equals("solar")) {

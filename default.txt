@@ -13,3 +13,12 @@ edificar Casa
 edificar Casa
 edificar Casa
 edificar Hotel
+edificar Casa
+edificar Casa
+edificar Casa
+edificar Hotel
+edificar Casa
+edificar Hotel
+edificar Casa
+edificar Casa
+edificar Casa
