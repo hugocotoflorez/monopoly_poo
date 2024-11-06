@@ -188,6 +188,8 @@ public class Menu {
                 System.out.print("estadisticas                                  \r\n");
                 System.out.print("hipotecar <casilla>                           \r\n");
                 System.out.print("deshipotecar <casilla>                        \r\n");
+                System.out.print("listar edificios                              \r\n");
+                System.out.print("listar edificios <grupo>                      ");
                 System.out.print("----------------------------------------------\r\n");
                 System.out.print("opciones, ? -> Muestra las opciones           \r\n");
                 System.out.print("a -> acabar                                   \r\n");
