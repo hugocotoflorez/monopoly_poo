@@ -213,9 +213,10 @@ public class Casilla {
                 && this.hipotecada == false) {
 
             this.duenho.sumarFortuna(hipoteca);
+            System.out.println("Hipotecas " + this.getNombre() + " por " + this.hipoteca);
             this.hipotecada = true;
         }
-        System.out.println("No puedes hipotecar esa casilla.");
+        else System.out.println("No puedes hipotecar esa casilla.");
 
     }
 

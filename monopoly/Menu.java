@@ -763,8 +763,10 @@ public class Menu {
                     + actual.getAvatar().getCasilla().getDuenho().getNombre());
         }
 
+        this.tirado = true;
         this.jugadores.remove(turno);
         this.avatares.remove(turno);
+        acabarTurno();
     }
 
     private void accionhipotecar(String nombre) {

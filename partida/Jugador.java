@@ -316,6 +316,22 @@ public class Jugador {
 
     }
 
+    private String printHipotecas(){
+        String ret = new String();
+        ret += "[";
+
+        for(Casilla c : this.propiedades){
+            if(c.getHipotecada()){
+                ret += c.getNombre();
+                ret += ", ";
+            }
+
+        }
+        ret += "]";
+
+        return ret;
+    }
+
     @Override
     public String toString() {
         return """
@@ -327,7 +343,7 @@ public class Jugador {
                 | - Edificios: %s
 
                 """.formatted(this.nombre, avatar != null ? this.avatar.getId() : "", fortuna,
-                propiedades != null ? this.propiedades : "", "Sin implementar", this.printEdificios());
+                propiedades != null ? this.propiedades : "[]", this.printHipotecas(), this.printEdificios());
         //TODO listar hipotecas y edificios
     }
 
