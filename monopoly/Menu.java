@@ -99,7 +99,7 @@ public class Menu {
 
         } while (n < 1 || n > 6);
 
-        Carta.barajar(baraja);
+        //Carta.barajar(baraja);
         Carta c = Carta.obtenerCarta(baraja, n);
         c.mostrarDescipcion();
         c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
