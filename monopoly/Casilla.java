@@ -1,8 +1,6 @@
 package monopoly;
 
-//soy imbecilsadjj
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import partida.*;
 
@@ -567,12 +565,6 @@ public class Casilla {
         for (Avatar av : this.avatares)
             data += av.getId() + " ";
         return Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET;
-    }
-
-    private void check(Boolean x) {
-        if (!x) {
-            System.exit(1);
-        }
     }
 
     /* check return if x is true, else print message to stderr and raise an error */
