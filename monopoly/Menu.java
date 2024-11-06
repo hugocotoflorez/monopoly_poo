@@ -292,7 +292,7 @@ public class Menu {
                 break;
 
             case "bancarrota":
-                bancarrota(this.jugadores.get(0));
+                bancarrota(banca);
                 break;
 
             case "describir":
@@ -729,7 +729,7 @@ public class Menu {
 
         else {
             // evaluar casilla
-            solvente = avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0),
+            solvente = avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), banca,
                     desplazamiento);
             if (!solvente) {
                 System.out.println("El jugador " + jugadores.get(turno).getNombre()
@@ -748,7 +748,7 @@ public class Menu {
                             break;
                         case 'n':
                         case 'N':
-                            bancarrota(this.jugadores.get(0));
+                            bancarrota(this.banca);
                             solvente = true;
                             break;
                         default:
@@ -850,7 +850,7 @@ public class Menu {
             pagarCarcel();
             if (this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL) {
                 System.out.println("Como no puedes pagar para salir de la cárcel, se te declara en bancarrota.");
-                bancarrota(this.jugadores.get(0));
+                bancarrota(this.banca);
             }
             return;
         } else if (this.tirado) {
@@ -873,8 +873,8 @@ public class Menu {
                     "Has pagado " + Valor.PAGO_SALIR_CARCEL + " para salir de la carcel. Puedes lanzar los dados.");
             this.jugadores.get(turno).setPagoTasasEImpuestos(
                     this.jugadores.get(turno).getPagoTasasEImpuestos() + Valor.PAGO_SALIR_CARCEL);
-            this.jugadores.get(0).sumarGastos(Valor.PAGO_SALIR_CARCEL);
-            System.out.println("El bote de la banca ahora es " + this.jugadores.get(0).getGastos());
+            this.banca.sumarGastos(Valor.PAGO_SALIR_CARCEL);
+            System.out.println("El bote de la banca ahora es " + this.banca.getGastos());
         } else if (this.tirado) {
             System.out.println("Ya has tirado este turno!");
         } else if (this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL)
@@ -903,7 +903,7 @@ public class Menu {
 
         }
         if (lanzamientos > 0) {
-            casilla.comprarCasilla(this.jugadores.get(turno), this.jugadores.get(0), movimientoAvanzado[turno-1], casillasVisitadas);
+            casilla.comprarCasilla(this.jugadores.get(turno), this.banca, movimientoAvanzado[turno-1], casillasVisitadas);
 
             /*
              * Solo se puede comprar 1 vez por turno si es el coche
