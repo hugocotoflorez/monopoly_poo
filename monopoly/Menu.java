@@ -140,7 +140,7 @@ public class Menu {
                 System.out.print("\n[>]: ");
             }
         }
-        System.out.println("El jugador " + this.jugadores.get(turno).getNombre() + " ha ganado.");
+        System.out.println("\rEl jugador " + this.jugadores.get(turno).getNombre() + " ha ganado.");
 
         this.scanner.close();
         acabarPartida();
