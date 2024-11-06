@@ -442,7 +442,7 @@ public class Casilla {
      * Método para mostrar información sobre una casilla.
      * Devuelve una cadena con información específica de cada tipo de casilla.
      */
-    public String infoCasilla() {
+    public String infoCasilla() { //TODO
         String info = new String();
         if (this.tipo.equals("solar")) {
             info = """
