@@ -13,9 +13,3 @@ edificar Casa
 edificar Casa
 edificar Casa
 edificar Hotel
-edificar Piscina
-edificar Casa
-edificar Casa
-edificar Piscina
-describir jugador Hugo
-listar edificios
