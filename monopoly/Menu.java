@@ -347,7 +347,22 @@ public class Menu {
                     edificar(com[1]);
                 break;
             case "vender":
-                if (com.length == 4)
+
+                if (com.length == 4){
+
+                    
+                    Casilla c = this.tablero.encontrar_casilla(com[2]);
+                    
+                    if(c == null){
+
+                        System.out.println("Nombre de casilla incorrecto!");
+                        return;
+                    }
+
+                    for (int i = 0; i < Integer.parseInt(com[3]); i++ )
+
+                        c.desEdificar(com[1], this.jugadores.get(turno));
+                }
 
             default:
                 System.out.println("Opcion incorrecta. [? para ver las opciones]");
