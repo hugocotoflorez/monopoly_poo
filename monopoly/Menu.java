@@ -357,6 +357,7 @@ public class Menu {
 
                 if (com.length == 4) {
 
+
                     Casilla c = this.tablero.encontrar_casilla(com[2]);
 
                     if (c == null) {
