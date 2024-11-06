@@ -1,6 +1,7 @@
 package monopoly;
 
 //soy imbecilsadjj
+import java.time.chrono.ThaiBuddhistChronology;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -666,8 +667,11 @@ public class Casilla {
     // Se cumplen los requisitos para construir?
 
     private boolean esCasaEdificable() {
+        
+        if (this.obtenerNumeroHoteles() < 2)
+            return (this.obtenerNumeroCasas() < 4 && this.getCasillaEdificable());
 
-        return (this.obtenerNumeroCasas() < 4 && this.getCasillaEdificable());
+        return (this.obtenerNumeroCasas() < 2 && this.getCasillaEdificable());
     }
 
     private boolean esHotelEdificable() {
