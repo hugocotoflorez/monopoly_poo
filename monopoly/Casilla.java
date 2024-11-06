@@ -688,7 +688,7 @@ public class Casilla {
 
     // Para casillas edificadas, recalcula el impuesto cada vez que se conestruye un
     // edificio
-    private void actualizarValorCasilla() {
+    public void actualizarValorCasilla() {
         
         if(this.edificios.size() == 0){
         
@@ -854,7 +854,7 @@ public class Casilla {
             }
 
         }
-        this.actualizarValorCasilla(); // Actualiza el valor de la casilla después de edificar
+
     }
 
     public void desEdificar(String tipoEdificio, Jugador duenhoEdificio) { // Hay que poner los prints en menu

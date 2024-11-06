@@ -1112,8 +1112,10 @@ public class Menu {
 
     // FUNCIONES PARA EDIFICAR
     private void edificar(String tipo) {
+        Casilla c = this.jugadores.get(turno).getAvatar().getCasilla();
+        c.edificar(tipo, this.jugadores.get(this.turno));
+        c.actualizarValorCasilla();
 
-        this.jugadores.get(this.turno).getAvatar().getCasilla().edificar(tipo, this.jugadores.get(this.turno));
 
     }
 
