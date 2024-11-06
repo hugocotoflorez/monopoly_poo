@@ -33,6 +33,9 @@ public class Menu {
     private int contadorTiradasCoche = 0;
     private boolean jugador_puede_comprar = true;
     private int lanzamientos_dobles = 0;
+    private ArrayList<Casilla> casillasVisitadas;
+
+
     /*
      * Poner un scanner nuevo para cada funcion en la que se necesita daba error
      * porque segun lo que la intuicion me dice no se pueden abrir dos scanners
@@ -97,7 +100,7 @@ public class Menu {
 
         } while (n < 1 || n > 6);
 
-        //Carta.barajar(baraja);
+        // Carta.barajar(baraja);
         Carta c = Carta.obtenerCarta(baraja, n);
         c.mostrarDescipcion();
         c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
@@ -760,10 +763,13 @@ public class Menu {
     private void bancarrota(Jugador banca) {
         Jugador actual = this.jugadores.get(turno); // Jugador actual
 
+        if (actual.getAvatar().getCasilla().getDuenho().equals(banca) || !actual.estaBancarrota()) { // Si está en
+                                                                                                     // bancarrota por
+                                                                                                     // la banca o si se
+                                                                                                     // declaró
+                                                                                                     // voluntariamente
 
-        if (actual.getAvatar().getCasilla().getDuenho().equals(banca) || !actual.estaBancarrota()) { // Si está en bancarrota por la banca o si se declaró voluntariamente
-
-            for(Casilla c: actual.getPropiedades()) {
+            for (Casilla c : actual.getPropiedades()) {
                 banca.anhadirPropiedad(c);
                 c.setDuenho(banca);
                 c.setHipotecada(false);
@@ -777,10 +783,10 @@ public class Menu {
         }
 
         if (!actual.getAvatar().getCasilla().getDuenho().equals(banca)) { // Si es por otro jugador
-            for (Casilla c: actual.getPropiedades()){
+            for (Casilla c : actual.getPropiedades()) {
                 actual.getAvatar().getCasilla().getDuenho().anhadirPropiedad(c);
                 c.setDuenho(actual.getAvatar().getCasilla().getDuenho());
-                c.setHipotecada(false); //TODO no sé si hay que hacer esto
+                c.setHipotecada(false); // TODO no sé si hay que hacer esto
             }
             actual.getPropiedades().clear();
             System.out.println("El jugador " + actual.getNombre()
@@ -791,7 +797,7 @@ public class Menu {
         this.tirado = true;
         this.jugadores.remove(turno);
         this.avatares.remove(turno);
-        if(this.jugadores.size() == 2){
+        if (this.jugadores.size() == 2) {
             partida_finalizada = true;
             System.out.println("Sólo queda un jugador. La partida ha finalizado.");
             return;
@@ -896,14 +902,13 @@ public class Menu {
             return;
 
         }
-        if (this.tirado || lanzamientos > 0) {
-            casilla.comprarCasilla(this.jugadores.get(turno), banca);
+        if (lanzamientos > 0) {
+            casilla.comprarCasilla(this.jugadores.get(turno), banca, movimientoAvanzado[turno-1], casillasVisitadas);
 
             /*
-             * Solo se puede comprar 1 vez por turno, esto no influye a los jugadores
-             * normales pero si al coche.
+             * Solo se puede comprar 1 vez por turno si es el coche
              */
-            jugador_puede_comprar = false;
+            jugador_puede_comprar = false || !this.jugadores.get(turno).getAvatar().getTipo().equals("Coche");
         }
     }
 

@@ -374,11 +374,24 @@ public class Casilla {
      * - Banca del monopoly (es el dueño de las casillas no compradas aún).
      */
     public void comprarCasilla(Jugador solicitante, Jugador banca) {
+        /*
+         * si llamas a esto no eres la pelota, por lo que el resto de argumentos
+         * dan igual
+         */
+        comprarCasilla(solicitante, banca, false, null);
+    }
+
+    public void comprarCasilla(Jugador solicitante, Jugador banca, boolean movAv, ArrayList<Casilla> casVis) {
 
         float fortuna_solicitante = solicitante.getFortuna();
 
         if (fortuna_solicitante < this.valor) {
             System.out.println("No tienes suficiente fortuna.");
+
+            /* Si es la pelota llama al metodo relacionado con la pelota */
+            if (solicitante.getAvatar().getTipo().equals("Pelota") &&
+                    movAv && !esComprable(casVis))
+                System.out.println("Esta casilla no se puede comprar.");
 
         } else if (!this.esComprable(solicitante)) {
             System.out.println("Esta casilla no se puede comprar.");
@@ -576,6 +589,17 @@ public class Casilla {
         return (this.duenho.esBanca()
                 && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv"))
                 && jugador.getAvatar().getCasilla().equals(this));
+    }
+
+    /*
+     * Esta funcion permite comprobar si la casilla que se quiere comprar pertenece
+     * al array de casillas por las que la pelota cayo
+     */
+    public boolean esComprable(ArrayList<Casilla> casillas) {
+
+        return (this.duenho.esBanca()
+                && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv")) &&
+                casillas.contains(this));
     }
 
     @Override
