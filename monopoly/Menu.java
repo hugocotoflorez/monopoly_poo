@@ -286,7 +286,7 @@ public class Menu {
                 break;
 
             case "bancarrota":
-                bancarrota();
+                bancarrota(this.jugadores.get(0));
                 break;
 
             case "describir":
@@ -720,7 +720,7 @@ public class Menu {
                             break;
                         case 'n':
                         case 'N':
-                            bancarrota();
+                            bancarrota(this.jugadores.get(0));
                             solvente = true;
                             break;
                         default:
@@ -732,35 +732,32 @@ public class Menu {
         }
     }
 
-    private void bancarrota() {
+    private void bancarrota(Jugador banca) {
         Jugador actual = this.jugadores.get(turno); // Jugador actual
-        Iterator<Casilla> itcas = actual.getPropiedades().iterator();
 
-        if (actual.getAvatar().getCasilla().getDuenho().esBanca() || !actual.estaBancarrota()) { // Si está en
-                                                                                                 // bancarrota por la
-                                                                                                 // banca o si se
-                                                                                                 // declaró
-                                                                                                 // voluntariamente
-            while (itcas.hasNext()) {
-                Casilla c = itcas.next();
-                actual.eliminarPropiedad(c);
-                this.jugadores.get(0).anhadirPropiedad(c);
+
+        if (actual.getAvatar().getCasilla().getDuenho().equals(banca) || !actual.estaBancarrota()) { // Si está en bancarrota por la banca o si se declaró voluntariamente
+
+            for(Casilla c: actual.getPropiedades()) {
+                banca.anhadirPropiedad(c);
                 c.setDuenho(banca);
                 c.setHipotecada(false);
             }
+
+            actual.getPropiedades().clear();
+
             System.out.println("El jugador " + actual.getNombre()
                     + " se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban.");
             // TODO quitar edificios a la casilla cuando esta pasa a la banca
         }
 
-        if (!actual.getAvatar().getCasilla().getDuenho().esBanca()) { // Si es por otro jugador
-            while (itcas.hasNext()) {
-                Casilla c = itcas.next();
-                actual.eliminarPropiedad(c);
+        if (!actual.getAvatar().getCasilla().getDuenho().equals(banca)) { // Si es por otro jugador
+            for (Casilla c: actual.getPropiedades()){
                 actual.getAvatar().getCasilla().getDuenho().anhadirPropiedad(c);
                 c.setDuenho(actual.getAvatar().getCasilla().getDuenho());
-                c.setHipotecada(false);
+                c.setHipotecada(false); //TODO no sé si hay que hacer esto
             }
+            actual.getPropiedades().clear();
             System.out.println("El jugador " + actual.getNombre()
                     + " se ha declarado en bancarrota. Sus propiedades y fortuna pasan a "
                     + actual.getAvatar().getCasilla().getDuenho().getNombre());
@@ -806,7 +803,7 @@ public class Menu {
             pagarCarcel();
             if (this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL) {
                 System.out.println("Como no puedes pagar para salir de la cárcel, se te declara en bancarrota.");
-                bancarrota();
+                bancarrota(this.jugadores.get(0));
             }
             return;
         } else if (this.tirado) {

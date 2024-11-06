@@ -7,7 +7,7 @@ SRC_MONOPOLY = monopoly
 SRC_PARTIDA = partida
 
 # Definir las clases de cada carpeta
-CLASSES_MONOPOLY = $(SRC_MONOPOLY)/Casilla.java $(SRC_MONOPOLY)/Grupo.java $(SRC_MONOPOLY)/Menu.java $(SRC_MONOPOLY)/MonopolyETSE.java $(SRC_MONOPOLY)/Tablero.java $(SRC_MONOPOLY)/Valor.java
+CLASSES_MONOPOLY = $(SRC_MONOPOLY)/Casilla.java $(SRC_MONOPOLY)/Grupo.java $(SRC_MONOPOLY)/Menu.java $(SRC_MONOPOLY)/MonopolyETSE.java $(SRC_MONOPOLY)/Tablero.java $(SRC_MONOPOLY)/Valor.java 
 CLASSES_PARTIDA = $(SRC_PARTIDA)/Avatar.java $(SRC_PARTIDA)/Dado.java $(SRC_PARTIDA)/Jugador.java
 
 # Clase principal para ejecutar el proyecto
