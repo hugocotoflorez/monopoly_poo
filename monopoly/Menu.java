@@ -729,7 +729,7 @@ public class Menu {
 
         else {
             // evaluar casilla
-            solvente = avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0),
+            solvente = avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), banca,
                     desplazamiento);
             if (!solvente) {
                 System.out.println("El jugador " + jugadores.get(turno).getNombre()
@@ -748,7 +748,7 @@ public class Menu {
                             break;
                         case 'n':
                         case 'N':
-                            bancarrota(banca);
+                            bancarrota(this.banca);
                             solvente = true;
                             break;
                         default:
@@ -850,7 +850,7 @@ public class Menu {
             pagarCarcel();
             if (this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL) {
                 System.out.println("Como no puedes pagar para salir de la cárcel, se te declara en bancarrota.");
-                bancarrota(banca);
+                bancarrota(this.banca);
             }
             return;
         } else if (this.tirado) {
@@ -874,7 +874,7 @@ public class Menu {
             this.jugadores.get(turno).setPagoTasasEImpuestos(
                     this.jugadores.get(turno).getPagoTasasEImpuestos() + Valor.PAGO_SALIR_CARCEL);
             this.banca.sumarGastos(Valor.PAGO_SALIR_CARCEL);
-            System.out.println("El bote de la banca ahora es " + banca.getGastos());
+            System.out.println("El bote de la banca ahora es " + this.banca.getGastos());
         } else if (this.tirado) {
             System.out.println("Ya has tirado este turno!");
         } else if (this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL)
@@ -903,7 +903,7 @@ public class Menu {
 
         }
         if (lanzamientos > 0) {
-            casilla.comprarCasilla(this.jugadores.get(turno), banca, movimientoAvanzado[turno-1], casillasVisitadas);
+            casilla.comprarCasilla(this.jugadores.get(turno), this.banca, movimientoAvanzado[turno-1], casillasVisitadas);
 
             /*
              * Solo se puede comprar 1 vez por turno si es el coche
