@@ -239,7 +239,7 @@ public class Casilla {
      * - Jugador cuyo avatar está en esa casilla.
      * - La banca (para ciertas comprobaciones).
      * - El valor de la tirada: para determinar impuesto a pagar en casillas de
-     * servicios.
+     * servicios.KO
      * Valor devuelto: true en caso de ser solvente (es decir, de cumplir las
      * deudas), y false
      * en caso de no cumplirlas.
