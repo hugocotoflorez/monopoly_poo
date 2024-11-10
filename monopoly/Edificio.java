@@ -124,7 +124,7 @@ public class Edificio {
                 this.ID = "Casa-";
                 this.ID += Valor.NumeroCasasConstruidas;
 
-                this.precio = casilla.getValor() * 0.60f;
+                this.precio = casilla.getValor() * 0.60f; //TODO tiene que ser del valor inicial del solar, no el valor actual
 
             }
             if (tipo.equals("Hotel")) {

@@ -741,24 +741,19 @@ public class Menu {
     private void bancarrota(Jugador banca) {
         Jugador actual = this.jugadores.get(turno); // Jugador actual
 
-        if (actual.getAvatar().getCasilla().getDuenho().equals(banca) || !actual.estaBancarrota()) { // Si está en
-                                                                                                     // bancarrota por
-                                                                                                     // la banca o si se
-                                                                                                     // declaró
-                                                                                                     // voluntariamente
+        if (actual.getAvatar().getCasilla().getDuenho().equals(banca) || !actual.estaBancarrota()) { //Está en bancarrota por banca o se declaró voluntariamente
 
             for (Casilla c : actual.getPropiedades()) {
                 banca.anhadirPropiedad(c);
                 c.setDuenho(banca);
-                c.getEdificios().clear();
                 c.setHipotecada(false);
+                c.desEdificar();
             }
 
             actual.getPropiedades().clear();
 
             System.out.println("El jugador " + actual.getNombre()
-                    + " se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban.");
-            // TODO quitar edificios a la casilla cuando esta pasa a la banca
+                    + " se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban y todos sus edificios serán demolidos.");
         }
 
         if (!actual.getAvatar().getCasilla().getDuenho().equals(banca)) { // Si es por otro jugador
@@ -766,7 +761,7 @@ public class Menu {
                 actual.getAvatar().getCasilla().getDuenho().anhadirPropiedad(c);
                 c.setDuenho(actual.getAvatar().getCasilla().getDuenho());
                 c.getEdificios().clear();
-                c.setHipotecada(false); // TODO no sé si hay que hacer esto
+                c.setHipotecada(false);
             }
             actual.getPropiedades().clear();
             System.out.println("El jugador " + actual.getNombre()
@@ -777,6 +772,7 @@ public class Menu {
         this.tirado = true;
         this.jugadores.remove(turno);
         this.avatares.remove(turno);
+        
         if (this.jugadores.size() == 2) {
             partida_finalizada = true;
             System.out.println("Sólo queda un jugador. La partida ha finalizado.");
