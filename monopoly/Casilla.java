@@ -1,7 +1,7 @@
 package monopoly;
 
 import java.util.ArrayList;
-
+import java.util.Iterator;
 import partida.*;
 
 public class Casilla {
@@ -215,7 +215,8 @@ public class Casilla {
             this.duenho.sumarFortuna(hipoteca);
             System.out.println("Hipotecas " + this.getNombre() + " por " + this.hipoteca);
             this.hipotecada = true;
-        } else if(this.edificios.size()!=0) System.out.println("Vende los edificios de esta propiedad antes de hipotecarla.");
+        } else if (this.edificios.size() != 0)
+            System.out.println("Vende los edificios de esta propiedad antes de hipotecarla.");
         else
             System.out.println("No puedes hipotecar esa casilla.");
 
@@ -443,7 +444,7 @@ public class Casilla {
      * Método para mostrar información sobre una casilla.
      * Devuelve una cadena con información específica de cada tipo de casilla.
      */
-    public String infoCasilla() { //TODO
+    public String infoCasilla() { // TODO
         String info = new String();
         if (this.tipo.equals("solar")) {
             info = """
@@ -666,7 +667,7 @@ public class Casilla {
     }
 
     private boolean esHotelEdificable() {
-        
+
         if (this.grupo.getNumCasillas() == 2)
             return (this.obtenerNumeroCasas() == 4 && this.getCasillaEdificable() && this.obtenerNumeroHoteles() < 2);
 
@@ -707,9 +708,9 @@ public class Casilla {
     // Para casillas edificadas, recalcula el impuesto cada vez que se conestruye un
     // edificio
     public void actualizarValorCasilla() {
-        
-        if(this.edificios.size() == 0){
-        
+
+        if (this.edificios.size() == 0) {
+
             return;
 
         }
@@ -878,16 +879,75 @@ public class Casilla {
 
     }
 
-    public void desEdificar(String tipoEdificio, Jugador duenhoEdificio) { // Hay que poner los prints en menu
+    public void desEdificar(String tipoEdificio, Jugador duenhoEdificio, String n) { // Hay que poner
+                                                                                     // los prints en
+                                                                                     // menu
 
-        if (this.getDuenho().equals(duenhoEdificio))
-            for (Edificio e : this.edificios)
-                if (e.getTipo().equals(tipoEdificio)) {
-                    edificios.remove(e);
-                    duenhoEdificio.sumarFortuna((e.getPrecio() / 2));
+        switch (tipoEdificio) {
+
+            case "Casa":
+
+                if (Integer.parseInt(n) > this.obtenerNumeroCasas()) {
+
+                    System.out.println("No tienes suficientes casas construidas! Total: " + this.obtenerNumeroCasas());
                     return;
-                }
 
+                }
+                break;
+
+            case "Hotel":
+                if (Integer.parseInt(n) > this.obtenerNumeroHoteles()) {
+
+                    System.out.println(
+                            "No tienes suficientes Hoteles construidao! Total: " + this.obtenerNumeroHoteles());
+                    return;
+
+                }
+                break;
+
+            case "Piscina":
+                if (Integer.parseInt(n) > this.obtenerNumeroPiscinas()) {
+
+                    System.out.println(
+                            "No tienes suficientes Piscinas construidas! Total: " + this.obtenerNumeroPiscinas());
+                    return;
+
+                }
+                break;
+
+            case "Pista":
+                if (Integer.parseInt(n) > this.obtenerNumeroPistasDeporte()) {
+
+                    System.out.println(
+                            "No tienes suficientes Pistas construidas! Total: " + this.obtenerNumeroPistasDeporte());
+                    return;
+
+                }
+                break;
+        }
+        float fortuna_anhadida = 0f;
+
+        Iterator<Edificio> it = this.edificios.iterator();
+        int numeroeliminados = 0;
+
+        while (it.hasNext() && numeroeliminados < Integer.parseInt(n)) {
+
+            Edificio e = it.next();
+            if (e.getTipo().equals(tipoEdificio)) {
+
+                fortuna_anhadida += (e.getPrecio() / 2f);
+                it.remove();
+                numeroeliminados++;
+
+            }
+
+        }
+
+        duenhoEdificio.sumarFortuna(fortuna_anhadida);
+
+        System.out.println(
+                duenhoEdificio.getNombre() + " ha vendido " + n + " " + tipoEdificio + " en " + this.getNombre()
+                        + ", recibiendo " + fortuna_anhadida + " Su fortuna actual es " + duenhoEdificio.getFortuna());
     }
 
     public void desEdificar() {
