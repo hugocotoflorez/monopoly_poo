@@ -468,8 +468,8 @@ public class Casilla {
                     Alquiler piscina: %s
                     Alquiler pista de deporte: %s
                     }""".formatted(nombre, this.grupo.getID(), duenho.getNombre(), this.getValor(),
-                    impuesto, this.listar_nombres_edificios(), "No implementado.", "No implementado.", "No implementado.",
-                    "No implementado.", "No implementado.", "No implementado.", "No implementado.", "No implementado.",
+                    impuesto, this.listar_nombres_edificios(),this.getGrupo().getValor()*0.60f, this.getGrupo().getValor()*0.60f, this.getGrupo().getValor()*0.40f,
+                    this.getGrupo().getValor()*1.25f, "No implementado.", "No implementado.", "No implementado.", "No implementado.",
                     "No implementado."); 
         } else if (this.tipo.equals("especial")) { // Aquí hay que poner el bote en el Parking, qué jugadores están en
                                                    // la cárcel, cuánto te dan en la salida
