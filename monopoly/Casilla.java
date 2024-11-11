@@ -410,7 +410,7 @@ public class Casilla {
             if (this.tipo.equals("solar") && this.grupo.esDuenhoGrupo(solicitante)) {
                 System.out.println("El jugador " + solicitante.getNombre()
                         + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
-                this.grupo.actualizarAlquilerGrupo();
+                this.grupo.actualizarAlquilerGrupo(); //TODO esto no va aquí
             }
         }
 
@@ -776,7 +776,7 @@ public class Casilla {
 
     }
 
-    public void edificar(String tipo, Jugador duenhoGrupo) { // TODO no te debe dejar comprar si no tienes dinero
+    public void edificar(String tipo, Jugador duenhoGrupo) {
         // Aumentar el alquiler de la casilla dependiendo de la
         // edificación
         if (!this.tipo.equals("solar")) {
@@ -799,6 +799,8 @@ public class Casilla {
                             duenhoGrupo.sumarFortuna(-Casa.getPrecio());
 
                             Valor.NumeroCasasConstruidas++;
+
+                            duenhoGrupo.setDineroInvertido(duenhoGrupo.getDineroInvertido() + Casa.getPrecio());
 
                             System.out.println("Se ha edificado una casa en " + this.getNombre() + ". La fortuna de "
                                 + duenhoGrupo.getNombre() + " se reduce en " + Casa.getPrecio());
@@ -834,6 +836,8 @@ public class Casilla {
 
                             Valor.NumeroHotelesConstruidos++;
 
+                            duenhoGrupo.setDineroInvertido(duenhoGrupo.getDineroInvertido() + Hotel.getPrecio());
+
                             System.out.println("Se ha edificado un hotel en " + this.getNombre() + "La fortuna de "
                                     + duenhoGrupo.getNombre() + " se reduce en " + Hotel.getPrecio());
                         }
@@ -855,6 +859,8 @@ public class Casilla {
 
                             Valor.NumeroPiscinasConstruidas++;
 
+                            duenhoGrupo.setDineroInvertido(duenhoGrupo.getDineroInvertido() + Piscina.getPrecio());
+
                             System.out.println("Se ha edificado una piscina en " + this.getNombre() + "La fortuna de "
                                     + duenhoGrupo.getNombre() + " se reduce en " + Piscina.getPrecio());
                         }
@@ -874,6 +880,8 @@ public class Casilla {
                             duenhoGrupo.sumarFortuna(-Pista.getPrecio());
 
                             Valor.NumeroPistasConstruidos++;
+
+                            duenhoGrupo.setDineroInvertido(duenhoGrupo.getDineroInvertido() + Pista.getPrecio());
 
                             System.out.println(
                                     "Se ha edificado una Pista de Deportes en " + this.getNombre() + "La fortuna de "

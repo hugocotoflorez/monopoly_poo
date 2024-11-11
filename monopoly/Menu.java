@@ -703,6 +703,7 @@ public class Menu {
 
         else if (avatares.get(turno).getCasilla().getTipo().equals("caja")) {
             elegir_carta(suerte);
+            if (jugadores.get(turno).estaBancarrota()) solvente = false;
         }
 
         else {
@@ -772,7 +773,7 @@ public class Menu {
         this.tirado = true;
         this.jugadores.remove(turno);
         this.avatares.remove(turno);
-        
+
         if (this.jugadores.size() == 2) {
             partida_finalizada = true;
             System.out.println("Sólo queda un jugador. La partida ha finalizado.");
@@ -875,7 +876,7 @@ public class Menu {
         }
 
         if (casilla == null) {
-            System.out.println("La casilla no existe");
+            System.out.println("La casilla no existe.");
             return;
 
         }
@@ -1104,7 +1105,7 @@ public class Menu {
     private void edificar(String tipo) {
         Casilla c = this.jugadores.get(turno).getAvatar().getCasilla();
         c.edificar(tipo, this.jugadores.get(this.turno));
-        c.actualizarValorCasilla();
+        c.actualizarValorCasilla(); //TODO esto no está bien
 
     }
 

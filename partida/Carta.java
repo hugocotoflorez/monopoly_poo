@@ -146,10 +146,8 @@ public class Carta {
             // Pasa por salida
             System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
             av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
-            av.getJugador().setVueltas(av.getJugador().getVueltas() + 1);
             av.getJugador().setPasarPorCasillaDeSalida(
                     av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
-            System.out.println("Llevas " + av.getJugador().getVueltas() + " vueltas.");
         }
         av.moverAvatar(casillas.get(0).get(5));
     }
@@ -179,10 +177,8 @@ public class Carta {
         if (av.getCasilla().getPosicion() > 6) {
             System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
             av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
-            av.getJugador().setVueltas(av.getJugador().getVueltas() + 1);
             av.getJugador().setPasarPorCasillaDeSalida(
                     av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
-            System.out.println("Llevas " + av.getJugador().getVueltas() + " vueltas.");
         }
         av.moverAvatar(casillas.get(0).get(6));
     }
@@ -209,7 +205,7 @@ public class Carta {
         /**
          * Paga 500000€ por un fin de semana en un balneario de 5 estrellas
          */
-        av.getJugador().sumarFortuna(500000);
+        av.getJugador().sumarFortuna(-500000);
         av.getJugador().setPagoTasasEImpuestos(av.getJugador().getPagoTasasEImpuestos() + 500000);
         jugadores.get(0).sumarGastos(500000);
         System.out.println("El bote de la banca ahora es " + jugadores.get(0).getGastos());
@@ -232,10 +228,8 @@ public class Carta {
         // Cobrar Salida
         System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
         av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
-        av.getJugador().setVueltas(av.getJugador().getVueltas() + 1);
         av.getJugador().setPasarPorCasillaDeSalida(
                 av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
-        System.out.println("Llevas " + av.getJugador().getVueltas() + " vueltas.");
     }
 
     private void accComm4(Avatar av) {
@@ -263,11 +257,8 @@ public class Carta {
          */
         for (Jugador j : jugadores) {
             av.getJugador().sumarFortuna(-200000);
-            av.getJugador().estaBancarrota();
             j.sumarFortuna(200000);
             av.getJugador().setPagoTasasEImpuestos(av.getJugador().getPagoTasasEImpuestos() + 200000);
-            jugadores.get(0).sumarGastos(200000);
-            System.out.println("El bote de la banca ahora es " + jugadores.get(0).getGastos());
         }
     }
 
