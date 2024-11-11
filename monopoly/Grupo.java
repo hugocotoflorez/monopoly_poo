@@ -145,9 +145,11 @@ class Grupo {
      * otro caso.
      */
     public boolean esDuenhoGrupo(Jugador jugador) {
-        for (Casilla c : this.miembros) {
-            if (c.getDuenho() != jugador) {
-                return false;
+        if (!jugador.esBanca()){
+            for (Casilla c : this.miembros) {
+                if (c.getDuenho() != jugador) {
+                    return false;
+                }
             }
         }
         return true;

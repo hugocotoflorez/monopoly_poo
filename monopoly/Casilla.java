@@ -449,6 +449,8 @@ public class Casilla {
     public String infoCasilla() { // TODO
         String info = new String();
         if (this.tipo.equals("solar")) {
+            float alquilerbase = this.getGrupo().getValor();
+            if (this.grupo.esDuenhoGrupo(this.duenho)) alquilerbase *= 2;
             info = """
                     {
                     Nombre: %s
@@ -465,12 +467,13 @@ public class Casilla {
                     ALquiler dos casas: %s
                     Alquiler tres casas: %s
                     Alquiler cuatro casas: %s
+                    Alquiler hotel: %s
                     Alquiler piscina: %s
                     Alquiler pista de deporte: %s
                     }""".formatted(nombre, this.grupo.getID(), duenho.getNombre(), this.getValor(),
-                    impuesto, this.listar_nombres_edificios(),this.getGrupo().getValor()*0.60f, this.getGrupo().getValor()*0.60f, this.getGrupo().getValor()*0.40f,
-                    this.getGrupo().getValor()*1.25f, "No implementado.", "No implementado.", "No implementado.", "No implementado.",
-                    "No implementado."); 
+                    impuesto, this.listar_nombres_edificios(),alquilerbase*0.60f, alquilerbase*0.60f, alquilerbase*0.40f,
+                    alquilerbase*1.25f, alquilerbase*5f, alquilerbase*15f, alquilerbase*35f, alquilerbase*50f,
+                    alquilerbase*70f, alquilerbase*25f, alquilerbase*25f); 
         } else if (this.tipo.equals("especial")) { // Aquí hay que poner el bote en el Parking, qué jugadores están en
                                                    // la cárcel, cuánto te dan en la salida
             if (this.nombre.equals("Salida"))
@@ -723,9 +726,7 @@ public class Casilla {
     public void actualizarValorCasilla() {
 
         if (this.edificios.size() == 0) {
-
             return;
-
         }
 
         int numeroCasas = this.obtenerNumeroCasas();
@@ -739,6 +740,7 @@ public class Casilla {
         float nuevoImpuestoPistas = 0f;
 
         float alquilerinicial = this.grupo.getValor();
+
         if (this.grupo.esDuenhoGrupo(this.getDuenho()))
             alquilerinicial *= 2;
 
@@ -755,9 +757,7 @@ public class Casilla {
         }
 
         if (numeroCasas == 4) {
-            ;
             nuevoImpuestoCasas = 50 * alquilerinicial;
-
         }
 
         if (numeroHoteles >= 1) {
@@ -770,12 +770,10 @@ public class Casilla {
 
         if (numeroPistas >= 1) {
             nuevoImpuestoPistas = 25 * alquilerinicial * numeroPistas;
-
         }
 
         this.setImpuesto(alquilerinicial + nuevoImpuestoCasas + nuevoImpuestoHoteles + nuevoImpuestoPiscinas
                 + nuevoImpuestoPistas);
-
     }
 
     public void edificar(String tipo, Jugador duenhoGrupo) {
@@ -906,52 +904,42 @@ public class Casilla {
 
     }
 
-    public void desEdificar(String tipoEdificio, Jugador duenhoEdificio, String n) { // Hay que poner
-                                                                                     // los prints en
-                                                                                     // menu
+    public void desEdificar(String tipoEdificio, Jugador duenhoEdificio, String n) { 
 
         switch (tipoEdificio) {
-
             case "Casa":
-
                 if (Integer.parseInt(n) > this.obtenerNumeroCasas()) {
 
                     System.out.println("No tienes suficientes casas construidas! Total: " + this.obtenerNumeroCasas());
                     return;
-
                 }
                 break;
 
             case "Hotel":
                 if (Integer.parseInt(n) > this.obtenerNumeroHoteles()) {
-
                     System.out.println(
                             "No tienes suficientes Hoteles construidao! Total: " + this.obtenerNumeroHoteles());
                     return;
-
                 }
                 break;
 
             case "Piscina":
                 if (Integer.parseInt(n) > this.obtenerNumeroPiscinas()) {
-
                     System.out.println(
                             "No tienes suficientes Piscinas construidas! Total: " + this.obtenerNumeroPiscinas());
                     return;
-
                 }
                 break;
 
             case "Pista":
                 if (Integer.parseInt(n) > this.obtenerNumeroPistasDeporte()) {
-
                     System.out.println(
                             "No tienes suficientes Pistas construidas! Total: " + this.obtenerNumeroPistasDeporte());
                     return;
-
                 }
                 break;
         }
+
         float fortuna_anhadida = 0f;
 
         Iterator<Edificio> it = this.edificios.iterator();
