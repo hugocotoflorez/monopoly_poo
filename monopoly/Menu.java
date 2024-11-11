@@ -1154,8 +1154,6 @@ public class Menu {
     private void edificar(String tipo) {
         Casilla c = this.jugadores.get(turno).getAvatar().getCasilla();
         c.edificar(tipo, this.jugadores.get(this.turno));
-        c.actualizarValorCasilla(); //TODO esto no está bien
-
     }
 
     private void desedificar(String casilla, String tipoedificio, String n) {

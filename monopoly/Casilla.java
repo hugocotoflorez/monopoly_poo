@@ -255,6 +255,14 @@ public class Casilla {
                     // se le resta el impuesto y se lo da al jugador que tiene
                     // la casilla
                     if (!this.hipotecada && !this.duenho.equals(actual)) {
+
+                        if (this.grupo.esDuenhoGrupo(this.duenho)) {
+                            System.out.println("El jugador " + this.duenho.getNombre()
+                                    + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
+                            this.grupo.actualizarAlquilerGrupo();
+                        }
+                        c.actualizarValorCasilla();
+
                         actual.sumarFortuna(-c.getImpuesto());// revisar
                         c.getDuenho().sumarFortuna(c.getImpuesto());
 
@@ -301,7 +309,7 @@ public class Casilla {
                 break;
             case "transporte":
                 if (!c.esComprable(actual)) {
-                    if (!this.hipotecada) {
+                    if (!this.hipotecada && !this.duenho.equals(actual)) {
                         float p = c.getDuenho().cuantostransportes() * 0.25f * Valor.IMPUESTOS_TRANSPORTES;
                         c.setImpuesto(p);
 
@@ -328,7 +336,7 @@ public class Casilla {
 
             case "serv":
                 if (!c.esComprable(actual)) {
-                    if (!this.hipotecada) {
+                    if (!this.hipotecada && !this.duenho.equals(actual)) {
                         int s = (c.getDuenho().cuantosservicios() >= 2) ? 10 : 4;
                         float p = Valor.IMPUESTO_SERVICIOS * s * tirada;
                         c.setImpuesto(p);
@@ -406,12 +414,6 @@ public class Casilla {
             System.out.println("El jugador " + solicitante.getNombre() +
                     " ha comprado la casilla " + this.nombre +
                     ". Su fortuna actual es " + solicitante.getFortuna());
-
-            if (this.tipo.equals("solar") && this.grupo.esDuenhoGrupo(solicitante)) {
-                System.out.println("El jugador " + solicitante.getNombre()
-                        + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
-                this.grupo.actualizarAlquilerGrupo(); //TODO esto no va aquí
-            }
         }
 
     }

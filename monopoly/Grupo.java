@@ -153,16 +153,6 @@ class Grupo {
         return true;
     }
 
-    /*
-     * Función para llamar cuando un jugador tenga todos los solares de un grupo.
-     * Duplica su alquiler
-     */
-    public void actualizarAlquilerGrupo() {
-        for (Casilla m : this.miembros) {
-            m.setImpuesto(m.getImpuesto() * 2);
-        }
-    }
-
     // Función devuelve el total de recaudados de un grupo de un color en concreto
     public float totalRecaudado() {
         float ret = 0;
@@ -241,5 +231,16 @@ class Grupo {
                 return Valor.GRUPO_8*0.1f;
         }
         return 0;
+    }
+
+        /*
+     * Función para llamar cuando un jugador tenga todos los solares de un grupo.
+     * Duplica su alquiler inicial
+     */
+    public void actualizarAlquilerGrupo() {
+        float valorinicial = this.getValor();
+        for (Casilla m : this.miembros) {
+            m.setImpuesto(valorinicial* 2);
+        }
     }
 }
