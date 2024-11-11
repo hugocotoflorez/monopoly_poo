@@ -446,7 +446,7 @@ public class Casilla {
      * Método para mostrar información sobre una casilla.
      * Devuelve una cadena con información específica de cada tipo de casilla.
      */
-    public String infoCasilla() { // TODO
+    public String infoCasilla() {
         String info = new String();
         if (this.tipo.equals("solar")) {
             float alquilerbase = this.getGrupo().getValor();

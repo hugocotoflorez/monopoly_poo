@@ -519,7 +519,7 @@ public class Menu {
 
     }
 
-    private void moverCoche(int valor1, int valor2) {
+    private void moverCoche(int valor1, int valor2) { //TODO en la última tirada que haga si sacas dobles te debe dejar hacer una tirada normal extra
         /*
          * Coche: si el valor de los dados es mayor que 4, avanza tantas casillas como
          * dicho valor y puede seguir lanzando los dados tres veces más mientras el
@@ -543,7 +543,7 @@ public class Menu {
             contadorTiradasCoche++;
             this.tirado = (contadorTiradasCoche % 4) == 0;
             System.out.println("Se puede volver a tirar? " + !this.tirado);
-            System.out.println("Tiradas coche = " + contadorTiradasCoche);
+            System.out.println("Tiradas coche = " + contadorTiradasCoche); //TODO esto no se pone a 0 (no sé si se tiene que poner a 0 pero yo aviso)
 
         } else {
             contadorTiradasCoche = 0;
@@ -682,7 +682,7 @@ public class Menu {
             jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() - 1);
             jugadores.get(turno).setPasarPorCasillaDeSalida(
                     jugadores.get(turno).getPasarPorCasillaDeSalida() - Valor.SUMA_VUELTA);
-            System.out.println("Llevas " + jugadores.get(turno).getVueltas() + " vueltas.");
+            System.out.println("Llevas " + jugadores.get(turno).getVueltas() + " vueltas."); //TODO se supone q hay q comprobar q la próxima vez q pase por la salida no incremente su precio
 
         }
     }
