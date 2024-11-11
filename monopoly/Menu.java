@@ -498,7 +498,7 @@ public class Menu {
                 moverEsfinge(valor1, valor2);
                 evaluarAccion(valor1 + valor2);
                 break;
-            case "Somprero":
+            case "Sombrero":
                 /* No para esta entrega */
                 moverSombrero(valor1, valor2);
                 evaluarAccion(valor1 + valor2);
