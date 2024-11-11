@@ -519,7 +519,7 @@ public class Menu {
 
     }
 
-    private void moverCoche(int valor1, int valor2) { //TODO en la última tirada que haga si sacas dobles te debe dejar hacer una tirada normal extra
+    private void moverCoche(int valor1, int valor2) { //TODO en la última tirada que haga si sacas dobles te debe dejar hacer una tirada normal extra (si sacas dobles en la extra no haces más)
         /*
          * Coche: si el valor de los dados es mayor que 4, avanza tantas casillas como
          * dicho valor y puede seguir lanzando los dados tres veces más mientras el
@@ -545,7 +545,7 @@ public class Menu {
             System.out.println("Se puede volver a tirar? " + !this.tirado);
             System.out.println("Tiradas coche = " + contadorTiradasCoche); //TODO esto no se pone a 0 (no sé si se tiene que poner a 0 pero yo aviso)
 
-        } else {
+        } else { //TODO si se sacan dobles aquí no te debe dejar volver a tirar
             contadorTiradasCoche = 0;
             moverAtras(valor1, valor2);
             // Comprueba si pasa por salida hacia atras
@@ -553,7 +553,7 @@ public class Menu {
         }
     }
 
-    private void moverPelota(int valor1, int valor2) {
+    private void moverPelota(int valor1, int valor2) { //TODO si se sacan dobles te tiene que volver a dejar tirar con el movimiento especial (rebotando)
         /*
          * Pelota: si el valor de los dados es mayor que 4, avanza tantas casillas como
          * dicho valor; mientras que, si el valor es menor o igual que 4, retrocede el
