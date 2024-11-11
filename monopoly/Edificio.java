@@ -124,7 +124,7 @@ public class Edificio {
                 this.ID = "Casa-";
                 this.ID += Valor.NumeroCasasConstruidas;
 
-                this.precio = casilla.getValor() * 0.60f; //TODO tiene que ser del valor inicial del solar, no el valor actual
+                this.precio = casilla.getGrupo().getValor() * 0.60f;
 
             }
             if (tipo.equals("Hotel")) {
@@ -135,7 +135,7 @@ public class Edificio {
                 this.ID = "Hotel-";
                 this.ID += Valor.NumeroHotelesConstruidos;
 
-                this.precio = casilla.getValor() * 0.60f;
+                this.precio = casilla.getGrupo().getValor() * 0.60f;
 
 
             }
@@ -147,7 +147,7 @@ public class Edificio {
                 this.ID = "Piscina-";
                 this.ID += Valor.NumeroPiscinasConstruidas;
 
-                this.precio = casilla.getValor() * 0.40f;
+                this.precio = casilla.getGrupo().getValor() * 0.40f;
 
             }
             if (tipo.equals("Pista de deportes")) {
@@ -158,7 +158,7 @@ public class Edificio {
                 this.ID = "Pista de deportes-";
                 this.ID += Valor.NumeroPistasConstruidos;
 
-                this.precio = casilla.getValor() * 1.25f;
+                this.precio = casilla.getGrupo().getValor() * 1.25f;
             }
 
     }
