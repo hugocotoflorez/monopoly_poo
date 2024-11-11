@@ -226,7 +226,7 @@ public class Carta {
          */
         av.moverAvatar(casillas.get(0).get(0));
         // Cobrar Salida
-        System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
+        System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA); //TODO hay que actualizar las vueltas dadas?
         av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
         av.getJugador().setPasarPorCasillaDeSalida(
                 av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);

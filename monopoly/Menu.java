@@ -1166,6 +1166,10 @@ public class Menu {
         }
 
         c.desEdificar(tipoedificio, this.jugadores.get(turno), n);
+        if (!jugadores.get(turno).estaBancarrota()) {
+            solvente = true;
+        }
+        else System.out.println("Aún no has saldado tus deudas.");
     }
 
 }
