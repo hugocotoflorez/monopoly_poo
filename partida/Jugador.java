@@ -351,8 +351,8 @@ public class Jugador {
         ret += this.fortuna;
         for (Casilla c: propiedades){
             ret += c.getValor();
+            for(Edificio e: c.getEdificios()) ret += e.getPrecio();
         }
-        //TODO falta añadir el valor de los edificios que tenga (ayuda guille)
         return ret;
     }
 }
