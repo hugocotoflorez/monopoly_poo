@@ -459,7 +459,7 @@ public class Menu {
             if (dadosDobles(valor1, valor2)
                     /* Si esta usando el movimiento avanzado del coche no cuenta */
                     && (!(this.jugadores.get(turno).getAvatar().getTipo().equals("Coche")
-                            && movimientoAvanzado[turno - 1])) || contadorTiradasCoche==0) {
+                            && movimientoAvanzado[turno - 1]) || contadorTiradasCoche==0)) {
 
                 contadorTiradasCoche = 3;
                 jugador_puede_comprar = true;
@@ -547,8 +547,7 @@ public class Menu {
             this.tirado = (contadorTiradasCoche % 4) == 0;
 
             System.out.println("Se puede volver a tirar? " + !this.tirado);
-            System.out.println("Tiradas coche = " + contadorTiradasCoche); // TODO esto no se pone a 0 (no sé si se
-                                                                           // tiene que poner a 0 pero yo aviso)
+            System.out.println("Tiradas coche = " + contadorTiradasCoche);
 
         } else { // TODO si se sacan dobles aquí no te debe dejar volver a tirar
             contadorTiradasCoche = 0;
