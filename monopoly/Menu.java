@@ -22,7 +22,7 @@ public class Menu {
     private Dado dado1; // Dos dados para lanzar y avanzar casillas.
     private Dado dado2;
     private Jugador banca; // El jugador banca.
-    private boolean tirado= false; // Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
+    private boolean tirado = false; // Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
     private boolean solvente = true; // Booleano para comprobar si el jugador que tiene el turno es solvente, es
     // decir, si ha pagado sus deudas.
     private boolean partida_empezada = false;
@@ -30,6 +30,7 @@ public class Menu {
     private boolean[] movimientoAvanzado = { false, false, false, false, false, true };
     private boolean[] se_puede_tirar_en_el_siguiente_turno = { true, true, true, true, true, true };
     private boolean[] se_puede_tirar_en_el_siguiente_turno2 = { true, true, true, true, true, true };
+    private boolean es_coche_y_no_puede_tirar = false;
     private boolean movimientoAvanzadoSePuedeCambiar = true;
     private int contadorTiradasCoche = 0;
     private boolean jugador_puede_comprar = true;
@@ -522,7 +523,8 @@ public class Menu {
 
     }
 
-    private void moverCoche(int valor1, int valor2) { //TODO si sacas menos que 4 no puedes tirar en los siguientes 2 turnos CREO QUE YA ESTA
+    private void moverCoche(int valor1, int valor2) { // TODO si sacas menos que 4 no puedes tirar en los siguientes 2
+                                                      // turnos CREO QUE YA ESTA
         // TODO en la última tirada que haga si sacas dobles te debe dejar hacer una
         // tirada normal extra (si sacas dobles en la extra no haces más) CREO QUE YA
         // FUNCIONA
@@ -1153,7 +1155,7 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
-        if (partida_empezada && lanzamientos > 0 && this.solvente && this.tirado) {
+        if (partida_empezada && ((lanzamientos > 0 && this.tirado) || es_coche_y_no_puede_tirar)  && this.solvente) {
 
             /* Esto no se donde meterlo, en cada turno se tiene que poner a true */
             movimientoAvanzadoSePuedeCambiar = true;
@@ -1162,12 +1164,16 @@ public class Menu {
             lanzamientos_dobles = 0;
             casillasVisitadas.removeAll(casillasVisitadas); // se borran todas las casillas
 
-            int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
+
             this.tirado = !se_puede_tirar_en_el_siguiente_turno[turno - 1 + 1];
             se_puede_tirar_en_el_siguiente_turno[turno - 1 + 1] = se_puede_tirar_en_el_siguiente_turno2[turno - 1 + 1];
             se_puede_tirar_en_el_siguiente_turno2[turno - 1 + 1] = true;
+            es_coche_y_no_puede_tirar = this.tirado;
+
+
             this.lanzamientos = 0;
 
+            int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
             if (this.turno < numero_jugadores) {
                 this.turno += 1;
                 System.out.println("El jugador actual es: " + this.jugadores.get(turno).getNombre());
