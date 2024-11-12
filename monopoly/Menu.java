@@ -360,7 +360,7 @@ public class Menu {
                     desedificar(com[2], com[1], com[3]);
 
                 }
-                
+
                 break;
             default:
                 System.out.println("Opcion incorrecta. [? para ver las opciones]");
@@ -458,9 +458,10 @@ public class Menu {
 
             if (dadosDobles(valor1, valor2)
                     /* Si esta usando el movimiento avanzado del coche no cuenta */
-                    && !(this.jugadores.get(turno).getAvatar().getTipo().equals("Coche")
-                            && movimientoAvanzado[turno - 1])) {
+                    && (!(this.jugadores.get(turno).getAvatar().getTipo().equals("Coche")
+                            && movimientoAvanzado[turno - 1])) || contadorTiradasCoche==0) {
 
+                contadorTiradasCoche = 3;
                 jugador_puede_comprar = true;
                 this.tirado = false;
                 this.lanzamientos_dobles++;
@@ -519,7 +520,9 @@ public class Menu {
 
     }
 
-    private void moverCoche(int valor1, int valor2) { //TODO en la última tirada que haga si sacas dobles te debe dejar hacer una tirada normal extra (si sacas dobles en la extra no haces más)
+    private void moverCoche(int valor1, int valor2) {
+        // TODO en la última tirada que haga si sacas dobles te debe dejar hacer una
+        // tirada normal extra (si sacas dobles en la extra no haces más)
         /*
          * Coche: si el valor de los dados es mayor que 4, avanza tantas casillas como
          * dicho valor y puede seguir lanzando los dados tres veces más mientras el
@@ -542,10 +545,12 @@ public class Menu {
             // this.tirado es false por lo que no se puede seguir tirando
             contadorTiradasCoche++;
             this.tirado = (contadorTiradasCoche % 4) == 0;
-            System.out.println("Se puede volver a tirar? " + !this.tirado);
-            System.out.println("Tiradas coche = " + contadorTiradasCoche); //TODO esto no se pone a 0 (no sé si se tiene que poner a 0 pero yo aviso)
 
-        } else { //TODO si se sacan dobles aquí no te debe dejar volver a tirar
+            System.out.println("Se puede volver a tirar? " + !this.tirado);
+            System.out.println("Tiradas coche = " + contadorTiradasCoche); // TODO esto no se pone a 0 (no sé si se
+                                                                           // tiene que poner a 0 pero yo aviso)
+
+        } else { // TODO si se sacan dobles aquí no te debe dejar volver a tirar
             contadorTiradasCoche = 0;
             moverAtras(valor1, valor2);
             // Comprueba si pasa por salida hacia atras
@@ -553,7 +558,8 @@ public class Menu {
         }
     }
 
-    private void moverPelota(int valor1, int valor2) { //TODO si se sacan dobles te tiene que volver a dejar tirar con el movimiento especial (rebotando)
+    private void moverPelota(int valor1, int valor2) { // TODO si se sacan dobles te tiene que volver a dejar tirar con
+                                                       // el movimiento especial (rebotando)
         /*
          * Pelota: si el valor de los dados es mayor que 4, avanza tantas casillas como
          * dicho valor; mientras que, si el valor es menor o igual que 4, retrocede el
@@ -570,7 +576,8 @@ public class Menu {
         System.err.println("[!]: Esto puede que no funcione (MoverPelota)");
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
-            for (int i = 5; i < desplazamiento; i += 2) { //TODO la última casilla en la que caes tiene que ser el valor de los dados que sacaste
+            for (int i = 5; i < desplazamiento; i += 2) { // TODO la última casilla en la que caes tiene que ser el
+                                                          // valor de los dados que sacaste
 
                 if (i == 5) // primer salto
                     moverNormal(5, 0);
@@ -686,7 +693,10 @@ public class Menu {
             jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() - 1);
             jugadores.get(turno).setPasarPorCasillaDeSalida(
                     jugadores.get(turno).getPasarPorCasillaDeSalida() - Valor.SUMA_VUELTA);
-            System.out.println("Llevas " + jugadores.get(turno).getVueltas() + " vueltas."); //TODO se supone q hay q comprobar q la próxima vez q pase por la salida no incremente su precio
+            System.out.println("Llevas " + jugadores.get(turno).getVueltas() + " vueltas."); // TODO se supone q hay q
+                                                                                             // comprobar q la próxima
+                                                                                             // vez q pase por la salida
+                                                                                             // no incremente su precio
 
         }
     }
@@ -707,7 +717,8 @@ public class Menu {
 
         else if (avatares.get(turno).getCasilla().getTipo().equals("caja")) {
             elegir_carta(suerte);
-            if (jugadores.get(turno).estaBancarrota()) solvente = false;
+            if (jugadores.get(turno).estaBancarrota())
+                solvente = false;
         }
 
         else {
@@ -746,7 +757,11 @@ public class Menu {
     private void bancarrota(Jugador banca) {
         Jugador actual = this.jugadores.get(turno); // Jugador actual
 
-        if (actual.getAvatar().getCasilla().getDuenho().equals(banca) || !actual.estaBancarrota()) { //Está en bancarrota por banca o se declaró voluntariamente
+        if (actual.getAvatar().getCasilla().getDuenho().equals(banca) || !actual.estaBancarrota()) { // Está en
+                                                                                                     // bancarrota por
+                                                                                                     // banca o se
+                                                                                                     // declaró
+                                                                                                     // voluntariamente
 
             for (Casilla c : actual.getPropiedades()) {
                 banca.anhadirPropiedad(c);
@@ -880,7 +895,7 @@ public class Menu {
         }
 
         /* Para la mierda del coche y la pelota */
-        if (!jugador_puede_comprar) {
+        if (!jugador_puede_comprar && movimientoAvanzado[turno]) {
             System.out.println("Ya has comprado en este turno!");
             return;
         }
@@ -1061,29 +1076,15 @@ public class Menu {
         return ret;
     }
 
-    private String buscarJugadorMasVueltas(){
+    private String buscarJugadorMasVueltas() {
         String ret = new String();
         int maxvueltas = 0;
         for (Jugador j : this.jugadores) {
-            if (j.getVueltas() >= maxvueltas) maxvueltas = j.getVueltas();
+            if (j.getVueltas() >= maxvueltas)
+                maxvueltas = j.getVueltas();
         }
         for (Jugador j : this.jugadores) {
-            if (j.getVueltas() == maxvueltas){
-                ret += j.getNombre();
-                ret += ", ";
-            }
-        }
-        return ret;
-    }
-    
-    private String buscarJugadorMasVecesDados() {
-        String ret = new String();
-        int maxtiradas = 0;
-        for (Jugador j : this.jugadores) {
-            if (j.getNumeroTiradas() >= maxtiradas) maxtiradas = j.getNumeroTiradas();
-        }
-        for (Jugador j : this.jugadores) {
-            if (j.getNumeroTiradas() == maxtiradas){
+            if (j.getVueltas() == maxvueltas) {
                 ret += j.getNombre();
                 ret += ", ";
             }
@@ -1091,14 +1092,31 @@ public class Menu {
         return ret;
     }
 
-    private String buscarJugadorEnCabeza(){
+    private String buscarJugadorMasVecesDados() {
+        String ret = new String();
+        int maxtiradas = 0;
+        for (Jugador j : this.jugadores) {
+            if (j.getNumeroTiradas() >= maxtiradas)
+                maxtiradas = j.getNumeroTiradas();
+        }
+        for (Jugador j : this.jugadores) {
+            if (j.getNumeroTiradas() == maxtiradas) {
+                ret += j.getNombre();
+                ret += ", ";
+            }
+        }
+        return ret;
+    }
+
+    private String buscarJugadorEnCabeza() {
         String ret = new String();
         float maxscore = 0.0f;
         for (Jugador j : this.jugadores) {
-            if (j.score() >= maxscore) maxscore = j.score();
+            if (j.score() >= maxscore)
+                maxscore = j.score();
         }
         for (Jugador j : this.jugadores) {
-            if (j.score() == maxscore){
+            if (j.score() == maxscore) {
                 ret += j.getNombre();
                 ret += ", ";
             }
@@ -1111,8 +1129,8 @@ public class Menu {
         System.out.println("Casillas más rentables: " + this.buscarCasillasMasRentables());
         System.out.println("Grupos más rentables: " + this.buscarGruposMasRentables());
         System.out.println("Casillas más frecuentadas: " + this.buscarCasillaMasFrecuentada());
-        System.out.println("Jugador con más vueltas: "+ this.buscarJugadorMasVueltas());
-        System.out.println("Jugador que ha tirado más veces los dados: "+ this.buscarJugadorMasVecesDados());
+        System.out.println("Jugador con más vueltas: " + this.buscarJugadorMasVueltas());
+        System.out.println("Jugador que ha tirado más veces los dados: " + this.buscarJugadorMasVecesDados());
         System.out.println("Jugador en cabeza: " + this.buscarJugadorEnCabeza());
     }
 
@@ -1122,6 +1140,7 @@ public class Menu {
 
             /* Esto no se donde meterlo, en cada turno se tiene que poner a true */
             movimientoAvanzadoSePuedeCambiar = true;
+            contadorTiradasCoche = 0;
             jugador_puede_comprar = true;
             lanzamientos_dobles = 0;
             casillasVisitadas.removeAll(casillasVisitadas); // se borran todas las casillas
@@ -1171,8 +1190,8 @@ public class Menu {
         c.desEdificar(tipoedificio, this.jugadores.get(turno), n);
         if (!jugadores.get(turno).estaBancarrota()) {
             solvente = true;
-        }
-        else System.out.println("Aún no has saldado tus deudas.");
+        } else
+            System.out.println("Aún no has saldado tus deudas.");
     }
 
 }
