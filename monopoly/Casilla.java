@@ -472,6 +472,9 @@ public class Casilla {
                     Alquiler piscina: %s
                     Alquiler pista de deporte: %s
                     }""".formatted(nombre, this.grupo.getID(), duenho.getNombre(), this.getValor(),
+                    impuesto, this.listar_nombres_edificios(),alquilerbase*0.60f, alquilerbase*0.60f, alquilerbase*0.40f,
+                    alquilerbase*1.25f, alquilerbase*5f, alquilerbase*15f, alquilerbase*35f, alquilerbase*50f,
+                    alquilerbase*70f, alquilerbase*25f, alquilerbase*25f);
                     impuesto, this.listar_nombres_edificios(), alquilerbase * 0.60f, alquilerbase * 0.60f,
                     alquilerbase * 0.40f,
                     alquilerbase * 1.25f, alquilerbase * 5f, alquilerbase * 15f, alquilerbase * 35f, alquilerbase * 50f,
@@ -941,6 +944,10 @@ public class Casilla {
                     return;
                 }
                 break;
+
+            default:
+                System.out.println("Tipo incorrecto! (Es con mayuscula)");
+                return;
         }
 
         float fortuna_anhadida = 0f;
