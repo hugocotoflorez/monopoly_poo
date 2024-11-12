@@ -1165,12 +1165,6 @@ public class Menu {
             casillasVisitadas.removeAll(casillasVisitadas); // se borran todas las casillas
 
 
-            this.tirado = !se_puede_tirar_en_el_siguiente_turno[turno - 1 + 1];
-            se_puede_tirar_en_el_siguiente_turno[turno - 1 + 1] = se_puede_tirar_en_el_siguiente_turno2[turno - 1 + 1];
-            se_puede_tirar_en_el_siguiente_turno2[turno - 1 + 1] = true;
-            es_coche_y_no_puede_tirar = this.tirado;
-
-
             this.lanzamientos = 0;
 
             int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
@@ -1181,6 +1175,17 @@ public class Menu {
                 this.turno = 1; // Por la banca
                 System.out.println("El jugador actual es: " + this.jugadores.get(turno).getNombre());
             }
+
+
+            this.tirado = !se_puede_tirar_en_el_siguiente_turno[turno - 1 + 1];
+            se_puede_tirar_en_el_siguiente_turno[turno - 1 + 1] = se_puede_tirar_en_el_siguiente_turno2[turno - 1 + 1];
+            se_puede_tirar_en_el_siguiente_turno2[turno - 1 + 1] = true;
+            es_coche_y_no_puede_tirar = this.tirado;
+            System.out.println("This.tirado = " + !se_puede_tirar_en_el_siguiente_turno[turno - 1 + 1]);
+            System.out.println("se puede tirar en el siguiente?"+se_puede_tirar_en_el_siguiente_turno2[turno - 1 + 1] );
+            System.out.println("es coche y no puede tirar?"+ this.tirado);
+
+
         } else if (!partida_empezada) {
             System.out.println("La partida todavia no ha empezado. ");
         } else if (!this.tirado) {
