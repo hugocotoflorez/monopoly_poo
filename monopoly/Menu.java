@@ -361,6 +361,7 @@ public class Menu {
                 break;
             case "fortuna":
                 this.jugadores.get(turno).setFortuna(Float.parseFloat(com[1]));
+                break;
             default:
                 System.out.println("Opcion incorrecta. [? para ver las opciones]");
                 break;
