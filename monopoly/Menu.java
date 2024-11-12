@@ -570,7 +570,7 @@ public class Menu {
         System.err.println("[!]: Esto puede que no funcione (MoverPelota)");
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
-            for (int i = 5; i < desplazamiento; i += 2) {
+            for (int i = 5; i < desplazamiento; i += 2) { //TODO la última casilla en la que caes tiene que ser el valor de los dados que sacaste
 
                 if (i == 5) // primer salto
                     moverNormal(5, 0);
