@@ -459,9 +459,9 @@ public class Menu {
             if (dadosDobles(valor1, valor2)
                     /* Si esta usando el movimiento avanzado del coche no cuenta */
                     && (!(this.jugadores.get(turno).getAvatar().getTipo().equals("Coche")
-                            && movimientoAvanzado[turno - 1]) || contadorTiradasCoche==0)) {
+                            && movimientoAvanzado[turno - 1]) || contadorTiradasCoche==4)) {
 
-                contadorTiradasCoche = 3;
+                ++contadorTiradasCoche ; // solo puede tirar una vez si saca dobles al final
                 jugador_puede_comprar = true;
                 this.tirado = false;
                 this.lanzamientos_dobles++;
@@ -1136,7 +1136,7 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
-        if (partida_empezada && lanzamientos > 0 && this.solvente) {
+        if (partida_empezada && lanzamientos > 0 && this.solvente && this.tirado) {
 
             /* Esto no se donde meterlo, en cada turno se tiene que poner a true */
             movimientoAvanzadoSePuedeCambiar = true;
