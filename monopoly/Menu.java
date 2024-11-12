@@ -707,18 +707,16 @@ public class Menu {
          * desde aqui. Si esto es un error borrar los else-if pero el de caja y suerte
          * si que no puede ejecutarse evaluar casilla despues
          */
+        if (avatares.get(turno).getCasilla().getTipo().equals("suerte")) {
+            elegir_carta(suerte);
+        }
+
+        if (avatares.get(turno).getCasilla().getTipo().equals("caja")) {
+            elegir_carta(suerte);
+        }
+
         if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
             jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
-        }
-
-        else if (avatares.get(turno).getCasilla().getTipo().equals("suerte")) {
-            elegir_carta(suerte);
-        }
-
-        else if (avatares.get(turno).getCasilla().getTipo().equals("caja")) {
-            elegir_carta(suerte);
-            if (jugadores.get(turno).estaBancarrota())
-                solvente = false;
         }
 
         else {
