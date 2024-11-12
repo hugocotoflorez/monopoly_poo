@@ -520,7 +520,7 @@ public class Menu {
 
     }
 
-    private void moverCoche(int valor1, int valor2) {
+    private void moverCoche(int valor1, int valor2) { //TODO si sacas menos que 4 no puedes tirar en los siguientes 2 turnos
         // TODO en la última tirada que haga si sacas dobles te debe dejar hacer una
         // tirada normal extra (si sacas dobles en la extra no haces más) CREO QUE YA FUNCIONA
         /*
