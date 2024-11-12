@@ -1156,7 +1156,7 @@ public class Menu {
             casillasVisitadas.removeAll(casillasVisitadas); // se borran todas las casillas
 
             int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
-            this.tirado = se_puede_tirar_en_el_siguiente_turno[turno - 1 + 1];
+            this.tirado = !se_puede_tirar_en_el_siguiente_turno[turno - 1 + 1];
             se_puede_tirar_en_el_siguiente_turno[turno - 1 + 1] = se_puede_tirar_en_el_siguiente_turno2[turno - 1 + 1];
             se_puede_tirar_en_el_siguiente_turno2[turno - 1 + 1] = true;
             this.lanzamientos = 0;
