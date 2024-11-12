@@ -475,10 +475,7 @@ public class Casilla {
                     impuesto, this.listar_nombres_edificios(),alquilerbase*0.60f, alquilerbase*0.60f, alquilerbase*0.40f,
                     alquilerbase*1.25f, alquilerbase*5f, alquilerbase*15f, alquilerbase*35f, alquilerbase*50f,
                     alquilerbase*70f, alquilerbase*25f, alquilerbase*25f);
-                    impuesto, this.listar_nombres_edificios(), alquilerbase * 0.60f, alquilerbase * 0.60f,
-                    alquilerbase * 0.40f,
-                    alquilerbase * 1.25f, alquilerbase * 5f, alquilerbase * 15f, alquilerbase * 35f, alquilerbase * 50f,
-                    alquilerbase * 70f, alquilerbase * 25f, alquilerbase * 25f);
+                   
         } else if (this.tipo.equals("especial")) { // Aquí hay que poner el bote en el Parking, qué jugadores están en
                                                    // la cárcel, cuánto te dan en la salida
             if (this.nombre.equals("Salida"))
