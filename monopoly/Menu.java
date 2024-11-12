@@ -1177,12 +1177,12 @@ public class Menu {
             }
 
 
-            this.tirado = !se_puede_tirar_en_el_siguiente_turno[turno - 1 + 1];
-            se_puede_tirar_en_el_siguiente_turno[turno - 1 + 1] = se_puede_tirar_en_el_siguiente_turno2[turno - 1 + 1];
-            se_puede_tirar_en_el_siguiente_turno2[turno - 1 + 1] = true;
+            this.tirado = !se_puede_tirar_en_el_siguiente_turno[turno - 1];
+            se_puede_tirar_en_el_siguiente_turno[turno - 1] = se_puede_tirar_en_el_siguiente_turno2[turno - 1];
+            se_puede_tirar_en_el_siguiente_turno2[turno - 1 ] = true;
             es_coche_y_no_puede_tirar = this.tirado;
-            System.out.println("This.tirado = " + !se_puede_tirar_en_el_siguiente_turno[turno - 1 + 1]);
-            System.out.println("se puede tirar en el siguiente?"+se_puede_tirar_en_el_siguiente_turno2[turno - 1 + 1] );
+            System.out.println("This.tirado = " + !se_puede_tirar_en_el_siguiente_turno[turno - 1]);
+            System.out.println("se puede tirar en el siguiente?"+se_puede_tirar_en_el_siguiente_turno2[turno - 1] );
             System.out.println("es coche y no puede tirar?"+ this.tirado);
 
 
