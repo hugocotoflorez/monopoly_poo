@@ -1146,7 +1146,7 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
-        if (partida_empezada && lanzamientos > 0 && this.solvente && this.tirado) {
+        if (partida_empezada && lanzamientos > 0 && this.solvente && (this.tirado || lanzamientos == 0)) {
 
             /* Esto no se donde meterlo, en cada turno se tiene que poner a true */
             movimientoAvanzadoSePuedeCambiar = true;
