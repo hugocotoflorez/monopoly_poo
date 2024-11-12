@@ -199,6 +199,7 @@ public class Menu {
                 System.out.print("l x y -> lanzar dados, con resultado x e y    \r\n");
                 System.out.print("default -> crea dos jugadores                 \r\n");
                 System.out.print("archivo file -> ejecuta comandos en file      \r\n");
+                System.out.print("fortuna <valor>                               \r\n");
                 System.out.print("----------------------------------------------\r\n");
                 if (USECOLORS)
                     System.out.print(Valor.RESET);
@@ -354,14 +355,12 @@ public class Menu {
                     edificar(com[1]);
                 break;
             case "vender":
-
                 if (com.length == 4) {
-
                     desedificar(com[2], com[1], com[3]);
-
                 }
-
                 break;
+            case "fortuna":
+                this.jugadores.get(turno).setFortuna(Float.parseFloat(com[1]));
             default:
                 System.out.println("Opcion incorrecta. [? para ver las opciones]");
                 break;
