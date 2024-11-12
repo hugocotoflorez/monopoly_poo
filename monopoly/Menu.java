@@ -23,7 +23,7 @@ public class Menu {
     private Dado dado2;
     private Jugador banca; // El jugador banca.
     private boolean tirado; // Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
-    private boolean solvente; // Booleano para comprobar si el jugador que tiene el turno es solvente, es
+    private boolean solvente = true; // Booleano para comprobar si el jugador que tiene el turno es solvente, es
                               // decir, si ha pagado sus deudas.
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
@@ -824,7 +824,7 @@ public class Menu {
             return;
         } else if (this.jugadores.get(turno).getTurnosCarcel() >= 3) {
             System.out.println("No has sacado dobles! Dado1: " + dado1.getValor() + " Dado2: " + dado2.getValor());
-            System.out.println("Oh no! Llevas tres turnos en la cárcel paga " + Valor.PAGO_SALIR_CARCEL);
+            System.out.println("Oh no! Llevas tres turnos en la cárcel. Paga " + Valor.PAGO_SALIR_CARCEL);
             this.tirado = false;
             pagarCarcel();
             if (this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL) {
