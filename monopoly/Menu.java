@@ -559,6 +559,7 @@ public class Menu {
             pasarPorSalidaHaciaAtras(valor1 + valor2);
             se_puede_tirar_en_el_siguiente_turno[turno - 1] = false;
             se_puede_tirar_en_el_siguiente_turno2[turno - 1] = false;
+            System.out.println("No puedes mover en dos turnos!");
         }
     }
 
