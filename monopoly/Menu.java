@@ -601,6 +601,7 @@ public class Menu {
             moverAtras(valor1, valor2);
             // Comprueba si pasa por salida hacia atras
             pasarPorSalidaHaciaAtras(valor1 + valor2);
+            evaluarAccion(valor1 + valor2);
         }
     }
 
