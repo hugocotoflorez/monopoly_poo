@@ -91,118 +91,106 @@ public class Carta {
         System.out.println(this.descripcion);
     }
 
-    public void realizarAccion(Avatar av, ArrayList<Jugador> jugadores,
+    public boolean realizarAccion(Avatar av, ArrayList<Jugador> jugadores,
             ArrayList<ArrayList<Casilla>> casillas) {
         if (this.tipo.equals("suerte"))
             switch (this.accion) {
                 case 1:
-                    accSuerte1(av, casillas);
-                    break;
+                    return accSuerte1(av, casillas);
                 case 2:
-                    accSuerte2(av, casillas);
-                    break;
+                    return accSuerte2(av, casillas);
                 case 3:
-                    accSuerte3(av);
-                    break;
+                    return accSuerte3(av);
                 case 4:
-                    accSuerte4(av, casillas);
-                    break;
+                    return accSuerte4(av, casillas);
                 case 5:
-                    accSuerte5(av, casillas);
-                    break;
+                    return accSuerte5(av, casillas);
                 case 6:
-                    accSuerte6(av);
-                    break;
+                    return accSuerte6(av);
             }
         else
             switch (this.accion) {
                 case 1:
-                    accComm1(av, jugadores);
-                    break;
+                    return accComm1(av, jugadores);
                 case 2:
-                    accComm2(av, casillas);
-                    break;
+                    return accComm2(av, casillas);
                 case 3:
-                    accComm3(av, casillas);
-                    break;
+                    return accComm3(av, casillas);
                 case 4:
-                    accComm4(av);
-                    break;
+                    return accComm4(av);
                 case 5:
-                    accComm5(av, jugadores);
-                    break;
+                    return accComm5(av, jugadores);
                 case 6:
-                    accComm6(av, jugadores);
-                    break;
+                    return accComm6(av, jugadores);
             }
+        return false;
     }
 
-    private void accSuerte1(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
+    private boolean accSuerte1(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
         /**
          * Ve al Transportes1 y coge un avión. Si pasas por la casilla de Salida, cobra
          * la cantidad habitual.
          */
         /* 5 es la posicion de transportes1 */
         if (av.getCasilla().getPosicion() > 5) {
-            // Pasa por salida
-            System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
-            av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
-            av.getJugador().setPasarPorCasillaDeSalida(
-                    av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
+            return true;
         }
         av.moverAvatar(casillas.get(0).get(5));
+        return false;
     }
 
-    private void accSuerte2(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
+    private boolean accSuerte2(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
         /*
          * Decides hacer un viaje de placer. Avanza hasta Solar15 directamente, sin
          * pasar por la casilla de Salida y sin cobrar la cantidad habitual.
          */
         av.moverAvatar(casillas.get(2).get(6));
+        return false;
     }
 
-    private void accSuerte3(Avatar av) {
+    private boolean accSuerte3(Avatar av) {
         /**
          * Vendes tu billete de avión para Solar17 en una subasta por Internet. Cobra
          * 500000€
          */
         av.getJugador().sumarFortuna(500000);
         av.getJugador().setPremiosInversionesOBote(av.getJugador().getPremiosInversionesOBote() + 500000);
+        return false;
     }
 
-    private void accSuerte4(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
+    private boolean accSuerte4(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
         /**
          * Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.
          */
         // cobrar
         if (av.getCasilla().getPosicion() > 6) {
-            System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
-            av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
-            av.getJugador().setPasarPorCasillaDeSalida(
-                    av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
+            return true;
         }
         av.moverAvatar(casillas.get(0).get(6));
+        return false;
     }
 
-    private void accSuerte5(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
+    private boolean accSuerte5(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
         /**
          * Los acreedores te persiguen por impago. Ve a la Cárcel. Ve directamente sin
          * pasar por la casilla de Salida
          * y sin cobrar la cantidad habitual
          */
         av.getJugador().encarcelar(casillas);
+        return false;
 
     }
 
-    private void accSuerte6(Avatar av) {
+    private boolean accSuerte6(Avatar av) {
         /**
          * ¡Has ganado el bote de la lotería! Recibe 1000000€
          */
         av.getJugador().sumarFortuna(1000000);
         av.getJugador().setPremiosInversionesOBote(av.getJugador().getPremiosInversionesOBote() + 1000000);
+        return false;
     }
 
-    private void accComm1(Avatar av, ArrayList<Jugador> jugadores) {
+    private boolean accComm1(Avatar av, ArrayList<Jugador> jugadores) {
         /**
          * Paga 500000€ por un fin de semana en un balneario de 5 estrellas
          */
@@ -210,38 +198,37 @@ public class Carta {
         av.getJugador().setPagoTasasEImpuestos(av.getJugador().getPagoTasasEImpuestos() + 500000);
         jugadores.get(0).sumarGastos(500000);
         System.out.println("El bote de la banca ahora es " + jugadores.get(0).getGastos());
+        return false;
     }
 
-    private void accComm2(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
+    private boolean accComm2(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
         /**
          * Te investigan por fraude de identidad. Ve a la Cárcel. Ve directamente sin
          * pasar por la casilla de Salida y
          * sin cobrar la cantidad habitual
          */
         av.getJugador().encarcelar(casillas);
+        return false;
     }
 
-    private void accComm3(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
+    private boolean accComm3(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
         /**
          * Colócate en la casilla de Salida. Cobra la cantidad habitual.
          */
         av.moverAvatar(casillas.get(0).get(0));
-        // Cobrar Salida
-        System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA); //TODO hay que actualizar las vueltas dadas?
-        av.getJugador().sumarFortuna(Valor.SUMA_VUELTA);
-        av.getJugador().setPasarPorCasillaDeSalida(
-                av.getJugador().getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
+        return true;
     }
 
-    private void accComm4(Avatar av) {
+    private boolean accComm4(Avatar av) {
         /**
          * Tu compañía de Internet obtiene beneficios. Recibe 2000000€
          */
         av.getJugador().sumarFortuna(2000000);
         av.getJugador().setPremiosInversionesOBote(av.getJugador().getPremiosInversionesOBote() + 2000000);
+        return false;
     }
 
-    private void accComm5(Avatar av, ArrayList<Jugador> jugadores) {
+    private boolean accComm5(Avatar av, ArrayList<Jugador> jugadores) {
         /**
          * Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14.
          */
@@ -249,9 +236,10 @@ public class Carta {
         av.getJugador().setPagoTasasEImpuestos(av.getJugador().getPagoTasasEImpuestos() + 1000000);
         jugadores.get(0).sumarGastos(1000000);
         System.out.println("El bote de la banca ahora es " + jugadores.get(0).getGastos());
+        return false;
     }
 
-    private void accComm6(Avatar av, ArrayList<Jugador> jugadores) {
+    private boolean accComm6(Avatar av, ArrayList<Jugador> jugadores) {
         /**
          * Alquilas a tus compañeros una villa en Solar7 durante una semana. Paga
          * 200000€ a cada jugador
@@ -261,6 +249,7 @@ public class Carta {
             j.sumarFortuna(200000);
             av.getJugador().setPagoTasasEImpuestos(av.getJugador().getPagoTasasEImpuestos() + 200000);
         }
+        return false;
     }
 
 }
