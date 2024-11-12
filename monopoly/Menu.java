@@ -91,7 +91,7 @@ public class Menu {
      * llamar
      * a esta funcion.
      */
-    private void elegir_carta(ArrayList<Carta> baraja) {
+    private boolean elegir_carta(ArrayList<Carta> baraja) {
         int n;
 
         do {
@@ -103,7 +103,7 @@ public class Menu {
         // Carta.barajar(baraja);
         Carta c = Carta.obtenerCarta(baraja, n);
         c.mostrarDescipcion();
-        c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
+        return c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
     }
 
     private void crear_jugador(String nombreJugador, String tipoAvatar) {
@@ -518,7 +518,7 @@ public class Menu {
         System.out.println(" hasta " + avatares.get(turno).getCasilla().getNombre());
 
         // Comprueba si pasa por salida
-        pasarPorSalida(valor1 + valor2);
+        comprobarSiPasasPorSalida(valor1 + valor2);
 
     }
 
@@ -653,7 +653,7 @@ public class Menu {
             System.out.println("Se ha desactivado el modo avanzado");
     }
 
-    private void pasarPorSalida(int desplazamiento) {
+    private void comprobarSiPasasPorSalida(int desplazamiento) {
         int casillanueva = avatares.get(turno).getCasilla().getPosicion();
         /*
          * Si estas en una casilla que la posicion de la casilla es menor que
@@ -662,28 +662,31 @@ public class Menu {
          * que moverme desde una casilla de antes de la salida.
          */
         if ((casillanueva < desplazamiento)) {
+            pasarPorSalida();
+        }
+    }
 
-            // !!!!!! si se modifica algo de esto hay que modificarlo tambien en Carta
-            System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
-            jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
-            jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
-            jugadores.get(turno).setPasarPorCasillaDeSalida(
-                    jugadores.get(turno).getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
-            System.out.println("Llevas " + jugadores.get(turno).getVueltas() + " vueltas.");
+    private void pasarPorSalida() {
+        // !!!!!! si se modifica algo de esto hay que modificarlo tambien en Carta
+        System.out.println("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
+        jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
+        jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
+        jugadores.get(turno).setPasarPorCasillaDeSalida(
+                jugadores.get(turno).getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
+        System.out.println("Llevas " + jugadores.get(turno).getVueltas() + " vueltas.");
 
-            int vueltasmin = this.jugadores.get(turno).getVueltas();
+        int vueltasmin = this.jugadores.get(turno).getVueltas();
 
-            for (Jugador j : this.jugadores) {
-                if (!j.esBanca() && j.getVueltas() < vueltasmin) {
-                    vueltasmin = j.getVueltas();
-                }
+        for (Jugador j : this.jugadores) {
+            if (!j.esBanca() && j.getVueltas() < vueltasmin) {
+                vueltasmin = j.getVueltas();
             }
+        }
 
-            if ((this.jugadores.get(turno).getVueltas() == vueltasmin) && (vueltasmin % 4 == 0)) {
-                System.out.println(
-                        "Todos los jugadores han dado un múltiplo de 4 vueltas, se va a incrementar el precio de los solares en un 10%.");
-                this.tablero.actualizarValorSolares();
-            }
+        if ((this.jugadores.get(turno).getVueltas() == vueltasmin) && (vueltasmin % 4 == 0)) {
+            System.out.println(
+                    "Todos los jugadores han dado un múltiplo de 4 vueltas, se va a incrementar el precio de los solares en un 10%.");
+            this.tablero.actualizarValorSolares();
         }
     }
 
@@ -719,11 +722,15 @@ public class Menu {
          * si que no puede ejecutarse evaluar casilla despues
          */
         if (avatares.get(turno).getCasilla().getTipo().equals("suerte")) {
-            elegir_carta(suerte);
+            if( elegir_carta(suerte)){
+                pasarPorSalida();
+            }
         }
 
         if (avatares.get(turno).getCasilla().getTipo().equals("caja")) {
-            elegir_carta(suerte);
+            if(elegir_carta(comunidad)){
+                pasarPorSalida();
+            }
         }
 
         if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
