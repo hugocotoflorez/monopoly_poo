@@ -619,8 +619,12 @@ public class Menu {
     }
 
     private void cambairModo() {
-        if (!movimientoAvanzadoSePuedeCambiar && this.lanzamientos == 0) {
+        if (!movimientoAvanzadoSePuedeCambiar) {
             System.out.println("Ya cambiaste de modo en este turno!");
+            return;
+        }
+        if (lanzamientos > 0) {
+            System.out.println("No puedes cambiar de modo despues de lanzar los dados!");
             return;
         }
 
@@ -694,7 +698,6 @@ public class Menu {
          * si que no puede ejecutarse evaluar casilla despues
          */
         if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
-            jugador_puede_comprar = false;
             jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
         }
 
@@ -871,7 +874,12 @@ public class Menu {
 
         Casilla casilla = tablero.encontrar_casilla(nombre);
 
-        /* Para la mierda del coche */
+        if (jugadores.get(turno).getEnCarcel()) {
+            System.out.println("No puedes comprar desde la carcel!");
+            return;
+        }
+
+        /* Para la mierda del coche y la pelota */
         if (!jugador_puede_comprar) {
             System.out.println("Ya has comprado en este turno!");
             return;
@@ -883,13 +891,8 @@ public class Menu {
 
         }
         if (lanzamientos > 0) {
-            {
-                System.out.println("Comprando casilla " + casilla.getNombre() + " avatar "
-                        + this.jugadores.get(turno).getAvatar().getTipo() + " movAv " + movimientoAvanzado[turno - 1] +
-                        " casillas -> " + casillasVisitadas);
-                casilla.comprarCasilla(this.jugadores.get(turno), this.banca, movimientoAvanzado[turno - 1],
-                        casillasVisitadas);
-            }
+            casilla.comprarCasilla(this.jugadores.get(turno), this.banca, movimientoAvanzado[turno - 1],
+                    casillasVisitadas);
 
             /*
              * Esta variable se pone a true si los dados son dobles, asi para los que
