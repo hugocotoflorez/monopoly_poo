@@ -581,16 +581,16 @@ public class Menu {
         System.err.println("[!]: Esto puede que no funcione (MoverPelota)");
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
-            for (int i = 5; i < desplazamiento + 1; i += 2) { // TODO la última casilla en la que caes tiene que ser el
+            for (int i = 5; i <= desplazamiento + 1; i += 2) { // TODO la última casilla en la que caes tiene que ser el
                 // valor de los dados que sacaste FUNCIONA FIJO
 
                 if (i == 5) // primer salto
                     moverNormal(5, 0);
                 else // saltos restantes
-                if (i > desplazamiento)
-                    moverNormal(2, 0);
-                else
+                if (i == desplazamiento)
                     moverNormal(1, 0);
+                else
+                    moverNormal(2, 0);
 
                 // anade la casilla en la que cae a las que puede comprar
                 casillasVisitadas.add(jugadores.get(turno).getAvatar().getCasilla());
