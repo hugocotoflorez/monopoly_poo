@@ -689,7 +689,7 @@ public class Menu {
 
             System.out.println("¡Has pasado por la Salida hacia atras! Perdiste" + Valor.SUMA_VUELTA);
             jugadores.get(turno).sumarFortuna(-Valor.SUMA_VUELTA);
-            jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() - 1);
+            if(jugadores.get(turno).getVueltas() != 0) jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() - 1);
             jugadores.get(turno).setPasarPorCasillaDeSalida(
                     jugadores.get(turno).getPasarPorCasillaDeSalida() - Valor.SUMA_VUELTA);
             System.out.println("Llevas " + jugadores.get(turno).getVueltas() + " vueltas."); // TODO se supone q hay q
