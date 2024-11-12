@@ -522,7 +522,7 @@ public class Menu {
 
     }
 
-    private void moverCoche(int valor1, int valor2) { //TODO si sacas menos que 4 no puedes tirar en los siguientes 2 turnos
+    private void moverCoche(int valor1, int valor2) { //TODO si sacas menos que 4 no puedes tirar en los siguientes 2 turnos CREO QUE YA ESTA
         // TODO en la última tirada que haga si sacas dobles te debe dejar hacer una
         // tirada normal extra (si sacas dobles en la extra no haces más) CREO QUE YA
         // FUNCIONA
@@ -564,7 +564,7 @@ public class Menu {
     }
 
     private void moverPelota(int valor1, int valor2) { // TODO si se sacan dobles te tiene que volver a dejar tirar con
-                                                       // el movimiento especial (rebotando)
+                                                       // el movimiento especial (rebotando) FUNCIONA DIRIA YO
         /*
          * Pelota: si el valor de los dados es mayor que 4, avanza tantas casillas como
          * dicho valor; mientras que, si el valor es menor o igual que 4, retrocede el
