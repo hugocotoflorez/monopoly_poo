@@ -459,9 +459,9 @@ public class Menu {
             if (dadosDobles(valor1, valor2)
                     /* Si esta usando el movimiento avanzado del coche no cuenta */
                     && (!(this.jugadores.get(turno).getAvatar().getTipo().equals("Coche")
-                            && movimientoAvanzado[turno - 1]) || contadorTiradasCoche==0)) {
+                            && movimientoAvanzado[turno - 1]) || contadorTiradasCoche==4)) {
 
-                contadorTiradasCoche = 3;
+                ++contadorTiradasCoche ; // solo puede tirar una vez si saca dobles al final
                 jugador_puede_comprar = true;
                 this.tirado = false;
                 this.lanzamientos_dobles++;
@@ -522,7 +522,7 @@ public class Menu {
 
     private void moverCoche(int valor1, int valor2) {
         // TODO en la última tirada que haga si sacas dobles te debe dejar hacer una
-        // tirada normal extra (si sacas dobles en la extra no haces más)
+        // tirada normal extra (si sacas dobles en la extra no haces más) CREO QUE YA FUNCIONA
         /*
          * Coche: si el valor de los dados es mayor que 4, avanza tantas casillas como
          * dicho valor y puede seguir lanzando los dados tres veces más mientras el
@@ -544,13 +544,13 @@ public class Menu {
             // actualiza contador coche y si el contador es 4 se pone a 0 y
             // this.tirado es false por lo que no se puede seguir tirando
             contadorTiradasCoche++;
-            this.tirado = (contadorTiradasCoche % 4) == 0;
+            this.tirado = contadorTiradasCoche >= 4;
 
             System.out.println("Se puede volver a tirar? " + !this.tirado);
             System.out.println("Tiradas coche = " + contadorTiradasCoche);
 
-        } else { // TODO si se sacan dobles aquí no te debe dejar volver a tirar
-            contadorTiradasCoche = 0;
+        } else { // TODO si se sacan dobles aquí no te debe dejar volver a tirar CREO QUE YA ESTA
+            contadorTiradasCoche = 1; // numero random distinto de 0 para que no entre en dados dobles
             moverAtras(valor1, valor2);
             // Comprueba si pasa por salida hacia atras
             pasarPorSalidaHaciaAtras(valor1 + valor2);
@@ -575,13 +575,16 @@ public class Menu {
         System.err.println("[!]: Esto puede que no funcione (MoverPelota)");
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
-            for (int i = 5; i < desplazamiento; i += 2) { // TODO la última casilla en la que caes tiene que ser el
-                                                          // valor de los dados que sacaste
+            for (int i = 5; i < desplazamiento + 1; i += 2) { // TODO la última casilla en la que caes tiene que ser el
+                                                          // valor de los dados que sacaste FUNCIONA FIJO
 
                 if (i == 5) // primer salto
                     moverNormal(5, 0);
                 else // saltos restantes
-                    moverNormal(2, 0);
+                    if (i > desplazamiento)
+                        moverNormal(2, 0);
+                    else
+                        moverNormal(1, 0);
 
                 // anade la casilla en la que cae a las que puede comprar
                 casillasVisitadas.add(jugadores.get(turno).getAvatar().getCasilla());
@@ -695,7 +698,7 @@ public class Menu {
             System.out.println("Llevas " + jugadores.get(turno).getVueltas() + " vueltas."); // TODO se supone q hay q
                                                                                              // comprobar q la próxima
                                                                                              // vez q pase por la salida
-                                                                                             // no incremente su precio
+                                                                                             // no incremente su precio JAJA
 
         }
     }
@@ -1133,7 +1136,7 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
-        if (partida_empezada && lanzamientos > 0 && this.solvente) {
+        if (partida_empezada && lanzamientos > 0 && this.solvente && this.tirado) {
 
             /* Esto no se donde meterlo, en cada turno se tiene que poner a true */
             movimientoAvanzadoSePuedeCambiar = true;
