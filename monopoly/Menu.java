@@ -24,10 +24,12 @@ public class Menu {
     private Jugador banca; // El jugador banca.
     private boolean tirado; // Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
     private boolean solvente = true; // Booleano para comprobar si el jugador que tiene el turno es solvente, es
-                              // decir, si ha pagado sus deudas.
+    // decir, si ha pagado sus deudas.
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
-    private boolean[] movimientoAvanzado = { false, false, false, false, false };
+    private boolean[] movimientoAvanzado = { false, false, false, false, false, true };
+    private boolean[] se_puede_tirar_en_el_siguiente_turno = { true, true, true, true, true, true };
+    private boolean[] se_puede_tirar_en_el_siguiente_turno2 = { true, true, true, true, true, true };
     private boolean movimientoAvanzadoSePuedeCambiar = true;
     private int contadorTiradasCoche = 0;
     private boolean jugador_puede_comprar = true;
@@ -459,9 +461,9 @@ public class Menu {
             if (dadosDobles(valor1, valor2)
                     /* Si esta usando el movimiento avanzado del coche no cuenta */
                     && (!(this.jugadores.get(turno).getAvatar().getTipo().equals("Coche")
-                            && movimientoAvanzado[turno - 1]) || contadorTiradasCoche==4)) {
+                            && movimientoAvanzado[turno - 1]) || contadorTiradasCoche == 4)) {
 
-                ++contadorTiradasCoche ; // solo puede tirar una vez si saca dobles al final
+                ++contadorTiradasCoche; // solo puede tirar una vez si saca dobles al final
                 jugador_puede_comprar = true;
                 this.tirado = false;
                 this.lanzamientos_dobles++;
@@ -522,7 +524,8 @@ public class Menu {
 
     private void moverCoche(int valor1, int valor2) {
         // TODO en la última tirada que haga si sacas dobles te debe dejar hacer una
-        // tirada normal extra (si sacas dobles en la extra no haces más) CREO QUE YA FUNCIONA
+        // tirada normal extra (si sacas dobles en la extra no haces más) CREO QUE YA
+        // FUNCIONA
         /*
          * Coche: si el valor de los dados es mayor que 4, avanza tantas casillas como
          * dicho valor y puede seguir lanzando los dados tres veces más mientras el
@@ -554,6 +557,8 @@ public class Menu {
             moverAtras(valor1, valor2);
             // Comprueba si pasa por salida hacia atras
             pasarPorSalidaHaciaAtras(valor1 + valor2);
+            se_puede_tirar_en_el_siguiente_turno[turno - 1] = false;
+            se_puede_tirar_en_el_siguiente_turno2[turno - 1] = false;
         }
     }
 
@@ -576,15 +581,15 @@ public class Menu {
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
             for (int i = 5; i < desplazamiento + 1; i += 2) { // TODO la última casilla en la que caes tiene que ser el
-                                                          // valor de los dados que sacaste FUNCIONA FIJO
+                // valor de los dados que sacaste FUNCIONA FIJO
 
                 if (i == 5) // primer salto
                     moverNormal(5, 0);
                 else // saltos restantes
-                    if (i > desplazamiento)
-                        moverNormal(2, 0);
-                    else
-                        moverNormal(1, 0);
+                if (i > desplazamiento)
+                    moverNormal(2, 0);
+                else
+                    moverNormal(1, 0);
 
                 // anade la casilla en la que cae a las que puede comprar
                 casillasVisitadas.add(jugadores.get(turno).getAvatar().getCasilla());
@@ -693,13 +698,15 @@ public class Menu {
 
             System.out.println("¡Has pasado por la Salida hacia atras! Perdiste" + Valor.SUMA_VUELTA);
             jugadores.get(turno).sumarFortuna(-Valor.SUMA_VUELTA);
-            if(jugadores.get(turno).getVueltas() != 0) jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() - 1);
+            if (jugadores.get(turno).getVueltas() != 0)
+                jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() - 1);
             jugadores.get(turno).setPasarPorCasillaDeSalida(
                     jugadores.get(turno).getPasarPorCasillaDeSalida() - Valor.SUMA_VUELTA);
             System.out.println("Llevas " + jugadores.get(turno).getVueltas() + " vueltas."); // TODO se supone q hay q
                                                                                              // comprobar q la próxima
                                                                                              // vez q pase por la salida
-                                                                                             // no incremente su precio JAJA
+                                                                                             // no incremente su precio
+                                                                                             // JAJA
 
         }
     }
@@ -896,7 +903,8 @@ public class Menu {
         }
 
         /* Para la mierda del coche y la pelota */
-        if (!jugador_puede_comprar && movimientoAvanzado[turno]) {
+        // le puse -1 a movimiento avanzado creo que es asi
+        if (!jugador_puede_comprar && movimientoAvanzado[turno - 1]) {
             System.out.println("Ya has comprado en este turno!");
             return;
         }
@@ -1147,7 +1155,9 @@ public class Menu {
             casillasVisitadas.removeAll(casillasVisitadas); // se borran todas las casillas
 
             int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
-            this.tirado = false;
+            this.tirado = se_puede_tirar_en_el_siguiente_turno[turno - 1 + 1];
+            se_puede_tirar_en_el_siguiente_turno[turno - 1 + 1] = se_puede_tirar_en_el_siguiente_turno2[turno - 1 + 1];
+            se_puede_tirar_en_el_siguiente_turno2[turno - 1 + 1] = true;
             this.lanzamientos = 0;
 
             if (this.turno < numero_jugadores) {
