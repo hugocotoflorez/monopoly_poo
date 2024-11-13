@@ -10,7 +10,7 @@ import java.util.Set;
 
 import partida.*;
 
-public class Menu {
+public class Juego {
 
     // Atributos
     private ArrayList<Jugador> jugadores = new ArrayList<Jugador>(); // Jugadores de la partida.
@@ -49,7 +49,7 @@ public class Menu {
     private ArrayList<Carta> suerte;
     private ArrayList<Carta> comunidad;
 
-    public Menu() {
+    public Juego() {
         crear_cartas_comunidad();
         crear_cartas_suerte();
         iniciarPartida();
