@@ -710,7 +710,7 @@ public class Casilla {
 
         for (Edificio e : this.edificios) {
 
-            Juego.consola.imprimir(e);
+            Juego.consola.imprimir(e.toString());
 
         }
 
