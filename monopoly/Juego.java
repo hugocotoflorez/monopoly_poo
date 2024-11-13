@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import partida.*;
+import partida.Avatar.*;
 
 public class Juego {
 
