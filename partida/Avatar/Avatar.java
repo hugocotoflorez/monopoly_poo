@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import monopoly.Casilla.Casilla;
 import partida.*;
+import monopoly.*;
+
 /*Los avatares deberán estar jerarquizados. Habrá una clase raíz llamada Avatar
 que definirá los métodos y atributos comunes (por ejemplo, el nombre del avatar, el jugador al que
 está asociado, etc.); y un segundo nivel que está compuesto por las clases Pelota, Coche, Esfinge y
@@ -73,7 +75,7 @@ public class Avatar {
 
 
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-        moverAvatar(obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion() - 1));
+        moverAvatar(Tablero. obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion() - 1));
     }
 
     public void moverAvatar(Casilla casilla) {
