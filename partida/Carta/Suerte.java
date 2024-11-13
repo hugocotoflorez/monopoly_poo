@@ -1,6 +1,6 @@
 package partida.Carta;
+import monopoly.Casilla.*;
 import java.util.ArrayList;
-import monopoly.Casilla;
 import partida.Jugador;
 import partida.Avatar.*;
 
