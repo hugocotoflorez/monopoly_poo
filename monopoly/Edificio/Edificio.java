@@ -53,7 +53,10 @@ El valor inicial de una casa y de un hotel es el 60% del valor inicial del solar
 
  Agregar opciones al menú                                                                                          Falta agregar desedificar
 */
-package monopoly;
+package monopoly.Edificio;
+
+import monopoly.Casilla;
+import monopoly.Valor;
 
 public class Edificio {
 

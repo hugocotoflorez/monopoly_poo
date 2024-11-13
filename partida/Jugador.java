@@ -2,6 +2,7 @@ package partida;
 
 import java.util.ArrayList;
 import monopoly.*;
+import monopoly.Edificio.Edificio;
 
 public class Jugador {
 

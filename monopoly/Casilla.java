@@ -2,6 +2,8 @@ package monopoly;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import monopoly.Edificio.Edificio;
 import partida.*;
 
 public class Casilla {
