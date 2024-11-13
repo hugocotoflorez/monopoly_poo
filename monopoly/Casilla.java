@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import monopoly.Edificio.Edificio;
 import partida.*;
+import partida.Avatar.*;
 
 public class Casilla {
 

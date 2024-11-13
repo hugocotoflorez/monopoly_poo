@@ -2,6 +2,7 @@ package monopoly;
 
 //
 import partida.*;
+import partida.Avatar.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -53,8 +54,9 @@ public class Tablero {
 
     // Dado un entero y las casillas del tablero, devuelve la casilla que está en
     // esa posición
-    public Casilla obtenerCasilla(int posicion) {
-        return this.posiciones.get(posicion / 10).get(posicion % 10);
+    public static Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> array, int posicion) {
+        posicion = posicion % 40;
+        return array.get(posicion / 10).get(posicion % 10);
     }
 
     public HashMap<String, Grupo> getGruposMap(){

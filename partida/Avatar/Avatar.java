@@ -4,26 +4,23 @@ import java.util.ArrayList;
 import java.util.Random;
 import monopoly.*;
 import partida.*;
-
+/*Los avatares deberán estar jerarquizados. Habrá una clase raíz llamada Avatar
+que definirá los métodos y atributos comunes (por ejemplo, el nombre del avatar, el jugador al que
+está asociado, etc.); y un segundo nivel que está compuesto por las clases Pelota, Coche, Esfinge y
+Sombrero. Además, la clase raíz Avatar deberá de tener, por lo menos, los siguientes métodos (no se
+incluyen los argumentos):
+ moverEnBasico
+ moverEnAvanzado */
 public class Avatar {
 
     // Atributos
     private String id; // Identificador: una letra generada aleatoriamente.
-    private String tipo; // Sombrero, Esfinge, Pelota, Coche
     private Jugador jugador; // Un jugador al que pertenece ese avatar.
-    private Casilla lugar; // Los avatares se sitúan en casillas del tablero.
+    private Casilla casilla; // Los avatares se sitúan en casillas del tablero.
     private int turno;
 
     // Constructor vacío
     public Avatar() {
-    }
-
-    public Avatar(String tipo, Jugador jugador, Casilla lugar) {
-
-        this.tipo = tipo;
-        this.jugador = jugador;
-        this.lugar = lugar;
-        // this.id = generarId(avCreados);
     }
 
     /*
@@ -32,23 +29,11 @@ public class Avatar {
      * un arraylist con los
      * avatares creados (usado para crear un ID distinto del de los demás avatares).
      */
-    public Avatar(String tipo, Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
-
-        this.tipo = tipo;
+    public Avatar(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
         this.jugador = jugador;
-        this.lugar = lugar;
+        this.casilla = lugar;
         generarId(avCreados);
         avCreados.add(this);
-
-    }
-
-    public Avatar(String tipo, Casilla lugar, ArrayList<Avatar> avCreados) {
-
-        this.tipo = tipo;
-        this.lugar = lugar;
-        generarId(avCreados);
-        avCreados.add(this);
-
     }
 
     public static Boolean esTipo(String tipo) {
@@ -65,16 +50,12 @@ public class Avatar {
         return this.jugador;
     }
 
-    public String getTipo() {
-        return this.tipo;
-    }
-
     public int getTurno(){
         return this.turno;
     }
 
     public Casilla getCasilla() {
-        return this.lugar;
+        return this.casilla;
     }
 
     // SETTERS
@@ -82,34 +63,23 @@ public class Avatar {
         this.jugador = jugador;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public void setLugar(Casilla lugar) {
-        this.lugar = lugar;
+        this.casilla = lugar;
     }
 
     public void setTurno(int turno){
         this.turno = turno;
     }
 
-    
-
-
-    static Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valor) {
-        valor = valor % 40;
-        return casillas.get(valor / 10).get(valor % 10);
-    }
 
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-        moverAvatar(obtenerCasilla(casillas, valorTirada + this.lugar.getPosicion() - 1));
+        moverAvatar(obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion() - 1));
     }
 
     public void moverAvatar(Casilla casilla) {
-        this.lugar.eliminarAvatarCasilla(this.id);
-        this.lugar = casilla;
-        this.lugar.anhadirAvatarCasilla(this);
+        this.casilla.eliminarAvatarCasilla(this.id);
+        this.casilla = casilla;
+        this.casilla.anhadirAvatarCasilla(this);
         casilla.actualizarCaidasEnCasilla(this.turno);
     }
 
@@ -136,16 +106,6 @@ public class Avatar {
             }
         }
         this.id = letra;
-    }
-
-    public String getInfo() {
-        String ret = """
-                id: %s,
-                tipo: %s,
-                casilla: %s,
-                jugador: %s
-                    """.formatted(this.id, this.tipo, this.lugar.getNombre(), this.jugador.getNombre());
-        return ret;
     }
 
     @Override
