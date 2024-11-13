@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import monopoly.Casilla.Casilla;
 import partida.*;
 import partida.Avatar.*;
 

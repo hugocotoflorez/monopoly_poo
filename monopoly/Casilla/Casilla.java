@@ -1,10 +1,12 @@
-package monopoly;
+package monopoly.Casilla;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import monopoly.Edificio.Edificio;
 import monopoly.Edificio.*;
+import monopoly.Grupo;
+import monopoly.Juego;
+import monopoly.Valor;
 import partida.*;
 import partida.Avatar.*;
 

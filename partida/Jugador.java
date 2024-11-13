@@ -2,6 +2,7 @@ package partida;
 
 import java.util.ArrayList;
 import monopoly.*;
+import monopoly.Casilla.Casilla;
 import monopoly.Edificio.Edificio;
 import partida.Avatar.*;
 

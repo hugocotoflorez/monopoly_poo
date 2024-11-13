@@ -1,6 +1,6 @@
 package monopoly.Edificio;
 
-import monopoly.Casilla;
+import monopoly.Casilla.Casilla;
 import monopoly.Valor;
 
 public class Piscina extends Edificio {
@@ -9,7 +9,7 @@ public class Piscina extends Edificio {
 
         super("Piscina-" + Valor.NumeroPiscinasConstruidas, casilla,
                 casilla.getGrupo().getValor() * 0.40f);
-                
+
     }
 
     @Override

@@ -1,6 +1,6 @@
 package monopoly.Edificio;
 
-import monopoly.Casilla;
+import monopoly.Casilla.Casilla;
 import monopoly.Valor;
 
 public class PistaDeporte extends Edificio {
@@ -14,7 +14,7 @@ public class PistaDeporte extends Edificio {
 
     @Override
     public String getTipo() {
-        
+
         return "Pista de deportes";
     }
 }

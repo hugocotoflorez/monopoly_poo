@@ -5,6 +5,8 @@ import partida.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import monopoly.Casilla.Casilla;
+
 public class Tablero {
     // Atributos.
     private ArrayList<ArrayList<Casilla>> posiciones; // Posiciones del tablero: se define como un arraylist de

@@ -2,7 +2,7 @@ package partida.Avatar;
 
 import java.util.ArrayList;
 import java.util.Random;
-import monopoly.*;
+import monopoly.Casilla.Casilla;
 import partida.*;
 
 public class Avatar {

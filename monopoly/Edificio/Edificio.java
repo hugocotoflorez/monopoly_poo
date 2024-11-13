@@ -1,6 +1,6 @@
 package monopoly.Edificio;
 
-import monopoly.Casilla;
+import monopoly.Casilla.Casilla;
 
 public abstract class Edificio {
     private String ID;
