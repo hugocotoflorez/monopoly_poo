@@ -6,6 +6,7 @@ import java.util.Iterator;
 import monopoly.Edificio.Edificio;
 import monopoly.Edificio.*;
 import partida.*;
+import partida.Avatar.*;
 
 public class Casilla {
 
@@ -711,7 +712,7 @@ public class Casilla {
 
         for (Edificio e : this.edificios) {
 
-            Juego.consola.imprimir(e);
+            Juego.consola.imprimir(e.toString());
 
         }
 

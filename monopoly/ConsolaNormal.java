@@ -8,7 +8,17 @@ public class ConsolaNormal implements Consola {
 
     @Override
     public void imprimir(String string) {
+        System.out.print(string);
+    }
+
+    @Override
+    public void imprimirln(String string){
         System.out.println(string);
+    }
+
+    @Override
+    public void imprimir_error(String mensaje){
+        System.out.println(Valor.RED + mensaje + Valor.RESET);
     }
 
     @Override

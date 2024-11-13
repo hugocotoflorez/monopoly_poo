@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import monopoly.Casilla;
+import partida.Avatar.*;
 
 public class Carta {
     String descripcion;
