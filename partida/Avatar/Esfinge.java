@@ -10,4 +10,7 @@ public class Esfinge extends Avatar {
                     """.formatted(this.getId(), this.getCasilla().getNombre(), this.getJugador().getNombre());
         return ret;
     }
+
+    @Override
+    public void moverEnAvanzado(){} //TODO moverEnAvanzado Esfinge
 }

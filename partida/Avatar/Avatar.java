@@ -6,7 +6,7 @@ import monopoly.Casilla.Casilla;
 import partida.*;
 import monopoly.*;
 
-public class Avatar {
+public abstract class Avatar {
 
     // Atributos
     private String id; // Identificador: una letra generada aleatoriamente.
@@ -77,7 +77,7 @@ public class Avatar {
         casilla.actualizarCaidasEnCasilla(this.turno);
     }
 
-    //TODO moverEnAvanzado
+    public abstract void moverEnAvanzado();
     
 
     /*

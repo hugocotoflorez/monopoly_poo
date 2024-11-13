@@ -10,4 +10,7 @@ public class Sombrero extends Avatar{
                     """.formatted(this.getId(), this.getCasilla().getNombre(), this.getJugador().getNombre());
         return ret;
     }
+
+    @Override
+    public void moverEnAvanzado(){} //TODO moverEnAvanzado Sombrero
 }
