@@ -526,9 +526,7 @@ public class Juego {
 
     }
 
-    private void moverCoche(int valor1, int valor2) { // TODO si sacas menos que 4 no puedes tirar en los siguientes 2
-                                                      // turnos CREO QUE YA ESTA
-        // TODO en la última tirada que haga si sacas dobles te debe dejar hacer una
+    private void moverCoche(int valor1, int valor2) {
         // tirada normal extra (si sacas dobles en la extra no haces más) CREO QUE YA
         // FUNCIONA
         /*
@@ -557,7 +555,7 @@ public class Juego {
             consola.imprimirln("Se puede volver a tirar? " + !this.tirado);
             consola.imprimirln("Tiradas coche = " + contadorTiradasCoche);
 
-        } else { // TODO si se sacan dobles aquí no te debe dejar volver a tirar CREO QUE YA ESTA
+        } else {
             contadorTiradasCoche = 1; // numero random distinto de 0 para que no entre en dados dobles
             moverAtras(valor1, valor2);
             // Comprueba si pasa por salida hacia atras
@@ -568,8 +566,7 @@ public class Juego {
         }
     }
 
-    private void moverPelota(int valor1, int valor2) { // TODO si se sacan dobles te tiene que volver a dejar tirar con
-                                                       // el movimiento especial (rebotando) FUNCIONA DIRIA YO
+    private void moverPelota(int valor1, int valor2) {
         /*
          * Pelota: si el valor de los dados es mayor que 4, avanza tantas casillas como
          * dicho valor; mientras que, si el valor es menor o igual que 4, retrocede el
@@ -586,7 +583,7 @@ public class Juego {
         System.err.println("[!]: Esto puede que no funcione (MoverPelota)");
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
-            for (int i = 5; i <= desplazamiento + 1; i += 2) { // TODO la última casilla en la que caes tiene que ser el
+            for (int i = 5; i <= desplazamiento + 1; i += 2) {
                 // valor de los dados que sacaste FUNCIONA FIJO
 
                 if (i == 5) // primer salto
@@ -711,12 +708,7 @@ public class Juego {
                 jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() - 1);
             jugadores.get(turno).setPasarPorCasillaDeSalida(
                     jugadores.get(turno).getPasarPorCasillaDeSalida() - Valor.SUMA_VUELTA);
-            consola.imprimirln("Llevas " + jugadores.get(turno).getVueltas() + " vueltas."); // TODO se supone q hay q
-                                                                                             // comprobar q la próxima
-                                                                                             // vez q pase por la salida
-                                                                                             // no incremente su precio
-                                                                                             // JAJA
-
+            consola.imprimirln("Llevas " + jugadores.get(turno).getVueltas() + " vueltas.");
         }
     }
 
