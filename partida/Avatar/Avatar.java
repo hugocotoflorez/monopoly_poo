@@ -6,13 +6,6 @@ import monopoly.Casilla.Casilla;
 import partida.*;
 import monopoly.*;
 
-/*Los avatares deberán estar jerarquizados. Habrá una clase raíz llamada Avatar
-que definirá los métodos y atributos comunes (por ejemplo, el nombre del avatar, el jugador al que
-está asociado, etc.); y un segundo nivel que está compuesto por las clases Pelota, Coche, Esfinge y
-Sombrero. Además, la clase raíz Avatar deberá de tener, por lo menos, los siguientes métodos (no se
-incluyen los argumentos):
- moverEnBasico
- moverEnAvanzado */
 public class Avatar {
 
     // Atributos
@@ -36,11 +29,6 @@ public class Avatar {
         this.casilla = lugar;
         generarId(avCreados);
         avCreados.add(this);
-    }
-
-    public static Boolean esTipo(String tipo) {
-        return tipo.equals("Coche") || tipo.equals("Esfinge") ||
-                tipo.equals("Sombrero") || tipo.equals("Pelota");
     }
 
     // GETTERS
@@ -73,17 +61,24 @@ public class Avatar {
         this.turno = turno;
     }
 
-
-    public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-        moverAvatar(Tablero. obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion() - 1));
+    public static Boolean esTipo(String tipo) {
+        return tipo.equals("Coche") || tipo.equals("Esfinge") ||
+                tipo.equals("Sombrero") || tipo.equals("Pelota");
     }
 
-    public void moverAvatar(Casilla casilla) {
+    public void moverEnBasico(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
+        moverEnBasico(Tablero. obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion() - 1));
+    }
+
+    public void moverEnBasico(Casilla casilla) {
         this.casilla.eliminarAvatarCasilla(this.id);
         this.casilla = casilla;
         this.casilla.anhadirAvatarCasilla(this);
         casilla.actualizarCaidasEnCasilla(this.turno);
     }
+
+    //TODO moverEnAvanzado
+    
 
     /*
      * Método que permite generar un ID para un avatar. Sólo lo usamos en esta clase

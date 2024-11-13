@@ -518,7 +518,7 @@ public class Juego {
         System.out
                 .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
                         + this.avatares.get(turno).getCasilla().getNombre());
-        this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
+        this.avatares.get(turno).moverEnBasico(this.tablero.getPosiciones(), desplazamiento);
         consola.imprimirln(" hasta " + avatares.get(turno).getCasilla().getNombre());
 
         // Comprueba si pasa por salida
@@ -631,7 +631,7 @@ public class Juego {
                 .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento
                         + " hacia atras desde "
                         + this.avatares.get(turno).getCasilla().getNombre());
-        this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), 40 - desplazamiento);
+        this.avatares.get(turno).moverEnBasico(this.tablero.getPosiciones(), 40 - desplazamiento);
         consola.imprimirln(" hasta " + avatares.get(turno).getCasilla().getNombre());
 
     }
@@ -849,7 +849,7 @@ public class Juego {
             int desplazamiento = dado1.getValor() + dado2.getValor();
             consola.imprimirln("Has sacado dobles! Sales de la Cárcel y avanzas hasta");
             this.jugadores.get(turno).setEnCarcel(false);
-            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
+            this.avatares.get(turno).moverEnBasico(this.tablero.getPosiciones(), desplazamiento);
             consola.imprimirln(this.avatares.get(turno).getCasilla().toString());
             this.lanzamientos += 1;
             return;
