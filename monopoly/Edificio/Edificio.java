@@ -119,77 +119,76 @@ public class Edificio {
 
     public Edificio(String tipo, Casilla casilla) {
 
-            if (tipo.equals("Casa")) {
+        if (tipo.equals("Casa")) {
 
-                this.tipo = "Casa";
-                this.casilla = casilla;
+            this.tipo = "Casa";
+            this.casilla = casilla;
 
-                this.ID = "Casa-";
-                this.ID += Valor.NumeroCasasConstruidas;
+            this.ID = "Casa-";
+            this.ID += Valor.NumeroCasasConstruidas;
 
-                this.precio = casilla.getGrupo().getValor() * 0.60f;
+            this.precio = casilla.getGrupo().getValor() * 0.60f;
 
-            }
-            if (tipo.equals("Hotel")) {
+        }
+        if (tipo.equals("Hotel")) {
 
-                this.tipo = "Hotel";
-                this.casilla = casilla;
+            this.tipo = "Hotel";
+            this.casilla = casilla;
 
-                this.ID = "Hotel-";
-                this.ID += Valor.NumeroHotelesConstruidos;
+            this.ID = "Hotel-";
+            this.ID += Valor.NumeroHotelesConstruidos;
 
-                this.precio = casilla.getGrupo().getValor() * 0.60f;
+            this.precio = casilla.getGrupo().getValor() * 0.60f;
 
+        }
+        if (tipo.equals("Piscina")) {
 
-            }
-            if (tipo.equals("Piscina")) {
+            this.tipo = "Piscina";
+            this.casilla = casilla;
 
-                this.tipo = "Piscina";
-                this.casilla = casilla;
+            this.ID = "Piscina-";
+            this.ID += Valor.NumeroPiscinasConstruidas;
 
-                this.ID = "Piscina-";
-                this.ID += Valor.NumeroPiscinasConstruidas;
+            this.precio = casilla.getGrupo().getValor() * 0.40f;
 
-                this.precio = casilla.getGrupo().getValor() * 0.40f;
+        }
+        if (tipo.equals("Pista de deportes")) {
 
-            }
-            if (tipo.equals("Pista de deportes")) {
+            this.tipo = "Pista de deportes";
+            this.casilla = casilla;
 
-                this.tipo = "Pista de deportes";
-                this.casilla = casilla;
+            this.ID = "Pista de deportes-";
+            this.ID += Valor.NumeroPistasConstruidos;
 
-                this.ID = "Pista de deportes-";
-                this.ID += Valor.NumeroPistasConstruidos;
-
-                this.precio = casilla.getGrupo().getValor() * 1.25f;
-            }
+            this.precio = casilla.getGrupo().getValor() * 1.25f;
+        }
 
     }
 
-
     @Override
-    public String toString(){
+    public String toString() {
 
-/* FORMATO DE EJEMPLO
-    {
-        id: casa-2,
-        propietario: Pedro,
-        casilla: Solar1,
-        grupo: negro
-        coste: 600000
-        },
-
-*/
+        /*
+         * FORMATO DE EJEMPLO
+         * {
+         * id: casa-2,
+         * propietario: Pedro,
+         * casilla: Solar1,
+         * grupo: negro
+         * coste: 600000
+         * },
+         * 
+         */
 
         String ret = new String();
 
-        ret +=   "{\n";
+        ret += "{\n";
         ret += ("  id: " + this.ID + "\n");
-        ret += ("  propietario: " +this.casilla.getDuenho().getNombre() + "\n");
+        ret += ("  propietario: " + this.casilla.getDuenho().getNombre() + "\n");
         ret += ("  casilla: " + this.casilla.getNombre() + "\n");
         ret += ("  grupo: " + this.casilla.getGrupo().getID() + "\n");
-        ret += ("  coste: " +this.precio + "\n");
-        ret +=   "}\n";
+        ret += ("  coste: " + this.precio + "\n");
+        ret += "}\n";
 
         return ret;
     }

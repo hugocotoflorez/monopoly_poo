@@ -4,7 +4,7 @@ package monopoly;
 import partida.*;
 import java.util.ArrayList;
 
-class Grupo {
+public class Grupo {
 
     // Atributos
     String ID;
