@@ -2,7 +2,7 @@ package partida.Avatar;
 
 import java.util.ArrayList;
 import java.util.Random;
-import monopoly.*;
+import monopoly.Casilla.Casilla;
 import partida.*;
 /*Los avatares deberán estar jerarquizados. Habrá una clase raíz llamada Avatar
 que definirá los métodos y atributos comunes (por ejemplo, el nombre del avatar, el jugador al que

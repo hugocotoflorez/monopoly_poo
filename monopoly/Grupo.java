@@ -4,6 +4,8 @@ package monopoly;
 import partida.*;
 import java.util.ArrayList;
 
+import monopoly.Casilla.Casilla;
+
 public class Grupo {
 
     // Atributos

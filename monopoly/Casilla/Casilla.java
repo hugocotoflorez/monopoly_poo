@@ -1,9 +1,12 @@
-package monopoly;
+package monopoly.Casilla;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import monopoly.Edificio.Edificio;
+import monopoly.Edificio.*;
+import monopoly.Grupo;
+import monopoly.Juego;
+import monopoly.Valor;
 import partida.*;
 import partida.Avatar.*;
 
@@ -797,7 +800,7 @@ public class Casilla {
 
                     if (this.esCasaEdificable()) {
 
-                        Edificio Casa = new Edificio(tipo, this);
+                        Edificio Casa = new Casa(this);
                         if (duenhoGrupo.getFortuna() >= Casa.getPrecio()) {
                             this.edificios.add(Casa);
 
@@ -823,7 +826,7 @@ public class Casilla {
 
                     int removed = 0;
                     if (this.esHotelEdificable()) {
-                        Edificio Hotel = new Edificio(tipo, this);
+                        Edificio Hotel = new Hotel(this);
                         if (duenhoGrupo.getFortuna() >= Hotel.getPrecio()) {
                             do
                                 for (Edificio e : this.edificios) {
@@ -856,7 +859,7 @@ public class Casilla {
                                 // Numero de casas >= 2
                     if (this.esPiscinaEdificable()) {
 
-                        Edificio Piscina = new Edificio(tipo, this);
+                        Edificio Piscina = new Piscina(this);
                         if (duenhoGrupo.getFortuna() >= Piscina.getPrecio()) {
 
                             this.edificios.add(Piscina);
@@ -879,7 +882,7 @@ public class Casilla {
                 case "Pista": // Numero de hoteles >= 2
                     if (this.esPistaEdificable()) {
 
-                        Edificio Pista = new Edificio("Pista de deportes", this);
+                        Edificio Pista = new PistaDeporte(this);
                         if (duenhoGrupo.getFortuna() >= Pista.getPrecio()) {
                             this.edificios.add(Pista);
                             duenhoGrupo.sumarFortuna(-Pista.getPrecio());

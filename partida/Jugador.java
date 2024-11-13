@@ -2,7 +2,9 @@ package partida;
 
 import java.util.ArrayList;
 import monopoly.*;
+import monopoly.Casilla.Casilla;
 import monopoly.Edificio.Edificio;
+import partida.Avatar.*;
 
 public class Jugador {
 
@@ -34,7 +36,7 @@ public class Jugador {
         this.fortuna = 1000000000; // Valor elevado para que la banca nunca se quede sin dinero
         this.avatar = null;
         this.nombre = "banca";
-        this.gastos = 0; 
+        this.gastos = 0;
         this.enCarcel = false;
         this.tiradasCarcel = 0;
         this.tiradasCarcel = 0;
@@ -238,7 +240,7 @@ public class Jugador {
      * como parámetro).
      */
     public void encarcelar(ArrayList<ArrayList<Casilla>> pos) {
-        
+
         this.avatar.getCasilla().eliminarAvatar(this.avatar);
         this.avatar.setLugar(pos.get(1).get(0));
         this.enCarcel = true;
@@ -305,7 +307,7 @@ public class Jugador {
             if(c.getEdificios() != null){
                 for(Edificio e : c.getEdificios()){
                     ret += e.getID();
-                    
+
                     ret += ", ";
                 }
             }
