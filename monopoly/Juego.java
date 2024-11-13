@@ -11,6 +11,7 @@ import java.util.Set;
 import monopoly.Casilla.Casilla;
 import partida.*;
 import partida.Avatar.*;
+import partida.Carta.*;
 
 public class Juego {
 
@@ -49,8 +50,8 @@ public class Juego {
     private Scanner scanner = new Scanner(System.in);
     public static ConsolaNormal consola = new ConsolaNormal();
 
-    private ArrayList<Carta> suerte;
-    private ArrayList<Carta> comunidad;
+    private ArrayList<Suerte> suerte;
+    private ArrayList<Comunidad> comunidad;
 
     public Juego() {
         crear_cartas_comunidad();
@@ -59,23 +60,23 @@ public class Juego {
     }
 
     private void crear_cartas_suerte() {
-        this.suerte = new ArrayList<Carta>();
-        suerte.add(new Carta(Carta.desc1, "suerte", 1));
-        suerte.add(new Carta(Carta.desc2, "suerte", 2));
-        suerte.add(new Carta(Carta.desc3, "suerte", 3));
-        suerte.add(new Carta(Carta.desc4, "suerte", 4));
-        suerte.add(new Carta(Carta.desc5, "suerte", 5));
-        suerte.add(new Carta(Carta.desc6, "suerte", 6));
+        this.suerte = new ArrayList<Suerte>();
+        suerte.add(new Suerte(Carta.desc1, 1));
+        suerte.add(new Suerte(Carta.desc2, 2));
+        suerte.add(new Suerte(Carta.desc3, 3));
+        suerte.add(new Suerte(Carta.desc4, 4));
+        suerte.add(new Suerte(Carta.desc5, 5));
+        suerte.add(new Suerte(Carta.desc6, 6));
     }
 
     private void crear_cartas_comunidad() {
-        this.comunidad = new ArrayList<Carta>();
-        comunidad.add(new Carta(Carta.desc7, "comunidad", 1));
-        comunidad.add(new Carta(Carta.desc8, "comunidad", 2));
-        comunidad.add(new Carta(Carta.desc9, "comunidad", 3));
-        comunidad.add(new Carta(Carta.desc10, "comunidad", 4));
-        comunidad.add(new Carta(Carta.desc11, "comunidad", 5));
-        comunidad.add(new Carta(Carta.desc12, "comunidad", 6));
+        this.comunidad = new ArrayList<Comunidad>();
+        comunidad.add(new Comunidad(Carta.desc7, 1));
+        comunidad.add(new Comunidad(Carta.desc8, 2));
+        comunidad.add(new Comunidad(Carta.desc9, 3));
+        comunidad.add(new Comunidad(Carta.desc10, 4));
+        comunidad.add(new Comunidad(Carta.desc11, 5));
+        comunidad.add(new Comunidad(Carta.desc12, 6));
     }
 
     public void cargarArchivo(String archivo) {
@@ -95,7 +96,7 @@ public class Juego {
      * llamar
      * a esta funcion.
      */
-    private boolean elegir_carta(ArrayList<Carta> baraja) {
+    private boolean elegir_carta_suerte() {
         int n;
 
         do {
@@ -105,7 +106,22 @@ public class Juego {
         } while (n < 1 || n > 6);
 
         // Carta.barajar(baraja);
-        Carta c = Carta.obtenerCarta(baraja, n);
+        Suerte c = Suerte.obtenerCarta(this.suerte, n);
+        c.mostrarDescipcion();
+        return c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
+    }
+
+    private boolean elegir_carta_comunidad() {
+        int n;
+
+        do {
+            consola.imprimirln("Elige una carta del 1 al 6: ");
+            n = Integer.parseInt(this.scanner.next());
+
+        } while (n < 1 || n > 6);
+
+        // Carta.barajar(baraja);
+        Comunidad c = Comunidad.obtenerCarta(this.comunidad, n);
         c.mostrarDescipcion();
         return c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
     }
@@ -518,7 +534,7 @@ public class Juego {
         System.out
                 .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
                         + this.avatares.get(turno).getCasilla().getNombre());
-        this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
+        this.avatares.get(turno).moverEnBasico(this.tablero.getPosiciones(), desplazamiento);
         consola.imprimirln(" hasta " + avatares.get(turno).getCasilla().getNombre());
 
         // Comprueba si pasa por salida
@@ -526,11 +542,7 @@ public class Juego {
 
     }
 
-    private void moverCoche(int valor1, int valor2) { // TODO si sacas menos que 4 no puedes tirar en los siguientes 2
-                                                      // turnos CREO QUE YA ESTA
-        // TODO en la última tirada que haga si sacas dobles te debe dejar hacer una
-        // tirada normal extra (si sacas dobles en la extra no haces más) CREO QUE YA
-        // FUNCIONA
+    private void moverCoche(int valor1, int valor2) {
         /*
          * Coche: si el valor de los dados es mayor que 4, avanza tantas casillas como
          * dicho valor y puede seguir lanzando los dados tres veces más mientras el
@@ -557,8 +569,8 @@ public class Juego {
             consola.imprimirln("Se puede volver a tirar? " + !this.tirado);
             consola.imprimirln("Tiradas coche = " + contadorTiradasCoche);
 
-        } else { // TODO si se sacan dobles aquí no te debe dejar volver a tirar CREO QUE YA ESTA
-            contadorTiradasCoche = 1; // numero random distinto de 0 para que no entre en dados dobles
+        } else {
+            contadorTiradasCoche = 1;
             moverAtras(valor1, valor2);
             // Comprueba si pasa por salida hacia atras
             pasarPorSalidaHaciaAtras(valor1 + valor2);
@@ -568,8 +580,7 @@ public class Juego {
         }
     }
 
-    private void moverPelota(int valor1, int valor2) { // TODO si se sacan dobles te tiene que volver a dejar tirar con
-                                                       // el movimiento especial (rebotando) FUNCIONA DIRIA YO
+    private void moverPelota(int valor1, int valor2) {
         /*
          * Pelota: si el valor de los dados es mayor que 4, avanza tantas casillas como
          * dicho valor; mientras que, si el valor es menor o igual que 4, retrocede el
@@ -586,8 +597,7 @@ public class Juego {
         System.err.println("[!]: Esto puede que no funcione (MoverPelota)");
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
-            for (int i = 5; i <= desplazamiento + 1; i += 2) { // TODO la última casilla en la que caes tiene que ser el
-                // valor de los dados que sacaste FUNCIONA FIJO
+            for (int i = 5; i <= desplazamiento + 1; i += 2) {
 
                 if (i == 5) // primer salto
                     moverNormal(5, 0);
@@ -634,7 +644,7 @@ public class Juego {
                 .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento
                         + " hacia atras desde "
                         + this.avatares.get(turno).getCasilla().getNombre());
-        this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), 40 - desplazamiento);
+        this.avatares.get(turno).moverEnBasico(this.tablero.getPosiciones(), 40 - desplazamiento);
         consola.imprimirln(" hasta " + avatares.get(turno).getCasilla().getNombre());
 
     }
@@ -711,11 +721,7 @@ public class Juego {
                 jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() - 1);
             jugadores.get(turno).setPasarPorCasillaDeSalida(
                     jugadores.get(turno).getPasarPorCasillaDeSalida() - Valor.SUMA_VUELTA);
-            consola.imprimirln("Llevas " + jugadores.get(turno).getVueltas() + " vueltas."); // TODO se supone q hay q
-                                                                                             // comprobar q la próxima
-                                                                                             // vez q pase por la salida
-                                                                                             // no incremente su precio
-                                                                                             // JAJA
+            consola.imprimirln("Llevas " + jugadores.get(turno).getVueltas() + " vueltas.");
 
         }
     }
@@ -727,13 +733,13 @@ public class Juego {
          * si que no puede ejecutarse evaluar casilla despues
          */
         if (avatares.get(turno).getCasilla().getTipo().equals("suerte")) {
-            if( elegir_carta(suerte)){
+            if (elegir_carta_suerte()) {
                 pasarPorSalida();
             }
         }
 
         if (avatares.get(turno).getCasilla().getTipo().equals("caja")) {
-            if(elegir_carta(comunidad)){
+            if (elegir_carta_comunidad()) {
                 pasarPorSalida();
             }
         }
@@ -857,7 +863,7 @@ public class Juego {
             int desplazamiento = dado1.getValor() + dado2.getValor();
             consola.imprimirln("Has sacado dobles! Sales de la Cárcel y avanzas hasta");
             this.jugadores.get(turno).setEnCarcel(false);
-            this.avatares.get(turno).moverAvatar(this.tablero.getPosiciones(), desplazamiento);
+            this.avatares.get(turno).moverEnBasico(this.tablero.getPosiciones(), desplazamiento);
             consola.imprimirln(this.avatares.get(turno).getCasilla().toString());
             this.lanzamientos += 1;
             return;
@@ -1158,7 +1164,7 @@ public class Juego {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
-        if (partida_empezada && ((lanzamientos > 0 && this.tirado) || es_coche_y_no_puede_tirar)  && this.solvente) {
+        if (partida_empezada && ((lanzamientos > 0 && this.tirado) || es_coche_y_no_puede_tirar) && this.solvente) {
 
             /* Esto no se donde meterlo, en cada turno se tiene que poner a true */
             movimientoAvanzadoSePuedeCambiar = true;
@@ -1166,7 +1172,6 @@ public class Juego {
             jugador_puede_comprar = true;
             lanzamientos_dobles = 0;
             casillasVisitadas.removeAll(casillasVisitadas); // se borran todas las casillas
-
 
             this.lanzamientos = 0;
 
@@ -1179,15 +1184,13 @@ public class Juego {
                 consola.imprimirln("El jugador actual es: " + this.jugadores.get(turno).getNombre());
             }
 
-
             this.tirado = !se_puede_tirar_en_el_siguiente_turno[turno - 1];
             se_puede_tirar_en_el_siguiente_turno[turno - 1] = se_puede_tirar_en_el_siguiente_turno2[turno - 1];
-            se_puede_tirar_en_el_siguiente_turno2[turno - 1 ] = true;
+            se_puede_tirar_en_el_siguiente_turno2[turno - 1] = true;
             es_coche_y_no_puede_tirar = this.tirado;
             consola.imprimirln("This.tirado = " + !se_puede_tirar_en_el_siguiente_turno[turno - 1]);
-            consola.imprimirln("se puede tirar en el siguiente?"+se_puede_tirar_en_el_siguiente_turno2[turno - 1] );
-            consola.imprimirln("es coche y no puede tirar?"+ this.tirado);
-
+            consola.imprimirln("se puede tirar en el siguiente?" + se_puede_tirar_en_el_siguiente_turno2[turno - 1]);
+            consola.imprimirln("es coche y no puede tirar?" + this.tirado);
 
         } else if (!partida_empezada) {
             consola.imprimirln("La partida todavia no ha empezado. ");
