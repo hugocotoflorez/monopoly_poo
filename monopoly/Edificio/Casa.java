@@ -14,6 +14,7 @@ public class Casa extends Edificio {
 
     @Override
     public String getTipo() {
+        
         return "Casa";
     }
 
