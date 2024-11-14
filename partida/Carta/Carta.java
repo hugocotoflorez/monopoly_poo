@@ -9,10 +9,9 @@ import java.util.Collections;
 import partida.Jugador;
 import partida.Avatar.*;
 
-public class Carta {
+public abstract class Carta {
     String descripcion;
-    String tipo;
-    int accion = 0;
+    int accion;
 
     /*
      * Elegir carta. Cuando el avatar cae en una casilla de Suerte o en una de Caja
@@ -48,23 +47,21 @@ public class Carta {
      * Comunidad.
      */
 
-    public final static String desc1 = "Ve al Transportes1 y coge un avión. Si pasas por la casilla de Salida, cobra la cantidad habitual.";
-    public final static String desc2 = "Decides hacer un viaje de placer. Avanza hasta Solar15 directamente, sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.";
-    public final static String desc3 = "Vendes tu billete de avión para Solar17 en una subasta por Internet. Cobra 500000€.";
-    public final static String desc4 = "Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.";
-    public final static String desc5 = "Los acreedores te persiguen por impago. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.";
-    public final static String desc6 = "¡Has ganado el bote de la lotería! Recibe 1000000€.";
-    public final static String desc7 = "Paga 500000€ por un fin de semana en un balneario de 5 estrellas.";
-    public final static String desc8 = "Te investigan por fraude de identidad. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.";
-    public final static String desc9 = "Colócate en la casilla de Salida. Cobra la cantidad habitual.";
-    public final static String desc10 = "Tu compañía de Internet obtiene beneficios. Recibe 2000000€.";
-    public final static String desc11 = "Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14.";
-    public final static String desc12 = "Alquilas a tus compañeros una villa en Solar7 durante una semana. Paga 200000€ a cada jugador3.";
+    public final static String[] desc = {
+            "Ve al Transportes1 y coge un avión. Si pasas por la casilla de Salida, cobra la cantidad habitual.",
+            "Decides hacer un viaje de placer. Avanza hasta Solar15 directamente, sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.",
+            "Vendes tu billete de avión para Solar17 en una subasta por Internet. Cobra 500000€.",
+            "Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.",
+            "Los acreedores te persiguen por impago. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.",
+            "¡Has ganado el bote de la lotería! Recibe 1000000€.",
+            "Paga 500000€ por un fin de semana en un balneario de 5 estrellas.",
+            "Te investigan por fraude de identidad. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.",
+            "Colócate en la casilla de Salida. Cobra la cantidad habitual.",
+            "Tu compañía de Internet obtiene beneficios. Recibe 2000000€.",
+            "Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14.",
+            "Alquilas a tus compañeros una villa en Solar7 durante una semana. Paga 200000€ a cada jugador3." };
 
-    public Carta(String descripcion, String tipo, int accion) {
-        this.setAccion(accion);
-        this.setTipo(tipo);
-        this.descripcion = descripcion;
+    public Carta() {
     }
 
     public void setAccion(int n) {
@@ -72,9 +69,8 @@ public class Carta {
             this.accion = n;
     }
 
-    public void setTipo(String tipo) {
-        if (tipo.equals("suerte") || tipo.equals("comunidad"))
-            this.tipo = tipo;
+    public void setDescripcion(int n) {
+        this.descripcion = desc[n];
     }
 
     public static void barajar(ArrayList<Carta> baraja) {
@@ -85,4 +81,7 @@ public class Carta {
     public void mostrarDescipcion() {
         System.out.println(this.descripcion);
     }
+
+    public abstract boolean realizarAccion(Avatar av, ArrayList<Jugador> jugadores,
+            ArrayList<ArrayList<Casilla>> casillas);
 }

@@ -2,7 +2,6 @@ package monopoly;
 
 //
 import partida.*;
-import partida.Avatar.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 

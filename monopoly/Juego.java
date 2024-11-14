@@ -50,9 +50,6 @@ public class Juego {
     private Scanner scanner = new Scanner(System.in);
     public static ConsolaNormal consola = new ConsolaNormal();
 
-    private ArrayList<Suerte> suerte;
-    private ArrayList<Comunidad> comunidad;
-
     public Juego() {
         crear_cartas_comunidad();
         crear_cartas_suerte();
@@ -60,23 +57,21 @@ public class Juego {
     }
 
     private void crear_cartas_suerte() {
-        this.suerte = new ArrayList<Suerte>();
-        suerte.add(new Suerte(Carta.desc1, 1));
-        suerte.add(new Suerte(Carta.desc2, 2));
-        suerte.add(new Suerte(Carta.desc3, 3));
-        suerte.add(new Suerte(Carta.desc4, 4));
-        suerte.add(new Suerte(Carta.desc5, 5));
-        suerte.add(new Suerte(Carta.desc6, 6));
+        new Suerte();
+        new Suerte();
+        new Suerte();
+        new Suerte();
+        new Suerte();
+        new Suerte();
     }
 
     private void crear_cartas_comunidad() {
-        this.comunidad = new ArrayList<Comunidad>();
-        comunidad.add(new Comunidad(Carta.desc7, 1));
-        comunidad.add(new Comunidad(Carta.desc8, 2));
-        comunidad.add(new Comunidad(Carta.desc9, 3));
-        comunidad.add(new Comunidad(Carta.desc10, 4));
-        comunidad.add(new Comunidad(Carta.desc11, 5));
-        comunidad.add(new Comunidad(Carta.desc12, 6));
+        new Comunidad();
+        new Comunidad();
+        new Comunidad();
+        new Comunidad();
+        new Comunidad();
+        new Comunidad();
     }
 
     public void cargarArchivo(String archivo) {
@@ -106,7 +101,7 @@ public class Juego {
         } while (n < 1 || n > 6);
 
         // Carta.barajar(baraja);
-        Suerte c = Suerte.obtenerCarta(this.suerte, n);
+        Suerte c = Suerte.obtenerCarta(n);
         c.mostrarDescipcion();
         return c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
     }
@@ -121,7 +116,7 @@ public class Juego {
         } while (n < 1 || n > 6);
 
         // Carta.barajar(baraja);
-        Comunidad c = Comunidad.obtenerCarta(this.comunidad, n);
+        Comunidad c = Comunidad.obtenerCarta(n);
         c.mostrarDescipcion();
         return c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
     }

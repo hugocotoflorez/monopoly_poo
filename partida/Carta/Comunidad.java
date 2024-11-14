@@ -7,15 +7,26 @@ import partida.Jugador;
 import partida.Avatar.*;
 
 public class Comunidad extends Carta {
-    public Comunidad(String descripcion, int accion) {
-        super(descripcion, "comunidad", accion);
+
+    private static ArrayList<Comunidad> cartas = null;
+
+    public Comunidad() {
+        super();
+
+        if (cartas == null)
+            cartas = new ArrayList<Comunidad>(6);
+
+        cartas.add(this);
+        super.setAccion(cartas.indexOf(this)+1);
+        super.setDescripcion(cartas.indexOf(this)+6); // las 6 primeras son de suerte
+
     }
 
-    public static Comunidad obtenerCarta(ArrayList<Comunidad> baraja, int n) {
+    public static Comunidad obtenerCarta(int n) {
         if (n <= 0 && n > 6)
             return null;
 
-        return baraja.get(n - 1);
+        return cartas.get(n - 1);
     }
 
     public boolean realizarAccion(Avatar av, ArrayList<Jugador> jugadores,

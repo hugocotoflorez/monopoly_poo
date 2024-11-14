@@ -1,7 +1,6 @@
 package monopoly.Casilla.Propiedad;
 import monopoly.Grupo;
 import partida.*;
-import monopoly.*;
 import monopoly.Casilla.*;;
 
 public abstract class Propiedad extends Casilla {

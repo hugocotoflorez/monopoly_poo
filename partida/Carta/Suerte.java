@@ -6,15 +6,24 @@ import partida.Jugador;
 import partida.Avatar.*;
 
 public class Suerte extends Carta {
-    public Suerte(String descripcion, int accion) {
-        super(descripcion, "suerte", accion);
+
+    private static ArrayList<Suerte> cartas = null;
+
+    public Suerte() {
+        super();
+
+        if (cartas == null)
+            cartas = new ArrayList<Suerte>(6);
+        cartas.add(this);
+        super.setAccion(cartas.indexOf(this)+1);
+        super.setDescripcion(cartas.indexOf(this));
     }
 
-    public static Suerte obtenerCarta(ArrayList<Suerte> baraja, int n) {
+    public static Suerte obtenerCarta( int n) {
         if (n <= 0 && n > 6)
             return null;
 
-        return baraja.get(n - 1);
+        return cartas.get(n - 1);
     }
 
     public boolean realizarAccion(Avatar av, ArrayList<Jugador> jugadores,
