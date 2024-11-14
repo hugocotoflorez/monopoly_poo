@@ -1,6 +1,5 @@
 package partida.Carta;
 
-import monopoly.Valor;
 import monopoly.Casilla.Casilla;
 
 import java.util.ArrayList;
