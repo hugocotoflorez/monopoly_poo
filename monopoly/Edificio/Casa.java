@@ -9,7 +9,7 @@ public class Casa extends Edificio {
 
         super("Casa-" + Valor.NumeroCasasConstruidas, casilla,
                 casilla.getGrupo().getValor() * 0.60f);
-                
+
     }
 
     @Override

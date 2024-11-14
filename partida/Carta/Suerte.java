@@ -1,4 +1,5 @@
 package partida.Carta;
+
 import monopoly.Casilla.*;
 import java.util.ArrayList;
 import partida.Jugador;
@@ -16,23 +17,22 @@ public class Suerte extends Carta {
         return baraja.get(n - 1);
     }
 
-
     public boolean realizarAccion(Avatar av, ArrayList<Jugador> jugadores,
             ArrayList<ArrayList<Casilla>> casillas) {
-            switch (this.accion) {
-                case 1:
-                    return accSuerte1(av, casillas);
-                case 2:
-                    return accSuerte2(av, casillas);
-                case 3:
-                    return accSuerte3(av);
-                case 4:
-                    return accSuerte4(av, casillas);
-                case 5:
-                    return accSuerte5(av, casillas);
-                case 6:
-                    return accSuerte6(av);
-            }
+        switch (this.accion) {
+            case 1:
+                return accSuerte1(av, casillas);
+            case 2:
+                return accSuerte2(av, casillas);
+            case 3:
+                return accSuerte3(av);
+            case 4:
+                return accSuerte4(av, casillas);
+            case 5:
+                return accSuerte5(av, casillas);
+            case 6:
+                return accSuerte6(av);
+        }
         return false;
     }
 
@@ -99,6 +99,5 @@ public class Suerte extends Carta {
         av.getJugador().setPremiosInversionesOBote(av.getJugador().getPremiosInversionesOBote() + 1000000);
         return false;
     }
-
 
 }

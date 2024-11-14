@@ -12,7 +12,7 @@ public class Jugador {
     private String nombre; // Nombre del jugador
     private Avatar avatar; // Avatar que tiene en la partida.
     private float fortuna; // Dinero que posee.
-    private float gastos=0f; // Gastos realizados a lo largo del juego.
+    private float gastos = 0f; // Gastos realizados a lo largo del juego.
     private boolean enCarcel; // Será true si el jugador está en la carcel
     private int tiradasCarcel; // Cuando está en la carcel, contará las tiradas sin éxito que ha hecho allí
                                // para intentar salir (se usa para limitar el numero de intentos).
@@ -55,9 +55,20 @@ public class Jugador {
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
 
         this.nombre = nombre;
-        this.avatar = new Avatar(tipoAvatar, inicio, avCreados);
+
+        switch (tipoAvatar) {
+            case "Pelota":
+                this.avatar = new Pelota(this, inicio, avCreados);
+            case "Coche":
+                this.avatar = new Coche(this, inicio, avCreados);
+            case "Esfinge":
+                this.avatar = new Esfinge(this, inicio, avCreados);
+            case "Sombrero":
+                this.avatar = new Sombrero(this, inicio, avCreados);
+                break;
+        }
+
         this.avatar.setTurno(avCreados.size());
-        this.avatar.setTipo(tipoAvatar);
         this.avatar.setLugar(inicio);
         this.fortuna = Valor.FORTUNA_INICIAL;
         this.enCarcel = false;
@@ -68,11 +79,11 @@ public class Jugador {
 
     }
 
-    public float getGastos(){
+    public float getGastos() {
         return this.gastos;
     }
 
-    public void resetGastos(){
+    public void resetGastos() {
         this.gastos = 0;
     }
 
@@ -98,47 +109,47 @@ public class Jugador {
         return this.turnoscarcel;
     }
 
-    public int getVueltas(){
+    public int getVueltas() {
         return this.vueltas;
     }
 
-    public float getDineroInvertido(){
+    public float getDineroInvertido() {
         return this.dineroInvertido;
     }
 
-    public float getPagoTasasEImpuestos(){
+    public float getPagoTasasEImpuestos() {
         return this.pagoTasasEImpuestos;
     }
 
-    public float getPagoDeAlquileres(){
+    public float getPagoDeAlquileres() {
         return this.pagoDeAlquileres;
     }
 
-    public float getCobroDeAlquileres(){
+    public float getCobroDeAlquileres() {
         return this.cobroDeAlquileres;
     }
 
-    public float getPasarPorCasillaDeSalida(){
+    public float getPasarPorCasillaDeSalida() {
         return this.pasarPorCasillaDeSalida;
     }
 
-    public float getPremiosInversionesOBote(){
+    public float getPremiosInversionesOBote() {
         return this.premiosInversionesOBote;
     }
 
-    public int getVecesEnLaCarcel(){
+    public int getVecesEnLaCarcel() {
         return this.vecesEnLaCarcel;
     }
 
-    public int getNumeroTiradas(){
+    public int getNumeroTiradas() {
         return this.numerotiradas;
     }
 
-    public int getTirada(){
+    public int getTirada() {
         return this.tirada;
     }
 
-    public ArrayList<Casilla> getPropiedades(){
+    public ArrayList<Casilla> getPropiedades() {
         return this.propiedades;
     }
 
@@ -160,46 +171,45 @@ public class Jugador {
         this.turnoscarcel = turnos;
     }
 
-    public void setVueltas(int vueltas){
+    public void setVueltas(int vueltas) {
         this.vueltas = vueltas;
     }
 
-    public void setDineroInvertido(float valor){
+    public void setDineroInvertido(float valor) {
         this.dineroInvertido = valor;
     }
 
-    public void setPagoTasasEImpuestos(float valor){
+    public void setPagoTasasEImpuestos(float valor) {
         this.pagoTasasEImpuestos = valor;
     }
 
-    public void setPagoDeAlquileres(float valor){
+    public void setPagoDeAlquileres(float valor) {
         this.pagoDeAlquileres = valor;
     }
 
-    public void setCobroDeAlquileres(float valor){
+    public void setCobroDeAlquileres(float valor) {
         this.cobroDeAlquileres = valor;
     }
 
-    public void setPasarPorCasillaDeSalida(float valor){
+    public void setPasarPorCasillaDeSalida(float valor) {
         this.pasarPorCasillaDeSalida = valor;
     }
 
-    public void setPremiosInversionesOBote(float valor){
+    public void setPremiosInversionesOBote(float valor) {
         this.premiosInversionesOBote = valor;
     }
 
-    public void setVecesEnLaCarcel(int valor){
+    public void setVecesEnLaCarcel(int valor) {
         this.vecesEnLaCarcel = valor;
     }
 
-    public void setNumeroTiradas(int valor){
+    public void setNumeroTiradas(int valor) {
         this.numerotiradas = valor;
     }
 
-    public void setTirada(int tirada){
+    public void setTirada(int tirada) {
         this.tirada = tirada;
     }
-
 
     // Método para añadir una propiedad al jugador. Como parámetro, la casilla a
     // añadir.
@@ -213,7 +223,6 @@ public class Jugador {
             this.propiedades.remove(casilla);
         }
     }
-
 
     // Método para añadir fortuna a un jugador
     // Como parámetro se pide el valor a añadir. Si hay que restar fortuna, se
@@ -253,8 +262,8 @@ public class Jugador {
         return this.avatar == null;
     }
 
-    public void sumarNumeroTiradas(){
-        this.numerotiradas ++;
+    public void sumarNumeroTiradas() {
+        this.numerotiradas++;
     }
 
     /*
@@ -283,8 +292,7 @@ public class Jugador {
         return i;
     }
 
-
-    public String estadisticasJugador(){
+    public String estadisticasJugador() {
         String ret = """
                 {
                     Dinero invertido en compra de propiedades y edificaciones: %f
@@ -295,17 +303,20 @@ public class Jugador {
                     Cobro por premios, inversiones o  bote: %f
                     Veces en la cárcel: %d
                 }
-                """.formatted(this.dineroInvertido, this.pagoTasasEImpuestos, this.pagoDeAlquileres, this.cobroDeAlquileres, this.pasarPorCasillaDeSalida, this.premiosInversionesOBote, this.vecesEnLaCarcel);
+                """.formatted(this.dineroInvertido, this.pagoTasasEImpuestos, this.pagoDeAlquileres,
+                this.cobroDeAlquileres, this.pasarPorCasillaDeSalida, this.premiosInversionesOBote,
+                this.vecesEnLaCarcel);
         return ret;
     }
-    private String printEdificios(){
+
+    private String printEdificios() {
         String ret = new String();
         ret += "[";
 
-        for(Casilla c : this.propiedades){
+        for (Casilla c : this.propiedades) {
 
-            if(c.getEdificios() != null){
-                for(Edificio e : c.getEdificios()){
+            if (c.getEdificios() != null) {
+                for (Edificio e : c.getEdificios()) {
                     ret += e.getID();
 
                     ret += ", ";
@@ -319,12 +330,12 @@ public class Jugador {
 
     }
 
-    private String printHipotecas(){
+    private String printHipotecas() {
         String ret = new String();
         ret += "[";
 
-        for(Casilla c : this.propiedades){
-            if(c.getHipotecada()){
+        for (Casilla c : this.propiedades) {
+            if (c.getHipotecada()) {
                 ret += c.getNombre();
                 ret += ", ";
             }
@@ -349,12 +360,13 @@ public class Jugador {
                 propiedades != null ? this.propiedades : "[]", this.printHipotecas(), this.printEdificios());
     }
 
-    public float score(){
+    public float score() {
         float ret = 0;
         ret += this.fortuna;
-        for (Casilla c: propiedades){
+        for (Casilla c : propiedades) {
             ret += c.getValor();
-            for(Edificio e: c.getEdificios()) ret += e.getPrecio();
+            for (Edificio e : c.getEdificios())
+                ret += e.getPrecio();
         }
         return ret;
     }

@@ -1,6 +1,19 @@
 package partida.Avatar;
 
-public class Coche extends Avatar{
+import partida.*;
+import monopoly.Casilla.*;
+import java.util.ArrayList;
+
+public class Coche extends Avatar {
+
+    public Coche(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
+        super(jugador, lugar, avCreados);
+    }
+
+    public String getTipo() {
+        return "Coche";
+    }
+
     public String getInfo() {
         String ret = """
                 id: %s,
@@ -12,5 +25,6 @@ public class Coche extends Avatar{
     }
 
     @Override
-    public void moverEnAvanzado(){} //TODO moverEnAvanzado Coche
+    public void moverEnAvanzado() {
+    } // TODO moverEnAvanzado Coche
 }

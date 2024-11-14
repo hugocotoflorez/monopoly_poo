@@ -11,8 +11,7 @@ import java.util.Set;
 import monopoly.Casilla.Casilla;
 import partida.*;
 import partida.Avatar.*;
-import partida.Carta.Carta;
-import partida.Carta.Carta.*;
+import partida.Carta.*;
 
 public class Juego {
 

@@ -1,4 +1,5 @@
 package partida.Carta;
+
 import java.util.ArrayList;
 
 import monopoly.Casilla.*;
@@ -17,23 +18,22 @@ public class Comunidad extends Carta {
         return baraja.get(n - 1);
     }
 
-
     public boolean realizarAccion(Avatar av, ArrayList<Jugador> jugadores,
             ArrayList<ArrayList<Casilla>> casillas) {
-            switch (this.accion) {
-                case 1:
-                    return accComm1(av, jugadores);
-                case 2:
-                    return accComm2(av, casillas);
-                case 3:
-                    return accComm3(av, casillas);
-                case 4:
-                    return accComm4(av);
-                case 5:
-                    return accComm5(av, jugadores);
-                case 6:
-                    return accComm6(av, jugadores);
-            }
+        switch (this.accion) {
+            case 1:
+                return accComm1(av, jugadores);
+            case 2:
+                return accComm2(av, casillas);
+            case 3:
+                return accComm3(av, casillas);
+            case 4:
+                return accComm4(av);
+            case 5:
+                return accComm5(av, jugadores);
+            case 6:
+                return accComm6(av, jugadores);
+        }
         return false;
     }
 

@@ -478,9 +478,10 @@ public class Casilla {
                     Alquiler piscina: %s
                     Alquiler pista de deporte: %s
                     }""".formatted(nombre, this.grupo.getID(), duenho.getNombre(), this.getValor(),
-                    impuesto, this.listar_nombres_edificios(),alquilerbase*0.60f, alquilerbase*0.60f, alquilerbase*0.40f,
-                    alquilerbase*1.25f, alquilerbase*5f, alquilerbase*15f, alquilerbase*35f, alquilerbase*50f,
-                    alquilerbase*70f, alquilerbase*25f, alquilerbase*25f);
+                    impuesto, this.listar_nombres_edificios(), alquilerbase * 0.60f, alquilerbase * 0.60f,
+                    alquilerbase * 0.40f,
+                    alquilerbase * 1.25f, alquilerbase * 5f, alquilerbase * 15f, alquilerbase * 35f, alquilerbase * 50f,
+                    alquilerbase * 70f, alquilerbase * 25f, alquilerbase * 25f);
 
         } else if (this.tipo.equals("especial")) { // Aquí hay que poner el bote en el Parking, qué jugadores están en
                                                    // la cárcel, cuánto te dan en la salida
@@ -810,8 +811,9 @@ public class Casilla {
 
                             duenhoGrupo.setDineroInvertido(duenhoGrupo.getDineroInvertido() + Casa.getPrecio());
 
-                            Juego.consola.imprimir("Se ha edificado una casa en " + this.getNombre() + ". La fortuna de "
-                                    + duenhoGrupo.getNombre() + " se reduce en " + Casa.getPrecio());
+                            Juego.consola
+                                    .imprimir("Se ha edificado una casa en " + this.getNombre() + ". La fortuna de "
+                                            + duenhoGrupo.getNombre() + " se reduce en " + Casa.getPrecio());
                         } else
                             Juego.consola.imprimir("No tienes suficiente fortuna, necesitas " + Casa.getPrecio());
                         return;
@@ -869,8 +871,9 @@ public class Casilla {
 
                             duenhoGrupo.setDineroInvertido(duenhoGrupo.getDineroInvertido() + Piscina.getPrecio());
 
-                            Juego.consola.imprimir("Se ha edificado una piscina en " + this.getNombre() + "La fortuna de "
-                                    + duenhoGrupo.getNombre() + " se reduce en " + Piscina.getPrecio());
+                            Juego.consola
+                                    .imprimir("Se ha edificado una piscina en " + this.getNombre() + "La fortuna de "
+                                            + duenhoGrupo.getNombre() + " se reduce en " + Piscina.getPrecio());
                         } else
                             Juego.consola.imprimir("No tienes suficiente fortuna, necesitas " + Piscina.getPrecio());
                         return;
@@ -918,7 +921,8 @@ public class Casilla {
             case "Casa":
                 if (Integer.parseInt(n) > this.obtenerNumeroCasas()) {
 
-                    Juego.consola.imprimir("No tienes suficientes casas construidas! Total: " + this.obtenerNumeroCasas());
+                    Juego.consola
+                            .imprimir("No tienes suficientes casas construidas! Total: " + this.obtenerNumeroCasas());
                     return;
                 }
                 break;

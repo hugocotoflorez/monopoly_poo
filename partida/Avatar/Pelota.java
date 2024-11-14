@@ -1,6 +1,19 @@
 package partida.Avatar;
 
-public class Pelota extends Avatar{
+import partida.*;
+import monopoly.Casilla.*;
+import java.util.ArrayList;
+
+public class Pelota extends Avatar {
+
+    public Pelota(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
+        super(jugador, lugar, avCreados);
+    }
+
+    public String getTipo() {
+        return "Pelota";
+    }
+
     public String getInfo() {
         String ret = """
                 id: %s,
@@ -12,5 +25,6 @@ public class Pelota extends Avatar{
     }
 
     @Override
-    public void moverEnAvanzado(){} //TODO moverEnAvanzado Pelota
+    public void moverEnAvanzado() {
+    } // TODO moverEnAvanzado Pelota
 }

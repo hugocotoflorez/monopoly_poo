@@ -40,13 +40,15 @@ public abstract class Avatar {
         return this.jugador;
     }
 
-    public int getTurno(){
+    public int getTurno() {
         return this.turno;
     }
 
     public Casilla getCasilla() {
         return this.casilla;
     }
+
+    public abstract String getTipo();
 
     // SETTERS
     public void setJugador(Jugador jugador) {
@@ -57,7 +59,7 @@ public abstract class Avatar {
         this.casilla = lugar;
     }
 
-    public void setTurno(int turno){
+    public void setTurno(int turno) {
         this.turno = turno;
     }
 
@@ -67,7 +69,7 @@ public abstract class Avatar {
     }
 
     public void moverEnBasico(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-        moverEnBasico(Tablero. obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion() - 1));
+        moverEnBasico(Tablero.obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion() - 1));
     }
 
     public void moverEnBasico(Casilla casilla) {
@@ -78,7 +80,8 @@ public abstract class Avatar {
     }
 
     public abstract void moverEnAvanzado();
-    
+
+    public abstract String getInfo();
 
     /*
      * Método que permite generar un ID para un avatar. Sólo lo usamos en esta clase
@@ -108,6 +111,28 @@ public abstract class Avatar {
     @Override
     public String toString() {
         return this.id;
+    }
+
+    /*
+     * LEGACY CODE. TO BE REMOVED
+     * TODO (Arreglar el resto sin borrar esto asi no peta y se puede probar)
+     */
+    static Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valor) {
+        System.out.println("Estas usando Avatar.obtenerCasilla(deprecated)");
+        valor = valor % 40;
+        return casillas.get(valor / 10).get(valor % 10);
+    }
+
+    public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
+        moverAvatar(obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion() - 1));
+    }
+
+    public void moverAvatar(Casilla casilla) {
+        System.out.println("Estas usando Avatar.moverAvatar (deprecated)");
+        this.casilla.eliminarAvatarCasilla(this.id);
+        this.casilla = casilla;
+        this.casilla.anhadirAvatarCasilla(this);
+        casilla.actualizarCaidasEnCasilla(this.turno);
     }
 
 }

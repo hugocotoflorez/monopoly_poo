@@ -1,7 +1,8 @@
-package monopoly.Casilla.*;
-
-import monopoly.Jugador;
+package monopoly.Casilla.Propiedad;
 import monopoly.Grupo;
+import partida.*;
+import monopoly.*;
+import monopoly.Casilla.*;;
 
 public abstract class Propiedad extends Casilla {
     private float valor;
@@ -9,7 +10,9 @@ public abstract class Propiedad extends Casilla {
     private Grupo grupo;
 
     public Propiedad(String nombre, int posicion, float valor, Grupo grupo) {
-        super(nombre, posicion);
+        // TODO el constructor de Propiedad esta mal, cambie los argumentos
+        // de super para que np de error pero va mal
+        super(nombre, posicion, valor, null);
         this.valor = valor;
         this.grupo = grupo;
         this.duenho = null; // Por defecto, no tiene dueño
