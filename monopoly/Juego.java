@@ -5,13 +5,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 
 import monopoly.Casilla.Casilla;
 import partida.*;
 import partida.Avatar.*;
 import partida.Carta.*;
+import monopoly.consola.*;
 
 public class Juego {
 
@@ -47,7 +47,6 @@ public class Juego {
      * ejecutase en el medio de un ciclo de vida de un scanner en otra funcion esta
      * fallaria
      */
-    private Scanner scanner = new Scanner(System.in);
     public static ConsolaNormal consola = new ConsolaNormal();
 
     public Juego() {
@@ -95,8 +94,7 @@ public class Juego {
         int n;
 
         do {
-            consola.imprimirln("Elige una carta del 1 al 6: ");
-            n = Integer.parseInt(this.scanner.next());
+            n = consola.leerInt("Elige una carta del 1 al 6: ");
 
         } while (n < 1 || n > 6);
 
@@ -110,8 +108,7 @@ public class Juego {
         int n;
 
         do {
-            consola.imprimirln("Elige una carta del 1 al 6: ");
-            n = Integer.parseInt(this.scanner.next());
+            n = consola.leerInt("Elige una carta del 1 al 6: ");
 
         } while (n < 1 || n > 6);
 
@@ -145,20 +142,18 @@ public class Juego {
         analizarComando("opciones");
 
         /* Bucle principal de la partida */
-        consola.imprimir("\n[>]: ");
         while (!partida_finalizada) {
 
             // Para evitar que se lean comandos que no se de
             // donde salen y den error
-            comando = this.scanner.nextLine();
-            if (comando.length() > 0) {
-                analizarComando(comando);
-                consola.imprimir("\n[>]: ");
-            }
+            if (jugadores.size() > 1)
+                comando = consola.leer("[" + jugadores.get(turno).getNombre() + "]: ");
+            else
+                comando = consola.leer("[>]: ");
+            analizarComando(comando);
         }
         consola.imprimirln("\rEl jugador " + this.jugadores.get(turno).getNombre() + " ha ganado.");
 
-        this.scanner.close();
         acabarPartida();
     }
 
@@ -178,48 +173,40 @@ public class Juego {
                  * desplazar hacia abajo el contenido de la consola porque no entra. En otras
                  * terminales va bien.
                  */
-                boolean USECOLORS = false;
-
-                if (USECOLORS)
-                    consola.imprimir("\033[1;47;30m");
-                consola.imprimirln(Valor.BOLD + "Opciones                                      " + Valor.RESET);
-                if (USECOLORS)
-                    consola.imprimir("\033[40;37m");
-                consola.imprimirln("crear jugador <nombre> <tipo_avatar>          ");
-                consola.imprimirln("jugador - jugador con el turno                ");
-                consola.imprimirln("listar enventa                                ");
-                consola.imprimirln("listar jugadores                              ");
-                consola.imprimirln("listar avatares                               ");
-                consola.imprimirln("lanzar dados                                  ");
-                consola.imprimirln("cambiar modo                                  ");
-                consola.imprimirln("acabar - acaba el turno                       ");
-                consola.imprimirln("salir - salir carcel)                         ");
-                consola.imprimirln("describir jugador  <nombre>                   ");
-                consola.imprimirln("describir avatar <letra                       ");
-                consola.imprimirln("comprar <casilla>                             ");
-                consola.imprimirln("bancarrota - acaba la partida para ese jugador");
-                consola.imprimirln("ver - muestra el tablero                      ");
-                consola.imprimirln("clear - limpia la pantalla                    ");
-                consola.imprimirln("estadisticas <Jugador>                        ");
-                consola.imprimirln("estadisticas                                  ");
-                consola.imprimirln("hipotecar <casilla>                           ");
-                consola.imprimirln("deshipotecar <casilla>                        ");
-                consola.imprimirln("listar edificios                              ");
-                consola.imprimirln("listar edificios <grupo>                      ");
-                consola.imprimirln("edificar <tipo>                               ");
-                consola.imprimirln("vender <tipo> <solar> <cantidad>              ");
-                consola.imprimirln("----------------------------------------------");
-                consola.imprimirln("opciones, ? -> Muestra las opciones           ");
-                consola.imprimirln("a -> acabar                                   ");
-                consola.imprimirln("q, SALIR -> acaba la ejecucion del programa   ");
-                consola.imprimirln("c, clear -> limpia la pantalla                ");
-                consola.imprimirln("l x y -> lanzar dados, con resultado x e y    ");
-                consola.imprimirln("default -> crea dos jugadores                 ");
-                consola.imprimirln("archivo file -> ejecuta comandos en file      ");
-                consola.imprimirln("fortuna <valor>                               ");
-                consola.imprimirln("----------------------------------------------");
-                if (USECOLORS)
-                    consola.imprimir(Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +Valor.BOLD + "Opciones                                      " + Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"crear jugador <nombre> <tipo_avatar>          "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"jugador - jugador con el turno                "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"listar enventa                                "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"listar jugadores                              "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"listar avatares                               "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"lanzar dados                                  "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"cambiar modo                                  "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"acabar - acaba el turno                       "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"salir - salir carcel)                         "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"describir jugador  <nombre>                   "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"describir avatar <letra                       "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"comprar <casilla>                             "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"bancarrota - acaba la partida para ese jugador"+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"ver - muestra el tablero                      "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"clear - limpia la pantalla                    "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"estadisticas <Jugador>                        "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"estadisticas                                  "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"hipotecar <casilla>                           "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"deshipotecar <casilla>                        "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"listar edificios                              "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"listar edificios <grupo>                      "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"edificar <tipo>                               "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"vender <tipo> <solar> <cantidad>              "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"----------------------------------------------"+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"opciones, ? -> Muestra las opciones           "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"a -> acabar                                   "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"q, SALIR -> acaba la ejecucion del programa   "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"c, clear -> limpia la pantalla                "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"l x y -> lanzar dados, con resultado x e y    "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"default -> crea dos jugadores                 "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"archivo file -> ejecuta comandos en file      "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"fortuna <valor>                               "+ Valor.RESET);
+                consola.imprimirln(Valor.BGBLACK +"----------------------------------------------"+ Valor.RESET);
 
                 break;
 
@@ -526,9 +513,8 @@ public class Juego {
 
     private void moverNormal(int valor1, int valor2) {
         int desplazamiento = valor1 + valor2;
-        System.out
-                .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
-                        + this.avatares.get(turno).getCasilla().getNombre());
+        consola.imprimir("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
+                + this.avatares.get(turno).getCasilla().getNombre());
         this.avatares.get(turno).moverEnBasico(this.tablero.getPosiciones(), desplazamiento);
         consola.imprimirln(" hasta " + avatares.get(turno).getCasilla().getNombre());
 
@@ -552,7 +538,6 @@ public class Juego {
          * DUDAS:
          * se vuelve a tirar cuando se sacan dobles? como afecta?
          */
-        System.err.println("[!]: Puede que no funcione (moverCoche)");
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
             moverNormal(valor1, valor2);
@@ -589,7 +574,6 @@ public class Juego {
          * alquiler si no pertenece al jugador. Si una de esas casillas es Ir a Cárcel,
          * entonces no se parará en las subsiguientes casillas
          */
-        System.err.println("[!]: Esto puede que no funcione (MoverPelota)");
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
             for (int i = 5; i <= desplazamiento + 1; i += 2) {
@@ -635,8 +619,7 @@ public class Juego {
 
     private void moverAtras(int valor1, int valor2) {
         int desplazamiento = valor1 + valor2;
-        System.out
-                .print("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento
+        consola.imprimir("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento
                         + " hacia atras desde "
                         + this.avatares.get(turno).getCasilla().getNombre());
         this.avatares.get(turno).moverEnBasico(this.tablero.getPosiciones(), 40 - desplazamiento);
@@ -752,8 +735,7 @@ public class Juego {
                         + " está en bancarrota. Su fortuna actual es " + jugadores.get(turno).getFortuna());
                 char opcion;
                 do {
-                    consola.imprimirln(("¿Deseas seguir jugando? (S/N): "));
-                    opcion = this.scanner.next().charAt(0);
+                    opcion = consola.leerChar("¿Deseas seguir jugando? (S/N): ");
                     switch (opcion) {
                         case 's':
                         case 'S':
@@ -948,8 +930,7 @@ public class Juego {
             consola.imprimirln("Como quieres salir de la cárcel?");
             consola.imprimirln("1) Lanzar dados (sacando dobles)");
             consola.imprimirln("2) Pagando el impuesto " + Valor.PAGO_SALIR_CARCEL);
-            consola.imprimir("[>]: ");
-            char opcion = this.scanner.next().charAt(0);
+            char opcion = consola.leerChar("[" + jugadores.get(turno).getNombre() + "] ");
             switch (opcion) {
                 case '1':
                     lanzarDadosCarcel();
@@ -1183,9 +1164,6 @@ public class Juego {
             se_puede_tirar_en_el_siguiente_turno[turno - 1] = se_puede_tirar_en_el_siguiente_turno2[turno - 1];
             se_puede_tirar_en_el_siguiente_turno2[turno - 1] = true;
             es_coche_y_no_puede_tirar = this.tirado;
-            consola.imprimirln("This.tirado = " + !se_puede_tirar_en_el_siguiente_turno[turno - 1]);
-            consola.imprimirln("se puede tirar en el siguiente?" + se_puede_tirar_en_el_siguiente_turno2[turno - 1]);
-            consola.imprimirln("es coche y no puede tirar?" + this.tirado);
 
         } else if (!partida_empezada) {
             consola.imprimirln("La partida todavia no ha empezado. ");
