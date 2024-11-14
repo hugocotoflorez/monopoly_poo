@@ -1,5 +1,5 @@
 package monopoly.Casilla;
 
-public class Accion {
-    
+    public class Accion {
+
 }
