@@ -1,11 +1,1 @@
-Casilla.class
-Grupo.class
-Menu.class
-MonopolyETSE.class
-Tablero.class
-Valor.class
-Avatar.class
-Dado.class
-Jugador.class
-Edificio.class
-Carta.class
+*.class

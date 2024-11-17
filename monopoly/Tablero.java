@@ -11,8 +11,9 @@ public class Tablero {
     // Atributos.
     private ArrayList<ArrayList<Casilla>> posiciones; // Posiciones del tablero: se define como un arraylist de
                                                       // arraylists de casillas (uno por cada lado del tablero).
-    private HashMap<String, Grupo> grupos = new HashMap<String, Grupo>(); // Grupos del tablero, almacenados como un HashMap con clave String (será el
-                                           // color del grupo).
+    private HashMap<String, Grupo> grupos = new HashMap<String, Grupo>(); // Grupos del tablero, almacenados como un
+                                                                          // HashMap con clave String (será el
+    // color del grupo).
     private Jugador banca; // Un jugador que será la banca.
 
     private static final boolean USAR_NERD_FONT = true;
@@ -27,6 +28,39 @@ public class Tablero {
     private char char_horizontal_up = USAR_NERD_FONT ? '┻' : '-';
     private char char_horizontal_down = USAR_NERD_FONT ? '┳' : '-';
     private char char_full_intersection = USAR_NERD_FONT ? '╋' : '+';
+
+    String[] tablero_text = {
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣤⣤⡀⠀⠀⠀⠀⠀⠀⠀⡤⠚⣉⠉⠲⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠶⠛⠉⠀⠀⢻⣿⣿⡀⠀⠀⠀⠀⠀⢸⠀⡞⠉⠙⠒⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣦⠀⠀⠀⠀⠀⢻⣿⣷⡄⠀⠀⠀⠀⠘⣄⠹⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡿⣿⣿⣿⣿⣷⣀⠤⠒⠊⠉⠱⣶⣿⣆⠀⣀⣴⠂⠈⠢⡈⠳⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢧⡈⢿⣿⡿⣋⣴⣀⣀⣀⣠⣤⡬⠭⠼⠻⣏⠀⠀⠀⠀⠈⠲⣌⠳⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⣶⠀⠀⠀⠀⠀⠀⠀⠀⠻⣬⢋⣾⠿⠛⣋⠍⢁⠤⠀⠀⠀⠀⠈⠉⠳⡀⠀⠀⠀⠀⠈⠳⣌⠳⣄⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⣀⣠⣤⡾⠀⢻⡀⠀⠀⠀⠀⠀⠀⠀⢀⣵⠟⣡⠖⠋⠀⠀⠁⠀⠀⠀⠀⠀⠀⠰⠂⢳⠀⠀⠀⠀⠀⠀⠈⣳⠾⠃⡷⠈⠒⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⣀⡤⠞⡋⠉⠀⠀⠇⠀⠀⣿⠲⣤⣤⣄⡀⠀⠀⣼⠁⣼⡏⢐⠆⠀⠀⠀⠘⠃⠀⠀⠀⣄⠀⠀⢸⡇⢀⠀⠀⠀⠀⠀⡇⠠⡶⠁⡀⠀⠙⡄⠀⠀⠀⠀⠀⠀⠀⠀",
+"⣼⠁⢀⠩⠔⠀⣀⣀⣀⣀⡼⢁⣾⣿⣿⣿⣿⣶⣤⣹⣆⣻⠓⠀⠀⠀⠀⠀⠀⠀⡠⠤⠐⠋⠉⠑⠚⠓⣻⠀⠀⠀⠀⠀⣧⡀⢧⣞⣠⢂⡰⣄⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠳⠤⠴⠚⠛⠉⠉⠉⠉⠛⢳⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣍⡦⢄⣤⠀⢢⡄⠠⠎⠀⠀⠀⣠⣀⣀⣠⠔⠁⠀⠀⠀⢀⣿⣆⠻⢦⣌⡽⠋⠙⢮⡳⣄⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠻⢿⣿⣿⣿⣿⣿⣿⣿⣾⣿⣷⣄⠑⠢⠤⠤⠴⠋⠉⣀⡞⠁⠀⠀⠀⣀⣴⣿⣿⣿⣷⣤⡽⠃⠀⠀⠀⠙⢮⡳⣄⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⡏⠙⢒⠦⠤⠤⠴⢚⣿⣿⣶⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀⠀⠀⠀⠀⠙⢮⡳⣄⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⡄⣸⡤⠖⠢⣤⠇⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢮⡳⣄",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⣿⣷⠉⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠊",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⢟⣵⣶⣶⣝⣿⣿⣆⠀⠀⠀⠀⢸⣿⣿⣿⡿⠛⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣆⠀⠀⠀⠀⠀⠀⣰⣟⣵⣿⣿⣿⣿⣿⣿⡿⠛⢷⡀⠀⠀⢸⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣷⣶⣤⣤⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠀⠀⠈⣧⣴⡄⢀⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣷⣤⣴⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⡿⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⡙⢿⣿⡟⠛⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣌⢿⡇⠀⢀⣤⣾⡍⢻⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⠿⠟⠀⠳⠀⡀⠀⣼⠃⢀⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠁⣀⣼⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣀⣰⣿⣿⣿⣿⣿⣿⣿⣿⠿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⠁⠀⢹⣿⣿⣿⣿⣿⡿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡳⠀⠀⢸⣿⣿⣿⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⢸⢿⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⠦⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+    };
 
     // Constructor: únicamente le pasamos el jugador banca (que se creará desde el
     // menú).
@@ -60,7 +94,7 @@ public class Tablero {
         return array.get(posicion / 10).get(posicion % 10);
     }
 
-    public HashMap<String, Grupo> getGruposMap(){
+    public HashMap<String, Grupo> getGruposMap() {
         return this.grupos;
     }
 
@@ -78,9 +112,11 @@ public class Tablero {
         lado.add(new Casilla("Serv2", "serv", 29, Valor.SERVICIOS, banca));
         lado.add(new Casilla("Solar17", "solar", 30, Valor.GRUPO_6, banca));
 
-
-        //lado.get(1).setImpuesto(Valor.GRUPO_5*0.10f); lado.get(3).setImpuesto(Valor.GRUPO_5*0.10f); lado.get(4).setImpuesto(Valor.GRUPO_5*0.10f);
-        //lado.get(6).setImpuesto(Valor.GRUPO_6*0.10f);lado.get(7).setImpuesto(Valor.GRUPO_6*0.10f); lado.get(9).setImpuesto(Valor.GRUPO_6*0.10f);
+        // lado.get(1).setImpuesto(Valor.GRUPO_5*0.10f);
+        // lado.get(3).setImpuesto(Valor.GRUPO_5*0.10f);
+        // lado.get(4).setImpuesto(Valor.GRUPO_5*0.10f);
+        // lado.get(6).setImpuesto(Valor.GRUPO_6*0.10f);lado.get(7).setImpuesto(Valor.GRUPO_6*0.10f);
+        // lado.get(9).setImpuesto(Valor.GRUPO_6*0.10f);
         lado.get(5).setImpuesto(Valor.IMPUESTOS_TRANSPORTES);
         lado.get(8).setImpuesto(Valor.IMPUESTO_SERVICIOS);
         Grupo G5 = new Grupo(lado.get(1), lado.get(3), lado.get(4), Valor.COLOR_G5, "Rojo");
@@ -127,14 +163,17 @@ public class Tablero {
         lado.add(new Casilla("Caja", "caja", 18, banca));
         lado.add(new Casilla("Solar10", "solar", 19, Valor.GRUPO_4, banca));
         lado.add(new Casilla("Solar11", "solar", 20, Valor.GRUPO_4, banca));
-        //lado.get(1).setImpuesto(Valor.GRUPO_3*0.10f); lado.get(3).setImpuesto(Valor.GRUPO_3*0.10f); lado.get(4).setImpuesto(Valor.GRUPO_3*0.10f);
-        //lado.get(6).setImpuesto(Valor.GRUPO_4*0.10f);lado.get(8).setImpuesto(Valor.GRUPO_4*0.10f); lado.get(9).setImpuesto(Valor.GRUPO_4*0.10f);
+        // lado.get(1).setImpuesto(Valor.GRUPO_3*0.10f);
+        // lado.get(3).setImpuesto(Valor.GRUPO_3*0.10f);
+        // lado.get(4).setImpuesto(Valor.GRUPO_3*0.10f);
+        // lado.get(6).setImpuesto(Valor.GRUPO_4*0.10f);lado.get(8).setImpuesto(Valor.GRUPO_4*0.10f);
+        // lado.get(9).setImpuesto(Valor.GRUPO_4*0.10f);
         lado.get(2).setImpuesto(Valor.IMPUESTO_SERVICIOS);
         lado.get(5).setImpuesto(Valor.IMPUESTOS_TRANSPORTES);
         Grupo G3 = new Grupo(lado.get(1), lado.get(3), lado.get(4), Valor.COLOR_G3, "Rosa");
         Grupo G4 = new Grupo(lado.get(6), lado.get(8), lado.get(9), Valor.COLOR_G4, "Amarillo");
-        this.grupos.put("Rosa",G3);
-        this.grupos.put("Amarillo",G4);
+        this.grupos.put("Rosa", G3);
+        this.grupos.put("Amarillo", G4);
 
         posiciones.add(lado);
     }
@@ -156,8 +195,8 @@ public class Tablero {
         lado.get(8).setImpuesto(Valor.IMPUESTOS2);
         Grupo G7 = new Grupo(lado.get(1), lado.get(2), lado.get(4), Valor.COLOR_G7, "Verde");
         Grupo G8 = new Grupo(lado.get(7), lado.get(9), Valor.COLOR_G8, "Azul");
-        this.grupos.put("Verde",G7);
-        this.grupos.put("Azul",G8);
+        this.grupos.put("Verde", G7);
+        this.grupos.put("Azul", G8);
 
         posiciones.add(lado);
     }
@@ -167,7 +206,7 @@ public class Tablero {
     public String toString() {
         String ret = new String();
 
-        //ret += "\033[H\033[2J"; LIMPIAR PANTALLA
+        // ret += "\033[H\033[2J"; LIMPIAR PANTALLA
 
         // borde superior del tablero
         ret += char_top_left;
@@ -213,13 +252,15 @@ public class Tablero {
         for (int i = 0; i < 9; i++) {
             ret += char_vertical + String.format("%s", posiciones.get(1).get(9 - i).printCasilla());
             ret += char_vertical;
-            ret += String.valueOf(' ').repeat(Casilla.casillaWidth * 9 - 1);
+            ret += tablero_text[i * 3];
+            ret += String.valueOf(' ').repeat(Casilla.casillaWidth * 9 - 1 - tablero_text[i * 3].length());
             ret += char_vertical + String.format("%s", posiciones.get(3).get(i + 1).printCasilla());
             ret += char_vertical;
             ret += '\n';
             ret += char_vertical + String.format("%s", posiciones.get(1).get(9 - i).printAvatares());
             ret += char_vertical;
-            ret += String.valueOf(' ').repeat(Casilla.casillaWidth * 9 - 1);
+            ret += tablero_text[i * 3 + 1];
+            ret += String.valueOf(' ').repeat(Casilla.casillaWidth * 9 - 1 - tablero_text[i * 3 + 1].length());
             ret += char_vertical + String.format("%s", posiciones.get(3).get(i + 1).printAvatares());
             ret += char_vertical;
             ret += '\n';
@@ -227,7 +268,8 @@ public class Tablero {
                 ret += char_vertical_right;
                 ret += String.valueOf(char_horizontal).repeat(Casilla.casillaWidth - 1);
                 ret += char_vertical_left;
-                ret += String.valueOf(' ').repeat(Casilla.casillaWidth * 9 - 1);
+                ret += tablero_text[i * 3 + 2];
+                ret += String.valueOf(' ').repeat(Casilla.casillaWidth * 9 - 1 - tablero_text[i * 3 + 2].length());
                 ret += char_vertical_right;
                 ret += String.valueOf(char_horizontal).repeat(Casilla.casillaWidth - 1);
                 ret += char_vertical_left;
@@ -251,12 +293,12 @@ public class Tablero {
 
         // lado sur
         ret += char_vertical + String.format("%s", posiciones.get(1).get(0).printCasilla());
-        for (int i = 9; i>=0; i--)
+        for (int i = 9; i >= 0; i--)
             ret += char_vertical + String.format("%s", posiciones.get(0).get(i).printCasilla());
         ret += char_vertical;
         ret += '\n';
         ret += char_vertical + String.format("%s", posiciones.get(1).get(0).printAvatares());
-        for (int i = 9; i>=0; i--)
+        for (int i = 9; i >= 0; i--)
             ret += char_vertical + String.format("%s", posiciones.get(0).get(i).printAvatares());
         ret += char_vertical;
         ret += '\n';
@@ -287,10 +329,11 @@ public class Tablero {
         return null;
     }
 
-    public void actualizarValorSolares(){
-        for(Grupo g: this.grupos.values()){
-            for(Casilla c : g.getMiembros()){
-                if(c.getDuenho().esBanca()) c.setValor(c.getValor() + c.getValor()*0.05f);
+    public void actualizarValorSolares() {
+        for (Grupo g : this.grupos.values()) {
+            for (Casilla c : g.getMiembros()) {
+                if (c.getDuenho().esBanca())
+                    c.setValor(c.getValor() + c.getValor() * 0.05f);
             }
         }
     }

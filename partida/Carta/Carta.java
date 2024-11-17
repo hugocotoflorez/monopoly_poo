@@ -47,18 +47,19 @@ public abstract class Carta {
      */
 
     public final static String[] desc = {
-            "Ve al Transportes1 y coge un avión. Si pasas por la casilla de Salida, cobra la cantidad habitual.",
-            "Decides hacer un viaje de placer. Avanza hasta Solar15 directamente, sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.",
-            "Vendes tu billete de avión para Solar17 en una subasta por Internet. Cobra 500000€.",
-            "Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.",
-            "Los acreedores te persiguen por impago. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.",
-            "¡Has ganado el bote de la lotería! Recibe 1000000€.",
-            "Paga 500000€ por un fin de semana en un balneario de 5 estrellas.",
-            "Te investigan por fraude de identidad. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.",
-            "Colócate en la casilla de Salida. Cobra la cantidad habitual.",
-            "Tu compañía de Internet obtiene beneficios. Recibe 2000000€.",
-            "Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14.",
-            "Alquilas a tus compañeros una villa en Solar7 durante una semana. Paga 200000€ a cada jugador3." };
+            "Ve al Transportes1 y coge un avión. Si pasas por la casilla de Salida, cobra la cantidad habitual.\n",
+            "Decides hacer un viaje de placer. Avanza hasta Solar15 directamente, sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.\n",
+            "Vendes tu billete de avión para Solar17 en una subasta por Internet. Cobra 500000€.\n",
+            "Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.\n",
+            "Los acreedores te persiguen por impago. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.\n",
+            "¡Has ganado el bote de la lotería! Recibe 1000000€.\n",
+            "Paga 500000€ por un fin de semana en un balneario de 5 estrellas.\n",
+            "Te investigan por fraude de identidad. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.\n",
+            "Colócate en la casilla de Salida. Cobra la cantidad habitual.\n",
+            "Tu compañía de Internet obtiene beneficios. Recibe 2000000€.\n",
+            "Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14.\n",
+            "Alquilas a tus compañeros una villa en Solar7 durante una semana. Paga 200000€ a cada jugador3.\n"
+    };
 
     public Carta() {
     }
