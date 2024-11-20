@@ -89,21 +89,89 @@ public class Trato {
         this.ID = "trato" + Valor.NumeroTratos++;
     }
 
-    public boolean aceptar() {
+    private void trato0() {
+
+        this.j1.anhadirPropiedad(casillaJ2);
+        this.j1.eliminarPropiedad(casillaJ1);
+
+        this.j2.anhadirPropiedad(casillaJ1);
+        this.j2.eliminarPropiedad(casillaJ2);
+
+    }
+
+    private void trato1() {
+
+        this.j1.sumarFortuna(dineroJ2);
+        this.j1.eliminarPropiedad(casillaJ1);
+
+        this.j2.anhadirPropiedad(casillaJ1);
+        this.j2.sumarFortuna(-dineroJ2);
+
+    }
+
+    private void trato2() {
+
+        this.j1.anhadirPropiedad(casillaJ2);
+        this.j1.sumarFortuna(-dineroJ1);
+
+        this.j2.eliminarPropiedad(casillaJ2);
+        this.j2.sumarFortuna(dineroJ1);
+
+    }
+
+    private void trato3() {
+
+        this.j1.anhadirPropiedad(casillaJ2);
+        this.j1.eliminarPropiedad(casillaJ1);
+        this.j1.sumarFortuna(dineroJ2);
+
+        this.j2.anhadirPropiedad(casillaJ1);
+        this.j2.eliminarPropiedad(casillaJ2);
+        this.j2.sumarFortuna(-dineroJ2);
+
+    }
+
+    private void trato4() {
+
+        this.j1.anhadirPropiedad(casillaJ2);
+        this.j1.eliminarPropiedad(casillaJ1);
+        this.j1.sumarFortuna(-dineroJ1);
+
+        this.j2.anhadirPropiedad(casillaJ1);
+        this.j2.eliminarPropiedad(casillaJ2);
+        this.j2.sumarFortuna(dineroJ1);
+
+    }
+
+    public void aceptar() {
 
         switch (tipo) {
 
+            case 0:
+
+                this.trato0();
+                break;
+
             case 1:
+
+                this.trato1();
                 break;
 
             case 2:
+
+                this.trato2();
                 break;
 
             case 3:
+
+                this.trato3();
                 break;
 
             case 4:
+
+                this.trato4();
                 break;
+
         }
 
     }
