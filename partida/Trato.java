@@ -3,6 +3,8 @@ package partida;
 import monopoly.Casilla.*;
 import monopoly.Valor;
 
+// Queda por cambiar Casilla por Propiedad
+
 public class Trato {
 
     Jugador j1;
