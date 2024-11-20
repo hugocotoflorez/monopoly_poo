@@ -370,4 +370,21 @@ public class Jugador {
         }
         return ret;
     }
+
+    public boolean puedeHacerTrato(Casilla casilla){
+
+        return this.propiedades.contains(casilla);
+
+    }
+
+    public boolean puedeHacerTrato(float dinero){
+
+        return (this.fortuna >= dinero);
+
+    }
+    public boolean puedeHacerTrato(Casilla casilla, float dinero){
+
+        return (puedeHacerTrato(casilla) && puedeHacerTrato(dinero)); 
+
+    }
 }
