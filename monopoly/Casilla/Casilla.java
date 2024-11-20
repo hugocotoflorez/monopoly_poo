@@ -45,7 +45,7 @@ public abstract class Casilla {
      * Parámetros: nombre casilla, tipo (debe ser solar, serv. o transporte),
      * posición en el tablero, valor y dueño.
      */
-    public Casilla(String nombre, String tipo, int posicion, float valor, Jugador duenho) {
+    /*public Casilla(String nombre, String tipo, int posicion, float valor, Jugador duenho) {
 
         this.nombre = nombre;
         check(tipo == "solar" || tipo == "serv" || tipo == "transporte", "casilla.tipo unexpected value\n" + tipo);
@@ -56,19 +56,19 @@ public abstract class Casilla {
         this.duenho = duenho;
         this.impuesto = valor * 0.1f;
         this.hipotecada = false;
-    }
+    }*/
 
     /*
      * Constructor utilizado para inicializar las casillas de tipo IMPUESTOS.
      * Parámetros: nombre, posición en el tablero, impuesto establecido y dueño.
      */
-    public Casilla(String nombre, int posicion, float impuesto, Jugador duenho) {
+    /*public Casilla(String nombre, int posicion, float impuesto, Jugador duenho) {
         this.nombre = nombre;
         this.tipo = "impuestos";
         this.posicion = posicion;
         this.impuesto = impuesto;
         this.duenho = duenho;
-    }
+    }*/
 
     /*
      * Constructor utilizado para crear las otras casillas (Suerte, Caja de
@@ -76,110 +76,110 @@ public abstract class Casilla {
      * Parámetros: nombre, tipo de la casilla (será uno de los que queda), posición
      * en el tablero y dueño.
      */
-    public Casilla(String nombre, String tipo, int posicion, Jugador duenho) {
+    /*public Casilla(String nombre, String tipo, int posicion, Jugador duenho) {
         this.nombre = nombre;
         check(tipo.equals("suerte") || tipo.equals("caja") || tipo.equals("especial"), "casilla.tipo unexpected value");
         this.tipo = tipo;
         this.posicion = posicion;
         this.duenho = duenho;
-    }
+    }*/
 
     // GETTERS
     public String getNombre() {
         return this.nombre;
     }
 
-    public float getValor() {
+    /*public float getValor() {
         return this.valor;
-    }
+    }*/
 
-    public String getTipo() {
+    /*public String getTipo() {
         return this.tipo;
-    }
+    }*/
 
-    public int getPosicion() {
+    /*public int getPosicion() {
 
         return this.posicion;
-    }
+    }*/
 
-    public Grupo getGrupo() {
+    /*public Grupo getGrupo() {
         return this.grupo;
-    }
+    }*/
 
-    public Jugador getDuenho() {
+    /*public Jugador getDuenho() {
         return this.duenho;
-    }
+    }*/
 
-    public float getImpuesto() {
+    /*public float getImpuesto() {
         return this.impuesto;
-    }
+    }*/
 
-    public float getHipoteca() {
+    /*public float getHipoteca() {
         return this.hipoteca;
-    }
+    }*/
 
     public int[] getCaidasEnCasilla() {
         return this.caidasEnCasilla;
     }
 
-    public boolean getHipotecada() {
+    /*public boolean getHipotecada() {
 
         return this.hipotecada;
-    }
+    }*/
 
-    public float getRecaudado() {
+    /*public float getRecaudado() {
         return this.recaudado;
-    }
+    }*/
 
     // SETTERS
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public void setValor(float valor) {
+    /*public void setValor(float valor) {
         this.valor = valor;
-    }
+    }*/
 
-    public void setTipo(String tipo) {
+    /*public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
+    }*/
 
     public void setPosicion(int pos) {
         this.posicion = pos;
     }
 
-    public void setDuenho(Jugador duenho) {
+    /*public void setDuenho(Jugador duenho) {
         this.duenho = duenho;
-    }
+    }*/
 
-    public void setGrupo(Grupo grupo) {
+    /*public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
-    }
+    }*/
 
-    public void setImpuesto(float impuesto) {
+    /*public void setImpuesto(float impuesto) {
         this.impuesto = impuesto;
-    }
+    }*/
 
-    public void setHipoteca(float hipoteca) {
+    /*public void setHipoteca(float hipoteca) {
         this.hipoteca = hipoteca;
-    }
+    }*/
 
-    public void setHipotecada(boolean hipotecada) {
+    /*public void setHipotecada(boolean hipotecada) {
 
         this.hipotecada = hipotecada;
-    }
+    }*/
 
-    public void setRecaudado(float valor) {
+    /*public void setRecaudado(float valor) {
         this.recaudado = valor;
-    }
+    }*/
 
-    public ArrayList<Edificio> getEdificios() {
+    /*public ArrayList<Edificio> getEdificios() {
 
         return this.edificios;
 
-    }
+    }*/
 
-    public String listar_edificios_grupo(String tipo) {
+    /*public String listar_edificios_grupo(String tipo) {
 
         String ret = new String();
 
@@ -193,7 +193,7 @@ public abstract class Casilla {
 
         return ret;
 
-    }
+    }*/
 
     // Método utilizado para añadir un avatar al array de avatares en casilla.
     public void anhadirAvatar(Avatar av) {
@@ -219,7 +219,7 @@ public abstract class Casilla {
         return ret;
     }
 
-    public void hipotecar(Jugador actual) {
+    /*PROPIEDAD public void hipotecar(Jugador actual) {
 
         if (this.duenho.equals(actual)
                 && (this.tipo.equals("solar") || this.tipo.equals("serv") || this.tipo.equals("transporte"))
@@ -233,9 +233,9 @@ public abstract class Casilla {
         else
             Juego.consola.imprimir("No puedes hipotecar esa casilla.");
 
-    }
+    }*/
 
-    public void deshipotecar(Jugador actual) {
+    /*PROPIEDAD public void deshipotecar(Jugador actual) {
         if (this.duenho.equals(actual)
                 && (this.tipo.equals("solar") || this.tipo.equals("serv") || this.tipo.equals("transporte"))
                 && this.hipotecada == true) {
@@ -246,7 +246,7 @@ public abstract class Casilla {
                 Juego.consola.imprimir("No tienes suficiente fortuna. Necesitas " + hipoteca * 1.10f);
         } else
             Juego.consola.imprimir("No puedes deshipotecar esa casilla.");
-    }
+    }*/
 
     /*
      * Método para evaluar qué hacer en una casilla concreta. Parámetros:
@@ -394,22 +394,24 @@ public abstract class Casilla {
      * - Jugador que solicita la compra de la casilla.
      * - Banca del monopoly (es el dueño de las casillas no compradas aún).
      */
-    public void comprarCasilla(Jugador solicitante, Jugador banca) {
+    //PROPIEDAD
+    //public void comprarCasilla(Jugador solicitante, Jugador banca) {
         /*
          * si llamas a esto no eres la pelota, por lo que el resto de argumentos
          * dan igual
          */
-        comprarCasilla(solicitante, banca, false, null);
-    }
+        /*comprarCasilla(solicitante, banca, false, null);
+    }*/
 
-    public void comprarCasilla(Jugador solicitante, Jugador banca, boolean movAv, ArrayList<Casilla> casVis) {
+    //PROPIEDAD
+    /*public void comprarCasilla(Jugador solicitante, Jugador banca, boolean movAv, ArrayList<Casilla> casVis) {
 
         float fortuna_solicitante = solicitante.getFortuna();
 
         if (fortuna_solicitante < this.valor) {
             Juego.consola.imprimir("No tienes suficiente fortuna.");
 
-            /* Si es la pelota llama al metodo relacionado con la pelota */
+            Si es la pelota llama al metodo relacionado con la pelota
         } else if (solicitante.getAvatar().getTipo().equals("Pelota") && movAv && !esComprable(casVis))
             Juego.consola.imprimir("No caiste en esta casilla.");
 
@@ -421,7 +423,7 @@ public abstract class Casilla {
             solicitante.anhadirPropiedad(this);
             solicitante.setDineroInvertido(solicitante.getDineroInvertido() + this.valor);
 
-            banca.eliminarPropiedad(this); /* No se porque estaba comentado */
+            banca.eliminarPropiedad(this);  No se porque estaba comentadO
             this.duenho = solicitante;
 
             Juego.consola.imprimir("El jugador " + solicitante.getNombre() +
@@ -429,7 +431,7 @@ public abstract class Casilla {
                     ". Su fortuna actual es " + solicitante.getFortuna());
         }
 
-    }
+    }*/
 
     public void eliminarAvatarCasilla(String ID) { // Elimina un avatar de la lista de avatares dado su ID
 
@@ -455,6 +457,7 @@ public abstract class Casilla {
         this.valor += suma;
     }
 
+    public abstract String infoCasilla();
     /*
      * Método para mostrar información sobre una casilla.
      * Devuelve una cadena con información específica de cada tipo de casilla.
@@ -600,23 +603,25 @@ public abstract class Casilla {
         }
     }
 
-    public boolean esComprable(Jugador jugador) {
+    //PROPIEDAD
+    /*public boolean esComprable(Jugador jugador) {
 
         return (this.duenho.esBanca()
                 && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv"))
                 && jugador.getAvatar().getCasilla().equals(this));
-    }
+    }*/
 
+    //PROPIEDAD
     /*
      * Esta funcion permite comprobar si la casilla que se quiere comprar pertenece
      * al array de casillas por las que la pelota cayo
      */
-    public boolean esComprable(ArrayList<Casilla> casillas) {
+    /*public boolean esComprable(ArrayList<Casilla> casillas) {
 
         return (this.duenho.esBanca()
                 && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv")) &&
                 casillas.contains(this));
-    }
+    }*/
 
     @Override
     public String toString() {
