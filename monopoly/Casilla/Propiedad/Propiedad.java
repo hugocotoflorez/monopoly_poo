@@ -5,21 +5,33 @@ import monopoly.Casilla.*;;
 
 public abstract class Propiedad extends Casilla {
     private float valor;
+    private float alquiler;
+    private float hipoteca;
     private Jugador duenho;
-    private Grupo grupo;
+    private boolean hipotecada = false;
+    private float recaudado = 0;
 
-    public Propiedad(String nombre, int posicion, float valor, Grupo grupo) {
-        // TODO el constructor de Propiedad esta mal, cambie los argumentos
-        // de super para que np de error pero va mal
-        super(nombre, posicion, valor, null);
+    public Propiedad(String nombre, int posicion, float valor, float alquiler, float hipoteca, Jugador duenho) {
+        super(nombre, posicion);
         this.valor = valor;
-        this.grupo = grupo;
-        this.duenho = null; // Por defecto, no tiene dueño
+        this.alquiler = alquiler;
+        this.hipoteca = hipoteca;
     }
 
-    public float getValor() {
+    //GETTERS ------------------------------------
+    public float getValor(){
         return valor;
     }
+    public float getAlquiler(){
+        return alquiler;
+    }
+    public float getHipoteca(){
+        return hipoteca;
+    }
+    public Jugador getDuenho(){
+        return duenho;
+    }
+    public
 
     public Grupo getGrupo() {
         return grupo;

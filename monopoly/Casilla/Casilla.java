@@ -10,28 +10,35 @@ import monopoly.Valor;
 import partida.*;
 import partida.Avatar.*;
 
-public class Casilla {
+public abstract class Casilla {
 
     // Atributos:
     private String nombre; // Nombre de la casilla
-    private String tipo; // Tipo de casilla (Solar, Especial, Transporte, Servicios, Comunidad).
-    private float valor; // Valor de esa casilla (en la mayoría será valor de compra, en la casilla
+    //NO EXISTE private String tipo; // Tipo de casilla (Solar, Especial, Transporte, Servicios, Comunidad).
+    //PROPIEDAD private float valor; // Valor de esa casilla (en la mayoría será valor de compra, en la casilla
                          // parking se usará como el bote).
     private int posicion; // Posición que ocupa la casilla en el tablero (entero entre 0 y 40).
-    private Jugador duenho; // Dueño de la casilla (por defecto sería la banca).
-    private Grupo grupo; // Grupo al que pertenece la casilla (si es solar).
-    private float impuesto; // Cantidad a pagar por caer en la casilla: el alquiler en
+    //PROPIEDAD private Jugador duenho; // Dueño de la casilla (por defecto sería la banca).
+    //SOLAR private Grupo grupo; // Grupo al que pertenece la casilla (si es solar).
+    //PROPIEDAD private float impuesto; // Cantidad a pagar por caer en la casilla: el alquiler en
                             // solares/servicios/transportes o impuestos.
-    private float hipoteca; // Valor otorgado por hipotecar una casilla
-    private ArrayList<Avatar> avatares = new ArrayList<Avatar>(); // Avatares que están situados en la casilla.
-    private ArrayList<Edificio> edificios = new ArrayList<Edificio>();
+    //PROPIEDADprivate float hipoteca; // Valor otorgado por hipotecar una casilla
+    private ArrayList<Avatar> avatares; // Avatares que están situados en la casilla.
+    //SOLAR private ArrayList<Edificio> edificios;
     private int[] caidasEnCasilla = { 0, 0, 0, 0, 0, 0 }; // Cuenta el numero de veces que el jugador iesimo cayó en la
                                                           // casilla
-    public float recaudado = 0;
+    //PROPIEDAD public float recaudado = 0;
 
-    private boolean hipotecada;
+    //PROPIEDAD private boolean hipotecada;
 
     public static final int casillaWidth = 10;
+
+    //Constructor general para todas las casillas
+    public Casilla(String nombre, int posicion){
+        this.nombre = nombre;
+        this.posicion = posicion;
+        this.avatares = new ArrayList<Avatar>();
+    }
 
     /*
      * Constructor para casillas tipo Solar, Servicios o Transporte:
