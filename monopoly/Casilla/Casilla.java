@@ -258,6 +258,7 @@ public abstract class Casilla {
      * deudas), y false
      * en caso de no cumplirlas.
      */
+    //Sólo dios sabe dónde vamos a meter todo esto
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
         Casilla c = this;
         switch (c.getTipo()) {
@@ -573,19 +574,14 @@ public abstract class Casilla {
         String data = new String();
         data += this.nombre;
         /*
-         * En printAvatares
-         * data += " ";
-         * for (Avatar av : this.avatares)
-         * data += av.getId();
-         */
-        // data = data.substring(0, data.length()-this.avatares.size());
-
-        /*
          * Esta funcion se usa para obtener los datos de la casilla al pintar
          * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1
          */
-        return (this.grupo != null ? this.grupo.getColor() : Valor.WHITE) +
-                Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET;
+        if (this instanceof monopoly.Casilla.Propiedad.Solar){
+            return (((monopoly.Casilla.Propiedad.Solar) this).grupo + Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET);
+        }
+        else
+            return (Valor.WHITE+ Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET);
     }
 
     public String printAvatares() {

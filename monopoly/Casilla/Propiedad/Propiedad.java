@@ -59,16 +59,19 @@ public abstract class Propiedad extends Casilla {
     }
     //---------------------------------------------------------
 
-   /*  boolean perteneceAJugador(Jugador jugador)
- alquiler
- valor
- comprar*/
+    public void sumarValor(float suma){
+        this.valor += suma;
+    }
 
     public boolean esComprable(Jugador jugador) {
         return (this.duenho.esBanca() && jugador.getAvatar().getCasilla().equals(this));
     }
     public boolean esComprable(ArrayList<Casilla> casillas) {
         return (this.duenho.esBanca() && casillas.contains(this));
+    }
+
+    public boolean perteneceAJugador(Jugador jugador){
+        return this.duenho.equals(jugador);
     }
 
     public void comprarCasilla(Jugador solicitante, Jugador banca) {
@@ -78,7 +81,6 @@ public abstract class Propiedad extends Casilla {
          */
         comprarCasilla(solicitante, banca, false, null);
     }
-
     public void comprarCasilla(Jugador solicitante, Jugador banca, boolean movAv, ArrayList<Casilla> casVis){ //TODO excepcion
         if (solicitante.getFortuna() < this.valor){
             Juego.consola.imprimir("No tienes suficiente fortuna. Necesitas " + this.valor);
@@ -118,7 +120,6 @@ public abstract class Propiedad extends Casilla {
             Juego.consola.imprimir("¡Estás en la cárcel!");
         }
     }
-
     //TODO excepciones
     //TODO te tiene que hacer solvente
     public void deshipotecar(Jugador solicitante){
@@ -146,20 +147,6 @@ public abstract class Propiedad extends Casilla {
 
 
     public abstract float calcularAlquiler();
-
-    public boolean perteneceAJugador(Jugador jugador){
-        return this.duenho.equals(jugador);
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + " Propiedad{" +
-                "valor = " + valor +
-                ", alquiler = " + alquiler +
-                ", hipoteca = " + hipoteca +
-                ", duenho ="  + (duenho.esBanca() ? duenho.getNombre() : "Sin dueño") +
-                '}';
-    }
 
     public abstract void cobrarAlquiler();
 
