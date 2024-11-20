@@ -50,5 +50,6 @@ public class Valor {
     public static int NumeroHotelesConstruidos = 0;
     public static int NumeroPiscinasConstruidas = 0;
     public static int NumeroPistasConstruidos = 0;
+    public static int NumeroTratos = 0;
 
 }
