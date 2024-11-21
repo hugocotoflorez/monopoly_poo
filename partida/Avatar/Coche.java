@@ -1,10 +1,17 @@
 package partida.Avatar;
 
 import partida.*;
+import monopoly.*;
 import monopoly.Casilla.*;
 import java.util.ArrayList;
 
 public class Coche extends Avatar {
+
+    /* Las siguientes variables si se usan */
+    private boolean se_puede_tirar_en_el_siguiente_turno = true;
+    private boolean se_puede_tirar_en_el_siguiente_turno2 = true;
+    private int contadorTiradasCoche = 0;
+    private boolean tirado = false;
 
     public Coche(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
         super(jugador, lugar, avCreados);
@@ -25,7 +32,7 @@ public class Coche extends Avatar {
     }
 
     @Override
-    public void moverEnAvanzado(int valor1, int valor2) {
+    public void moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) {
         /*
          * Coche: si el valor de los dados es mayor que 4, avanza tantas casillas como
          * dicho valor y puede seguir lanzando los dados tres veces más mientras el
@@ -42,24 +49,23 @@ public class Coche extends Avatar {
          */
         int desplazamiento = valor1 + valor2;
         if (desplazamiento > 4) {
-            moverEnBasico(valor1, valor2);
+            moverNormal(tablero, valor1, valor2, jugadores);
             // actualiza contador coche y si el contador es 4 se pone a 0 y
             // this.tirado es false por lo que no se puede seguir tirando
             contadorTiradasCoche++;
-            this.tirado = contadorTiradasCoche >= 4;
+            tirado = contadorTiradasCoche >= 4;
 
-            consola.imprimirln("Se puede volver a tirar? " + !this.tirado);
-            consola.imprimirln("Tiradas coche = " + contadorTiradasCoche);
+            Juego.consola.imprimirln("Se puede volver a tirar? " + !tirado);
+            Juego.consola.imprimirln("Tiradas coche = " + contadorTiradasCoche);
 
         } else {
             contadorTiradasCoche = 1;
-            moverAtras(valor1, valor2);
+            moverAtras(tablero,valor1, valor2);
             // Comprueba si pasa por salida hacia atras
             pasarPorSalidaHaciaAtras(valor1 + valor2);
-            se_puede_tirar_en_el_siguiente_turno[turno - 1] = false;
-            se_puede_tirar_en_el_siguiente_turno2[turno - 1] = false;
-            consola.imprimirln("No puedes mover en dos turnos!");
+            se_puede_tirar_en_el_siguiente_turno = false;
+            se_puede_tirar_en_el_siguiente_turno2 = false;
+            Juego.consola.imprimirln("No puedes mover en dos turnos!");
         }
     }
-    // TODO moverEnAvanzado Coche
 }

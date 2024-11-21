@@ -97,10 +97,10 @@ public abstract class Casilla {
         return this.tipo;
     }*/
 
-    /*public int getPosicion() {
+    public int getPosicion() {
 
         return this.posicion;
-    }*/
+    }
 
     /*public Grupo getGrupo() {
         return this.grupo;
@@ -127,9 +127,9 @@ public abstract class Casilla {
         return this.hipotecada;
     }*/
 
-    /*public float getRecaudado() {
-        return this.recaudado;
-    }*/
+    // public float getRecaudado() {
+    //     return this.recaudado;
+    // }
 
     // SETTERS
     public void setNombre(String nombre) {

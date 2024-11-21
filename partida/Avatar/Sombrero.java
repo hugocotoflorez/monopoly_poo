@@ -1,6 +1,7 @@
 package partida.Avatar;
 
 import partida.*;
+import monopoly.*;
 import monopoly.Casilla.*;
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class Sombrero extends Avatar {
         return ret;
     }
 
-    @Override
-    public void moverEnAvanzado() {
-    } // TODO moverEnAvanzado Sombrero
+    public void moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) {
+        moverNormal(tablero, valor1, valor2, jugadores);
+    }
 }

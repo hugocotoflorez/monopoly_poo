@@ -38,7 +38,6 @@ public class Juego {
     private int contadorTiradasCoche = 0;
     private boolean jugador_puede_comprar = true;
     private int lanzamientos_dobles = 0;
-    private ArrayList<Casilla> casillasVisitadas = new ArrayList<Casilla>();
 
     /*
      * Poner un scanner nuevo para cada funcion en la que se necesita daba error
@@ -496,147 +495,126 @@ public class Juego {
     private void mover(int valor1, int valor2) {
         /* Movimiento default */
         if (!movimientoAvanzado[turno - 1]) {
-            moverNormal(valor1, valor2);
+            this.avatares.get(turno).moverNormal(tablero, valor1, valor2, jugadores);
             evaluarAccion(valor1 + valor2);
-            return;
-        }
-        switch (this.avatares.get(turno).getTipo()) {
-            case "Coche":
-                moverCoche(valor1, valor2);
-                evaluarAccion(valor1 + valor2);
-                break;
-            case "Pelota":
-                moverPelota(valor1, valor2);
-                // evaluar accion se hace dentro de moverPelota
-                break;
-            case "Esfinge":
-                /* No para esta entrega */
-                moverEsfinge(valor1, valor2);
-                evaluarAccion(valor1 + valor2);
-                break;
-            case "Sombrero":
-                /* No para esta entrega */
-                moverSombrero(valor1, valor2);
-                evaluarAccion(valor1 + valor2);
-                break;
-        }
-    }
-
-    private void moverNormal(int valor1, int valor2) {
-        int desplazamiento = valor1 + valor2;
-        consola.imprimir("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
-                + this.avatares.get(turno).getCasilla().getNombre());
-        this.avatares.get(turno).moverNormal(this.tablero, valor1, valor2);
-        consola.imprimirln(" hasta " + avatares.get(turno).getCasilla().getNombre());
-
-        // Comprueba si pasa por salida
-        comprobarSiPasasPorSalida(valor1 + valor2);
-
-    }
-
-    private void moverCoche(int valor1, int valor2) {
-        /*
-         * Coche: si el valor de los dados es mayor que 4, avanza tantas casillas como
-         * dicho valor y puede seguir lanzando los dados tres veces más mientras el
-         * valor sea mayor que 4. Durante el turno solo se puede realizar una sola
-         * compra de propiedades, servicios o transportes, aunque se podría hacer en
-         * cualesquiera de los 4 intentos posibles. Sin embargo, se puede edificar
-         * cualquier tipo de edificio en cualquier intento. Si el valor de los dados es
-         * menor que 4, el avatar retrocederá el número de casillas correspondientes y
-         * además no puede volver a lanzar los dados en los siguientes dos turnos.
-         */
-        /*
-         * DUDAS:
-         * se vuelve a tirar cuando se sacan dobles? como afecta?
-         */
-        int desplazamiento = valor1 + valor2;
-        if (desplazamiento > 4) {
-            moverNormal(valor1, valor2);
-            // actualiza contador coche y si el contador es 4 se pone a 0 y
-            // this.tirado es false por lo que no se puede seguir tirando
-            contadorTiradasCoche++;
-            this.tirado = contadorTiradasCoche >= 4;
-
-            consola.imprimirln("Se puede volver a tirar? " + !this.tirado);
-            consola.imprimirln("Tiradas coche = " + contadorTiradasCoche);
 
         } else {
-            contadorTiradasCoche = 1;
-            moverAtras(valor1, valor2);
-            // Comprueba si pasa por salida hacia atras
-            pasarPorSalidaHaciaAtras(valor1 + valor2);
-            se_puede_tirar_en_el_siguiente_turno[turno - 1] = false;
-            se_puede_tirar_en_el_siguiente_turno2[turno - 1] = false;
-            consola.imprimirln("No puedes mover en dos turnos!");
-        }
-    }
-
-    private void moverPelota(int valor1, int valor2) {
-        /*
-         * Pelota: si el valor de los dados es mayor que 4, avanza tantas casillas como
-         * dicho valor; mientras que, si el valor es menor o igual que 4, retrocede el
-         * número de casillas correspondiente. En cualquiera de los dos casos, el avatar
-         * se parará en las casillas por las que va pasando y cuyos valores son impares
-         * contados desde el número 4. Por ejemplo, si el valor del dado es 9, entonces
-         * el avatar avanzará hasta la casilla 5, de manera que si pertenece a otro
-         * jugador y es una casilla de propiedad deberá pagar el alquiler, y después
-         * avanzará hasta la casilla 7, que podrá comprar si no pertenece a ningún
-         * jugador, y finalmente a la casilla 9, que podrá comprar o deberá pagar
-         * alquiler si no pertenece al jugador. Si una de esas casillas es Ir a Cárcel,
-         * entonces no se parará en las subsiguientes casillas
-         */
-        int desplazamiento = valor1 + valor2;
-        if (desplazamiento > 4) {
-            for (int i = 5; i <= desplazamiento + 1; i += 2) {
-
-                if (i == 5) // primer salto
-                    moverNormal(5, 0);
-                else // saltos restantes
-                if (i == desplazamiento)
-                    moverNormal(1, 0);
-                else
-                    moverNormal(2, 0);
-
-                // anade la casilla en la que cae a las que puede comprar
-                casillasVisitadas.add(jugadores.get(turno).getAvatar().getCasilla());
-                // evalua casilla o hace la accion que deba hacer
-                evaluarAccion(valor1 + valor2);
-
-                // si va a la carcel deja de moverse
-                if (jugadores.get(turno).getEnCarcel())
-                    break;
-
-            }
-        } else {
-            // retroceder
-            moverAtras(valor1, valor2);
-            // Comprueba si pasa por salida hacia atras
-            pasarPorSalidaHaciaAtras(valor1 + valor2);
+            this.avatares.get(turno).moverEnAvanzado(tablero, valor1, valor2,jugadores);
             evaluarAccion(valor1 + valor2);
         }
     }
 
+//    private void moverNormal(int valor1, int valor2) {
+//        int desplazamiento = valor1 + valor2;
+//        consola.imprimir("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
+//                + this.avatares.get(turno).getCasilla().getNombre());
+//        this.avatares.get(turno).moverNormal(this.tablero, valor1, valor2);
+//        consola.imprimirln(" hasta " + avatares.get(turno).getCasilla().getNombre());
+//
+//        // Comprueba si pasa por salida
+//        comprobarSiPasasPorSalida(valor1 + valor2);
+//
+//    }
+//
+    // private void moverCoche(int valor1, int valor2) {
+    // /*
+    // * Coche: si el valor de los dados es mayor que 4, avanza tantas casillas como
+    // * dicho valor y puede seguir lanzando los dados tres veces más mientras el
+    // * valor sea mayor que 4. Durante el turno solo se puede realizar una sola
+    // * compra de propiedades, servicios o transportes, aunque se podría hacer en
+    // * cualesquiera de los 4 intentos posibles. Sin embargo, se puede edificar
+    // * cualquier tipo de edificio en cualquier intento. Si el valor de los dados
+    // es
+    // * menor que 4, el avatar retrocederá el número de casillas correspondientes y
+    // * además no puede volver a lanzar los dados en los siguientes dos turnos.
+    // */
+    // /*
+    // * DUDAS:
+    // * se vuelve a tirar cuando se sacan dobles? como afecta?
+    // */
+    // int desplazamiento = valor1 + valor2;
+    // if (desplazamiento > 4) {
+    // moverNormal(valor1, valor2);
+    // // actualiza contador coche y si el contador es 4 se pone a 0 y
+    // // this.tirado es false por lo que no se puede seguir tirando
+    // contadorTiradasCoche++;
+    // this.tirado = contadorTiradasCoche >= 4;
+    //
+    // consola.imprimirln("Se puede volver a tirar? " + !this.tirado);
+    // consola.imprimirln("Tiradas coche = " + contadorTiradasCoche);
+    //
+    // } else {
+    // contadorTiradasCoche = 1;
+    // moverAtras(valor1, valor2);
+    // // Comprueba si pasa por salida hacia atras
+    // pasarPorSalidaHaciaAtras(valor1 + valor2);
+    // se_puede_tirar_en_el_siguiente_turno[turno - 1] = false;
+    // se_puede_tirar_en_el_siguiente_turno2[turno - 1] = false;
+    // consola.imprimirln("No puedes mover en dos turnos!");
+    // }
+    // }
+
+    // private void moverPelota(int valor1, int valor2) {
+    // /*
+    // * Pelota: si el valor de los dados es mayor que 4, avanza tantas casillas
+    // como
+    // * dicho valor; mientras que, si el valor es menor o igual que 4, retrocede el
+    // * número de casillas correspondiente. En cualquiera de los dos casos, el
+    // avatar
+    // * se parará en las casillas por las que va pasando y cuyos valores son
+    // impares
+    // * contados desde el número 4. Por ejemplo, si el valor del dado es 9,
+    // entonces
+    // * el avatar avanzará hasta la casilla 5, de manera que si pertenece a otro
+    // * jugador y es una casilla de propiedad deberá pagar el alquiler, y después
+    // * avanzará hasta la casilla 7, que podrá comprar si no pertenece a ningún
+    // * jugador, y finalmente a la casilla 9, que podrá comprar o deberá pagar
+    // * alquiler si no pertenece al jugador. Si una de esas casillas es Ir a
+    // Cárcel,
+    // * entonces no se parará en las subsiguientes casillas
+    // */
+    // int desplazamiento = valor1 + valor2;
+    // if (desplazamiento > 4) {
+    // for (int i = 5; i <= desplazamiento + 1; i += 2) {
+    //
+    // if (i == 5) // primer salto
+    // moverNormal(5, 0);
+    // else // saltos restantes
+    // if (i == desplazamiento)
+    // moverNormal(1, 0);
+    // else
+    // moverNormal(2, 0);
+    //
+    // // anade la casilla en la que cae a las que puede comprar
+    // casillasVisitadas.add(jugadores.get(turno).getAvatar().getCasilla());
+    // // evalua casilla o hace la accion que deba hacer
+    // evaluarAccion(valor1 + valor2);
+    //
+    // // si va a la carcel deja de moverse
+    // if (jugadores.get(turno).getEnCarcel())
+    // break;
+    //
+    // }
+    // } else {
+    // // retroceder
+    // moverAtras(valor1, valor2);
+    // // Comprueba si pasa por salida hacia atras
+    // pasarPorSalidaHaciaAtras(valor1 + valor2);
+    // evaluarAccion(valor1 + valor2);
+    // }
+    // }
+    //
     /* No para esta entrega */
-    private void moverEsfinge(int valor1, int valor2) {
-        consola.imprimirln("Movimendo normal, no para esta entrega");
-        moverNormal(valor1, valor2);
-    }
-
-    /* No para esta entrega */
-    private void moverSombrero(int valor1, int valor2) {
-        consola.imprimirln("Movimendo normal, no para esta entrega");
-        moverNormal(valor1, valor2);
-    }
-
-    private void moverAtras(int valor1, int valor2) {
-        int desplazamiento = valor1 + valor2;
-        consola.imprimir("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento
-                + " hacia atras desde "
-                + this.avatares.get(turno).getCasilla().getNombre());
-        this.avatares.get(turno).desplazar(this.tablero.getPosiciones(), 40 - desplazamiento);
-        consola.imprimirln(" hasta " + avatares.get(turno).getCasilla().getNombre());
-
-    }
+//    private void moverEsfinge(int valor1, int valor2) {
+//        consola.imprimirln("Movimendo normal, no para esta entrega");
+//        moverNormal(valor1, valor2);
+//    }
+//
+//    /* No para esta entrega */
+//    private void moverSombrero(int valor1, int valor2) {
+//        consola.imprimirln("Movimendo normal, no para esta entrega");
+//        moverNormal(valor1, valor2);
+//    }
 
     private void cambairModo() {
         if (!movimientoAvanzadoSePuedeCambiar) {
@@ -655,19 +633,6 @@ public class Juego {
             consola.imprimirln("Se ha activado el modo avanzado");
         else
             consola.imprimirln("Se ha desactivado el modo avanzado");
-    }
-
-    private void comprobarSiPasasPorSalida(int desplazamiento) {
-        int casillanueva = avatares.get(turno).getCasilla().getPosicion();
-        /*
-         * Si estas en una casilla que la posicion de la casilla es menor que
-         * la tirada quiere decir que pasaste por salida. Por ejemplo, si desde la
-         * salida 0 me muevo 5 caigo en la casilla 5, por lo que para que sea menor tuve
-         * que moverme desde una casilla de antes de la salida.
-         */
-        if ((casillanueva < desplazamiento)) {
-            pasarPorSalida();
-        }
     }
 
     private void pasarPorSalida() {
@@ -694,26 +659,6 @@ public class Juego {
         }
     }
 
-    private void pasarPorSalidaHaciaAtras(int desplazamiento) {
-
-        int casillanueva = avatares.get(turno).getCasilla().getPosicion();
-        /*
-         * Si la casilla anterior, que se obtiene de sumarle el desplazamiento a la
-         * casilla actual porque se va hacia atras, esta fuera de los indices del
-         * tablero quiere decir que paso por salida
-         */
-        if ((casillanueva + desplazamiento >= 40)) {
-
-            consola.imprimirln("¡Has pasado por la Salida hacia atras! Perdiste" + Valor.SUMA_VUELTA);
-            jugadores.get(turno).sumarFortuna(-Valor.SUMA_VUELTA);
-            if (jugadores.get(turno).getVueltas() != 0)
-                jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() - 1);
-            jugadores.get(turno).setPasarPorCasillaDeSalida(
-                    jugadores.get(turno).getPasarPorCasillaDeSalida() - Valor.SUMA_VUELTA);
-            consola.imprimirln("Llevas " + jugadores.get(turno).getVueltas() + " vueltas.");
-
-        }
-    }
 
     private void evaluarAccion(int desplazamiento) {
         /*
@@ -910,7 +855,6 @@ public class Juego {
         }
 
         /* Para la mierda del coche y la pelota */
-        // le puse -1 a movimiento avanzado creo que es asi
         if (!jugador_puede_comprar && movimientoAvanzado[turno - 1]) {
             consola.imprimirln("Ya has comprado en este turno!");
             return;
@@ -923,7 +867,7 @@ public class Juego {
         }
         if (lanzamientos > 0) {
             casilla.comprarCasilla(this.jugadores.get(turno), this.banca, movimientoAvanzado[turno - 1],
-                    casillasVisitadas);
+                    avatares.get(turno).getCasillasVisitadas());
 
             /*
              * Esta variable se pone a true si los dados son dobles, asi para los que

@@ -31,6 +31,10 @@ public abstract class Avatar {
         avCreados.add(this);
     }
 
+    public ArrayList<Casilla> getCasillasVisitadas(){
+        return null;
+    }
+
     // GETTERS
     public String getId() {
         return this.id != null ? this.id : "";
@@ -79,7 +83,7 @@ public abstract class Avatar {
         casilla.actualizarCaidasEnCasilla(this.turno);
     }
 
-    private void pasarPorSalida(Tablero tablero) {
+    private void pasarPorSalida(Tablero tablero, ArrayList<Jugador> jugadores) {
         // !!!!!! si se modifica algo de esto hay que modificarlo tambien en Carta
         Juego.consola.imprimirln("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
         jugador.sumarFortuna(Valor.SUMA_VUELTA);
@@ -90,7 +94,7 @@ public abstract class Avatar {
 
         int vueltasmin = jugador.getVueltas();
 
-        for (Jugador j : jugador) {
+        for (Jugador j : jugadores) {
             if (!j.esBanca() && j.getVueltas() < vueltasmin) {
                 vueltasmin = j.getVueltas();
             }
@@ -103,7 +107,18 @@ public abstract class Avatar {
         }
     }
 
-    private void comprobarSiPasasPorSalida(Tablero tablero, int desplazamiento) {
+    public void moverNormal(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) {
+        int desplazamiento = valor1 + valor2;
+        Juego.consola.imprimir("El avatar " + id + " avanza " + desplazamiento + " desde "
+                + casilla.getNombre());
+        desplazar(tablero.getPosiciones(), desplazamiento);
+        Juego.consola.imprimirln(" hasta " + casilla.getNombre());
+
+        // Comprueba si pasa por salida
+        comprobarSiPasasPorSalida(tablero, valor1 + valor2, jugadores);
+    }
+
+    private void comprobarSiPasasPorSalida(Tablero tablero, int desplazamiento, ArrayList<Jugador> jugadores) {
         int casillanueva = casilla.getPosicion();
         /*
          * Si estas en una casilla que la posicion de la casilla es menor que
@@ -112,26 +127,43 @@ public abstract class Avatar {
          * que moverme desde una casilla de antes de la salida.
          */
         if ((casillanueva < desplazamiento)) {
-            pasarPorSalida(tablero);
+            pasarPorSalida(tablero, jugadores);
         }
     }
 
-    public void moverNormal(Tablero tablero, int valor1, int valor2)
-    {
+    public void moverAtras(Tablero tablero, int valor1, int valor2) {
         int desplazamiento = valor1 + valor2;
-        Juego.consola.imprimir("El avatar " + id + " avanza " + desplazamiento + " desde "
-                + casilla.getNombre());
-        desplazar(tablero.getPosiciones(), desplazamiento);
-        Juego.consola.imprimirln(" hasta " + casilla.getNombre());
-
-        // Comprueba si pasa por salida
-        comprobarSiPasasPorSalida(valor1 + valor2);
+        Juego.consola.imprimir("El avatar " + getId() + " avanza " + desplazamiento
+                + " hacia atras desde "
+                + getCasilla().getNombre());
+        desplazar(tablero.getPosiciones(), 40 - desplazamiento);
+        Juego.consola.imprimirln(" hasta " + getCasilla().getNombre());
     }
 
-    public abstract void moverEnAvanzado(int valor1, int valor2);
+    public abstract void moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) ;
 
     public abstract String getInfo();
 
+    public void pasarPorSalidaHaciaAtras(int desplazamiento) {
+
+        int casillanueva = casilla.getPosicion();
+        /*
+         * Si la casilla anterior, que se obtiene de sumarle el desplazamiento a la
+         * casilla actual porque se va hacia atras, esta fuera de los indices del
+         * tablero quiere decir que paso por salida
+         */
+        if ((casillanueva + desplazamiento >= 40)) {
+
+            Juego.consola.imprimirln("¡Has pasado por la Salida hacia atras! Perdiste" + Valor.SUMA_VUELTA);
+            jugador.sumarFortuna(-Valor.SUMA_VUELTA);
+            if (jugador.getVueltas() != 0)
+                jugador.setVueltas(jugador.getVueltas() - 1);
+            jugador.setPasarPorCasillaDeSalida(
+                    jugador.getPasarPorCasillaDeSalida() - Valor.SUMA_VUELTA);
+            Juego.consola.imprimirln("Llevas " + jugador.getVueltas() + " vueltas.");
+
+        }
+    }
     /*
      * Método que permite generar un ID para un avatar. Sólo lo usamos en esta clase
      * (por ello es privado).
