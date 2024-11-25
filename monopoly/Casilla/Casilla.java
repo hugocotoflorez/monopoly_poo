@@ -259,7 +259,8 @@ public abstract class Casilla {
      * en caso de no cumplirlas.
      */
     //Sólo dios sabe dónde vamos a meter todo esto
-    public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
+    public abstract boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada);
+    /*public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
         Casilla c = this;
         switch (c.getTipo()) {
             // supuestamente acabado
@@ -297,7 +298,7 @@ public abstract class Casilla {
                  * desde el menu, esta funciona unicamente
                  * devuelve si se puede comprar o no
                  */
-                Juego.consola.imprimir("Se puede comprar la casilla " + c.getNombre());
+                /*Juego.consola.imprimir("Se puede comprar la casilla " + c.getNombre());
                 return true; // se puede comprar
 
             case "especial":
@@ -388,7 +389,7 @@ public abstract class Casilla {
         }
         return actual.getFortuna() > 0;
 
-    }
+    }*/
 
     /*
      * Método usado para comprar una casilla determinada. Parámetros:

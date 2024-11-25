@@ -146,9 +146,23 @@ public abstract class Propiedad extends Casilla {
     }
 
 
-    public abstract float calcularAlquiler();
+    public abstract float calcularAlquiler(int tirada);
 
     public abstract void cobrarAlquiler();
+
+    @Override
+    public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada){
+        if(!this.duenho.equals(actual)){
+            if(!this.hipotecada){
+                calcularAlquiler(tirada);
+                cobrarAlquiler();
+                if (actual.estaBancarrota()) return true;
+            }
+            else Juego.consola.imprimir("El jugador " + this.duenho.getNombre() + "no cobra el alquiler por " + this.getNombre() + "porque está hipotecada.");
+        }
+        else Juego.consola.imprimir("Se puede comprar la casilla " + this.getNombre());
+        return false;
+    }
 
     @Override
     public abstract String infoCasilla();
