@@ -39,6 +39,7 @@ public class Juego {
     private boolean jugador_puede_comprar = true;
     private int lanzamientos_dobles = 0;
     private ArrayList<Casilla> casillasVisitadas = new ArrayList<Casilla>();
+    private ArrayList<Trato> tratos = new ArrayList<Trato>();
 
     /*
      * Poner un scanner nuevo para cada funcion en la que se necesita daba error
@@ -1212,6 +1213,24 @@ public class Juego {
             solvente = true;
         } else
             consola.imprimirln("Aún no has saldado tus deudas.");
+    }
+    private void trato(){
+
+
+
+    }
+    private void listarTratos(){
+
+        for(Trato t : tratos){
+
+            if(t.getReceptor().equals(this.jugadores.get(turno))){
+
+                t.toString();
+
+            }
+
+        }
+
     }
 
 }

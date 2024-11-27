@@ -7,8 +7,8 @@ import monopoly.Valor;
 
 public class Trato {
 
-    Jugador j1;
-    Jugador j2;
+    Jugador proponiente;
+    Jugador receptor;
 
     float dineroJ1;
     float dineroJ2;
@@ -19,10 +19,10 @@ public class Trato {
     int tipo;
     String ID;
 
-    public Trato(Jugador j1, Jugador j2, Propiedad PropiedadJ1, Propiedad PropiedadJ2) { // Propiedad por Propiedad
+    public Trato(Jugador proponiente, Jugador receptor, Propiedad PropiedadJ1, Propiedad PropiedadJ2) { // Propiedad por Propiedad
 
-        this.j1 = j1;
-        this.j2 = j2;
+        this.proponiente = proponiente;
+        this.receptor = receptor;
 
         this.PropiedadJ1 = PropiedadJ1;
 
@@ -33,10 +33,10 @@ public class Trato {
         this.ID = "trato" + Valor.NumeroTratos++;
     }
 
-    public Trato(Jugador j1, Jugador j2, Propiedad PropiedadJ1, float dineroJ2) { // Propiedad por dinero
+    public Trato(Jugador proponiente, Jugador receptor, Propiedad PropiedadJ1, float dineroJ2) { // Propiedad por dinero
 
-        this.j1 = j1;
-        this.j2 = j2;
+        this.proponiente = proponiente;
+        this.receptor = receptor;
 
         this.PropiedadJ1 = PropiedadJ1;
 
@@ -48,10 +48,10 @@ public class Trato {
 
     }
 
-    public Trato(Jugador j1, Jugador j2, float dineroJ1, Propiedad PropiedadJ2) { // Dinero por propiedad
+    public Trato(Jugador proponiente, Jugador receptor, float dineroJ1, Propiedad PropiedadJ2) { // Dinero por propiedad
 
-        this.j1 = j1;
-        this.j2 = j2;
+        this.proponiente = proponiente;
+        this.receptor = receptor;
 
         this.dineroJ1 = dineroJ1;
 
@@ -61,11 +61,11 @@ public class Trato {
         this.ID = "trato" + Valor.NumeroTratos++;
     }
 
-    public Trato(Jugador j1, Jugador j2, Propiedad PropiedadJ1, Propiedad PropiedadJ2, float dineroJ2) {// Propiedad por Propiedad y
+    public Trato(Jugador proponiente, Jugador receptor, Propiedad PropiedadJ1, Propiedad PropiedadJ2, float dineroJ2) {// Propiedad por Propiedad y
                                                                                                 // dinero
 
-        this.j1 = j1;
-        this.j2 = j2;
+        this.proponiente = proponiente;
+        this.receptor = receptor;
 
         this.PropiedadJ1 = PropiedadJ1;
 
@@ -76,11 +76,11 @@ public class Trato {
         this.ID = "trato" + Valor.NumeroTratos++;
     }
 
-    public Trato(Jugador j1, Jugador j2, Propiedad PropiedadJ1, float dineroJ1, Propiedad PropiedadJ2) { // Propiedad y dinero por
+    public Trato(Jugador proponiente, Jugador receptor, Propiedad PropiedadJ1, float dineroJ1, Propiedad PropiedadJ2) { // Propiedad y dinero por
         // Propiedad
 
-        this.j1 = j1;
-        this.j2 = j2;
+        this.proponiente = proponiente;
+        this.receptor = receptor;
 
         this.PropiedadJ1 = PropiedadJ1;
         this.dineroJ1 = dineroJ1;
@@ -93,55 +93,55 @@ public class Trato {
 
     private void trato0() {
 
-        this.j1.anhadirPropiedad(PropiedadJ2);
-        this.j1.eliminarPropiedad(PropiedadJ1);
+        this.proponiente.anhadirPropiedad(PropiedadJ2);
+        this.proponiente.eliminarPropiedad(PropiedadJ1);
 
-        this.j2.anhadirPropiedad(PropiedadJ1);
-        this.j2.eliminarPropiedad(PropiedadJ2);
+        this.receptor.anhadirPropiedad(PropiedadJ1);
+        this.receptor.eliminarPropiedad(PropiedadJ2);
 
     }
 
     private void trato1() {
 
-        this.j1.sumarFortuna(dineroJ2);
-        this.j1.eliminarPropiedad(PropiedadJ1);
+        this.proponiente.sumarFortuna(dineroJ2);
+        this.proponiente.eliminarPropiedad(PropiedadJ1);
 
-        this.j2.anhadirPropiedad(PropiedadJ1);
-        this.j2.sumarFortuna(-dineroJ2);
+        this.receptor.anhadirPropiedad(PropiedadJ1);
+        this.receptor.sumarFortuna(-dineroJ2);
 
     }
 
     private void trato2() {
 
-        this.j1.anhadirPropiedad(PropiedadJ2);
-        this.j1.sumarFortuna(-dineroJ1);
+        this.proponiente.anhadirPropiedad(PropiedadJ2);
+        this.proponiente.sumarFortuna(-dineroJ1);
 
-        this.j2.eliminarPropiedad(PropiedadJ2);
-        this.j2.sumarFortuna(dineroJ1);
+        this.receptor.eliminarPropiedad(PropiedadJ2);
+        this.receptor.sumarFortuna(dineroJ1);
 
     }
 
     private void trato3() {
 
-        this.j1.anhadirPropiedad(PropiedadJ2);
-        this.j1.eliminarPropiedad(PropiedadJ1);
-        this.j1.sumarFortuna(dineroJ2);
+        this.proponiente.anhadirPropiedad(PropiedadJ2);
+        this .proponiente.eliminarPropiedad(PropiedadJ1);
+        this.proponiente.sumarFortuna(dineroJ2);
 
-        this.j2.anhadirPropiedad(PropiedadJ1);
-        this.j2.eliminarPropiedad(PropiedadJ2);
-        this.j2.sumarFortuna(-dineroJ2);
+        this.receptor.anhadirPropiedad(PropiedadJ1);
+        this.receptor.eliminarPropiedad(PropiedadJ2);
+        this.receptor.sumarFortuna(-dineroJ2);
 
     }
 
     private void trato4() {
 
-        this.j1.anhadirPropiedad(PropiedadJ2);
-        this.j1.eliminarPropiedad(PropiedadJ1);
-        this.j1.sumarFortuna(-dineroJ1);
+        this.proponiente.anhadirPropiedad(PropiedadJ2);
+        this.proponiente.eliminarPropiedad(PropiedadJ1);
+        this.proponiente.sumarFortuna(-dineroJ1);
 
-        this.j2.anhadirPropiedad(PropiedadJ1);
-        this.j2.eliminarPropiedad(PropiedadJ2);
-        this.j2.sumarFortuna(dineroJ1);
+        this.receptor.anhadirPropiedad(PropiedadJ1);
+        this.receptor.eliminarPropiedad(PropiedadJ2);
+        this.receptor.sumarFortuna(dineroJ1);
 
     }
 
@@ -178,6 +178,48 @@ public class Trato {
 
     }
 
-    // public boolean rechazaar(){}
+    public Jugador getReceptor(){
 
+        return this.receptor;
+
+    }
+
+    @Override    
+    public String toString(){
+
+        String ret = new String();
+
+        ret += ("id" + this.ID +"\n");
+        ret +=("jugadorPropone" + this.proponiente.getNombre() +"\n");
+
+        switch(tipo){
+
+            case 0: // Propiedad por propiedad
+
+            ret += ("cambiar (" + this.PropiedadJ1.getNombre() + ", "+ this.PropiedadJ2.getNombre() + ")\n");
+                break;
+
+            case 1: // Propiedad por dinero
+
+            ret += ("cambiar (" + this.PropiedadJ1.getNombre() + ", " + this.dineroJ2+ ")\n");
+                break;
+
+            case 2: // Dinero por propiedad
+
+                ret += ("cambiar (" + this.dineroJ1 + ", " + this.PropiedadJ2.getNombre() + ")\n");
+                break;
+
+            case 3: // Propiedad por propiedad y dinero
+
+                ret += ("cambiar (" + this.PropiedadJ1.getNombre() + ", "+ this.PropiedadJ2.getNombre() + " y " + this.dineroJ2 + ")\n");
+                break;
+
+            case 4: // Propiedad y dinero por propiedad
+
+                ret += ("cambiar (" + this.PropiedadJ1.getNombre() +" y " + this.dineroJ1 + ", "+ this.PropiedadJ2.getNombre() + ")\n");
+                break;
+        }
+
+        return ret;
+    }
 }
