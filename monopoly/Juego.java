@@ -106,19 +106,19 @@ public class Juego {
         //return c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
     //}
 
-    private boolean elegir_carta_comunidad() {
-        int n;
+    //private boolean elegir_carta_comunidad() {
+        //int n;
 
-        do {
-            n = consola.leerInt("Elige una carta del 1 al 6: ");
+        //do {
+            //n = consola.leerInt("Elige una carta del 1 al 6: ");
 
-        } while (n < 1 || n > 6);
+        //} while (n < 1 || n > 6);
 
-        // Carta.barajar(baraja);
-        Comunidad c = Comunidad.obtenerCarta(n);
-        c.mostrarDescipcion();
-        return c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
-    }
+        //// Carta.barajar(baraja);
+        //Comunidad c = Comunidad.obtenerCarta(n);
+        //c.mostrarDescipcion();
+        //return c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
+    //}
 
     private void crear_jugador(String nombreJugador, String tipoAvatar) {
 
@@ -1178,7 +1178,7 @@ public class Juego {
             /* Todo: esto se movio a avatar. Pero tiene que cambiarse el del coche si
              * es el coche el que acaba de mover supongo. Va mal de momento. En el
              * coche no se actualizan los valores al acabar el turno creo. */
-            
+
             this.tirado = !se_puede_tirar_en_el_siguiente_turno[turno - 1];
             se_puede_tirar_en_el_siguiente_turno[turno - 1] = se_puede_tirar_en_el_siguiente_turno2[turno - 1];
             se_puede_tirar_en_el_siguiente_turno2[turno - 1] = true;

@@ -1,6 +1,7 @@
 package partida.Carta;
 
 import monopoly.Casilla.*;
+import monopoly.*;
 import java.util.ArrayList;
 import partida.Jugador;
 import partida.Avatar.*;
@@ -43,6 +44,20 @@ public class Suerte extends Carta {
                 return accSuerte6(av);
         }
         return false;
+    }
+
+    public static boolean elegirCarta(Avatar avatar, ArrayList<Jugador>jugadores, Tablero tablero) {
+        int n;
+
+        do {
+            n = Juego.consola.leerInt("Elige una carta del 1 al 6: ");
+
+        } while (n < 1 || n > 6);
+
+        // Carta.barajar(baraja);
+        Suerte c = obtenerCarta(n);
+        c.mostrarDescipcion();
+        return c.realizarAccion(avatar, jugadores, tablero.getPosiciones());
     }
 
     private boolean accSuerte1(Avatar av, ArrayList<ArrayList<Casilla>> casillas) {
