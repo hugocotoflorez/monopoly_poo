@@ -152,7 +152,7 @@ public abstract class Propiedad extends Casilla {
     public void cobrarAlquiler(Jugador actual){
         actual.sumarFortuna(-this.alquiler);
         this.getDuenho().sumarFortuna(this.alquiler);
-        Juego.consola.imprimir("El jugador " + actual.getNombre() + " paga " + this.alquiler + " a " + this.getDuenho().getNombre());
+        Juego.consola.imprimir("El jugador " + actual.getNombre() + " paga " + this.alquiler + " de alquiler a " + this.getDuenho().getNombre());
         Juego.consola.imprimir("Ahora el jugador " + actual.getNombre() + " tiene " + actual.getFortuna() + " y el jugador " + this.getDuenho().getNombre() + " tiene " + this.getDuenho().getFortuna());
 
         //Actualizar estadísticas
