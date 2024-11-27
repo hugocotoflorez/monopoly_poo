@@ -2,7 +2,11 @@ package partida.Avatar;
 
 import java.util.ArrayList;
 import java.util.Random;
-import monopoly.Casilla.Casilla;
+import partida.Carta.*;
+import monopoly.Casilla.*;
+import monopoly.Casilla.Accion.AccionCajaComunidad;
+import monopoly.Casilla.Accion.AccionSuerte;
+import monopoly.Casilla.Especial.Especial;
 import partida.*;
 import monopoly.*;
 
@@ -140,7 +144,7 @@ public abstract class Avatar {
         Juego.consola.imprimirln(" hasta " + getCasilla().getNombre());
     }
 
-    public abstract void moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) ;
+    public abstract boolean moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) ;
 
     public abstract String getInfo();
 
@@ -187,6 +191,40 @@ public abstract class Avatar {
             }
         }
         this.id = letra;
+    }
+
+
+    public boolean evaluarAccion(int desplazamiento, ArrayList<Jugador> jugadores, Tablero tablero) {
+        /*
+         * En estos casos no se evalua casilla, sino que la accion se realiza
+         * desde aqui. Si esto es un error borrar los else-if pero el de caja y suerte
+         * si que no puede ejecutarse evaluar casilla despues
+         */
+        /* TODO: marina (instanceof?)*/
+        if (this.casilla instanceof AccionSuerte) {
+            if (Suerte.elegirCarta(this, jugadores, tablero)) {
+                pasarPorSalida(tablero, jugadores);
+            }
+        }
+
+        /* TODO: marina (instanceof?)*/
+        if (this.casilla instanceof AccionCajaComunidad) {
+            if (Comunidad.elegirCarta(this, jugadores, tablero)) {
+                pasarPorSalida(tablero,jugadores );
+            }
+        }
+
+        if (casilla.getNombre().equals("IrCarcel")) {
+            jugadores.get(turno).encarcelar(tablero.getPosiciones());
+        }
+
+        else {
+            // evaluar casilla
+            return casilla.evaluarCasilla(jugadores.get(turno), jugadores.get(0),
+                    desplazamiento);
+            }
+
+        return true;
     }
 
     @Override

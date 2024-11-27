@@ -92,19 +92,19 @@ public class Juego {
      * llamar
      * a esta funcion.
      */
-    private boolean elegir_carta_suerte() {
-        int n;
+    //private boolean elegir_carta_suerte() {
+        //int n;
 
-        do {
-            n = consola.leerInt("Elige una carta del 1 al 6: ");
+        //do {
+            //n = consola.leerInt("Elige una carta del 1 al 6: ");
 
-        } while (n < 1 || n > 6);
+        //} while (n < 1 || n > 6);
 
-        // Carta.barajar(baraja);
-        Suerte c = Suerte.obtenerCarta(n);
-        c.mostrarDescipcion();
-        return c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
-    }
+        //// Carta.barajar(baraja);
+        //Suerte c = Suerte.obtenerCarta(n);
+        //c.mostrarDescipcion();
+        //return c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
+    //}
 
     private boolean elegir_carta_comunidad() {
         int n;
@@ -539,12 +539,22 @@ public class Juego {
     private void mover(int valor1, int valor2) {
         /* Movimiento default */
         if (!movimientoAvanzado[turno - 1]) {
-            this.avatares.get(turno).moverNormal(tablero, valor1, valor2, jugadores);
-            evaluarAccion(valor1 + valor2);
+            avatares.get(turno).moverNormal(tablero, valor1, valor2, jugadores);
+            avatares.get(turno).evaluarAccion(valor1 + valor2, jugadores, tablero);
 
         } else {
-            this.avatares.get(turno).moverEnAvanzado(tablero, valor1, valor2, jugadores);
-            evaluarAccion(valor1 + valor2);
+            /*
+             * mover en avanzado tiene que devolver si es solvente. Si lo es y es la pelota,
+             * debe llamar a evaluarSolvente() que hace lo que se hace en evaluarAccion.
+             * TODO: Hugo
+             */
+            boolean solvente = this.avatares.get(turno).moverEnAvanzado(tablero, valor1, valor2, jugadores);
+            if (this.avatares.get(turno) instanceof Pelota) {
+                if (!solvente)
+                    // es solvente, hacer lo que sea
+                    evaluarSolvente();
+            } else
+                avatares.get(turno).evaluarAccion(valor1 + valor2, jugadores, tablero);
         }
     }
 
@@ -704,58 +714,64 @@ public class Juego {
         }
     }
 
-    private void evaluarAccion(int desplazamiento) {
-        /*
-         * En estos casos no se evalua casilla, sino que la accion se realiza
-         * desde aqui. Si esto es un error borrar los else-if pero el de caja y suerte
-         * si que no puede ejecutarse evaluar casilla despues
-         */
-        if (avatares.get(turno).getCasilla().getTipo().equals("suerte")) {
-            if (elegir_carta_suerte()) {
-                pasarPorSalida();
-            }
-        }
+    //private void evaluarAccion(int desplazamiento) {
+        ///*
+         //* En estos casos no se evalua casilla, sino que la accion se realiza
+         //* desde aqui. Si esto es un error borrar los else-if pero el de caja y suerte
+         //* si que no puede ejecutarse evaluar casilla despues
+         //*/
+        ///* TODO: marina */
+        //if (avatares.get(turno).getCasilla().getTipo().equals("suerte")) {
+            //if (Suerte.elegirCarta(avatares.get(turno), jugadores, tablero)) {
+                //pasarPorSalida();
+            //}
+        //}
 
-        if (avatares.get(turno).getCasilla().getTipo().equals("caja")) {
-            if (elegir_carta_comunidad()) {
-                pasarPorSalida();
-            }
-        }
+        ///* TODO: marina */
+        //if (avatares.get(turno).getCasilla().getTipo().equals("caja")) {
+            //if (Comunidad.elegirCarta(avatares.get(turno), jugadores, tablero)) {
+                //pasarPorSalida();
+            //}
+        //}
 
-        if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
-            jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
-        }
+        //if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
+            //jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
+        //}
 
-        else {
-            // evaluar casilla
-            solvente = avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), banca,
-                    desplazamiento);
-            if (!solvente) {
-                consola.imprimirln("El jugador " + jugadores.get(turno).getNombre()
-                        + " está en bancarrota. Su fortuna actual es " + jugadores.get(turno).getFortuna());
-                char opcion;
-                do {
-                    opcion = consola.leerChar("¿Deseas seguir jugando? (S/N): ");
-                    switch (opcion) {
-                        case 's':
-                        case 'S':
-                            consola.imprimirln(
-                                    "Para saldar tus deudas, debes hipotecar tus propiedades antes de acabar tu turno.");
-                            consola.imprimirln(
-                                    "Si te quedas sin propiedades que hipotecar y aún no has saldado tus deudas, tendrás que declararte en bancarrota.");
-                            break;
-                        case 'n':
-                        case 'N':
-                            bancarrota(this.banca);
-                            solvente = true;
-                            break;
-                        default:
-                            consola.imprimirln("Opción errónea.");
-                            break;
-                    }
-                } while (opcion != 'S' && opcion != 's' && opcion != 'n' && opcion != 'N');
+        //else {
+            //// evaluar casilla
+            //solvente = avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), banca,
+                    //desplazamiento);
+            //if (!solvente) {
+                //evaluarSolvente();
+            //}
+        //}
+    //}
+
+    private void evaluarSolvente() {
+        consola.imprimirln("El jugador " + jugadores.get(turno).getNombre()
+                + " está en bancarrota. Su fortuna actual es " + jugadores.get(turno).getFortuna());
+        char opcion;
+        do {
+            opcion = consola.leerChar("¿Deseas seguir jugando? (S/N): ");
+            switch (opcion) {
+                case 's':
+                case 'S':
+                    consola.imprimirln(
+                            "Para saldar tus deudas, debes hipotecar tus propiedades antes de acabar tu turno.");
+                    consola.imprimirln(
+                            "Si te quedas sin propiedades que hipotecar y aún no has saldado tus deudas, tendrás que declararte en bancarrota.");
+                    break;
+                case 'n':
+                case 'N':
+                    bancarrota(this.banca);
+                    solvente = true;
+                    break;
+                default:
+                    consola.imprimirln("Opción errónea.");
+                    break;
             }
-        }
+        } while (opcion != 'S' && opcion != 's' && opcion != 'n' && opcion != 'N');
     }
 
     private void bancarrota(Jugador banca) {
@@ -1159,6 +1175,10 @@ public class Juego {
                 consola.imprimirln("El jugador actual es: " + this.jugadores.get(turno).getNombre());
             }
 
+            /* Todo: esto se movio a avatar. Pero tiene que cambiarse el del coche si
+             * es el coche el que acaba de mover supongo. Va mal de momento. En el
+             * coche no se actualizan los valores al acabar el turno creo. */
+            
             this.tirado = !se_puede_tirar_en_el_siguiente_turno[turno - 1];
             se_puede_tirar_en_el_siguiente_turno[turno - 1] = se_puede_tirar_en_el_siguiente_turno2[turno - 1];
             se_puede_tirar_en_el_siguiente_turno2[turno - 1] = true;
