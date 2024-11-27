@@ -15,10 +15,9 @@ public abstract class Propiedad extends Casilla {
     private boolean hipotecada = false;
     private float recaudado = 0;
 
-    public Propiedad(String nombre, int posicion, float valor, float alquiler, float hipoteca, Jugador duenho) {
+    public Propiedad(String nombre, int posicion, float valor, float hipoteca, Jugador duenho) {
         super(nombre, posicion);
         this.valor = valor;
-        this.alquiler = alquiler;
         this.hipoteca = hipoteca;
     }
 
@@ -103,10 +102,12 @@ public abstract class Propiedad extends Casilla {
     }
 
     //TODO Excepciones
+    //TODO te tiene que hacer solvente
     public void hipotecar(Jugador solicitante){
         if (this.perteneceAJugador(solicitante) && this.hipotecada == false && this.duenho.getEnCarcel() == false){
-            this.duenho.sumarFortuna(hipoteca);
+            solicitante.sumarFortuna(hipoteca);
             this.hipotecada = true;
+
             Juego.consola.imprimir("El jugador " + solicitante.getNombre() + " hipoteca " + this.getNombre() + " por " + this.hipoteca);
             Juego.consola.imprimir("Su fortuna actual es " + solicitante.getFortuna());
         }
@@ -121,12 +122,12 @@ public abstract class Propiedad extends Casilla {
         }
     }
     //TODO excepciones
-    //TODO te tiene que hacer solvente
     public void deshipotecar(Jugador solicitante){
         if(this.perteneceAJugador(solicitante) && this.hipotecada == true && this.duenho.getEnCarcel() == false){
             if (this.duenho.getFortuna() >= this.hipoteca * 1.10f){
                 this.duenho.sumarFortuna(-hipoteca * 1.10f);
                 this.hipotecada = false;
+
                 Juego.consola.imprimir("El jugador " + solicitante.getNombre() + " deshipoteca la casilla " + this.getNombre() + "por" + this.hipoteca * 1.10f);
                 Juego.consola.imprimir("Su fortuna actual es " + solicitante.getFortuna());
             }
@@ -148,14 +149,25 @@ public abstract class Propiedad extends Casilla {
 
     public abstract float calcularAlquiler(int tirada);
 
-    public abstract void cobrarAlquiler();
+    public void cobrarAlquiler(Jugador actual){
+        actual.sumarFortuna(-this.alquiler);
+        this.getDuenho().sumarFortuna(this.alquiler);
+        Juego.consola.imprimir("El jugador " + actual.getNombre() + " paga " + this.alquiler + " de alquiler a " + this.getDuenho().getNombre());
+        Juego.consola.imprimir("Ahora el jugador " + actual.getNombre() + " tiene " + actual.getFortuna() + " y el jugador " + this.getDuenho().getNombre() + " tiene " + this.getDuenho().getFortuna());
+
+        //Actualizar estadísticas
+        actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + this.alquiler);
+        this.getDuenho().setCobroDeAlquileres(this.getDuenho().getCobroDeAlquileres() + this.alquiler);
+        this.recaudado += this.alquiler;
+    }
 
     @Override
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada){
         if(!this.duenho.equals(actual)){
             if(!this.hipotecada){
                 calcularAlquiler(tirada);
-                cobrarAlquiler();
+                this.setAlquiler(this.calcularAlquiler(tirada));
+                cobrarAlquiler(actual);
                 if (actual.estaBancarrota()) return true;
             }
             else Juego.consola.imprimir("El jugador " + this.duenho.getNombre() + "no cobra el alquiler por " + this.getNombre() + "porque está hipotecada.");
