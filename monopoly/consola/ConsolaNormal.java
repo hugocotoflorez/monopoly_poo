@@ -19,7 +19,7 @@ public class ConsolaNormal implements Consola {
     }
 
     @Override
-    public void imprimir_error(String mensaje) {
+    public void imprimirError(String mensaje) {
         System.out.println(Valor.RED + mensaje + Valor.RESET);
     }
 
