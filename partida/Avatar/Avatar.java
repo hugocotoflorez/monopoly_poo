@@ -201,7 +201,7 @@ public abstract class Avatar {
          * si que no puede ejecutarse evaluar casilla despues
          */
         /* TODO: marina (instanceof?)*/
-        if (this.casilla instanceof AccionSuerte) {
+        if (this.casilla instanceof Casilla.Accion.AccionSuerte) {
             if (Suerte.elegirCarta(this, jugadores, tablero)) {
                 pasarPorSalida(tablero, jugadores);
             }
