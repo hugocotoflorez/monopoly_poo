@@ -422,6 +422,9 @@ public class Juego {
             case "fortuna":
                 this.jugadores.get(turno).setFortuna(Float.parseFloat(com[1]));
                 break;
+            case "trato":
+                trato(com);
+                break;
             default:
                 consola.imprimirln("Opcion incorrecta. [? para ver las opciones]");
                 break;
@@ -1237,7 +1240,6 @@ public class Juego {
         return null;
 
     }
-    // trato Maria: cambiar Solar1 Solar14 y 300000
 
     private void trato(String[] com) { // TODO comprobar dueños de las Propiedades. Hacer cuando se acabe casilla (DENTRO DE TRATO)
 
