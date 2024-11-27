@@ -92,33 +92,35 @@ public class Juego {
      * llamar
      * a esta funcion.
      */
-    //private boolean elegir_carta_suerte() {
-        //int n;
+    // private boolean elegir_carta_suerte() {
+    // int n;
 
-        //do {
-            //n = consola.leerInt("Elige una carta del 1 al 6: ");
+    // do {
+    // n = consola.leerInt("Elige una carta del 1 al 6: ");
 
-        //} while (n < 1 || n > 6);
+    // } while (n < 1 || n > 6);
 
-        //// Carta.barajar(baraja);
-        //Suerte c = Suerte.obtenerCarta(n);
-        //c.mostrarDescipcion();
-        //return c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
-    //}
+    //// Carta.barajar(baraja);
+    // Suerte c = Suerte.obtenerCarta(n);
+    // c.mostrarDescipcion();
+    // return c.realizarAccion(avatares.get(turno), jugadores,
+    //// tablero.getPosiciones());
+    // }
 
-    //private boolean elegir_carta_comunidad() {
-        //int n;
+    // private boolean elegir_carta_comunidad() {
+    // int n;
 
-        //do {
-            //n = consola.leerInt("Elige una carta del 1 al 6: ");
+    // do {
+    // n = consola.leerInt("Elige una carta del 1 al 6: ");
 
-        //} while (n < 1 || n > 6);
+    // } while (n < 1 || n > 6);
 
-        //// Carta.barajar(baraja);
-        //Comunidad c = Comunidad.obtenerCarta(n);
-        //c.mostrarDescipcion();
-        //return c.realizarAccion(avatares.get(turno), jugadores, tablero.getPosiciones());
-    //}
+    //// Carta.barajar(baraja);
+    // Comunidad c = Comunidad.obtenerCarta(n);
+    // c.mostrarDescipcion();
+    // return c.realizarAccion(avatares.get(turno), jugadores,
+    //// tablero.getPosiciones());
+    // }
 
     private void crear_jugador(String nombreJugador, String tipoAvatar) {
 
@@ -212,14 +214,14 @@ public class Juego {
 
     }
 
-    private void __analizarComandos_default(){
+    private void __analizarComandos_default() {
 
         analizarComando("crear jugador Jugador1 Coche");
         analizarComando("crear jugador Jugador2 Pelota");
 
     }
 
-    private void __analizarComandos_listar(String[] com){
+    private void __analizarComandos_listar(String[] com) {
 
         if (com.length == 2) {
             switch (com[1]) {
@@ -235,12 +237,12 @@ public class Juego {
 
                 case "avatares":
 
-                listarAvatares();
+                    listarAvatares();
                     break;
 
                 case "edificios":
 
-                listarEdificios();
+                    listarEdificios();
                     break;
 
                 default:
@@ -271,7 +273,7 @@ public class Juego {
                 break;
 
             case "default":
-            
+
                 __analizarComandos_default();
                 break;
 
@@ -714,39 +716,40 @@ public class Juego {
         }
     }
 
-    //private void evaluarAccion(int desplazamiento) {
-        ///*
-         //* En estos casos no se evalua casilla, sino que la accion se realiza
-         //* desde aqui. Si esto es un error borrar los else-if pero el de caja y suerte
-         //* si que no puede ejecutarse evaluar casilla despues
-         //*/
-        ///* TODO: marina */
-        //if (avatares.get(turno).getCasilla().getTipo().equals("suerte")) {
-            //if (Suerte.elegirCarta(avatares.get(turno), jugadores, tablero)) {
-                //pasarPorSalida();
-            //}
-        //}
+    // private void evaluarAccion(int desplazamiento) {
+    /// *
+    // * En estos casos no se evalua casilla, sino que la accion se realiza
+    // * desde aqui. Si esto es un error borrar los else-if pero el de caja y suerte
+    // * si que no puede ejecutarse evaluar casilla despues
+    // */
+    /// * TODO: marina */
+    // if (avatares.get(turno).getCasilla().getTipo().equals("suerte")) {
+    // if (Suerte.elegirCarta(avatares.get(turno), jugadores, tablero)) {
+    // pasarPorSalida();
+    // }
+    // }
 
-        ///* TODO: marina */
-        //if (avatares.get(turno).getCasilla().getTipo().equals("caja")) {
-            //if (Comunidad.elegirCarta(avatares.get(turno), jugadores, tablero)) {
-                //pasarPorSalida();
-            //}
-        //}
+    /// * TODO: marina */
+    // if (avatares.get(turno).getCasilla().getTipo().equals("caja")) {
+    // if (Comunidad.elegirCarta(avatares.get(turno), jugadores, tablero)) {
+    // pasarPorSalida();
+    // }
+    // }
 
-        //if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
-            //jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
-        //}
+    // if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
+    // jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
+    // }
 
-        //else {
-            //// evaluar casilla
-            //solvente = avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), banca,
-                    //desplazamiento);
-            //if (!solvente) {
-                //evaluarSolvente();
-            //}
-        //}
-    //}
+    // else {
+    //// evaluar casilla
+    // solvente =
+    // avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), banca,
+    // desplazamiento);
+    // if (!solvente) {
+    // evaluarSolvente();
+    // }
+    // }
+    // }
 
     private void evaluarSolvente() {
         consola.imprimirln("El jugador " + jugadores.get(turno).getNombre()
@@ -1175,9 +1178,11 @@ public class Juego {
                 consola.imprimirln("El jugador actual es: " + this.jugadores.get(turno).getNombre());
             }
 
-            /* Todo: esto se movio a avatar. Pero tiene que cambiarse el del coche si
+            /*
+             * Todo: esto se movio a avatar. Pero tiene que cambiarse el del coche si
              * es el coche el que acaba de mover supongo. Va mal de momento. En el
-             * coche no se actualizan los valores al acabar el turno creo. */
+             * coche no se actualizan los valores al acabar el turno creo.
+             */
 
             this.tirado = !se_puede_tirar_en_el_siguiente_turno[turno - 1];
             se_puede_tirar_en_el_siguiente_turno[turno - 1] = se_puede_tirar_en_el_siguiente_turno2[turno - 1];
@@ -1230,6 +1235,25 @@ public class Juego {
                 return j;
         }
         return null;
+
+    }
+    // trato Maria: cambiar Solar1 Solar14 y 300000
+
+    private void trato(String[] com) { // TODO comprobar dueños de las Propiedades. Hacer cuando se acabe casilla (DENTRO DE TRATO)
+
+        if (com.length == 7) {
+
+            Jugador j2 = obtenerJugadorDadoNombre(com[1]);
+            Trato trato = new Trato(this.jugadores.get(turno), j2, com[4], com[5], com[7], this.tablero);
+            this.tratos.add(trato);
+
+        } else if (com.length == 5) {
+
+            Jugador j2 = obtenerJugadorDadoNombre(com[1]);
+            Trato trato = new Trato(this.jugadores.get(turno), j2, com[4], com[5], this.tablero);
+            this.tratos.add(trato);
+
+        }
 
     }
 
