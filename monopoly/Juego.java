@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import monopoly.Casilla.Casilla;
+import monopoly.Casilla.Propiedad.Propiedad;
 import partida.*;
 import partida.Avatar.*;
 import partida.Carta.*;
@@ -501,23 +502,24 @@ public class Juego {
             evaluarAccion(valor1 + valor2);
 
         } else {
-            this.avatares.get(turno).moverEnAvanzado(tablero, valor1, valor2,jugadores);
+            this.avatares.get(turno).moverEnAvanzado(tablero, valor1, valor2, jugadores);
             evaluarAccion(valor1 + valor2);
         }
     }
 
-//    private void moverNormal(int valor1, int valor2) {
-//        int desplazamiento = valor1 + valor2;
-//        consola.imprimir("El avatar " + this.avatares.get(turno).getId() + " avanza " + desplazamiento + " desde "
-//                + this.avatares.get(turno).getCasilla().getNombre());
-//        this.avatares.get(turno).moverNormal(this.tablero, valor1, valor2);
-//        consola.imprimirln(" hasta " + avatares.get(turno).getCasilla().getNombre());
-//
-//        // Comprueba si pasa por salida
-//        comprobarSiPasasPorSalida(valor1 + valor2);
-//
-//    }
-//
+    // private void moverNormal(int valor1, int valor2) {
+    // int desplazamiento = valor1 + valor2;
+    // consola.imprimir("El avatar " + this.avatares.get(turno).getId() + " avanza "
+    // + desplazamiento + " desde "
+    // + this.avatares.get(turno).getCasilla().getNombre());
+    // this.avatares.get(turno).moverNormal(this.tablero, valor1, valor2);
+    // consola.imprimirln(" hasta " + avatares.get(turno).getCasilla().getNombre());
+    //
+    // // Comprueba si pasa por salida
+    // comprobarSiPasasPorSalida(valor1 + valor2);
+    //
+    // }
+    //
     // private void moverCoche(int valor1, int valor2) {
     // /*
     // * Coche: si el valor de los dados es mayor que 4, avanza tantas casillas como
@@ -607,16 +609,16 @@ public class Juego {
     // }
     //
     /* No para esta entrega */
-//    private void moverEsfinge(int valor1, int valor2) {
-//        consola.imprimirln("Movimendo normal, no para esta entrega");
-//        moverNormal(valor1, valor2);
-//    }
-//
-//    /* No para esta entrega */
-//    private void moverSombrero(int valor1, int valor2) {
-//        consola.imprimirln("Movimendo normal, no para esta entrega");
-//        moverNormal(valor1, valor2);
-//    }
+    // private void moverEsfinge(int valor1, int valor2) {
+    // consola.imprimirln("Movimendo normal, no para esta entrega");
+    // moverNormal(valor1, valor2);
+    // }
+    //
+    // /* No para esta entrega */
+    // private void moverSombrero(int valor1, int valor2) {
+    // consola.imprimirln("Movimendo normal, no para esta entrega");
+    // moverNormal(valor1, valor2);
+    // }
 
     private void cambairModo() {
         if (!movimientoAvanzadoSePuedeCambiar) {
@@ -660,7 +662,6 @@ public class Juego {
             this.tablero.actualizarValorSolares();
         }
     }
-
 
     private void evaluarAccion(int desplazamiento) {
         /*
@@ -1159,16 +1160,63 @@ public class Juego {
         } else
             consola.imprimirln("Aún no has saldado tus deudas.");
     }
-    private void trato(){
 
+    Jugador obtenerJugadorDadoNombre(String nombreJugador) {
 
+        for (Jugador j : this.jugadores) {
+
+            if (j.getNombre().equals(nombreJugador))
+                return j;
+        }
+        return null;
 
     }
-    private void listarTratos(){
 
-        for(Trato t : tratos){
+    private void Trato(String nombreJugador, String of1, String of2) {
 
-            if(t.getReceptor().equals(this.jugadores.get(turno))){
+        Jugador j = new Jugador();
+        j = this.obtenerJugadorDadoNombre(nombreJugador);
+
+        Casilla c1 = this.tablero.encontrar_casilla(of1);
+        Casilla c2 = this.tablero.encontrar_casilla(of2);
+
+        Trato t;
+
+        if (j == null) {
+            Juego.consola.imprimirError("No se ha encontrado el jugador!\n");
+            return;
+        }
+
+        if (c1 != null && c2 != null) {
+
+            t = new Trato(this.jugadores.get(turno), j, (Propiedad) c1, (Propiedad) c2);
+
+        } else if (c1 != null && c2 == null) {
+
+            t = new Trato(this.jugadores.get(turno), j, Float.parseFloat(of1), (Propiedad) c2);
+
+        }
+
+        else if (c1 == null && c2 != null) {
+
+            t = new Trato(this.jugadores.get(turno), j, (Propiedad) c1, Float.parseFloat(of2));
+
+        }
+
+        else {
+            Juego.consola.imprimirError("Trato no valido\n");
+            return;
+        }
+
+        tratos.add(t);
+
+    }
+
+    private void listarTratos() {
+
+        for (Trato t : tratos) {
+
+            if (t.getReceptor().equals(this.jugadores.get(turno))) {
 
                 t.toString();
 

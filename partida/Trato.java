@@ -10,8 +10,8 @@ public class Trato {
     Jugador proponiente;
     Jugador receptor;
 
-    float dineroJ1;
-    float dineroJ2;
+    Float dineroJ1;
+    Float dineroJ2;
 
     Propiedad PropiedadJ1;
     Propiedad PropiedadJ2;
@@ -33,7 +33,7 @@ public class Trato {
         this.ID = "trato" + Valor.NumeroTratos++;
     }
 
-    public Trato(Jugador proponiente, Jugador receptor, Propiedad PropiedadJ1, float dineroJ2) { // Propiedad por dinero
+    public Trato(Jugador proponiente, Jugador receptor, Propiedad PropiedadJ1,  Float dineroJ2) { // Propiedad por dinero
 
         this.proponiente = proponiente;
         this.receptor = receptor;
@@ -48,7 +48,7 @@ public class Trato {
 
     }
 
-    public Trato(Jugador proponiente, Jugador receptor, float dineroJ1, Propiedad PropiedadJ2) { // Dinero por propiedad
+    public Trato(Jugador proponiente, Jugador receptor, Float dineroJ1, Propiedad PropiedadJ2) { // Dinero por propiedad
 
         this.proponiente = proponiente;
         this.receptor = receptor;
@@ -61,7 +61,7 @@ public class Trato {
         this.ID = "trato" + Valor.NumeroTratos++;
     }
 
-    public Trato(Jugador proponiente, Jugador receptor, Propiedad PropiedadJ1, Propiedad PropiedadJ2, float dineroJ2) {// Propiedad por Propiedad y
+    public Trato(Jugador proponiente, Jugador receptor, Propiedad PropiedadJ1, Propiedad PropiedadJ2, Float dineroJ2) {// Propiedad por Propiedad y
                                                                                                 // dinero
 
         this.proponiente = proponiente;
@@ -76,7 +76,7 @@ public class Trato {
         this.ID = "trato" + Valor.NumeroTratos++;
     }
 
-    public Trato(Jugador proponiente, Jugador receptor, Propiedad PropiedadJ1, float dineroJ1, Propiedad PropiedadJ2) { // Propiedad y dinero por
+    public Trato(Jugador proponiente, Jugador receptor, Propiedad PropiedadJ1,  Float dineroJ1, Propiedad PropiedadJ2) { // Propiedad y dinero por
         // Propiedad
 
         this.proponiente = proponiente;
