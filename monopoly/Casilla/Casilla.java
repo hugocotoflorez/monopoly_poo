@@ -579,7 +579,7 @@ public abstract class Casilla {
          * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1
          */
         if (this instanceof monopoly.Casilla.Propiedad.Solar){
-            return (((monopoly.Casilla.Propiedad.Solar) this).grupo + Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET);
+            return (((monopoly.Casilla.Propiedad.Solar) this).getGrupo() + Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET);
         }
         else
             return (Valor.WHITE+ Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET);
