@@ -1172,43 +1172,34 @@ public class Juego {
 
     }
 
-    private void Trato(String nombreJugador, String of1, String of2) {
+    private void NuevoTrato(String nombreJugador, String of1, String of2) { // Comprobar que los jugadores son dueños de las casillas
+
+        Jugador receptor = new Jugador();
+        receptor = this.obtenerJugadorDadoNombre(nombreJugador);
+        if(receptor == null){
+            Juego.consola.imprimirError("El jugador " + nombreJugador + " no existe!\n");
+            return;
+        }
+        
+        Trato t = new Trato(this.jugadores.get(turno), receptor, of1, of2, tablero);
+        tratos.add(t);
+
+    }
+
+    private void NuevoTrato(String nombreJugador, String of1, String of2, String of3){
 
         Jugador j = new Jugador();
         j = this.obtenerJugadorDadoNombre(nombreJugador);
 
         Casilla c1 = this.tablero.encontrar_casilla(of1);
         Casilla c2 = this.tablero.encontrar_casilla(of2);
-
-        Trato t;
-
-        if (j == null) {
-            Juego.consola.imprimirError("No se ha encontrado el jugador!\n");
-            return;
+        Casilla c3 = this.tablero.encontrar_casilla(of3);
+        
+        if(j == null){
+            Juego.consola.imprimirError("El jugador no existe!\n");
         }
 
-        if (c1 != null && c2 != null) {
 
-            t = new Trato(this.jugadores.get(turno), j, (Propiedad) c1, (Propiedad) c2);
-
-        } else if (c1 != null && c2 == null) {
-
-            t = new Trato(this.jugadores.get(turno), j, Float.parseFloat(of1), (Propiedad) c2);
-
-        }
-
-        else if (c1 == null && c2 != null) {
-
-            t = new Trato(this.jugadores.get(turno), j, (Propiedad) c1, Float.parseFloat(of2));
-
-        }
-
-        else {
-            Juego.consola.imprimirError("Trato no valido\n");
-            return;
-        }
-
-        tratos.add(t);
 
     }
 
