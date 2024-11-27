@@ -110,6 +110,17 @@ public class Trato {
 
         if (c1 != null && c2 != null) {
 
+            if(!c1.getDuenho().equals(proponedor)){
+                Juego.consola.imprimirError("El jugador " + proponedor.getNombre() + " no es dueño de la Casilla\n");
+                return;
+            }
+            if(!c1.getDuenho().equals.(receptor)){
+
+                Juego.consola.imprimirError("El jugador " + receptor.getNombre() + " no es dueño de la Casilla\n");
+                return;
+                
+            }
+
             trato(proponedor, receptor, (Propiedad) c1, (Propiedad) c2);
 
         } else if (c1 != null && c2 == null) {

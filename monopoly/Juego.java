@@ -163,6 +163,97 @@ public class Juego {
         acabarPartida();
     }
 
+    /* */
+    /*--------------------------------------- FUNCIONES DE LINEA DE COMANDOS ---------------------------------------*/
+    private void __analizarComandos_opciones() {
+
+        /*
+         * El color de fondo da problemas con la terminal de vscode si tiene que
+         * desplazar hacia abajo el contenido de la consola porque no entra. En otras
+         * terminales va bien.
+         */
+
+        consola.imprimirln(
+                Valor.BGBLACK + Valor.BOLD + "Opciones                                      " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "crear jugador <nombre> <tipo_avatar>          " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "jugador - jugador con el turno                " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "listar enventa                                " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "listar jugadores                              " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "listar avatares                               " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "lanzar dados                                  " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "cambiar modo                                  " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "acabar - acaba el turno                       " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "salir - salir carcel)                         " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "describir jugador  <nombre>                   " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "describir avatar <letra                       " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "comprar <casilla>                             " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "bancarrota - acaba la partida para ese jugador" + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "ver - muestra el tablero                      " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "clear - limpia la pantalla                    " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "estadisticas <Jugador>                        " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "estadisticas                                  " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "hipotecar <casilla>                           " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "deshipotecar <casilla>                        " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "listar edificios                              " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "listar edificios <grupo>                      " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "edificar <tipo>                               " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "vender <tipo> <solar> <cantidad>              " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "----------------------------------------------" + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "opciones, ? -> Muestra las opciones           " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "a -> acabar                                   " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "empezar partida                               " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "q, SALIR -> acaba la ejecucion del programa   " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "c, clear -> limpia la pantalla                " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "l x y -> lanzar dados, con resultado x e y    " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "default -> crea dos jugadores                 " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "archivo file -> ejecuta comandos en file      " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "fortuna <valor>                               " + Valor.RESET);
+        consola.imprimirln(Valor.BGBLACK + "----------------------------------------------" + Valor.RESET);
+
+    }
+
+    private void __analizarComandos_default(){
+
+        analizarComando("crear jugador Jugador1 Coche");
+        analizarComando("crear jugador Jugador2 Pelota");
+
+    }
+
+    private void __analizarComandos_listar(String[] com){
+
+        if (com.length == 2) {
+            switch (com[1]) {
+                case "enventa":
+
+                    listarVenta();
+                    break;
+
+                case "jugadores":
+
+                    listarJugadores();
+                    break;
+
+                case "avatares":
+
+                listarAvatares();
+                    break;
+
+                case "edificios":
+
+                listarEdificios();
+                    break;
+
+                default:
+                    Juego.consola.imprimirError("Opcion incorrecta! <enventa> <jugadores> <avatares> <edificios>");
+            }
+        }
+        if (com.length == 3) {
+            if (com[1].equals("edificios"))
+                listarEdificios(this.tablero.getGruposMap().get(com[2]));
+        }
+
+    }
+
     /*
      * Método que interpreta el comando introducido y toma la accion
      * correspondiente.
@@ -172,55 +263,16 @@ public class Juego {
 
         String[] com = comando.split(" ");
         switch (com[0]) {
+
             case "opciones":
             case "?":
-                /*
-                 * El color de fondo da problemas con la terminal de vscode si tiene que
-                 * desplazar hacia abajo el contenido de la consola porque no entra. En otras
-                 * terminales va bien.
-                 */
-                consola.imprimirln(
-                        Valor.BGBLACK + Valor.BOLD + "Opciones                                      " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "crear jugador <nombre> <tipo_avatar>          " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "jugador - jugador con el turno                " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "listar enventa                                " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "listar jugadores                              " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "listar avatares                               " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "lanzar dados                                  " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "cambiar modo                                  " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "acabar - acaba el turno                       " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "salir - salir carcel)                         " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "describir jugador  <nombre>                   " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "describir avatar <letra                       " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "comprar <casilla>                             " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "bancarrota - acaba la partida para ese jugador" + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "ver - muestra el tablero                      " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "clear - limpia la pantalla                    " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "estadisticas <Jugador>                        " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "estadisticas                                  " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "hipotecar <casilla>                           " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "deshipotecar <casilla>                        " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "listar edificios                              " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "listar edificios <grupo>                      " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "edificar <tipo>                               " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "vender <tipo> <solar> <cantidad>              " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "----------------------------------------------" + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "opciones, ? -> Muestra las opciones           " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "a -> acabar                                   " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "empezar partida                               " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "q, SALIR -> acaba la ejecucion del programa   " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "c, clear -> limpia la pantalla                " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "l x y -> lanzar dados, con resultado x e y    " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "default -> crea dos jugadores                 " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "archivo file -> ejecuta comandos en file      " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "fortuna <valor>                               " + Valor.RESET);
-                consola.imprimirln(Valor.BGBLACK + "----------------------------------------------" + Valor.RESET);
 
+                __analizarComandos_opciones();
                 break;
 
             case "default":
-                analizarComando("crear jugador Jugador1 Coche");
-                analizarComando("crear jugador Jugador2 Pelota");
+            
+                __analizarComandos_default();
                 break;
 
             case "archivo":
@@ -245,24 +297,13 @@ public class Juego {
                 break;
 
             case "jugador":
+
                 descJugador();
                 break;
 
             case "listar":
-                if (com.length == 2) {
-                    if (com[1].equals("enventa"))
-                        listarVenta();
-                    else if (com[1].equals("jugadores"))
-                        listarJugadores();
-                    else if (com[1].equals("avatares"))
-                        listarAvatares();
-                    else if (com[1].equals("edificios"))
-                        listarEdificios();
-                }
-                if (com.length == 3) {
-                    if (com[1].equals("edificios"))
-                        listarEdificios(this.tablero.getGruposMap().get(com[2]));
-                }
+
+                __analizarComandos_listar(com);
                 break;
 
             case "empezar":
@@ -1169,37 +1210,6 @@ public class Juego {
                 return j;
         }
         return null;
-
-    }
-
-    private void NuevoTrato(String nombreJugador, String of1, String of2) { // Comprobar que los jugadores son dueños de las casillas
-
-        Jugador receptor = new Jugador();
-        receptor = this.obtenerJugadorDadoNombre(nombreJugador);
-        if(receptor == null){
-            Juego.consola.imprimirError("El jugador " + nombreJugador + " no existe!\n");
-            return;
-        }
-        
-        Trato t = new Trato(this.jugadores.get(turno), receptor, of1, of2, tablero);
-        tratos.add(t);
-
-    }
-
-    private void NuevoTrato(String nombreJugador, String of1, String of2, String of3){
-
-        Jugador j = new Jugador();
-        j = this.obtenerJugadorDadoNombre(nombreJugador);
-
-        Casilla c1 = this.tablero.encontrar_casilla(of1);
-        Casilla c2 = this.tablero.encontrar_casilla(of2);
-        Casilla c3 = this.tablero.encontrar_casilla(of3);
-        
-        if(j == null){
-            Juego.consola.imprimirError("El jugador no existe!\n");
-        }
-
-
 
     }
 
