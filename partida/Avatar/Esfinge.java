@@ -25,7 +25,8 @@ public class Esfinge extends Avatar {
         return ret;
     }
 
-    public void moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) {
+    public boolean moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) {
         moverNormal(tablero, valor1, valor2, jugadores);
+        return true;
     }
 }

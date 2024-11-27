@@ -32,7 +32,7 @@ public class Pelota extends Avatar {
         return null;
     }
 
-    public void moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) {
+    public boolean moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) {
         /*
          * Pelota: si el valor de los dados es mayor que 4, avanza tantas casillas
          * como
@@ -52,6 +52,8 @@ public class Pelota extends Avatar {
          * entonces no se parará en las subsiguientes casillas
          */
         int desplazamiento = valor1 + valor2;
+        boolean solvente = true;
+
         if (desplazamiento > 4) {
             for (int i = 5; i <= desplazamiento + 1; i += 2) {
 
@@ -66,23 +68,24 @@ public class Pelota extends Avatar {
                 // anade la casilla en la que cae a las que puede comprar
                 casillasVisitadas.add(getCasilla());
                 // evalua casilla o hace la accion que deba hacer
-                evaluarAccion(valor1 + valor2);
 
+                solvente = evaluarAccion(valor1 + valor2, jugadores, tablero);
                 // si va a la carcel deja de moverse
                 if (getJugador().getEnCarcel())
-                    break;
+                break;
 
-                if (getJugador().estaBancarrota())
-                // TODO
-                    break;
-
+                if (!solvente)
+                return solvente;
             }
+            return solvente;
+
         } else {
             // retroceder
             moverAtras(tablero, valor1, valor2);
             // Comprueba si pasa por salida hacia atras
             pasarPorSalidaHaciaAtras(valor1 + valor2);
-            evaluarAccion(valor1 + valor2);
+            evaluarAccion(valor1 + valor2, jugadores, tablero);
+            return solvente;
         }
     }
 }

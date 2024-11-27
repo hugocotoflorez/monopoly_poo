@@ -32,7 +32,7 @@ public class Coche extends Avatar {
     }
 
     @Override
-    public void moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) {
+    public boolean moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) {
         /*
          * Coche: si el valor de los dados es mayor que 4, avanza tantas casillas como
          * dicho valor y puede seguir lanzando los dados tres veces más mientras el
@@ -63,9 +63,13 @@ public class Coche extends Avatar {
             moverAtras(tablero,valor1, valor2);
             // Comprueba si pasa por salida hacia atras
             pasarPorSalidaHaciaAtras(valor1 + valor2);
+            /* TODO: Creo que no se actualizan estas variables */
+            /* Solucion: en acabar turno se cambiaban cuando estaban en menu, supogno
+            que ya no estan ahi, habria que cambiar estas */
             se_puede_tirar_en_el_siguiente_turno = false;
             se_puede_tirar_en_el_siguiente_turno2 = false;
             Juego.consola.imprimirln("No puedes mover en dos turnos!");
         }
+        return true;
     }
 }
