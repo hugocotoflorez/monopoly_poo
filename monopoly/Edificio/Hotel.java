@@ -1,20 +1,12 @@
 package monopoly.Edificio;
 
-import monopoly.Casilla.Casilla;
+import monopoly.Casilla.Propiedad.Solar;
 import monopoly.Valor;
 
 public class Hotel extends Edificio {
 
-    public Hotel(Casilla casilla) {
-
-        super("Hotel-" + Valor.NumeroHotelesConstruidos, casilla,
-                casilla.getGrupo().getValor() * 0.60f);
-
+    public Hotel(Solar casilla) {
+        super("Hotel-" + Valor.NumeroHotelesConstruidos, casilla, casilla.getGrupo().getValor()*0.60f);
     }
 
-    @Override
-    public String getTipo() {
-
-        return "Hotel";
-    }
 }

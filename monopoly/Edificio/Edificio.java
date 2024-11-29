@@ -1,42 +1,45 @@
 package monopoly.Edificio;
 
-import monopoly.Casilla.Casilla;
+import monopoly.Casilla.Propiedad.*;;
 
 public abstract class Edificio {
     private String ID;
     private float precio; // Precio de los edificios
-    private Casilla casilla; // Los edificios se sitúan en casillas
+    private Solar casilla; // Los edificios se sitúan en propiedades
 
-    // Constructor
-    public Edificio(String ID, Casilla casilla, float precio) {
-
+    // Constructor general
+    public Edificio(String ID, Solar casilla, float precio) {
         this.ID = ID;
         this.casilla = casilla;
         this.precio = precio;
-
     }
 
-    // Getters y Setters
+    //GETTERS Y SETTERS -------------------------------
     public String getID() {
-
         return ID;
-
     }
 
     public float getPrecio() {
-
         return precio;
-
     }
 
-    public Casilla getCasilla() {
-
+    public Solar getCasilla() {
         return casilla;
-
     }
 
-    // Método abstracto para personalizar la lógica de inicialización
-    public abstract String getTipo();
+    public void setID(String ID){
+        this.ID = ID;
+    }
+
+    public void setPrecio(float precio){
+        this.precio = precio;
+    }
+
+    public void setCasilla (Solar casilla){
+        this.casilla = casilla;
+    }
+    //--------------------------------------------------
+
 
     @Override
     public String toString() {
