@@ -11,8 +11,8 @@ public class Parking extends Especial {
 
     @Override
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada){
-        Juego.consola.imprimir("El jugador " + actual.getNombre() + " consigue el bote de la banca de " + banca.getGastos());
-        Juego.consola.imprimir("Su fortuna pasa de " + actual.getFortuna() + " a " + (actual.getFortuna() + banca.getGastos()));
+        Juego.consola.imprimirln("El jugador " + actual.getNombre() + " consigue el bote de la banca de " + banca.getGastos());
+        Juego.consola.imprimirln("Su fortuna pasa de " + actual.getFortuna() + " a " + (actual.getFortuna() + banca.getGastos()));
         
         actual.sumarFortuna(banca.getGastos());
         actual.setPremiosInversionesOBote(actual.getPremiosInversionesOBote() + banca.getGastos());

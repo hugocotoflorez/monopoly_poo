@@ -12,7 +12,7 @@ public class Carcel extends Especial {
 
     @Override
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada){
-        Juego.consola.imprimir("Estás de visita en la cárcel.");
+        Juego.consola.imprimirln("Estás de visita en la cárcel.");
         return true;
     }
 

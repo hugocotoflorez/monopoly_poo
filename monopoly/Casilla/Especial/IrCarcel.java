@@ -11,7 +11,7 @@ public class IrCarcel extends Especial {
 
     @Override
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada){
-        Juego.consola.imprimir("Oh no! Vas a la cárcel.");
+        Juego.consola.imprimirln("Oh no! Vas a la cárcel.");
         return true;
     }
 }

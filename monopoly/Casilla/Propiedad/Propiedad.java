@@ -15,10 +15,10 @@ public abstract class Propiedad extends Casilla {
     private boolean hipotecada = false;
     private float recaudado = 0;
 
-    public Propiedad(String nombre, int posicion, float valor, float hipoteca, Jugador duenho) {
+    public Propiedad(String nombre, int posicion, float valor, Jugador duenho) {
         super(nombre, posicion);
         this.valor = valor;
-        this.hipoteca = hipoteca;
+        this.hipoteca = valor/2;
     }
 
     //GETTERS & SETTERS------------------------------------
@@ -84,13 +84,13 @@ public abstract class Propiedad extends Casilla {
 
     public void comprarCasilla(Jugador solicitante, Jugador banca, boolean movAv, ArrayList<Casilla> casVis){ //TODO excepcion
         if (solicitante.getFortuna() < this.valor){
-            Juego.consola.imprimir("No tienes suficiente fortuna. Necesitas " + this.valor);
+            Juego.consola.imprimirln("No tienes suficiente fortuna. Necesitas " + this.valor);
         }
         else if (solicitante.getAvatar() instanceof partida.Avatar.Pelota && movAv && !esComprable(casVis)){
-            Juego.consola.imprimir("No caíste en esta propiedad.");
+            Juego.consola.imprimirln("No caíste en esta propiedad.");
         }
         else if ( (!(solicitante.getAvatar() instanceof partida.Avatar.Pelota) || !movAv) && !this.esComprable(solicitante)){
-            Juego.consola.imprimir("No puedes comprar esta propiedad.");
+            Juego.consola.imprimirln("No puedes comprar esta propiedad.");
         }
         else {
             solicitante.setFortuna(solicitante.getFortuna() - this.valor);
@@ -98,8 +98,8 @@ public abstract class Propiedad extends Casilla {
             solicitante.setDineroInvertido(solicitante.getDineroInvertido() + this.valor);
             banca.eliminarPropiedad(this);
             this.duenho = solicitante;
-            Juego.consola.imprimir("El jugador " + solicitante.getNombre() + " ha comprado la propiedad " + this.getNombre() + " por " + this.valor);
-            Juego.consola.imprimir("Su fortuna actual es " + solicitante.getFortuna());
+            Juego.consola.imprimirln("El jugador " + solicitante.getNombre() + " ha comprado la propiedad " + this.getNombre() + " por " + this.valor);
+            Juego.consola.imprimirln("Su fortuna actual es " + solicitante.getFortuna());
         }
     }
 
@@ -112,17 +112,17 @@ public abstract class Propiedad extends Casilla {
             solicitante.sumarFortuna(hipoteca);
             this.hipotecada = true;
 
-            Juego.consola.imprimir("El jugador " + solicitante.getNombre() + " hipoteca " + this.getNombre() + " por " + this.hipoteca);
-            Juego.consola.imprimir("Su fortuna actual es " + solicitante.getFortuna());
+            Juego.consola.imprimirln("El jugador " + solicitante.getNombre() + " hipoteca " + this.getNombre() + " por " + this.hipoteca);
+            Juego.consola.imprimirln("Su fortuna actual es " + solicitante.getFortuna());
         }
         else if (!this.perteneceAJugador(solicitante)){
-            Juego.consola.imprimir("Esta propiedad no pertenece a " + solicitante.getNombre());
+            Juego.consola.imprimirln("Esta propiedad no pertenece a " + solicitante.getNombre());
         }
         else if (this.hipotecada == true){
-            Juego.consola.imprimir("Esta propiedad ya está hipotecada.");
+            Juego.consola.imprimirln("Esta propiedad ya está hipotecada.");
         }
         else if (this.duenho.getEnCarcel() == true){
-            Juego.consola.imprimir("¡Estás en la cárcel!");
+            Juego.consola.imprimirln("¡Estás en la cárcel!");
         }
     }
     //TODO excepciones
@@ -132,21 +132,21 @@ public abstract class Propiedad extends Casilla {
                 this.duenho.sumarFortuna(-hipoteca * 1.10f);
                 this.hipotecada = false;
 
-                Juego.consola.imprimir("El jugador " + solicitante.getNombre() + " deshipoteca la casilla " + this.getNombre() + "por" + this.hipoteca * 1.10f);
-                Juego.consola.imprimir("Su fortuna actual es " + solicitante.getFortuna());
+                Juego.consola.imprimirln("El jugador " + solicitante.getNombre() + " deshipoteca la casilla " + this.getNombre() + "por" + this.hipoteca * 1.10f);
+                Juego.consola.imprimirln("Su fortuna actual es " + solicitante.getFortuna());
             }
             else {
-                Juego.consola.imprimir("No tienes suficiente fortuna. Necesitas " + this.hipoteca * 1.10f);
+                Juego.consola.imprimirln("No tienes suficiente fortuna. Necesitas " + this.hipoteca * 1.10f);
             }
         }
         else if (!this.perteneceAJugador(solicitante)){
-            Juego.consola.imprimir("Esta propiedad no pertenece a " + solicitante.getNombre());
+            Juego.consola.imprimirln("Esta propiedad no pertenece a " + solicitante.getNombre());
         }
         else if (this.hipotecada == false){
-            Juego.consola.imprimir("Esta propiedad no está hipotecada.");
+            Juego.consola.imprimirln("Esta propiedad no está hipotecada.");
         }
         else if (this.duenho.getEnCarcel() == true){
-            Juego.consola.imprimir("¡Estás en la cárcel!");
+            Juego.consola.imprimirln("¡Estás en la cárcel!");
         }
     }
 
@@ -158,8 +158,8 @@ public abstract class Propiedad extends Casilla {
     public void cobrarAlquiler(Jugador actual){
         actual.sumarFortuna(-this.alquiler);
         this.getDuenho().sumarFortuna(this.alquiler);
-        Juego.consola.imprimir("El jugador " + actual.getNombre() + " paga " + this.alquiler + " de alquiler a " + this.getDuenho().getNombre());
-        Juego.consola.imprimir("Ahora el jugador " + actual.getNombre() + " tiene " + actual.getFortuna() + " y el jugador " + this.getDuenho().getNombre() + " tiene " + this.getDuenho().getFortuna());
+        Juego.consola.imprimirln("El jugador " + actual.getNombre() + " paga " + this.alquiler + " de alquiler a " + this.getDuenho().getNombre());
+        Juego.consola.imprimirln("Ahora el jugador " + actual.getNombre() + " tiene " + actual.getFortuna() + " y el jugador " + this.getDuenho().getNombre() + " tiene " + this.getDuenho().getFortuna());
 
         //Actualizar estadísticas
         actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + this.alquiler);
@@ -178,9 +178,9 @@ public abstract class Propiedad extends Casilla {
                 cobrarAlquiler(actual);
                 if (actual.estaBancarrota()) return true;
             }
-            else Juego.consola.imprimir("El jugador " + this.duenho.getNombre() + "no cobra el alquiler por " + this.getNombre() + "porque está hipotecada.");
+            else Juego.consola.imprimirln("El jugador " + this.duenho.getNombre() + "no cobra el alquiler por " + this.getNombre() + "porque está hipotecada.");
         }
-        else Juego.consola.imprimir("Se puede comprar la casilla " + this.getNombre());
+        else Juego.consola.imprimirln("Se puede comprar la casilla " + this.getNombre());
         return false;
     }
 

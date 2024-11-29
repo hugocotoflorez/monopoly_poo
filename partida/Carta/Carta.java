@@ -65,6 +65,15 @@ public abstract class Carta {
     public Carta() {
     }
 
+    //GETTERS Y SETTERS -----------------------------
+    public String getDescripcion(){
+        return this.descripcion;
+    }
+
+    public int getAccion(){
+        return this.accion;
+    }
+
     public void setAccion(int n) {
         if (n > 0 && n <= 6)
             this.accion = n;
@@ -73,17 +82,17 @@ public abstract class Carta {
     public void setDescripcion(int n) {
         this.descripcion = desc[n];
     }
+    //-------------------------------------------------
 
     public static void barajar(ArrayList<Carta> baraja) {
-        Juego.consola.imprimir("SE ESTAN BARAJANDO LAS CARTAS !!!!!!");
+        Juego.consola.imprimir("OJO SE ESTÁN BARAJANDO LAS CARTAS !!!!!!");
         Collections.shuffle(baraja);
     }
 
     public void mostrarDescipcion() {
-        System.out.println(this.descripcion);
+        Juego.consola.imprimir(this.descripcion);
     }
 
-    public abstract boolean realizarAccion(Avatar av, ArrayList<Jugador> jugadores,
-            ArrayList<ArrayList<Casilla>> casillas);
+    public abstract boolean realizarAccion(Avatar av, ArrayList<Jugador> jugadores, ArrayList<ArrayList<Casilla>> casillas);
 
 }

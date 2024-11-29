@@ -11,7 +11,7 @@ public class Salida extends Especial {
 
     @Override
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada){
-        Juego.consola.imprimir("Estás en la casilla de salida.");
+        Juego.consola.imprimirln("Estás en la casilla de salida.");
         return true;
     }
 }

@@ -4,8 +4,8 @@ import monopoly.Valor;
 import partida.Jugador;
 
 public class Servicio extends Propiedad{
-    public Servicio(String nombre, int posicion, float valor, float hipoteca, Jugador duenho) {
-        super(nombre, posicion, valor, hipoteca, duenho);
+    public Servicio(String nombre, int posicion, float valor, Jugador duenho) {
+        super(nombre, posicion, valor, duenho);
     }
 
     @Override

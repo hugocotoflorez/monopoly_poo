@@ -15,8 +15,8 @@ public class Solar extends Propiedad{
     private Grupo grupo;
     private ArrayList<Edificio> edificios;
 
-    public Solar(String nombre, int posicion, float valor, float hipoteca, Jugador duenho){
-        super(nombre, posicion, valor, hipoteca, duenho);
+    public Solar(String nombre, int posicion, float valor, Jugador duenho){
+        super(nombre, posicion, valor, duenho);
         this.edificios = new ArrayList<Edificio>();
     }
 
@@ -40,8 +40,8 @@ public class Solar extends Propiedad{
     @Override
     public void hipotecar(Jugador solicitante){
         if (this.edificios.size() != 0){ //TODO excepcion
-            Juego.consola.imprimir("Debes vender los edificios de esta propiedad antes de hipotecarla.");
-            Juego.consola.imprimir("Edificios de esta propiedad: ");
+            Juego.consola.imprimirln("Debes vender los edificios de esta propiedad antes de hipotecarla.");
+            Juego.consola.imprimirln("Edificios de esta propiedad: ");
             this.listar_nombre_edificios();
         }
         else super.hipotecar(solicitante);
@@ -200,7 +200,7 @@ public class Solar extends Propiedad{
 
     public void listar_info_edificios(){
         for (Edificio e : this.edificios){
-            Juego.consola.imprimir(e.toString());
+            Juego.consola.imprimirln(e.toString());
         }
     }
 
@@ -220,15 +220,15 @@ public class Solar extends Propiedad{
             solicitante.sumarFortuna(-edificio.getPrecio());
             solicitante.setDineroInvertido(solicitante.getDineroInvertido() + edificio.getPrecio());
 
-            Juego.consola.imprimir("Se ha edificado " + edificio.getID() + " en " + this.getNombre() + " por " + edificio.getPrecio());
-            Juego.consola.imprimir("La fortuna de " + solicitante.getNombre() + "pasa de " + (solicitante.getFortuna() + edificio.getPrecio()) + " a " + solicitante.getFortuna());
+            Juego.consola.imprimirln("Se ha edificado " + edificio.getID() + " en " + this.getNombre() + " por " + edificio.getPrecio());
+            Juego.consola.imprimirln("La fortuna de " + solicitante.getNombre() + "pasa de " + (solicitante.getFortuna() + edificio.getPrecio()) + " a " + solicitante.getFortuna());
         }
-        else Juego.consola.imprimir("No tienes suficiente fortuna, tienes " + solicitante.getFortuna() + " y necesitas " + edificio.getPrecio());
+        else Juego.consola.imprimirln("No tienes suficiente fortuna, tienes " + solicitante.getFortuna() + " y necesitas " + edificio.getPrecio());
     }
 
     //TODO excepciones
     public void edificar(String tipo, Jugador solicitante){
-        if (!this.puedeEdificar(solicitante)) Juego.consola.imprimir("No puedes edificar en esta casilla.");
+        if (!this.puedeEdificar(solicitante)) Juego.consola.imprimirln("No puedes edificar en esta casilla.");
         
         else{
             switch (tipo){
@@ -239,8 +239,8 @@ public class Solar extends Propiedad{
                         Valor.NumeroCasasConstruidas++;
                     }
                     else {
-                        Juego.consola.imprimir("No puedes edificar una casa ahora mismo.");
-                        Juego.consola.imprimir("Asegúrate de que el número de casas no supera el máximo.");
+                        Juego.consola.imprimirln("No puedes edificar una casa ahora mismo.");
+                        Juego.consola.imprimirln("Asegúrate de que el número de casas no supera el máximo.");
                     }
                     break;
 
@@ -265,8 +265,8 @@ public class Solar extends Propiedad{
 
                     }
                     else {
-                        Juego.consola.imprimir("No puedes edificar un hotel ahora mismo.");
-                        Juego.consola.imprimir("Asegúrate de que el número de hoteles no supera el número de solares en el grupo y de que hay 4 casas en este solar.");
+                        Juego.consola.imprimirln("No puedes edificar un hotel ahora mismo.");
+                        Juego.consola.imprimirln("Asegúrate de que el número de hoteles no supera el número de solares en el grupo y de que hay 4 casas en este solar.");
                     }
                     break;
 
@@ -277,8 +277,8 @@ public class Solar extends Propiedad{
                         Valor.NumeroPiscinasConstruidas++;
                     }
                     else {
-                        Juego.consola.imprimir("No puedes edificar una piscina ahora mismo.");
-                        Juego.consola.imprimir("Asegúrate de que el número de piscinas no supera el número de solares en el grupo y de que hay al menos 1 hotel y 2 casas en este solar.");
+                        Juego.consola.imprimirln("No puedes edificar una piscina ahora mismo.");
+                        Juego.consola.imprimirln("Asegúrate de que el número de piscinas no supera el número de solares en el grupo y de que hay al menos 1 hotel y 2 casas en este solar.");
                     }
                     break;
 
@@ -289,13 +289,13 @@ public class Solar extends Propiedad{
                         Valor.NumeroPistasConstruidos++;
                     }
                     else {
-                        Juego.consola.imprimir("No puedes edificar una pista de deportes ahora mismo.");
-                        Juego.consola.imprimir("Asegúrate de que el número de pistas de deporte no supera el número de solares en el grupo y de hay al menos 2 hoteles en este solar.");
+                        Juego.consola.imprimirln("No puedes edificar una pista de deportes ahora mismo.");
+                        Juego.consola.imprimirln("Asegúrate de que el número de pistas de deporte no supera el número de solares en el grupo y de hay al menos 2 hoteles en este solar.");
                     }
                     break;
 
                 default:
-                    Juego.consola.imprimir("Tipo de edificio incorrecto. Tipos correctos: <casa>, <hotel>, <piscina>, <pista>.");
+                    Juego.consola.imprimirln("Tipo de edificio incorrecto. Tipos correctos: <casa>, <hotel>, <piscina>, <pista>.");
                     break;
             }
         }
@@ -304,7 +304,7 @@ public class Solar extends Propiedad{
     //TODO excepciones
     public void desedificar(String tipo, Jugador solicitante, String num){
         if (!this.getDuenho().equals(solicitante)){
-            Juego.consola.imprimir("No puedes vender edificios de " + this.getNombre() + " porque no te pertenece.");
+            Juego.consola.imprimirln("No puedes vender edificios de " + this.getNombre() + " porque no te pertenece.");
             return;
         }
 
@@ -313,34 +313,34 @@ public class Solar extends Propiedad{
         switch(tipo){
             case "casa":
                 if (n > this.obtenerNumeroCasas()){
-                    Juego.consola.imprimir("No hay suficientes casas en el solar. Sólo hay " + this.obtenerNumeroCasas());
+                    Juego.consola.imprimirln("No hay suficientes casas en el solar. Sólo hay " + this.obtenerNumeroCasas());
                     return;
                 }
                 break;
 
             case "hotel":
                 if (n > this.obtenerNumeroHoteles()){
-                    Juego.consola.imprimir("No hay suficientes hoteles en el solar. Sólo hay " + this.obtenerNumeroHoteles());
+                    Juego.consola.imprimirln("No hay suficientes hoteles en el solar. Sólo hay " + this.obtenerNumeroHoteles());
                     return;
                 }
                 break;
 
             case "piscina":
                 if (n > this.obtenerNumeroPiscinas()){
-                    Juego.consola.imprimir("No hay suficientes piscinas en el solar. Sólo hay " + this.obtenerNumeroPiscinas());
+                    Juego.consola.imprimirln("No hay suficientes piscinas en el solar. Sólo hay " + this.obtenerNumeroPiscinas());
                     return;
                 }
                 break;
 
             case "pista":
                 if (n > this.obtenerNumeroPiscinas()){
-                    Juego.consola.imprimir("No hay suficientes pistas de deporte en el solar. Sólo hay " + this.obtenerNumeroPistasDeporte());
+                    Juego.consola.imprimirln("No hay suficientes pistas de deporte en el solar. Sólo hay " + this.obtenerNumeroPistasDeporte());
                     return;
                 }
                 break;
 
             default:
-                Juego.consola.imprimir("Tipo de edificio incorrecto. Tipos correctos: <casa>, <hotel>, <piscina>, <pista>.");
+                Juego.consola.imprimirln("Tipo de edificio incorrecto. Tipos correctos: <casa>, <hotel>, <piscina>, <pista>.");
                 return;
         }
 
@@ -359,8 +359,8 @@ public class Solar extends Propiedad{
 
         solicitante.sumarFortuna(fortuna_anhadida);
 
-        Juego.consola.imprimir(solicitante.getNombre() + " vende " + n + " " + tipo + "s en" + this.getNombre() + " recibiendo " + fortuna_anhadida);    
-        Juego.consola.imprimir("La fortuna de " + solicitante.getNombre() + "pasa de " + (solicitante.getFortuna() - fortuna_anhadida + " a " + solicitante.getFortuna()));
+        Juego.consola.imprimirln(solicitante.getNombre() + " vende " + n + " " + tipo + "s en" + this.getNombre() + " recibiendo " + fortuna_anhadida);    
+        Juego.consola.imprimirln("La fortuna de " + solicitante.getNombre() + "pasa de " + (solicitante.getFortuna() - fortuna_anhadida + " a " + solicitante.getFortuna()));
         
     }
 

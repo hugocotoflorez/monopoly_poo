@@ -40,9 +40,9 @@ public class Impuesto extends Casilla{
 
         actual.setPagoTasasEImpuestos(actual.getPagoTasasEImpuestos() + this.impuesto);
 
-        Juego.consola.imprimir("El jugador " + actual.getNombre() + " paga " + this.impuesto + " de impuestos a la banca.");
-        Juego.consola.imprimir("Ahora el jugador " + actual.getNombre() + " tiene " + actual.getFortuna());
-        Juego.consola.imprimir("El bote de la banca es " + banca.getGastos());
+        Juego.consola.imprimirln("El jugador " + actual.getNombre() + " paga " + this.impuesto + " de impuestos a la banca.");
+        Juego.consola.imprimirln("Ahora el jugador " + actual.getNombre() + " tiene " + actual.getFortuna());
+        Juego.consola.imprimirln("El bote de la banca es " + banca.getGastos());
         
         if (actual.estaBancarrota()) return true;
         return false;

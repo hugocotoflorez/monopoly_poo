@@ -79,7 +79,7 @@ public class Pelota extends Avatar {
             }
             return solvente;
 
-        } else {
+        } else { //TODO: aquí también se rebota y además se debería poder comprar
             // retroceder
             moverAtras(tablero, valor1, valor2);
             // Comprueba si pasa por salida hacia atras

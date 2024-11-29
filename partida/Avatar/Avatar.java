@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import partida.Carta.*;
 import monopoly.Casilla.*;
-import monopoly.Casilla.Accion.AccionCajaComunidad;
-import monopoly.Casilla.Accion.AccionSuerte;
-import monopoly.Casilla.Especial.Especial;
+import monopoly.Casilla.Accion.*;
+import monopoly.Casilla.Especial.*;
 import partida.*;
 import monopoly.*;
 
@@ -39,7 +38,7 @@ public abstract class Avatar {
         return null;
     }
 
-    // GETTERS
+    // GETTERS Y SETTERS -----------------------------------------
     public String getId() {
         return this.id != null ? this.id : "";
     }
@@ -55,10 +54,10 @@ public abstract class Avatar {
     public Casilla getCasilla() {
         return this.casilla;
     }
+    
 
-    public abstract String getTipo();
-
-    // SETTERS
+    //-------------------------------------
+    
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }
@@ -71,9 +70,12 @@ public abstract class Avatar {
         this.turno = turno;
     }
 
+    //No hay setId porque no se modifica una vez creada
+
+    //-----------------------------------------------------------------
+
     public static Boolean esTipo(String tipo) {
-        return tipo.equals("Coche") || tipo.equals("Esfinge") ||
-                tipo.equals("Sombrero") || tipo.equals("Pelota");
+        return tipo.equals("Coche") || tipo.equals("Esfinge") || tipo.equals("Sombrero") || tipo.equals("Pelota");
     }
 
     public void desplazar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
@@ -92,8 +94,7 @@ public abstract class Avatar {
         Juego.consola.imprimirln("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
         jugador.sumarFortuna(Valor.SUMA_VUELTA);
         jugador.setVueltas(jugador.getVueltas() + 1);
-        jugador.setPasarPorCasillaDeSalida(
-                jugador.getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
+        jugador.setPasarPorCasillaDeSalida(jugador.getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
         Juego.consola.imprimirln("Llevas " + jugador.getVueltas() + " vueltas.");
 
         int vueltasmin = jugador.getVueltas();
@@ -105,16 +106,14 @@ public abstract class Avatar {
         }
 
         if ((jugador.getVueltas() == vueltasmin) && (vueltasmin % 4 == 0)) {
-            Juego.consola.imprimirln(
-                    "Todos los jugadores han dado un múltiplo de 4 vueltas, se va a incrementar el precio de los solares en un 10%.");
+            Juego.consola.imprimirln("Todos los jugadores han dado un múltiplo de 4 vueltas, se va a incrementar el precio de los solares en un 10%.");
             tablero.actualizarValorSolares();
         }
     }
 
     public void moverNormal(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) {
         int desplazamiento = valor1 + valor2;
-        Juego.consola.imprimir("El avatar " + id + " avanza " + desplazamiento + " desde "
-                + casilla.getNombre());
+        Juego.consola.imprimir("El avatar " + id + " avanza " + desplazamiento + " desde " + casilla.getNombre());
         desplazar(tablero.getPosiciones(), desplazamiento);
         Juego.consola.imprimirln(" hasta " + casilla.getNombre());
 
@@ -138,7 +137,7 @@ public abstract class Avatar {
     public void moverAtras(Tablero tablero, int valor1, int valor2) {
         int desplazamiento = valor1 + valor2;
         Juego.consola.imprimir("El avatar " + getId() + " avanza " + desplazamiento
-                + " hacia atras desde "
+                + " hacia atrás desde "
                 + getCasilla().getNombre());
         desplazar(tablero.getPosiciones(), 40 - desplazamiento);
         Juego.consola.imprimirln(" hasta " + getCasilla().getNombre());
@@ -148,6 +147,7 @@ public abstract class Avatar {
 
     public abstract String getInfo();
 
+    //TODO esto te puede dejar en bancarrota
     public void pasarPorSalidaHaciaAtras(int desplazamiento) {
 
         int casillanueva = casilla.getPosicion();
@@ -158,16 +158,14 @@ public abstract class Avatar {
          */
         if ((casillanueva + desplazamiento >= 40)) {
 
-            Juego.consola.imprimirln("¡Has pasado por la Salida hacia atras! Perdiste" + Valor.SUMA_VUELTA);
+            Juego.consola.imprimirln("¡Has pasado por la Salida hacia atrás! Perdiste" + Valor.SUMA_VUELTA);
             jugador.sumarFortuna(-Valor.SUMA_VUELTA);
-            if (jugador.getVueltas() != 0)
-                jugador.setVueltas(jugador.getVueltas() - 1);
-            jugador.setPasarPorCasillaDeSalida(
-                    jugador.getPasarPorCasillaDeSalida() - Valor.SUMA_VUELTA);
+            if (jugador.getVueltas() != 0) jugador.setVueltas(jugador.getVueltas() - 1);
+            jugador.setPasarPorCasillaDeSalida(jugador.getPasarPorCasillaDeSalida() - Valor.SUMA_VUELTA);
             Juego.consola.imprimirln("Llevas " + jugador.getVueltas() + " vueltas.");
-
         }
     }
+
     /*
      * Método que permite generar un ID para un avatar. Sólo lo usamos en esta clase
      * (por ello es privado).
@@ -200,18 +198,18 @@ public abstract class Avatar {
          * desde aqui. Si esto es un error borrar los else-if pero el de caja y suerte
          * si que no puede ejecutarse evaluar casilla despues
          */
-        /* TODO: marina (instanceof?)*/
-        if (this.casilla instanceof Casilla.Accion.AccionSuerte) {
+        if (this.casilla instanceof monopoly.Casilla.Accion.AccionSuerte) {
             if (Suerte.elegirCarta(this, jugadores, tablero)) {
                 pasarPorSalida(tablero, jugadores);
             }
+            return (jugadores.get(turno).estaBancarrota());
         }
 
-        /* TODO: marina (instanceof?)*/
         if (this.casilla instanceof AccionCajaComunidad) {
             if (Comunidad.elegirCarta(this, jugadores, tablero)) {
                 pasarPorSalida(tablero,jugadores );
             }
+            return (jugadores.get(turno).estaBancarrota());
         }
 
         if (casilla.getNombre().equals("IrCarcel")) {
@@ -220,8 +218,7 @@ public abstract class Avatar {
 
         else {
             // evaluar casilla
-            return casilla.evaluarCasilla(jugadores.get(turno), jugadores.get(0),
-                    desplazamiento);
+            return casilla.evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
             }
 
         return true;
