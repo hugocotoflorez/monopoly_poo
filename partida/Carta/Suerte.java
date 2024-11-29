@@ -9,7 +9,7 @@ public class Suerte extends Carta {
 
     private static ArrayList<Suerte> cartas = null;
 
-    public Suerte() {
+    public Suerte() { //TODO que?? 2.0
         super();
 
         if (cartas == null)

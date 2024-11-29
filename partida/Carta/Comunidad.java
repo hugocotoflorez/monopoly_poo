@@ -8,7 +8,7 @@ import partida.Avatar.*;
 
 public class Comunidad extends Carta {
 
-    private static ArrayList<Comunidad> cartas = null;
+    private static ArrayList<Comunidad> cartas = null; //TODO que??
 
     public Comunidad() {
         super();

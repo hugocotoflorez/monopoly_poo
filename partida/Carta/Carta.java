@@ -7,6 +7,7 @@ import java.util.Collections;
 
 import partida.Jugador;
 import partida.Avatar.*;
+import monopoly.*;
 
 public abstract class Carta {
     String descripcion;
@@ -74,7 +75,7 @@ public abstract class Carta {
     }
 
     public static void barajar(ArrayList<Carta> baraja) {
-        System.out.println("SE ESTAN BARAJANDO LAS CARTAS !!!!!!");
+        Juego.consola.imprimir("SE ESTAN BARAJANDO LAS CARTAS !!!!!!");
         Collections.shuffle(baraja);
     }
 
