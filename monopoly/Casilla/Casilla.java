@@ -14,22 +14,9 @@ public abstract class Casilla {
 
     // Atributos:
     private String nombre; // Nombre de la casilla
-    //NO EXISTE private String tipo; // Tipo de casilla (Solar, Especial, Transporte, Servicios, Comunidad).
-    //PROPIEDAD private float valor; // Valor de esa casilla (en la mayoría será valor de compra, en la casilla
-                         // parking se usará como el bote).
     private int posicion; // Posición que ocupa la casilla en el tablero (entero entre 0 y 40).
-    //PROPIEDAD private Jugador duenho; // Dueño de la casilla (por defecto sería la banca).
-    //SOLAR private Grupo grupo; // Grupo al que pertenece la casilla (si es solar).
-    //PROPIEDAD private float impuesto; // Cantidad a pagar por caer en la casilla: el alquiler en
-                            // solares/servicios/transportes o impuestos.
-    //PROPIEDADprivate float hipoteca; // Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares; // Avatares que están situados en la casilla.
-    //SOLAR private ArrayList<Edificio> edificios;
-    private int[] caidasEnCasilla = { 0, 0, 0, 0, 0, 0 }; // Cuenta el numero de veces que el jugador iesimo cayó en la
-                                                          // casilla
-    //PROPIEDAD public float recaudado = 0;
-
-    //PROPIEDAD private boolean hipotecada;
+    private int[] caidasEnCasilla = { 0, 0, 0, 0, 0, 0 }; // Número de veces que el jugador iesimo cayó en la casilla.
 
     public static final int casillaWidth = 10;
 
@@ -39,36 +26,6 @@ public abstract class Casilla {
         this.posicion = posicion;
         this.avatares = new ArrayList<Avatar>();
     }
-
-    /*
-     * Constructor para casillas tipo Solar, Servicios o Transporte:
-     * Parámetros: nombre casilla, tipo (debe ser solar, serv. o transporte),
-     * posición en el tablero, valor y dueño.
-     */
-    /*public Casilla(String nombre, String tipo, int posicion, float valor, Jugador duenho) {
-
-        this.nombre = nombre;
-        check(tipo == "solar" || tipo == "serv" || tipo == "transporte", "casilla.tipo unexpected value\n" + tipo);
-        this.tipo = tipo;
-        this.posicion = posicion;
-        this.valor = valor;
-        this.hipoteca = valor / 2;
-        this.duenho = duenho;
-        this.impuesto = valor * 0.1f;
-        this.hipotecada = false;
-    }*/
-
-    /*
-     * Constructor utilizado para inicializar las casillas de tipo IMPUESTOS.
-     * Parámetros: nombre, posición en el tablero, impuesto establecido y dueño.
-     */
-    /*public Casilla(String nombre, int posicion, float impuesto, Jugador duenho) {
-        this.nombre = nombre;
-        this.tipo = "impuestos";
-        this.posicion = posicion;
-        this.impuesto = impuesto;
-        this.duenho = duenho;
-    }*/
 
     /*
      * Constructor utilizado para crear las otras casillas (Suerte, Caja de
@@ -84,116 +41,31 @@ public abstract class Casilla {
         this.duenho = duenho;
     }*/
 
-    // GETTERS
+    // GETTERS Y SETTERS ------------------------------------
     public String getNombre() {
         return this.nombre;
     }
-
-    /*public float getValor() {
-        return this.valor;
-    }*/
-
-    /*public String getTipo() {
-        return this.tipo;
-    }*/
 
     public int getPosicion() {
 
         return this.posicion;
     }
 
-    /*public Grupo getGrupo() {
-        return this.grupo;
-    }*/
-
-    /*public Jugador getDuenho() {
-        return this.duenho;
-    }*/
-
-    /*public float getImpuesto() {
-        return this.impuesto;
-    }*/
-
-    /*public float getHipoteca() {
-        return this.hipoteca;
-    }*/
-
     public int[] getCaidasEnCasilla() {
         return this.caidasEnCasilla;
     }
 
-    /*public boolean getHipotecada() {
+    //--------------------
 
-        return this.hipotecada;
-    }*/
-
-    // public float getRecaudado() {
-    //     return this.recaudado;
-    // }
-
-    // SETTERS
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    /*public void setValor(float valor) {
-        this.valor = valor;
-    }*/
-
-    /*public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }*/
 
     public void setPosicion(int pos) {
         this.posicion = pos;
     }
 
-    /*public void setDuenho(Jugador duenho) {
-        this.duenho = duenho;
-    }*/
-
-    /*public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
-    }*/
-
-    /*public void setImpuesto(float impuesto) {
-        this.impuesto = impuesto;
-    }*/
-
-    /*public void setHipoteca(float hipoteca) {
-        this.hipoteca = hipoteca;
-    }*/
-
-    /*public void setHipotecada(boolean hipotecada) {
-
-        this.hipotecada = hipotecada;
-    }*/
-
-    /*public void setRecaudado(float valor) {
-        this.recaudado = valor;
-    }*/
-
-    /*public ArrayList<Edificio> getEdificios() {
-
-        return this.edificios;
-
-    }*/
-
-    /*public String listar_edificios_grupo(String tipo) {
-
-        String ret = new String();
-
-        ret += "[ ";
-
-        for (Edificio e : this.edificios)
-            if (e.getTipo().equals(tipo))
-                ret += e.getID() + ", ";
-
-        ret += " ]\n";
-
-        return ret;
-
-    }*/
+    //--------------------------------------------------------
 
     // Método utilizado para añadir un avatar al array de avatares en casilla.
     public void anhadirAvatar(Avatar av) {
@@ -211,7 +83,7 @@ public abstract class Casilla {
             this.caidasEnCasilla[jugador] += 1;
     }
 
-    // Método para que me diga el total de visitas de la casilla
+    // Método para que devuelve el total de visitas de la casilla
     public int totalVisitas() {
         int ret = 0;
         for (int i = 0; i < 6; i++)
@@ -219,34 +91,6 @@ public abstract class Casilla {
         return ret;
     }
 
-    /*PROPIEDAD public void hipotecar(Jugador actual) {
-
-        if (this.duenho.equals(actual)
-                && (this.tipo.equals("solar") || this.tipo.equals("serv") || this.tipo.equals("transporte"))
-                && this.hipotecada == false && this.edificios.size() == 0) {
-
-            this.duenho.sumarFortuna(hipoteca);
-            Juego.consola.imprimir("Hipotecas " + this.getNombre() + " por " + this.hipoteca);
-            this.hipotecada = true;
-        } else if (this.edificios.size() != 0)
-            Juego.consola.imprimir("Vende los edificios de esta propiedad antes de hipotecarla.");
-        else
-            Juego.consola.imprimir("No puedes hipotecar esa casilla.");
-
-    }*/
-
-    /*PROPIEDAD public void deshipotecar(Jugador actual) {
-        if (this.duenho.equals(actual)
-                && (this.tipo.equals("solar") || this.tipo.equals("serv") || this.tipo.equals("transporte"))
-                && this.hipotecada == true) {
-            if (this.duenho.getFortuna() >= hipoteca * 1.10f) {
-                this.duenho.sumarFortuna(-hipoteca * 1.10f);
-                this.hipotecada = false;
-            } else
-                Juego.consola.imprimir("No tienes suficiente fortuna. Necesitas " + hipoteca * 1.10f);
-        } else
-            Juego.consola.imprimir("No puedes deshipotecar esa casilla.");
-    }*/
 
     /*
      * Método para evaluar qué hacer en una casilla concreta. Parámetros:
@@ -390,51 +234,7 @@ public abstract class Casilla {
         return actual.getFortuna() > 0;
 
     }*/
-
-    /*
-     * Método usado para comprar una casilla determinada. Parámetros:
-     * - Jugador que solicita la compra de la casilla.
-     * - Banca del monopoly (es el dueño de las casillas no compradas aún).
-     */
-    //PROPIEDAD
-    //public void comprarCasilla(Jugador solicitante, Jugador banca) {
-        /*
-         * si llamas a esto no eres la pelota, por lo que el resto de argumentos
-         * dan igual
-         */
-        /*comprarCasilla(solicitante, banca, false, null);
-    }*/
-
-    //PROPIEDAD
-    /*public void comprarCasilla(Jugador solicitante, Jugador banca, boolean movAv, ArrayList<Casilla> casVis) {
-
-        float fortuna_solicitante = solicitante.getFortuna();
-
-        if (fortuna_solicitante < this.valor) {
-            Juego.consola.imprimir("No tienes suficiente fortuna.");
-
-            Si es la pelota llama al metodo relacionado con la pelota
-        } else if (solicitante.getAvatar().getTipo().equals("Pelota") && movAv && !esComprable(casVis))
-            Juego.consola.imprimir("No caiste en esta casilla.");
-
-        else if ((!solicitante.getAvatar().getTipo().equals("Pelota") || !movAv) && !this.esComprable(solicitante))
-            Juego.consola.imprimir("Esta casilla no se puede comprar.");
-
-        else {
-            solicitante.setFortuna(fortuna_solicitante - this.valor);
-            solicitante.anhadirPropiedad(this);
-            solicitante.setDineroInvertido(solicitante.getDineroInvertido() + this.valor);
-
-            banca.eliminarPropiedad(this);  No se porque estaba comentadO
-            this.duenho = solicitante;
-
-            Juego.consola.imprimir("El jugador " + solicitante.getNombre() +
-                    " ha comprado la casilla " + this.nombre +
-                    ". Su fortuna actual es " + solicitante.getFortuna());
-        }
-
-    }*/
-
+    
     public void eliminarAvatarCasilla(String ID) { // Elimina un avatar de la lista de avatares dado su ID
 
         for (int i = 0; i < avatares.size(); i++) {
@@ -448,120 +248,7 @@ public abstract class Casilla {
         this.avatares.add(avatar);
     }
 
-    /*
-     * Método para añadir valor a una casilla. Utilidad:
-     * - Sumar valor a la casilla de parking.
-     * - Sumar valor a las casillas de solar al no comprarlas tras cuatro vueltas de
-     * todos los jugadores.
-     * Este método toma como argumento la cantidad a añadir del valor de la casilla.
-     */
-    public void sumarValor(float suma) {
-        this.valor += suma;
-    }
-
     public abstract String infoCasilla();
-    /*
-     * Método para mostrar información sobre una casilla.
-     * Devuelve una cadena con información específica de cada tipo de casilla.
-     */
-    public String infoCasilla() {
-        String info = new String();
-        if (this.tipo.equals("solar")) {
-            float alquilerbase = this.getGrupo().getValor();
-            if (this.grupo.esDuenhoGrupo(this.duenho))
-                alquilerbase *= 2;
-            info = """
-                    {
-                    Nombre: %s
-                    Grupo: %s
-                    Propietario: %s
-                    Valor: %f
-                    Alquiler: %f
-                    Edificios: %s
-                    Valor hotel: %s
-                    Valor casa: %s
-                    Valor piscina: %s
-                    Valor pista de deporte: %s
-                    Alquiler una casa: %s
-                    ALquiler dos casas: %s
-                    Alquiler tres casas: %s
-                    Alquiler cuatro casas: %s
-                    Alquiler hotel: %s
-                    Alquiler piscina: %s
-                    Alquiler pista de deporte: %s
-                    }""".formatted(nombre, this.grupo.getID(), duenho.getNombre(), this.getValor(),
-                    impuesto, this.listar_nombres_edificios(), alquilerbase * 0.60f, alquilerbase * 0.60f,
-                    alquilerbase * 0.40f,
-                    alquilerbase * 1.25f, alquilerbase * 5f, alquilerbase * 15f, alquilerbase * 35f, alquilerbase * 50f,
-                    alquilerbase * 70f, alquilerbase * 25f, alquilerbase * 25f);
-
-        } else if (this.tipo.equals("especial")) { // Aquí hay que poner el bote en el Parking, qué jugadores están en
-                                                   // la cárcel, cuánto te dan en la salida
-            if (this.nombre.equals("Salida"))
-                info = "{Casilla de salida.}";
-            else if (this.nombre.equals("IrCarcel"))
-                info = "{Casilla de ir a la cárcel.}";
-            else if (this.nombre.equals("Parking")) {
-                String jugenparking = new String();
-                for (Avatar av : avatares)
-                    jugenparking += av.getJugador().getNombre() + " ";
-                info = """
-                        Bote: %f
-                        Jugadores: %s
-                        """.formatted(this.duenho.getGastos(), "[" + jugenparking + "]");
-            } else if (this.nombre.equals("Carcel")) {
-                String jugencarcel = new String();
-                for (Avatar av : avatares) {
-                    if (av.getJugador().getEnCarcel()) {
-                        jugencarcel += av.getJugador().getNombre() + " lleva " + av.getJugador().getTurnosCarcel()
-                                + " turnos aquí";
-                    }
-                }
-                info = """
-                        Salir: %.2f
-                        Jugadores: %s
-                        """.formatted(Valor.PAGO_SALIR_CARCEL, "[" + jugencarcel + "]");
-            }
-        } else if (this.tipo.equals("transporte")) { // Aquí hay que poner si tiene dueño. Poner valor y cuánto cuesta
-                                                     // caer ahí
-            info = """
-                    {
-                    Nombre: %s
-                    Tipo: transporte
-                    Propietario: %s
-                    Valor: %f
-                    Impuesto: %f
-                    }""".formatted(nombre, duenho.getNombre(), valor, impuesto);
-        } else if (this.tipo.equals("serv")) { // Idem transportes
-            info = """
-                    {
-                    Nombre: %s
-                    Tipo: servicios
-                    Propietario: %s
-                    Valor: %f
-                    Impuesto: %f
-                    }""".formatted(nombre, duenho.getNombre(), valor, impuesto);
-        } else if (this.tipo.equals("caja")) {
-            info = """
-                    Nombre: %s
-                    Tipo: comunidad
-                    """.formatted(nombre);
-        } else if (this.tipo.equals("suerte")) {
-            info = """
-                    Nombre: %s
-                    Tipo: suerte
-                    """.formatted(nombre);
-        } else if (this.tipo.equals("impuestos")) {
-            info = """
-                    Nombre: %s
-                    Tipo: impuestos
-                    Impuestos: %f
-                    """.formatted(nombre, impuesto);
-        } else {
-            Juego.consola.imprimir("Esa casilla no existe.");
-        }
-        return info;
-    }
 
     /*
      * Método para mostrar información de una casilla en venta.
@@ -592,407 +279,8 @@ public abstract class Casilla {
         return Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET;
     }
 
-    /* check return if x is true, else print message to stderr and raise an error */
-    private void check(Boolean x, String msg) {
-        if (!x) {
-            System.err.println(msg);
-            System.exit(1);
-        }
-    }
-
-    //PROPIEDAD
-    /*public boolean esComprable(Jugador jugador) {
-
-        return (this.duenho.esBanca()
-                && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv"))
-                && jugador.getAvatar().getCasilla().equals(this));
-    }*/
-
-    //PROPIEDAD
-    /*
-     * Esta funcion permite comprobar si la casilla que se quiere comprar pertenece
-     * al array de casillas por las que la pelota cayo
-     */
-    /*public boolean esComprable(ArrayList<Casilla> casillas) {
-
-        return (this.duenho.esBanca()
-                && (this.tipo.equals("solar") || this.tipo.equals("transporte") || this.tipo.equals("serv")) &&
-                casillas.contains(this));
-    }*/
-
     @Override
     public String toString() {
         return this.nombre;
-    }
-
-    public int obtenerNumeroCasas() {
-        int ret = 0;
-        for (Edificio e : this.edificios) {
-            if (e.getTipo().equals("Casa"))
-                ret += 1;
-        }
-        return ret;
-    }
-
-    public int obtenerNumeroHoteles() {
-        int ret = 0;
-        for (Edificio e : this.edificios) {
-            if (e.getTipo().equals("Hotel"))
-                ret += 1;
-        }
-        return ret;
-    }
-
-    public int obtenerNumeroPiscinas() {
-        int ret = 0;
-        for (Edificio e : this.edificios) {
-            if (e.getTipo().equals("Piscina"))
-                ret += 1;
-        }
-        return ret;
-    }
-
-    public int obtenerNumeroPistasDeporte() {
-        int ret = 0;
-        for (Edificio e : this.edificios) {
-            if (e.getTipo().equals("Pista de deportes"))
-                ret += 1;
-        }
-        return ret;
-    }
-
-    private boolean getCasillaEdificable() {
-
-        if (this.grupo.getNumCasillas() == 2) {
-
-            return !(this.grupo.obtenerNumCasasGrupo() == 2 && this.grupo.obtenerNumHotelesGrupo() == 2
-                    && this.grupo.obtenerNumPiscinasGrupo() == 2 && this.grupo.obtenerNumPistasGrupo() == 2);
-
-        }
-
-        return !(this.grupo.obtenerNumCasasGrupo() == 3 && this.grupo.obtenerNumHotelesGrupo() == 3
-                && this.grupo.obtenerNumPiscinasGrupo() == 3 && this.grupo.obtenerNumPistasGrupo() == 3);
-    }
-
-    private boolean esConstruible(Jugador duenhoGrupo) {
-
-        int numero_veces_caidas = this.caidasEnCasilla[duenhoGrupo.getAvatar().getTurno()];
-        return ((this.grupo.esDuenhoGrupo(duenhoGrupo) || numero_veces_caidas > 2)
-                && this.getDuenho().equals(duenhoGrupo));
-
-    }
-    // Se cumplen los requisitos para construir?
-
-    private boolean esCasaEdificable() {
-
-        if (this.obtenerNumeroHoteles() < 2)
-            return (this.obtenerNumeroCasas() < 4 && this.getCasillaEdificable());
-
-        return (this.obtenerNumeroCasas() < 2 && this.getCasillaEdificable());
-    }
-
-    private boolean esHotelEdificable() {
-
-        if (this.grupo.getNumCasillas() == 2)
-            return (this.obtenerNumeroCasas() == 4 && this.getCasillaEdificable() && this.obtenerNumeroHoteles() < 2);
-
-        return (this.obtenerNumeroCasas() == 4 && this.getCasillaEdificable() && this.obtenerNumeroHoteles() < 3);
-
-    }
-
-    private boolean esPiscinaEdificable() {
-
-        if (this.grupo.getNumCasillas() == 2)
-            return (this.obtenerNumeroCasas() >= 2 && this.obtenerNumeroHoteles() >= 1 && this.getCasillaEdificable()
-                    && this.obtenerNumeroPiscinas() < 2);
-
-        return (this.obtenerNumeroCasas() >= 2 && this.obtenerNumeroHoteles() >= 1 && this.getCasillaEdificable()
-                && this.obtenerNumeroPiscinas() < 3);
-    }
-
-    private boolean esPistaEdificable() {
-
-        if (this.grupo.getNumCasillas() == 2)
-            return (this.obtenerNumeroHoteles() >= 2 && this.getCasillaEdificable()
-                    && this.obtenerNumeroPistasDeporte() < 2);
-
-        return (this.obtenerNumeroHoteles() >= 2 && this.getCasillaEdificable()
-                && this.obtenerNumeroPistasDeporte() < 3);
-    }
-
-    public void listar_edificios_casilla() {
-
-        for (Edificio e : this.edificios) {
-
-            Juego.consola.imprimir(e.toString());
-
-        }
-
-    }
-
-    public String listar_nombres_edificios() {
-        String ret = new String();
-        for (Edificio e : this.edificios) {
-            ret += e.getID();
-            ret += ", ";
-        }
-        return ret;
-    }
-
-    // Para casillas edificadas, recalcula el impuesto cada vez que se conestruye un
-    // edificio
-    public void actualizarValorCasilla() {
-
-        if (this.edificios.size() == 0) {
-            return;
-        }
-
-        int numeroCasas = this.obtenerNumeroCasas();
-        int numeroHoteles = this.obtenerNumeroHoteles();
-        int numeroPiscinas = this.obtenerNumeroPiscinas();
-        int numeroPistas = this.obtenerNumeroPistasDeporte();
-
-        float nuevoImpuestoCasas = 0f;
-        float nuevoImpuestoHoteles = 0f;
-        float nuevoImpuestoPiscinas = 0f;
-        float nuevoImpuestoPistas = 0f;
-
-        float alquilerinicial = this.grupo.getValor();
-
-        if (this.grupo.esDuenhoGrupo(this.getDuenho()))
-            alquilerinicial *= 2;
-
-        if (numeroCasas == 1) {
-            nuevoImpuestoCasas = 5 * alquilerinicial;
-        }
-
-        if (numeroCasas == 2) {
-            nuevoImpuestoCasas = 15 * alquilerinicial;
-
-        }
-        if (numeroCasas == 3) {
-            nuevoImpuestoCasas = 35 * alquilerinicial;
-        }
-
-        if (numeroCasas == 4) {
-            nuevoImpuestoCasas = 50 * alquilerinicial;
-        }
-
-        if (numeroHoteles >= 1) {
-            nuevoImpuestoHoteles = 70 * alquilerinicial * numeroHoteles;
-        }
-
-        if (numeroPiscinas >= 1) {
-            nuevoImpuestoPiscinas = 25 * alquilerinicial * numeroPiscinas;
-        }
-
-        if (numeroPistas >= 1) {
-            nuevoImpuestoPistas = 25 * alquilerinicial * numeroPistas;
-        }
-
-        this.setImpuesto(alquilerinicial + nuevoImpuestoCasas + nuevoImpuestoHoteles + nuevoImpuestoPiscinas
-                + nuevoImpuestoPistas);
-    }
-
-    public void edificar(String tipo, Jugador duenhoGrupo) {
-        // Aumentar el alquiler de la casilla dependiendo de la
-        // edificación
-        if (!this.tipo.equals("solar")) {
-
-            Juego.consola.imprimir("Solo se puede edificar en Solares!");
-            return;
-        }
-
-        if (esConstruible(duenhoGrupo)) {
-
-            switch (tipo) {
-                case "Casa": // Como máximo puede haver 4 casas
-
-                    if (this.esCasaEdificable()) {
-
-                        Edificio Casa = new Casa(this);
-                        if (duenhoGrupo.getFortuna() >= Casa.getPrecio()) {
-                            this.edificios.add(Casa);
-
-                            duenhoGrupo.sumarFortuna(-Casa.getPrecio());
-
-                            Valor.NumeroCasasConstruidas++;
-
-                            duenhoGrupo.setDineroInvertido(duenhoGrupo.getDineroInvertido() + Casa.getPrecio());
-
-                            Juego.consola
-                                    .imprimir("Se ha edificado una casa en " + this.getNombre() + ". La fortuna de "
-                                            + duenhoGrupo.getNombre() + " se reduce en " + Casa.getPrecio());
-                        } else
-                            Juego.consola.imprimir("No tienes suficiente fortuna, necesitas " + Casa.getPrecio());
-                        return;
-
-                    }
-
-                    Juego.consola.imprimir("No puedes edificar una Casa en estos momentos.");
-                    break;
-
-                case "Hotel": // Solo se puede construir un hotel si hay 4 casas
-                              // Además las casas serán eliminadas
-
-                    int removed = 0;
-                    if (this.esHotelEdificable()) {
-                        Edificio Hotel = new Hotel(this);
-                        if (duenhoGrupo.getFortuna() >= Hotel.getPrecio()) {
-                            do
-                                for (Edificio e : this.edificios) {
-                                    if (e.getTipo().equals("Casa")) {
-                                        this.edificios.remove(e);
-                                        removed++;
-                                        break;
-                                    }
-
-                                }
-                            while (removed < 4);
-
-                            this.edificios.add(Hotel);
-                            duenhoGrupo.sumarFortuna(-Hotel.getPrecio());
-
-                            Valor.NumeroHotelesConstruidos++;
-
-                            duenhoGrupo.setDineroInvertido(duenhoGrupo.getDineroInvertido() + Hotel.getPrecio());
-
-                            Juego.consola.imprimir("Se ha edificado un hotel en " + this.getNombre() + "La fortuna de "
-                                    + duenhoGrupo.getNombre() + " se reduce en " + Hotel.getPrecio());
-                        } else
-                            Juego.consola.imprimir("No tienes suficiente fortuna, necesitas " + Hotel.getPrecio());
-                        return;
-                    }
-                    Juego.consola.imprimir("No puedes edificar un Hotel en estos momentos.");
-                    break;
-
-                case "Piscina": // Numero de hoteles >= 1
-                                // Numero de casas >= 2
-                    if (this.esPiscinaEdificable()) {
-
-                        Edificio Piscina = new Piscina(this);
-                        if (duenhoGrupo.getFortuna() >= Piscina.getPrecio()) {
-
-                            this.edificios.add(Piscina);
-                            duenhoGrupo.sumarFortuna(-Piscina.getPrecio());
-
-                            Valor.NumeroPiscinasConstruidas++;
-
-                            duenhoGrupo.setDineroInvertido(duenhoGrupo.getDineroInvertido() + Piscina.getPrecio());
-
-                            Juego.consola
-                                    .imprimir("Se ha edificado una piscina en " + this.getNombre() + "La fortuna de "
-                                            + duenhoGrupo.getNombre() + " se reduce en " + Piscina.getPrecio());
-                        } else
-                            Juego.consola.imprimir("No tienes suficiente fortuna, necesitas " + Piscina.getPrecio());
-                        return;
-
-                    }
-                    Juego.consola.imprimir("No puedes edificar una Piscina en estos momentos.");
-                    break;
-
-                case "Pista": // Numero de hoteles >= 2
-                    if (this.esPistaEdificable()) {
-
-                        Edificio Pista = new PistaDeporte(this);
-                        if (duenhoGrupo.getFortuna() >= Pista.getPrecio()) {
-                            this.edificios.add(Pista);
-                            duenhoGrupo.sumarFortuna(-Pista.getPrecio());
-
-                            Valor.NumeroPistasConstruidos++;
-
-                            duenhoGrupo.setDineroInvertido(duenhoGrupo.getDineroInvertido() + Pista.getPrecio());
-
-                            Juego.consola.imprimir(
-                                    "Se ha edificado una Pista de Deportes en " + this.getNombre() + "La fortuna de "
-                                            + duenhoGrupo.getNombre() + " se reduce en " + Pista.getPrecio());
-                        } else
-                            Juego.consola.imprimir("No tienes suficiente fortuna, necesitas " + Pista.getPrecio());
-                        return;
-                    }
-
-                    Juego.consola.imprimir("No puedes edificar una Pista de deportes en estos momentos.");
-                    break;
-
-                default:
-
-                    Juego.consola.imprimir("Tipo incorrecto!");
-                    break;
-            }
-
-        }
-
-    }
-
-    public void desEdificar(String tipoEdificio, Jugador duenhoEdificio, String n) {
-
-        switch (tipoEdificio) {
-            case "Casa":
-                if (Integer.parseInt(n) > this.obtenerNumeroCasas()) {
-
-                    Juego.consola
-                            .imprimir("No tienes suficientes casas construidas! Total: " + this.obtenerNumeroCasas());
-                    return;
-                }
-                break;
-
-            case "Hotel":
-                if (Integer.parseInt(n) > this.obtenerNumeroHoteles()) {
-                    Juego.consola.imprimir(
-                            "No tienes suficientes Hoteles construidao! Total: " + this.obtenerNumeroHoteles());
-                    return;
-                }
-                break;
-
-            case "Piscina":
-                if (Integer.parseInt(n) > this.obtenerNumeroPiscinas()) {
-                    Juego.consola.imprimir(
-                            "No tienes suficientes Piscinas construidas! Total: " + this.obtenerNumeroPiscinas());
-                    return;
-                }
-                break;
-
-            case "Pista":
-                tipoEdificio = "Pista de deportes";
-                if (Integer.parseInt(n) > this.obtenerNumeroPistasDeporte()) {
-                    Juego.consola.imprimir(
-                            "No tienes suficientes Pistas construidas! Total: " + this.obtenerNumeroPistasDeporte());
-                    return;
-                }
-                break;
-
-            default:
-                Juego.consola.imprimir("Tipo incorrecto! (Es con mayuscula)");
-                return;
-        }
-
-        float fortuna_anhadida = 0f;
-
-        Iterator<Edificio> it = this.edificios.iterator();
-        int numeroeliminados = 0;
-
-        while (it.hasNext() && numeroeliminados < Integer.parseInt(n)) {
-
-            Edificio e = it.next();
-            if (e.getTipo().equals(tipoEdificio)) {
-
-                fortuna_anhadida += (e.getPrecio() / 2f);
-                it.remove();
-                numeroeliminados++;
-
-            }
-
-        }
-
-        duenhoEdificio.sumarFortuna(fortuna_anhadida);
-
-        Juego.consola.imprimir(
-                duenhoEdificio.getNombre() + " ha vendido " + n + " " + tipoEdificio + " en " + this.getNombre()
-                        + ", recibiendo " + fortuna_anhadida + " Su fortuna actual es " + duenhoEdificio.getFortuna());
-    }
-
-    public void desEdificar() {
-
-        this.edificios.clear();
     }
 }
