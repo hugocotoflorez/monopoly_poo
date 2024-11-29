@@ -73,6 +73,7 @@ public abstract class Propiedad extends Casilla {
         return this.duenho.equals(jugador);
     }
 
+
     public void comprarCasilla(Jugador solicitante, Jugador banca) {
         /*
          * si llamas a esto no eres la pelota, por lo que el resto de argumentos
@@ -80,6 +81,7 @@ public abstract class Propiedad extends Casilla {
          */
         comprarCasilla(solicitante, banca, false, null);
     }
+
     public void comprarCasilla(Jugador solicitante, Jugador banca, boolean movAv, ArrayList<Casilla> casVis){ //TODO excepcion
         if (solicitante.getFortuna() < this.valor){
             Juego.consola.imprimir("No tienes suficiente fortuna. Necesitas " + this.valor);
@@ -100,6 +102,8 @@ public abstract class Propiedad extends Casilla {
             Juego.consola.imprimir("Su fortuna actual es " + solicitante.getFortuna());
         }
     }
+
+
 
     //TODO Excepciones
     //TODO te tiene que hacer solvente
@@ -147,6 +151,8 @@ public abstract class Propiedad extends Casilla {
     }
 
 
+
+
     public abstract float calcularAlquiler(int tirada);
 
     public void cobrarAlquiler(Jugador actual){
@@ -161,6 +167,8 @@ public abstract class Propiedad extends Casilla {
         this.recaudado += this.alquiler;
     }
 
+
+    
     @Override
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada){
         if(!this.duenho.equals(actual)){

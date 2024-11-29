@@ -1,7 +1,7 @@
 package monopoly.Casilla.Propiedad;
 
 import monopoly.Valor;
-import monopoly.Edificio.Edificio;
+import monopoly.Edificio.*;
 import partida.Jugador;
 
 import java.util.ArrayList;
@@ -19,6 +19,7 @@ public class Solar extends Propiedad{
         this.edificios = new ArrayList<Edificio>();
     }
 
+    //GETTERS Y SETTERS -------------
     public Grupo getGrupo(){
         return this.grupo;
     }
@@ -32,6 +33,8 @@ public class Solar extends Propiedad{
     }
 
     //No hay setter de edificios por que se manipula (añaden y quitan edificios) con las funciones de arraylist
+
+    //---------------------------------
 
     @Override
     public void hipotecar(Jugador solicitante){
@@ -55,7 +58,7 @@ public class Solar extends Propiedad{
         float nuevoImpuestoPiscinas = 0f;
         float nuevoImpuestoPistas = 0f;
 
-        float alquilerinicial = this.grupo.getValor();
+        float alquilerinicial = this.grupo.getValor()*0.10f;
 
         if (this.grupo.esDuenhoGrupo(this.getDuenho()))
             alquilerinicial *= 2;
@@ -123,47 +126,80 @@ public class Solar extends Propiedad{
     }
 
 
-    //EDIFICIOS !
+    //EDIFICIOS -------------------------------------
     
     
     public int obtenerNumeroCasas(){
-
+        int ret = 0;
+        for (Edificio e : this.edificios){
+            if( e instanceof Casa) ret ++;
+        }
+        return ret;
     }
 
     public int obtenerNumeroHoteles(){
-
+        int ret = 0;
+        for (Edificio e : this.edificios){
+            if( e instanceof Hotel) ret ++;
+        }
+        return ret;
     }
 
     public int obtenerNumeroPiscinas(){
-
+        int ret = 0;
+        for (Edificio e : this.edificios){
+            if( e instanceof Piscina) ret ++;
+        }
+        return ret;
     }
 
     public int obtenerNumeroPistasDeporte(){
-
+        int ret = 0;
+        for (Edificio e : this.edificios){
+            if( e instanceof PistaDeporte) ret ++;
+        }
+        return ret;
     }
 
     private boolean estaEnMaximoEdificios(){
 
+        return false;
     }
 
-    private boolean esEdificable(){
-
+    private boolean puedeEdificar(Jugador solicitante){
+        int numero_veces_caidas = this.getCaidasEnCasilla()[solicitante.getAvatar().getTurno()];
+        return ((this.getGrupo().esDuenhoGrupo(solicitante) || numero_veces_caidas > 2) && this.getDuenho().equals(solicitante));
     }
 
     private boolean esCasaEdificable(){
+        int casas_grupo = this.getGrupo().obtenerNumCasasGrupo();
+        int casas_solar = this.obtenerNumeroCasas();
+        int hoteles_grupo = this.getGrupo().obtenerNumHotelesGrupo();
+        int max = this.getGrupo().getNumCasillas();
 
+        if (hoteles_grupo < max) return (casas_solar < 4); //Si aún no hay el máximo de hoteles (2 o 3), puedo edificar hasta 4 casas
+        else return (casas_grupo < max); //Si ya tengo el máximo de hoteles, sólo puedo edificar hasta el máximo de casas (2 o 3)
     }
 
     private boolean esHotelEdificable(){
+        int casas_grupo = this.getGrupo().obtenerNumCasasGrupo();
+        int casas_solar = this.obtenerNumeroCasas();
+        int hoteles_grupo = this.getGrupo().obtenerNumHotelesGrupo();
+        int max = this.getGrupo().getNumCasillas();
 
+        if (hoteles_grupo < max - 1) return (casas_solar == 4); //Si aún puedo construir más hoteles sin llegar al máximo, adelante
+        if (hoteles_grupo < max) return (casas_grupo - 4 <= max && casas_solar == 4); //Si al siguiente hotel que construya llego al máximo, sólo puedo si no hay el máximo de casas
+        else return false;
     }
 
     private boolean esPiscinaEdificable(){
-
+        int max = this.getGrupo().getNumCasillas();
+        return (this.obtenerNumeroCasas() >= 2 && this.obtenerNumeroHoteles() >= 1 && this.obtenerNumeroPiscinas() < max);
     }
 
     private boolean esPistaDeporteEdificable(){
-
+        int max = this.getGrupo().getNumCasillas();
+        return (this.obtenerNumeroHoteles() >= 2 && this.obtenerNumeroPistasDeporte() < max);
     }
 
     public void listar_info_edificios(){
@@ -181,8 +217,74 @@ public class Solar extends Propiedad{
         return ret;
     }
 
-    public void edificar(String tipo, Jugador solicitante){
+    //TODO excepciones
+    private void pagar_edificio(Jugador solicitante, Edificio edificio){
+        if (solicitante.getFortuna() >= edificio.getPrecio()){
+            this.edificios.add(edificio);
+            solicitante.sumarFortuna(-edificio.getPrecio());
+            solicitante.setDineroInvertido(solicitante.getDineroInvertido() + edificio.getPrecio());
 
+            Juego.consola.imprimir("Se ha edificado " + edificio.getID() + " en " + this.getNombre() + " por " + edificio.getPrecio());
+            Juego.consola.imprimir("La fortuna de " + solicitante.getNombre() + "pasa de " + (solicitante.getFortuna() + edificio.getPrecio()) + " a " + solicitante.getFortuna());
+        }
+        else Juego.consola.imprimir("No tienes suficiente fortuna, tienes " + solicitante.getFortuna() + " y necesitas " + edificio.getPrecio());
+    }
+
+    //TODO excepciones
+    public void edificar(String tipo, Jugador solicitante){
+        if (!this.puedeEdificar(solicitante)) Juego.consola.imprimir("No puedes edificar en esta casilla.");
+        
+        else{
+            switch (tipo){
+                case "casa":
+                    if (this.esCasaEdificable()){
+                        Casa casa = new Casa(this);
+                        pagar_edificio(solicitante, casa);
+                        Valor.NumeroCasasConstruidas++;
+                    }
+                    else {
+                        Juego.consola.imprimir("No puedes edificar una casa ahora mismo.");
+                        Juego.consola.imprimir("Asegúrate de que el número de casas no supera el máximo.");
+                    }
+                    break;
+
+                case "hotel":
+                    if (this.esHotelEdificable()){
+                        Hotel hotel = new Hotel(this);
+                        pagar_edificio(solicitante, hotel);
+                        Valor.NumeroHotelesConstruidos++;
+                    }
+                    else {
+                        Juego.consola.imprimir("No puedes edificar un hotel ahora mismo.");
+                        Juego.consola.imprimir("Asegúrate de que el número de hoteles no supera el número de solares en el grupo y de que hay 4 casas en este solar.");
+                    }
+                    break;
+
+                case "piscina":
+                    if (this.esPiscinaEdificable()){
+                        Piscina piscina = new Piscina(this);
+                        pagar_edificio(solicitante, piscina);
+                        Valor.NumeroPiscinasConstruidas++;
+                    }
+                    else {
+                        Juego.consola.imprimir("No puedes edificar una piscina ahora mismo.");
+                        Juego.consola.imprimir("Asegúrate de que el número de piscinas no supera el número de solares en el grupo y de que hay al menos 1 hotel y 2 casas en este solar.");
+                    }
+                    break;
+
+                case "pista":
+                    if(this.esPistaDeporteEdificable()){
+                        PistaDeporte pista = new PistaDeporte(this);
+                        pagar_edificio(solicitante, pista);
+                        Valor.NumeroPistasConstruidos++;
+                    }
+                    else {
+                        Juego.consola.imprimir("No puedes edificar una pista de deportes ahora mismo.");
+                        Juego.consola.imprimir("Asegúrate de que el número de pistas de deporte no supera el número de solares en el grupo y de hay al menos 2 hoteles en este solar.");
+                    }
+                    break;
+            }
+        }
     }
 
     public void desedificar(String tipo, Jugador solicitante, String num){
