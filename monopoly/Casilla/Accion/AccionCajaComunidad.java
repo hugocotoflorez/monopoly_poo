@@ -1,5 +1,5 @@
 package monopoly.Casilla.Accion;
 
-public class AccionCajaComunidad {
+public class AccionCajaComunidad extends Accion {
 
 }

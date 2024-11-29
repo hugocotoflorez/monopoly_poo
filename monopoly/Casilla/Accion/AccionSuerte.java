@@ -1,5 +1,5 @@
 package monopoly.Casilla.Accion;
 
-public class AccionSuerte {
+public class AccionSuerte extends Accion{
 
 }

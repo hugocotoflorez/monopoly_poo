@@ -15,7 +15,7 @@ public class Servicio extends Propiedad{
     }
 
     @Override
-    public String infoCasilla(){
+    public String infoCasilla(Jugador banca){
         String info = new String();
         info = """
                 {

@@ -2,7 +2,7 @@ package monopoly.Casilla.Propiedad;
 
 import monopoly.Valor;
 import monopoly.Edificio.*;
-import partida.Jugador;
+import partida.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -42,7 +42,7 @@ public class Solar extends Propiedad{
         if (this.edificios.size() != 0){ //TODO excepcion
             Juego.consola.imprimir("Debes vender los edificios de esta propiedad antes de hipotecarla.");
             Juego.consola.imprimir("Edificios de esta propiedad: ");
-            this.listar_edificios_casilla();
+            this.listar_nombre_edificios();
         }
         else super.hipotecar(solicitante);
     }
@@ -93,7 +93,7 @@ public class Solar extends Propiedad{
     }
 
     @Override
-    public String infoCasilla(){
+    public String infoCasilla(Jugador banca){
         String info = new String();
 
         float alquilerbase = this.getGrupo().getValor();
@@ -120,7 +120,7 @@ public class Solar extends Propiedad{
                 Alquiler pista de deporte: %f
                 }
                 """.formatted(this.getNombre(), this.grupo.getID(), this.getDuenho().getNombre(), this.getValor(), this.calcularAlquiler(0),
-                this.listar_nombres_edificios(), alquilerbase * 0.60f, alquilerbase * 0.60f,
+                this.listar_nombre_edificios(), alquilerbase * 0.60f, alquilerbase * 0.60f,
                 alquilerbase * 0.40f, alquilerbase * 1.25f, alquilerbase * 5f, alquilerbase * 15f, alquilerbase * 35f, alquilerbase * 50f,
                 alquilerbase * 70f, alquilerbase * 25f, alquilerbase * 25f);
         return info;
@@ -160,11 +160,6 @@ public class Solar extends Propiedad{
             if( e instanceof PistaDeporte) ret ++;
         }
         return ret;
-    }
-
-    private boolean estaEnMaximoEdificios(){
-
-        return false;
     }
 
     private boolean puedeEdificar(Jugador solicitante){

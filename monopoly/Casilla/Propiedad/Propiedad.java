@@ -185,5 +185,5 @@ public abstract class Propiedad extends Casilla {
     }
 
     @Override
-    public abstract String infoCasilla();
+    public abstract String infoCasilla(Jugador banca);
 }

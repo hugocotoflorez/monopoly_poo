@@ -55,6 +55,10 @@ public abstract class Casilla {
         return this.caidasEnCasilla;
     }
 
+    public ArrayList<Avatar> getAvatares(){
+        return this.avatares;
+    }
+
     //--------------------
 
     public void setNombre(String nombre) {
@@ -64,6 +68,8 @@ public abstract class Casilla {
     public void setPosicion(int pos) {
         this.posicion = pos;
     }
+
+    //No hay setters para caidas en casilla y avatares porque se manejan como arrays
 
     //--------------------------------------------------------
 
@@ -234,7 +240,7 @@ public abstract class Casilla {
         return actual.getFortuna() > 0;
 
     }*/
-    
+
     public void eliminarAvatarCasilla(String ID) { // Elimina un avatar de la lista de avatares dado su ID
 
         for (int i = 0; i < avatares.size(); i++) {
@@ -248,7 +254,7 @@ public abstract class Casilla {
         this.avatares.add(avatar);
     }
 
-    public abstract String infoCasilla();
+    public abstract String infoCasilla(Jugador banca);
 
     /*
      * Método para mostrar información de una casilla en venta.
