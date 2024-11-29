@@ -2,6 +2,11 @@ package monopoly;
 
 //
 import partida.*;
+import monopoly.Casilla.*;
+import monopoly.Casilla.Accion.*;
+import monopoly.Casilla.Especial.*;
+import monopoly.Casilla.Impuesto.*;
+import monopoly.Casilla.Propiedad.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -101,15 +106,15 @@ public class Tablero {
     // Método para insertar las casillas del lado norte.
     private void insertarLadoNorte() {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
-        lado.add(new Especial("Parking", 21, banca));
+        lado.add(new Parking("Parking", 21, banca));
         lado.add(new Solar("Solar12", 22, Valor.GRUPO_5, banca));
-        lado.add(new Suerte("Suerte2", 23, banca));
+        lado.add(new AccionSuerte("Suerte2", 23, banca));
         lado.add(new Solar("Solar13", 24, Valor.GRUPO_5, banca));
         lado.add(new Solar("Solar14", 25, Valor.GRUPO_5, banca));
         lado.add(new Transporte("Trans3", 26, Valor.TRANSPORTES, banca));
         lado.add(new Solar("Solar15", 27, Valor.GRUPO_6, banca));
         lado.add(new Solar("Solar16", 28, Valor.GRUPO_6, banca));
-        lado.add(new Serv("Serv2", 29, Valor.SERVICIOS, banca));
+        lado.add(new Servicio("Serv2", 29, Valor.SERVICIOS, banca));
         lado.add(new Solar("Solar17", 30, Valor.GRUPO_6, banca));
 
         // lado.get(1).setImpuesto(Valor.GRUPO_5*0.10f);
@@ -132,14 +137,15 @@ public class Tablero {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
         lado.add(new Especial("Salida", 1, banca));
         lado.add(new Solar("Solar1", 2, Valor.GRUPO_1, banca));
-        lado.add(new Caja("Caja", 3, banca));
+        lado.add(new AccionCajaComunidad("Caja", 3, banca));
         lado.add(new Solar("Solar2", 4, Valor.GRUPO_1, banca));
         lado.add(new Impuesto("Impt1", 5, Valor.IMPUESTOS1, banca));
         lado.add(new Transporte("Trans1", 6, Valor.TRANSPORTES, banca));
         lado.add(new Solar("Solar3", 7, Valor.GRUPO_2, banca));
-        lado.add(new Suerte("Suerte", 8, banca));
+        lado.add(new AccionSuerte("Suerte", 8, banca));
         lado.add(new Solar("Sola", 9, Valor.GRUPO_2, banca));
         lado.add(new Solar("Solar5", 10, Valor.GRUPO_2, banca));
+
         lado.get(4).setImpuesto(Valor.IMPUESTOS1);
         lado.get(5).setImpuesto(Valor.IMPUESTOS_TRANSPORTES);
         Grupo G1 = new Grupo(lado.get(1), lado.get(3), Valor.COLOR_G1, "Negro");
@@ -155,12 +161,12 @@ public class Tablero {
         ArrayList<Casilla> lado = new ArrayList<Casilla>();
         lado.add(new Especial("Carcel", 11, banca));
         lado.add(new Solar("Solar6", 12, Valor.GRUPO_3, banca));
-        lado.add(new Serv("Serv1", 13, Valor.SERVICIOS, banca));
+        lado.add(new Servicio("Serv1", 13, Valor.SERVICIOS, banca));
         lado.add(new Solar("Solar7", 14, Valor.GRUPO_3, banca));
         lado.add(new Solar("Solar8", 15, Valor.GRUPO_3, banca));
         lado.add(new Transporte("Trans2", 16, Valor.TRANSPORTES, banca));
         lado.add(new Solar("Solar9", 17, Valor.GRUPO_4, banca));
-        lado.add(new Caja("Caja", 18, banca));
+        lado.add(new AccionCajaComunidad("Caja", 18, banca));
         lado.add(new Solar("Solar10", 19, Valor.GRUPO_4, banca));
         lado.add(new Solar("Solar11", 20, Valor.GRUPO_4, banca));
         // lado.get(1).setImpuesto(Valor.GRUPO_3*0.10f);
@@ -184,10 +190,10 @@ public class Tablero {
         lado.add(new Especial("IrCarcel", 31, banca));
         lado.add(new Solar("Solar18", 32, Valor.GRUPO_7, banca));
         lado.add(new Solar("Solar19", 33, Valor.GRUPO_7, banca));
-        lado.add(new Caja("Caja", 34, banca));
+        lado.add(new AccionCajaComunidad("Caja", 34, banca));
         lado.add(new Solar("Solar20", 35, Valor.GRUPO_7, banca));
         lado.add(new Transporte("Trans4", 36, Valor.TRANSPORTES, banca));
-        lado.add(new Suerte("Suerte3", 37, banca));
+        lado.add(new AccionSuerte("Suerte3", 37, banca));
         lado.add(new Solar("Solar21", 38, Valor.GRUPO_8, banca));
         lado.add(new Impuesto("Impt2", 39, Valor.IMPUESTOS2, banca));
         lado.add(new Solar("Solar22", 40, Valor.GRUPO_8, banca));

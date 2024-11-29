@@ -3,6 +3,7 @@ package partida.Carta;
 import java.util.ArrayList;
 
 import monopoly.Casilla.*;
+import monopoly.*;
 import partida.Jugador;
 import partida.Avatar.*;
 
@@ -46,6 +47,21 @@ public class Comunidad extends Carta {
                 return accComm6(av, jugadores);
         }
         return false;
+    }
+
+
+    public static boolean elegirCarta(Avatar avatar, ArrayList<Jugador>jugadores, Tablero tablero) {
+        int n;
+
+        do {
+            n = Juego.consola.leerInt("Elige una carta del 1 al 6: ");
+
+        } while (n < 1 || n > 6);
+
+        // Carta.barajar(baraja);
+        Comunidad c = obtenerCarta(n);
+        c.mostrarDescipcion();
+        return c.realizarAccion(avatar, jugadores, tablero.getPosiciones());
     }
 
     private boolean accComm1(Avatar av, ArrayList<Jugador> jugadores) {

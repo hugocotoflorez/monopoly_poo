@@ -85,4 +85,5 @@ public abstract class Carta {
 
     public abstract boolean realizarAccion(Avatar av, ArrayList<Jugador> jugadores,
             ArrayList<ArrayList<Casilla>> casillas);
+
 }

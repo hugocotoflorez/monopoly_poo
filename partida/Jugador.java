@@ -3,6 +3,8 @@ package partida;
 import java.util.ArrayList;
 import monopoly.*;
 import monopoly.Casilla.Casilla;
+import monopoly.Casilla.Propiedad.Servicio;
+import monopoly.Casilla.Propiedad.Transporte;
 import monopoly.Edificio.Edificio;
 import partida.Avatar.*;
 
@@ -273,7 +275,7 @@ public class Jugador {
     public int cuantosservicios() {
         int i = 0;
         for (Casilla c : this.propiedades) {
-            if (c.getTipo().equals("serv"))
+            if (c instanceof Servicio)
                 ++i;
         }
         return i;
@@ -286,7 +288,7 @@ public class Jugador {
     public int cuantostransportes() {
         int i = 0;
         for (Casilla c : this.propiedades) {
-            if (c.getTipo().equals("transporte"))
+            if (c instanceof Transporte)
                 ++i;
         }
         return i;
@@ -303,9 +305,14 @@ public class Jugador {
                     Cobro por premios, inversiones o  bote: %f
                     Veces en la cárcel: %d
                 }
-                """.formatted(this.dineroInvertido, this.pagoTasasEImpuestos, this.pagoDeAlquileres,
-                this.cobroDeAlquileres, this.pasarPorCasillaDeSalida, this.premiosInversionesOBote,
-                this.vecesEnLaCarcel);
+                """.formatted(
+                    this.dineroInvertido,
+                    this.pagoTasasEImpuestos,
+                    this.pagoDeAlquileres,
+                    this.cobroDeAlquileres,
+                    this.pasarPorCasillaDeSalida,
+                    this.premiosInversionesOBote,
+                    this.vecesEnLaCarcel);
         return ret;
     }
 
@@ -384,7 +391,7 @@ public class Jugador {
     }
     public boolean puedeHacerTrato(Casilla casilla, float dinero){
 
-        return (puedeHacerTrato(casilla) && puedeHacerTrato(dinero)); 
+        return (puedeHacerTrato(casilla) && puedeHacerTrato(dinero));
 
     }
 }
