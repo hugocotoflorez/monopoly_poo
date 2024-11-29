@@ -2,10 +2,9 @@ package partida;
 
 import java.util.ArrayList;
 import monopoly.*;
-import monopoly.Casilla.Casilla;
-import monopoly.Casilla.Propiedad.Servicio;
-import monopoly.Casilla.Propiedad.Transporte;
-import monopoly.Edificio.Edificio;
+import monopoly.Casilla.*;
+import monopoly.Casilla.Propiedad.*;
+import monopoly.Edificio.*;
 import partida.Avatar.*;
 
 public class Jugador {
@@ -20,7 +19,7 @@ public class Jugador {
                                // para intentar salir (se usa para limitar el numero de intentos).
     private int turnoscarcel;
     private int vueltas = 0; // Cuenta las vueltas dadas al tablero.
-    private ArrayList<Casilla> propiedades = new ArrayList<Casilla>(); // Propiedades que posee el jugador.
+    private ArrayList<Propiedad> propiedades = new ArrayList<Propiedad>(); // Propiedades que posee el jugador.
     private int tirada;
     private int numerotiradas = 0;
 
@@ -151,7 +150,7 @@ public class Jugador {
         return this.tirada;
     }
 
-    public ArrayList<Casilla> getPropiedades() {
+    public ArrayList<Propiedad> getPropiedades() {
         return this.propiedades;
     }
 
@@ -215,12 +214,12 @@ public class Jugador {
 
     // Método para añadir una propiedad al jugador. Como parámetro, la casilla a
     // añadir.
-    public void anhadirPropiedad(Casilla casilla) {
+    public void anhadirPropiedad(Propiedad casilla) {
         this.propiedades.add(casilla);
     }
 
     // Método para eliminar una propiedad del arraylist de propiedades de jugador.
-    public void eliminarPropiedad(Casilla casilla) {
+    public void eliminarPropiedad(Propiedad casilla) {
         if (this.propiedades.contains(casilla)) {
             this.propiedades.remove(casilla);
         }
@@ -274,7 +273,7 @@ public class Jugador {
      */
     public int cuantosservicios() {
         int i = 0;
-        for (Casilla c : this.propiedades) {
+        for (Propiedad c : this.propiedades) {
             if (c instanceof Servicio)
                 ++i;
         }
@@ -287,7 +286,7 @@ public class Jugador {
      */
     public int cuantostransportes() {
         int i = 0;
-        for (Casilla c : this.propiedades) {
+        for (Propiedad c : this.propiedades) {
             if (c instanceof Transporte)
                 ++i;
         }
@@ -320,14 +319,14 @@ public class Jugador {
         String ret = new String();
         ret += "[";
 
-        for (Casilla c : this.propiedades) {
-
-            if (c.getEdificios() != null) {
-                for (Edificio e : c.getEdificios()) {
+        for (Propiedad c : this.propiedades) {
+            if (c instanceof Solar){
+                Solar s = (Solar) c;
+                for (Edificio e : s.getEdificios()){
                     ret += e.getID();
-
                     ret += ", ";
                 }
+
             }
 
         }
@@ -340,16 +339,16 @@ public class Jugador {
     private String printHipotecas() {
         String ret = new String();
         ret += "[";
-
-        for (Casilla c : this.propiedades) {
-            if (c.getHipotecada()) {
-                ret += c.getNombre();
-                ret += ", ";
+        for (Propiedad c : this.propiedades) {
+            if (c instanceof Solar){
+                Solar s = (Solar) c;
+                if (s.getHipotecada()){
+                    ret += s.getNombre();
+                    ret += ", ";
+                }
             }
-
         }
         ret += "]";
-
         return ret;
     }
 
@@ -370,15 +369,18 @@ public class Jugador {
     public float score() {
         float ret = 0;
         ret += this.fortuna;
-        for (Casilla c : propiedades) {
+        for (Propiedad c : propiedades) {
             ret += c.getValor();
-            for (Edificio e : c.getEdificios())
-                ret += e.getPrecio();
+            if (c instanceof Solar){
+                Solar s = (Solar) c;
+                for (Edificio e: s.getEdificios()) 
+                    ret += e.getPrecio();
+            }
         }
         return ret;
     }
 
-    public boolean puedeHacerTrato(Casilla casilla){
+    public boolean puedeHacerTrato(Propiedad casilla){
 
         return this.propiedades.contains(casilla);
 
@@ -389,7 +391,7 @@ public class Jugador {
         return (this.fortuna >= dinero);
 
     }
-    public boolean puedeHacerTrato(Casilla casilla, float dinero){
+    public boolean puedeHacerTrato(Propiedad casilla, float dinero){
 
         return (puedeHacerTrato(casilla) && puedeHacerTrato(dinero));
 
