@@ -252,7 +252,20 @@ public class Solar extends Propiedad{
                     if (this.esHotelEdificable()){
                         Hotel hotel = new Hotel(this);
                         pagar_edificio(solicitante, hotel);
+
                         Valor.NumeroHotelesConstruidos++;
+                        
+                        //Quitar 4 casas
+                        int quitadas = 0;
+                        do{
+                            for (Edificio e : this.edificios){
+                                if (e instanceof Casa){
+                                    this.edificios.remove(e);
+                                    quitadas++;
+                                    break;
+                                }
+                            }
+                        } while (quitadas < 4);
                     }
                     else {
                         Juego.consola.imprimir("No puedes edificar un hotel ahora mismo.");
