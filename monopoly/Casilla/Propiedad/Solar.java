@@ -213,6 +213,22 @@ public class Solar extends Propiedad{
         return ret;
     }
 
+    public String listar_nombre_edificios_tipo(String tipo) {
+
+        String ret = new String();
+
+        ret += "[ ";
+
+        for (Edificio e : this.edificios)
+            if (e.getID().contains(tipo))
+                ret += e.getID() + ", ";
+
+        ret += " ]\n";
+
+        return ret;
+
+    }
+
     //TODO excepciones
     private void pagar_edificio(Jugador solicitante, Edificio edificio){
         if (solicitante.getFortuna() >= edificio.getPrecio()){

@@ -4,13 +4,15 @@ package monopoly;
 import partida.*;
 import java.util.ArrayList;
 
-import monopoly.Casilla.Casilla;
+import monopoly.Casilla.*;
+import monopoly.Casilla.Propiedad.*;
+import monopoly.Edificio.Edificio;
 
 public class Grupo {
 
     // Atributos
     String ID;
-    private ArrayList<Casilla> miembros; // Casillas miembros del grupo.
+    private ArrayList<Solar> miembros; // Casillas miembros del grupo.
     private String colorGrupo; // Color del grupo
     private int numCasillas; // Número de casillas del grupo.
 
@@ -22,8 +24,8 @@ public class Grupo {
      * Constructor para cuando el grupo está formado por DOS CASILLAS:
      * Requiere como parámetros las dos casillas miembro y el color del grupo.
      */
-    public Grupo(Casilla cas1, Casilla cas2, String colorGrupo, String ID) {
-        this.miembros = new ArrayList<Casilla>();
+    public Grupo(Solar cas1, Solar cas2, String colorGrupo, String ID) {
+        this.miembros = new ArrayList<Solar>();
         this.miembros.add(cas1);
         this.miembros.add(cas2);
         this.colorGrupo = colorGrupo;
@@ -37,8 +39,8 @@ public class Grupo {
      * Constructor para cuando el grupo está formado por TRES CASILLAS:
      * Requiere como parámetros las tres casillas miembro y el color del grupo.
      */
-    public Grupo(Casilla cas1, Casilla cas2, Casilla cas3, String colorGrupo, String ID) {
-        this.miembros = new ArrayList<Casilla>();
+    public Grupo(Solar cas1, Solar cas2, Solar cas3, String colorGrupo, String ID) {
+        this.miembros = new ArrayList<Solar>();
         this.miembros.add(cas1);
         this.miembros.add(cas2);
         this.miembros.add(cas3);
@@ -51,7 +53,7 @@ public class Grupo {
     }
 
     // GETTERS
-    public ArrayList<Casilla> getMiembros() {
+    public ArrayList<Solar> getMiembros() {
         return this.miembros;
     }
 
@@ -71,13 +73,9 @@ public class Grupo {
     public int obtenerNumCasasGrupo(){
 
         int ret = 0;
-
-        for(int i = 0; i < this.numCasillas; i++){
-
-            ret += this.getMiembros().get(i).obtenerNumeroCasas();
-        
+        for(Solar s : this.miembros){
+            ret += s.obtenerNumeroCasas();
         }
-
         return ret;
 
     }
@@ -85,13 +83,9 @@ public class Grupo {
     public int obtenerNumHotelesGrupo(){
 
         int ret = 0;
-        
-        for(int i = 0; i < this.numCasillas; i++){
-
-            ret += this.getMiembros().get(i).obtenerNumeroHoteles();
-        
+        for(Solar s : this.miembros){
+            ret += s.obtenerNumeroHoteles();
         }
-
         return ret;
 
     }
@@ -99,13 +93,9 @@ public class Grupo {
     public int obtenerNumPistasGrupo(){
 
         int ret = 0;
-        
-        for(int i = 0; i < this.numCasillas; i++){
-
-            ret += this.getMiembros().get(i).obtenerNumeroPistasDeporte();
-        
+        for(Solar s : this.miembros){
+            ret += s.obtenerNumeroPistasDeporte();
         }
-
         return ret;
 
     }
@@ -113,13 +103,9 @@ public class Grupo {
     public int obtenerNumPiscinasGrupo(){
 
         int ret = 0;
-        
-        for(int i = 0; i < this.numCasillas; i++){
-
-            ret += this.getMiembros().get(i).obtenerNumeroPiscinas();
-        
+        for(Solar s : this.miembros){
+            ret += s.obtenerNumeroPiscinas();
         }
-
         return ret;
 
     }
@@ -130,7 +116,7 @@ public class Grupo {
      * Método que añade una casilla al array de casillas miembro de un grupo.
      * Parámetro: casilla que se quiere añadir.
      */
-    public void anhadirCasilla(Casilla miembro) {
+    public void anhadirCasilla(Solar miembro) {
         this.miembros.add(miembro);
         this.numCasillas += 1;
     }
@@ -148,7 +134,7 @@ public class Grupo {
      */
     public boolean esDuenhoGrupo(Jugador jugador) {
         if (!jugador.esBanca()){
-            for (Casilla c : this.miembros) {
+            for (Solar c : this.miembros) {
                 if (c.getDuenho() != jugador) {
                     return false;
                 }
@@ -160,56 +146,25 @@ public class Grupo {
     // Función devuelve el total de recaudados de un grupo de un color en concreto
     public float totalRecaudado() {
         float ret = 0;
-        for (Casilla c : this.miembros) {
+        for (Solar c : this.miembros) {
             ret += c.getRecaudado();
         }
         return ret;
     }
 
     @Override
-
     public String toString() {
-
-        /*
-         * EJEMPLO DE REPRESENTACIÓN
-         *
-         * {
-         * propiedad: Solar18,
-         * hoteles: [hotel-1]
-         * casas: [casa-1],
-         * piscinas: [piscina-1],
-         * pistasDeDeporte: -
-         * alquiler: 8000000
-         * },
-         * {
-         * propiedad: Solar20,
-         * hoteles: [hotel-3]
-         * casas: [casa-7],
-         * piscinas: -,
-         * pistasDeDeporte: -,
-         * alquiler: 6500000
-         * }
-         */
-
         String ret = new String();
+
         ret += "{\n";
-
-        for (Casilla c : this.miembros) {
-
+        for (Solar c : this.miembros) {
             ret += ("propiedad: " + c.getNombre());
-
-            ret += ("hoteles: [ " + c.listar_edificios_grupo("Hotel"));
-
-            ret += ("casas: " + c.listar_edificios_grupo("Casa"));
-
-            ret += ("piscinas: " + c.listar_edificios_grupo("Piscina"));
-
-            ret += ("pistasDeDeporte: " + c.listar_edificios_grupo("Pista de deportes"));
-
-            ret += ("alquiler: " + c.getImpuesto());
-
+            ret += ("hoteles: [ " + c.listar_nombre_edificios_tipo("Hotel"));
+            ret += ("casas: " + c.listar_nombre_edificios_tipo("Casa"));
+            ret += ("piscinas: " + c.listar_nombre_edificios_tipo("Piscina"));
+            ret += ("pistasDeDeporte: " + c.listar_nombre_edificios_tipo("Pista de deportes"));
+            ret += ("alquiler: " + c.getAlquiler());
         }
-
         ret += "}\n";
 
         return ret;
@@ -237,14 +192,14 @@ public class Grupo {
         return 0;
     }
 
-        /*
+    /*
      * Función para llamar cuando un jugador tenga todos los solares de un grupo.
      * Duplica su alquiler inicial
      */
     public void actualizarAlquilerGrupo() {
         float valorinicial = this.getValor();
-        for (Casilla m : this.miembros) {
-            m.setImpuesto(valorinicial* 2);
+        for (Propiedad m : this.miembros) {
+            m.setAlquiler(valorinicial* 2);
         }
     }
 }
