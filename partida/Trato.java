@@ -109,27 +109,46 @@ public class Trato {
         }
 
         if (c1 != null && c2 != null) {
+            if (!(c1 instanceof Propiedad)){
+                Juego.consola.imprimirError("La casilla " + c1.getNombre() + "no es una propiedad");
+                return;
+            }
+            if (!(c2 instanceof Propiedad)){
+                Juego.consola.imprimirError("La casilla " + c2.getNombre() + "no es una propiedad");
+                return;
+            }
 
-            if(!c1.getDuenho().equals(proponedor)){
+            Propiedad p1 = (Propiedad) c1;
+            Propiedad p2 = (Propiedad) c2;
+
+            if(!p1.getDuenho().equals(proponedor)){
                 Juego.consola.imprimirError("El jugador " + proponedor.getNombre() + " no es dueño de la Casilla\n");
                 return;
             }
-            if(!c1.getDuenho().equals.(receptor)){
+            if(!p1.getDuenho().equals(receptor)){
 
                 Juego.consola.imprimirError("El jugador " + receptor.getNombre() + " no es dueño de la Casilla\n");
                 return;
                 
             }
 
-            trato(proponedor, receptor, (Propiedad) c1, (Propiedad) c2);
+            trato(proponedor, receptor, p1, p2);
 
         } else if (c1 != null && c2 == null) {
+            if (!(c1 instanceof Propiedad)){
+                Juego.consola.imprimirError("La casilla " + c1.getNombre() + "no es una propiedad");
+                return;
+            }
 
             trato(proponedor, receptor, Float.parseFloat(of1), (Propiedad) c2);
 
         }
 
         else if (c1 == null && c2 != null) {
+            if (!(c2 instanceof Propiedad)){
+                Juego.consola.imprimirError("La casilla " + c1.getNombre() + "no es una propiedad");
+                return;
+            }
 
             trato(proponedor, receptor, (Propiedad) c1, Float.parseFloat(of2));
 

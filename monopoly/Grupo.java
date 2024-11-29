@@ -24,32 +24,32 @@ public class Grupo {
      * Constructor para cuando el grupo está formado por DOS CASILLAS:
      * Requiere como parámetros las dos casillas miembro y el color del grupo.
      */
-    public Grupo(Solar cas1, Solar cas2, String colorGrupo, String ID) {
+    public Grupo(Casilla cas1, Casilla cas2, String colorGrupo, String ID) {
         this.miembros = new ArrayList<Solar>();
-        this.miembros.add(cas1);
-        this.miembros.add(cas2);
+        this.miembros.add((Solar) cas1);
+        this.miembros.add((Solar) cas2);
         this.colorGrupo = colorGrupo;
         this.ID = ID;
         this.numCasillas = 2;
-        cas1.setGrupo(this);
-        cas2.setGrupo(this);
+        ((Solar) cas1).setGrupo(this);
+        ((Solar) cas2).setGrupo(this);
     }
 
     /*
      * Constructor para cuando el grupo está formado por TRES CASILLAS:
      * Requiere como parámetros las tres casillas miembro y el color del grupo.
      */
-    public Grupo(Solar cas1, Solar cas2, Solar cas3, String colorGrupo, String ID) {
+    public Grupo(Casilla cas1, Casilla cas2, Casilla cas3, String colorGrupo, String ID) {
         this.miembros = new ArrayList<Solar>();
-        this.miembros.add(cas1);
-        this.miembros.add(cas2);
-        this.miembros.add(cas3);
+        this.miembros.add((Solar) cas1);
+        this.miembros.add((Solar) cas2);
+        this.miembros.add((Solar) cas3);
         this.colorGrupo = colorGrupo;
         this.ID = ID;
         this.numCasillas = 3;
-        cas1.setGrupo(this);
-        cas2.setGrupo(this);
-        cas3.setGrupo(this);
+        ((Solar) cas1).setGrupo(this);
+        ((Solar) cas2).setGrupo(this);
+        ((Solar) cas3).setGrupo(this);
     }
 
     // GETTERS
