@@ -6,7 +6,7 @@ import monopoly.Valor;
 public class Piscina extends Edificio {
 
     public Piscina(Solar casilla) {
-        super("Piscina-" + Valor.NumeroPiscinasConstruidas, casilla, casilla.getGrupo().getValor()*0.40f);
+        super("piscina-" + Valor.NumeroPiscinasConstruidas, casilla, casilla.getGrupo().getValor()*0.40f);
     }
     
 }

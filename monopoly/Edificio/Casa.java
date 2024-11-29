@@ -6,7 +6,7 @@ import monopoly.Valor;
 public class Casa extends Edificio {
 
     public Casa(Solar casilla) {
-        super("Casa-" + Valor.NumeroCasasConstruidas, casilla, casilla.getGrupo().getValor()*0.60f);
+        super("casa-" + Valor.NumeroCasasConstruidas, casilla, casilla.getGrupo().getValor()*0.60f);
     }
 
 }

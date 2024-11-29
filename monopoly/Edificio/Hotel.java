@@ -6,7 +6,7 @@ import monopoly.Valor;
 public class Hotel extends Edificio {
 
     public Hotel(Solar casilla) {
-        super("Hotel-" + Valor.NumeroHotelesConstruidos, casilla, casilla.getGrupo().getValor()*0.60f);
+        super("hotel-" + Valor.NumeroHotelesConstruidos, casilla, casilla.getGrupo().getValor()*0.60f);
     }
 
 }

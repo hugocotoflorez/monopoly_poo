@@ -5,6 +5,7 @@ import monopoly.Edificio.*;
 import partida.Jugador;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import monopoly.Grupo;
 import monopoly.Juego;
@@ -266,6 +267,7 @@ public class Solar extends Propiedad{
                                 }
                             }
                         } while (quitadas < 4);
+
                     }
                     else {
                         Juego.consola.imprimir("No puedes edificar un hotel ahora mismo.");
@@ -296,12 +298,75 @@ public class Solar extends Propiedad{
                         Juego.consola.imprimir("Asegúrate de que el número de pistas de deporte no supera el número de solares en el grupo y de hay al menos 2 hoteles en este solar.");
                     }
                     break;
+
+                default:
+                    Juego.consola.imprimir("Tipo de edificio incorrecto. Tipos correctos: <casa>, <hotel>, <piscina>, <pista>.");
+                    break;
             }
         }
     }
 
+    //TODO excepciones
     public void desedificar(String tipo, Jugador solicitante, String num){
+        if (!this.getDuenho().equals(solicitante)){
+            Juego.consola.imprimir("No puedes vender edificios de " + this.getNombre() + " porque no te pertenece.");
+            return;
+        }
 
+        int n = Integer.parseInt(num); //TODO poner una excepción NumberFormatException
+
+        switch(tipo){
+            case "casa":
+                if (n > this.obtenerNumeroCasas()){
+                    Juego.consola.imprimir("No hay suficientes casas en el solar. Sólo hay " + this.obtenerNumeroCasas());
+                    return;
+                }
+                break;
+
+            case "hotel":
+                if (n > this.obtenerNumeroHoteles()){
+                    Juego.consola.imprimir("No hay suficientes hoteles en el solar. Sólo hay " + this.obtenerNumeroHoteles());
+                    return;
+                }
+                break;
+
+            case "piscina":
+                if (n > this.obtenerNumeroPiscinas()){
+                    Juego.consola.imprimir("No hay suficientes piscinas en el solar. Sólo hay " + this.obtenerNumeroPiscinas());
+                    return;
+                }
+                break;
+
+            case "pista":
+                if (n > this.obtenerNumeroPiscinas()){
+                    Juego.consola.imprimir("No hay suficientes pistas de deporte en el solar. Sólo hay " + this.obtenerNumeroPistasDeporte());
+                    return;
+                }
+                break;
+
+            default:
+                Juego.consola.imprimir("Tipo de edificio incorrecto. Tipos correctos: <casa>, <hotel>, <piscina>, <pista>.");
+                return;
+        }
+
+        float fortuna_anhadida = 0f;
+        int eliminados = 0;
+        Iterator<Edificio> it = this.edificios.iterator();
+
+        while(it.hasNext() && eliminados < n){
+            Edificio e = it.next();
+            if (e.getID().contains(tipo)){
+                fortuna_anhadida += (e.getPrecio() / 2f);
+                it.remove();
+                eliminados++;
+            }
+        }
+
+        solicitante.sumarFortuna(fortuna_anhadida);
+
+        Juego.consola.imprimir(solicitante.getNombre() + " vende " + n + " " + tipo + "s en" + this.getNombre() + " recibiendo " + fortuna_anhadida);    
+        Juego.consola.imprimir("La fortuna de " + solicitante.getNombre() + "pasa de " + (solicitante.getFortuna() - fortuna_anhadida + " a " + solicitante.getFortuna()));
+        
     }
 
     //Sobrecarga para demoler todos los edificios de una casilla a la vez cuando se cae en bancarrota
