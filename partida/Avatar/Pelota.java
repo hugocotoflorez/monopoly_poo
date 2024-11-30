@@ -29,7 +29,7 @@ public class Pelota extends Avatar {
 
     @Override
     public ArrayList<Casilla> getCasillasVisitadas(){
-        return null;
+        return casillasVisitadas;
     }
 
     public boolean moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) {
