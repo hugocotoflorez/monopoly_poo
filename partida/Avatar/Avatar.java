@@ -79,7 +79,7 @@ public abstract class Avatar {
     }
 
     public void desplazar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-        desplazar(Tablero.obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion() - 1));
+        desplazar(Tablero.obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion()));
     }
 
     public void desplazar(Casilla casilla) {
@@ -151,6 +151,7 @@ public abstract class Avatar {
     public void pasarPorSalidaHaciaAtras(int desplazamiento) {
 
         int casillanueva = casilla.getPosicion();
+        Juego.consola.imprimirln("Casilla actual: " + casilla.getPosicion());
         /*
          * Si la casilla anterior, que se obtiene de sumarle el desplazamiento a la
          * casilla actual porque se va hacia atras, esta fuera de los indices del
