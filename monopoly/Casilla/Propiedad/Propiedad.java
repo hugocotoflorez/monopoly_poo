@@ -16,6 +16,7 @@ public abstract class Propiedad extends Casilla {
     public Propiedad(String nombre, int posicion, float valor, Jugador duenho) {
         super(nombre, posicion);
         this.valor = valor;
+        this.duenho = duenho;
         this.hipoteca = valor/2;
     }
 
@@ -104,7 +105,6 @@ public abstract class Propiedad extends Casilla {
 
 
     //TODO Excepciones
-    //TODO te tiene que hacer solvente
     public void hipotecar(Jugador solicitante){
         if (this.perteneceAJugador(solicitante) && this.hipotecada == false && this.duenho.getEnCarcel() == false){
             solicitante.sumarFortuna(hipoteca);
@@ -169,8 +169,7 @@ public abstract class Propiedad extends Casilla {
 
     @Override
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada){
-        /* TODO: No se porque hay casillas que el dueño es null (Solar5 me dio el segv) */
-        if(this.duenho!=null&& !this.duenho.equals(actual)){
+        if(!this.duenho.esBanca() && !this.duenho.equals(actual)){
             if(!this.hipotecada){
                 calcularAlquiler(tirada);
                 this.setAlquiler(this.calcularAlquiler(tirada));
