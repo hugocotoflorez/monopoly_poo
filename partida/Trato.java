@@ -125,7 +125,7 @@ public class Trato {
                 Juego.consola.imprimirError("El jugador " + proponedor.getNombre() + " no es dueño de la Casilla\n");
                 return;
             }
-            if(!p1.getDuenho().equals(receptor)){
+            if(!p2.getDuenho().equals(receptor)){
 
                 Juego.consola.imprimirError("El jugador " + receptor.getNombre() + " no es dueño de la Casilla\n");
                 return;

@@ -1004,8 +1004,8 @@ public class Juego {
             return;
         }
 
-        /* Para la mierda del coche y la pelota */
-        if (!jugador_puede_comprar && movimientoAvanzado.get(turno - 1)) {
+        /* Para la mierda del coche */
+        if (!jugador_puede_comprar && movimientoAvanzado.get(turno - 1) && avatares.get(turno) instanceof Coche) {
             consola.imprimirln("Ya has comprado en este turno!");
             return;
         }
