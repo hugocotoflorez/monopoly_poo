@@ -202,14 +202,14 @@ public abstract class Avatar {
             if (Suerte.elegirCarta(this, jugadores, tablero)) {
                 pasarPorSalida(tablero, jugadores);
             }
-            return (jugadores.get(turno).estaBancarrota());
+            return (!jugadores.get(turno).estaBancarrota());
         }
 
         if (this.casilla instanceof AccionCajaComunidad) {
             if (Comunidad.elegirCarta(this, jugadores, tablero)) {
                 pasarPorSalida(tablero,jugadores );
             }
-            return (jugadores.get(turno).estaBancarrota());
+            return (!jugadores.get(turno).estaBancarrota());
         }
 
         if (this.casilla instanceof IrCarcel) {

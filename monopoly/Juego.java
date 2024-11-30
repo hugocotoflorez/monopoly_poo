@@ -1053,7 +1053,7 @@ public class Juego {
             for (Casilla c : ac) {
                 if ((c instanceof Propiedad) && ((Propiedad) c).getDuenho().esBanca()) {
                     /*
-                     * TODO Si es instancia de Propiedad es instancia de lo que hay dentro
+                     * Si es instancia de Propiedad es instancia de lo que hay dentro
                      * no? @marina si :)
                      */
                     consola.imprimirln(((Propiedad) c).toString());
@@ -1261,7 +1261,7 @@ public class Juego {
             }
 
             /*
-             * TODO: esto se movio a avatar. Pero tiene que cambiarse el del coche si
+             * : esto se movio a avatar. Pero tiene que cambiarse el del coche si
              * es el coche el que acaba de mover supongo. Va mal de momento. En el
              * coche no se actualizan los valores al acabar el turno creo.
              * Actualizacion: Deberia funcionar ya
