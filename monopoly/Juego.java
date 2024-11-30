@@ -884,8 +884,7 @@ public class Juego {
         this.jugadores.remove(turno);
         this.avatares.remove(turno);
         this.movimientoAvanzado.remove(turno);
-        movimientoAvanzado.set(turno- 1, false);
-        --turno; /* El siguiente jugador del array va a ocupar la posicion del actual */
+        movimientoAvanzado.set(turno - 1, false);
 
         if (this.jugadores.size() == 2) {
             partida_finalizada = true;
@@ -894,6 +893,8 @@ public class Juego {
             // this.turno = 1;
             return;
         }
+        /* Si esto esta a true se puede acabar turno evitando todas las restricciones */
+        es_coche_y_no_puede_tirar = true;
         acabarTurno();
     }
 
