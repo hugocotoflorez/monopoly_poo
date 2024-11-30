@@ -625,8 +625,10 @@ public class Juego {
                     // es solvente, hacer lo que sea
                     evaluarSolvente();
             } else {
-                if (this.avatares.get(turno) instanceof Coche)
+                if (this.avatares.get(turno) instanceof Coche) {
                     tirado = ((Coche) this.avatares.get(turno)).getTirado();
+                    consola.imprimirln("Updating tirado: tirado = " + tirado);
+                }
                 avatares.get(turno).evaluarAccion(valor1 + valor2, jugadores, tablero);
             }
         }
@@ -853,7 +855,7 @@ public class Juego {
     }
 
     private void bancarrota(Jugador banca) {
-        if(!partida_empezada){
+        if (!partida_empezada) {
             consola.imprimirln("No puedes declararte en bancarrota antes de empezar la partida.");
             return;
         }
@@ -1282,10 +1284,12 @@ public class Juego {
                 this.tirado = !c.getse_puede_tirar_en_el_siguiente_turno();
                 c.setse_puede_tirar_en_el_siguiente_turno(c.getse_puede_tirar_en_el_siguiente_turno2());
                 c.setse_puede_tirar_en_el_siguiente_turno2(true);
-                es_coche_y_no_puede_tirar = this.tirado;
 
-            } else
+            } else {
                 this.tirado = false;
+            }
+
+            es_coche_y_no_puede_tirar = this.tirado;
 
         } else if (!partida_empezada) {
             consola.imprimirln("La partida todavia no ha empezado. ");

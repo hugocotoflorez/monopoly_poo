@@ -99,6 +99,7 @@ public class Coche extends Avatar {
             se_puede_tirar_en_el_siguiente_turno = false;
             se_puede_tirar_en_el_siguiente_turno2 = false;
             Juego.consola.imprimirln("No puedes mover en dos turnos!");
+            tirado = true;
         }
         return true;
     }
