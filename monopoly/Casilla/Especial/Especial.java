@@ -1,6 +1,5 @@
 package monopoly.Casilla.Especial;
 
-import monopoly.*;
 import monopoly.Casilla.*;
 import partida.*;
 

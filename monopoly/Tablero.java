@@ -9,8 +9,6 @@ import monopoly.Casilla.Propiedad.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import monopoly.Casilla.Casilla;
-
 public class Tablero {
     // Atributos.
     private ArrayList<ArrayList<Casilla>> posiciones; // Posiciones del tablero: se define como un arraylist de arraylists de casillas (uno por cada lado del tablero).
@@ -320,7 +318,7 @@ public class Tablero {
             for (Casilla c : g.getMiembros()) {
                 if (c instanceof Solar){
                     Solar solar = (Solar) c;
-                    if(solar.getDuenho().esBanca()) 
+                    if(solar.getDuenho().esBanca())
                         solar.setValor(solar.getValor() + solar.getValor()*0.05f);
                 }
             }

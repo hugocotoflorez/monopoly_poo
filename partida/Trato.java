@@ -129,7 +129,7 @@ public class Trato {
 
                 Juego.consola.imprimirError("El jugador " + receptor.getNombre() + " no es dueño de la Casilla\n");
                 return;
-                
+
             }
 
             trato(proponedor, receptor, p1, p2);
@@ -146,6 +146,7 @@ public class Trato {
 
         else if (c1 == null && c2 != null) {
             if (!(c2 instanceof Propiedad)){
+                /* TODO: GUILLE c1 es null no puedes acceder a su nombre */
                 Juego.consola.imprimirError("La casilla " + c1.getNombre() + "no es una propiedad");
                 return;
             }
@@ -169,7 +170,7 @@ public class Trato {
             trato(proponedor, receptor, (Propiedad) c1, (Propiedad) c2, Float.parseFloat(of3));
 
         else if(c1 != null && c2 == null && c3 != null) // Propiedad y dinero por propieadad
-            trato(proponedor,receptor, (Propiedad) c1, Float.parseFloat(of2), (Propiedad) c3);    
+            trato(proponedor,receptor, (Propiedad) c1, Float.parseFloat(of2), (Propiedad) c3);
         else
             Juego.consola.imprimirError("Uso incorrecto < trato Maria: cambiar ( Solar1, Solar14 y 300000 ) >");
     }

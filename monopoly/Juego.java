@@ -7,11 +7,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
-import monopoly.Casilla.Casilla;
-import monopoly.Casilla.Especial.Especial;
-import monopoly.Casilla.Propiedad.Propiedad;
-import monopoly.Casilla.Propiedad.Solar;
-import monopoly.Casilla.Propiedad.Solar;
+import monopoly.Casilla.Propiedad.*;
 import partida.*;
 import partida.Avatar.*;
 import partida.Carta.*;
@@ -1279,19 +1275,19 @@ public class Juego {
 
     }
 
-    private void listarTratos() {
+    //private void listarTratos() {
 
-        for (Trato t : tratos) {
+    //    for (Trato t : tratos) {
 
-            if (t.getReceptor().equals(this.jugadores.get(turno))) {
+    //        if (t.getReceptor().equals(this.jugadores.get(turno))) {
 
-                t.toString();
-                // TODO: creo que falta el printf @guille
+    //            t.toString();
+    //            // TODO: creo que falta el printf @guille
 
-            }
+    //        }
 
-        }
+    //    }
 
-    }
+    //}
 
 }

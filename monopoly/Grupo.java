@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import monopoly.Casilla.*;
 import monopoly.Casilla.Propiedad.*;
-import monopoly.Edificio.Edificio;
 
 public class Grupo {
 
