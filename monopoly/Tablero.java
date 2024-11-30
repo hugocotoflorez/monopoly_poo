@@ -132,7 +132,7 @@ public class Tablero {
         lado.add(new Transporte("Trans1", 6, Valor.TRANSPORTES, banca));
         lado.add(new Solar("Solar3", 7, Valor.GRUPO_2, banca));
         lado.add(new AccionSuerte("Suerte", 8));
-        lado.add(new Solar("Sola", 9, Valor.GRUPO_2, banca));
+        lado.add(new Solar("Solar4", 9, Valor.GRUPO_2, banca));
         lado.add(new Solar("Solar5", 10, Valor.GRUPO_2, banca));
 
         Grupo G1 = new Grupo(lado.get(1), lado.get(3), Valor.COLOR_G1, "Negro");

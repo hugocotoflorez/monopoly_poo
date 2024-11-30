@@ -989,7 +989,7 @@ public class Juego {
                 if ((c instanceof Propiedad) && ((Propiedad) c).getDuenho().esBanca()) {
                     /*
                      * TODO Si es instancia de Propiedad es instancia de lo que hay dentro
-                     * no? @marina
+                     * no? @marina si :)
                      */
                     consola.imprimirln(((Propiedad)c).toString());
                 }
