@@ -89,7 +89,8 @@ public class Comunidad extends Carta {
         /**
          * Colócate en la casilla de Salida. Cobra la cantidad habitual.
          */
-        av.moverAvatar(casillas.get(0).get(0));
+        av.desplazar(casillas.get(0).get(0));
+        /* Se podria pasar por salida desde aqui porque ahora esta en avatar */
         return true;
     }
 
