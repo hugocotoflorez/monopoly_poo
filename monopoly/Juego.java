@@ -32,11 +32,12 @@ public class Juego {
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
     private boolean[] movimientoAvanzado = { false, false, false, false, false, true };
-    private boolean[] se_puede_tirar_en_el_siguiente_turno = { true, true, true, true, true, true };
-    private boolean[] se_puede_tirar_en_el_siguiente_turno2 = { true, true, true, true, true, true };
+    /* Las siguientes variables se movieron a coche (creo)
+     * private boolean[] se_puede_tirar_en_el_siguiente_turno = { true, true, true, true, true, true };
+     * private boolean[] se_puede_tirar_en_el_siguiente_turno2 = { true, true, true, true, true, true };
+     * private int contadorTiradasCoche = 0; */
     private boolean es_coche_y_no_puede_tirar = false;
     private boolean movimientoAvanzadoSePuedeCambiar = true;
-    private int contadorTiradasCoche = 0;
     private boolean jugador_puede_comprar = true;
     private int lanzamientos_dobles = 0;
     private ArrayList<Casilla> casillasVisitadas = new ArrayList<Casilla>();
@@ -1225,6 +1226,7 @@ public class Juego {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
+        // es_coche_y_no_puede_tirar es lo mismo que this.tirado (creo). No lo cambio para no joder nada (mas)
         if (partida_empezada && ((lanzamientos > 0 && this.tirado) || es_coche_y_no_puede_tirar) && this.solvente) {
 
             /* Esto no se donde meterlo, en cada turno se tiene que poner a true */
@@ -1245,32 +1247,38 @@ public class Juego {
             }
 
             /*
-             * Todo: esto se movio a avatar. Pero tiene que cambiarse el del coche si
+             * TODO: esto se movio a avatar. Pero tiene que cambiarse el del coche si
              * es el coche el que acaba de mover supongo. Va mal de momento. En el
              * coche no se actualizan los valores al acabar el turno creo.
+             * Actualizacion: Deberia funcionar ya
              */
 
             if (avatares.get(turno) instanceof Coche) {
                 Coche c = (Coche) avatares.get(turno);
-
                 c.setContadorTiradasCoche(0);
                 this.tirado = !c.getse_puede_tirar_en_el_siguiente_turno();
                 c.setse_puede_tirar_en_el_siguiente_turno(c.getse_puede_tirar_en_el_siguiente_turno2());
                 c.setse_puede_tirar_en_el_siguiente_turno2(true);
                 es_coche_y_no_puede_tirar = this.tirado;
+
             } else
                 this.tirado = false;
 
         } else if (!partida_empezada) {
             consola.imprimirln("La partida todavia no ha empezado. ");
+        }else if (es_coche_y_no_puede_tirar)
+        {
+            consola.imprimirln("No puedes tirar en este turno");
         } else if (!this.tirado) {
             consola.imprimirln("No has lanzado los dados este turno");
         } else if (!this.solvente) {
             consola.imprimirln("No has saldado tus deudas, hipoteca tus propiedades.");
+        }else{
+            consola.imprimirln("No puedes acabar turno");
         }
     }
 
-    // Método que finaliza la partida
+    // Método que finaliza la partida (a la fuerza)
     public static void acabarPartida() {
         consola.imprimirln("Finalizando partida");
         /* Esto es un poco criminal */
