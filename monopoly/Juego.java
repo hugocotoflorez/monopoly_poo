@@ -552,7 +552,7 @@ public class Juego {
         /* Movimiento default */
         if (!movimientoAvanzado[turno - 1]) {
             avatares.get(turno).moverNormal(tablero, valor1, valor2, jugadores);
-            avatares.get(turno).evaluarAccion(valor1 + valor2, jugadores, tablero);
+            solvente = avatares.get(turno).evaluarAccion(valor1 + valor2, jugadores, tablero);
 
         } else {
             /*
