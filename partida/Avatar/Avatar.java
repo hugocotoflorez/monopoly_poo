@@ -148,7 +148,7 @@ public abstract class Avatar {
     public abstract String getInfo();
 
     //TODO esto te puede dejar en bancarrota
-    public void pasarPorSalidaHaciaAtras(int desplazamiento) {
+    public boolean pasarPorSalidaHaciaAtras(int desplazamiento) {
 
         int casillanueva = casilla.getPosicion();
         /*
@@ -158,12 +158,14 @@ public abstract class Avatar {
          */
         if ((casillanueva + desplazamiento >= 40)) {
 
-            Juego.consola.imprimirln("¡Has pasado por la Salida hacia atrás! Perdiste" + Valor.SUMA_VUELTA);
+            Juego.consola.imprimirln("¡Has pasado por la Salida hacia atrás! Perdiste " + Valor.SUMA_VUELTA);
             jugador.sumarFortuna(-Valor.SUMA_VUELTA);
+            Juego.consola.imprimirln("Tu fortuna actual es: " + jugador.getFortuna());
             if (jugador.getVueltas() != 0) jugador.setVueltas(jugador.getVueltas() - 1);
             jugador.setPasarPorCasillaDeSalida(jugador.getPasarPorCasillaDeSalida() - Valor.SUMA_VUELTA);
             Juego.consola.imprimirln("Llevas " + jugador.getVueltas() + " vueltas.");
         }
+        return(!jugador.estaBancarrota());
     }
 
     /*

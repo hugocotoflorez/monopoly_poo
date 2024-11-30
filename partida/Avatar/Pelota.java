@@ -83,8 +83,8 @@ public class Pelota extends Avatar {
             // retroceder
             moverAtras(tablero, valor1, valor2);
             // Comprueba si pasa por salida hacia atras
-            pasarPorSalidaHaciaAtras(valor1 + valor2);
-            evaluarAccion(valor1 + valor2, jugadores, tablero);
+            solvente &= pasarPorSalidaHaciaAtras(valor1 + valor2);
+            solvente &= evaluarAccion(valor1 + valor2, jugadores, tablero);
             return solvente;
         }
     }
