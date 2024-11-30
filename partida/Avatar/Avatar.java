@@ -79,7 +79,7 @@ public abstract class Avatar {
     }
 
     public void desplazar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-        desplazar(Tablero.obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion() - 1));
+        desplazar(Tablero.obtenerCasilla(casillas, (valorTirada + this.casilla.getPosicion() - 1)%40 ));
     }
 
     public void desplazar(Casilla casilla) {
@@ -122,13 +122,14 @@ public abstract class Avatar {
     }
 
     private void comprobarSiPasasPorSalida(Tablero tablero, int desplazamiento, ArrayList<Jugador> jugadores) {
-        int casillanueva = casilla.getPosicion();
+        int casillanueva = casilla.getPosicion()-1;
         /*
          * Si estas en una casilla que la posicion de la casilla es menor que
          * la tirada quiere decir que pasaste por salida. Por ejemplo, si desde la
          * salida 0 me muevo 5 caigo en la casilla 5, por lo que para que sea menor tuve
          * que moverme desde una casilla de antes de la salida.
          */
+        Juego.consola.imprimirln("Deberia ser true si pasa por salida: "+casillanueva+" < "+desplazamiento);
         if ((casillanueva < desplazamiento)) {
             pasarPorSalida(tablero, jugadores);
         }
