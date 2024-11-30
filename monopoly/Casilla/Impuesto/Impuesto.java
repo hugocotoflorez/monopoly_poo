@@ -17,6 +17,7 @@ public class Impuesto extends Casilla{
     }
 
     public void setImpuesto(float impuesto){
+        if (impuesto>0)
         this.impuesto = impuesto;
     }
 

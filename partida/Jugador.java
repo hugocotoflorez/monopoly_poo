@@ -166,51 +166,61 @@ public class Jugador {
     }
 
     public void setEnCarcel(boolean enCarcel) {
-
         this.enCarcel = enCarcel;
     }
 
     public void setTurnosCarcel(int turnos) {
+        if (turnos >= 0)
         this.turnoscarcel = turnos;
     }
 
     public void setVueltas(int vueltas) {
+        if (vueltas >= 0)
         this.vueltas = vueltas;
     }
 
     public void setDineroInvertido(float valor) {
+        if (valor >= 0)
         this.dineroInvertido = valor;
     }
 
     public void setPagoTasasEImpuestos(float valor) {
+        if (valor >= 0)
         this.pagoTasasEImpuestos = valor;
     }
 
     public void setPagoDeAlquileres(float valor) {
+        if (valor >= 0)
         this.pagoDeAlquileres = valor;
     }
 
     public void setCobroDeAlquileres(float valor) {
+        if (valor >= 0)
         this.cobroDeAlquileres = valor;
     }
 
     public void setPasarPorCasillaDeSalida(float valor) {
+        if (valor >= 0)
         this.pasarPorCasillaDeSalida = valor;
     }
 
     public void setPremiosInversionesOBote(float valor) {
+        if (valor >= 0)
         this.premiosInversionesOBote = valor;
     }
 
     public void setVecesEnLaCarcel(int valor) {
+        if (valor >= 0)
         this.vecesEnLaCarcel = valor;
     }
 
     public void setNumeroTiradas(int valor) {
+        if (valor >= 0)
         this.numerotiradas = valor;
     }
 
     public void setTirada(int tirada) {
+        if (tirada >= 0)
         this.tirada = tirada;
     }
 

@@ -67,6 +67,7 @@ public abstract class Avatar {
     }
 
     public void setTurno(int turno) {
+        if(turno >= 0)
         this.turno = turno;
     }
 
@@ -106,7 +107,7 @@ public abstract class Avatar {
         }
 
         if ((jugador.getVueltas() == vueltasmin) && (vueltasmin % 4 == 0)) {
-            Juego.consola.imprimirln("Todos los jugadores han dado un múltiplo de 4 vueltas, se va a incrementar el precio de los solares en un 10%.");
+            Juego.consola.imprimirln("Todos los jugadores han dado un múltiplo de 4 vueltas, se va a incrementar el precio de los solares en un 5%.");
             tablero.actualizarValorSolares();
         }
     }

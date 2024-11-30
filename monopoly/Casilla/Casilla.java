@@ -44,7 +44,6 @@ public abstract class Casilla {
     }
 
     public int getPosicion() {
-
         return this.posicion;
     }
 
@@ -63,6 +62,7 @@ public abstract class Casilla {
     }
 
     public void setPosicion(int pos) {
+        if(posicion >= 0 && posicion < 40)
         this.posicion = pos;
     }
 
@@ -107,136 +107,6 @@ public abstract class Casilla {
      */
     //Sólo dios sabe dónde vamos a meter todo esto
     public abstract boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada);
-    /*public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
-        Casilla c = this;
-        switch (c.getTipo()) {
-            // supuestamente acabado
-            case "solar":
-
-                if (!c.esComprable(actual)) {
-                    // se le resta el impuesto y se lo da al jugador que tiene
-                    // la casilla
-                    if (!this.hipotecada && !this.duenho.equals(actual)) {
-
-                        if (this.grupo.esDuenhoGrupo(this.duenho)) {
-                            Juego.consola.imprimir("El jugador " + this.duenho.getNombre()
-                                    + " ya tiene todos los solares del grupo. Se va a duplicar su alquiler.");
-                            this.grupo.actualizarAlquilerGrupo();
-                        }
-                        c.actualizarValorCasilla();
-
-                        actual.sumarFortuna(-c.getImpuesto());// revisar
-                        c.getDuenho().sumarFortuna(c.getImpuesto());
-
-                        Juego.consola.imprimir("El jugador " + actual.getNombre() + " paga " +
-                                c.getImpuesto() + " a " + c.getDuenho().getNombre());
-
-                        actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
-                        c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
-                        c.recaudado += c.impuesto;
-                    } else if (this.hipotecada)
-                        Juego.consola.imprimir("El jugador " + this.getDuenho().getNombre()
-                                + "no cobra alquiler porque la casilla está hipotecada.");
-
-                    break;
-                }
-                /*
-                 * La opcion de comprar se lleva a cabo
-                 * desde el menu, esta funciona unicamente
-                 * devuelve si se puede comprar o no
-                 */
-                /*Juego.consola.imprimir("Se puede comprar la casilla " + c.getNombre());
-                return true; // se puede comprar
-
-            case "especial":
-                if (this.nombre.equals("Carcel")) {
-                    // no pasa nada
-                    Juego.consola.imprimir("Estás de visita en la cárcel.");
-                }
-                if (this.nombre.equals("Parking")) {
-                    Juego.consola.imprimir("El jugador " + actual.getNombre() + " consigue el bote de la banca de "
-                            + banca.getGastos());
-                    actual.sumarFortuna(banca.getGastos());
-                    actual.setPremiosInversionesOBote(actual.getPremiosInversionesOBote() + banca.getGastos());
-                    banca.resetGastos();
-                    this.setValor(0);
-                }
-                if (this.nombre.equals("IrCarcel")) {
-                    Juego.consola.imprimir("Oh no! Has ido a la Cárcel!");
-                }
-                if (this.nombre.equals("Salida")) {
-                    Juego.consola.imprimir("Has pasado por Salida! Cobra " + Valor.SUMA_VUELTA);
-                }
-
-                break;
-            case "transporte":
-                if (!c.esComprable(actual)) {
-                    if (!this.hipotecada && !this.duenho.equals(actual)) {
-                        float p = c.getDuenho().cuantostransportes() * 0.25f * Valor.IMPUESTOS_TRANSPORTES;
-                        c.setImpuesto(p);
-
-                        actual.sumarFortuna(-c.impuesto);
-                        this.getDuenho().sumarFortuna(c.impuesto);
-                        Juego.consola.imprimir("El jugador " + actual.getNombre() + " paga " +
-                                c.impuesto + " a " + c.getDuenho().getNombre());
-
-                        actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
-                        c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
-                        c.recaudado += c.impuesto;
-                    } else
-                        Juego.consola.imprimir("El jugador " + this.getDuenho()
-                                + "no cobra alquiler porque la casilla está hipotecaada.");
-
-                    break;
-                }
-                Juego.consola.imprimir("Se puede comprar la casilla " + c.getNombre());
-                return true; // se puede comprar
-
-            case "caja":
-            case "suerte":
-                break;
-
-            case "serv":
-                if (!c.esComprable(actual)) {
-                    if (!this.hipotecada && !this.duenho.equals(actual)) {
-                        int s = (c.getDuenho().cuantosservicios() >= 2) ? 10 : 4;
-                        float p = Valor.IMPUESTO_SERVICIOS * s * tirada;
-                        c.setImpuesto(p);
-
-                        actual.sumarFortuna(-c.impuesto);
-                        c.getDuenho().sumarFortuna(c.impuesto);
-                        Juego.consola.imprimir("El jugador " + actual.getNombre() + " paga " +
-                                c.impuesto + " a " + c.getDuenho().getNombre());
-
-                        actual.setPagoDeAlquileres(actual.getPagoDeAlquileres() + c.getImpuesto());
-                        c.getDuenho().setCobroDeAlquileres(c.getDuenho().getCobroDeAlquileres() + c.impuesto);
-                        c.recaudado += c.impuesto;
-                    } else
-                        Juego.consola.imprimir("El jugador " + this.getDuenho()
-                                + "no cobra alquiler porque la casilla está hipotecaada.");
-
-                    break;
-                }
-                Juego.consola.imprimir("Se puede comprar la casilla " + c.getNombre());
-                return true; // se puede comprar
-
-            case "impuestos":
-                Juego.consola.imprimir("Has caído en una casilla de impuestos. Se te va a cobrar " + c.impuesto);
-                actual.sumarFortuna(-c.impuesto);
-                banca.sumarGastos(c.impuesto);
-
-                Juego.consola.imprimir("El bote de la banca ahora es " + banca.getGastos());
-
-                actual.setPagoTasasEImpuestos(actual.getPagoTasasEImpuestos() + c.impuesto);
-                break;
-
-            default:
-                System.err.println("Hugo no añadio el tipo %s a evaluarCasilla");
-
-        }
-        return actual.getFortuna() > 0;
-
-    }*/
 
     public void eliminarAvatarCasilla(String ID) { // Elimina un avatar de la lista de avatares dado su ID
 

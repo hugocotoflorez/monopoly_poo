@@ -51,7 +51,7 @@ public class Grupo {
         ((Solar) cas3).setGrupo(this);
     }
 
-    // GETTERS
+    // GETTERS -------------------
     public ArrayList<Solar> getMiembros() {
         return this.miembros;
     }
@@ -64,10 +64,10 @@ public class Grupo {
         return this.numCasillas;
     }
     public String getID(){
-
         return this.ID;
-
     }
+
+    //No hay setters porque los grupos en principio no se modifican fuera del constructor de tablero
 
     public int obtenerNumCasasGrupo(){
 

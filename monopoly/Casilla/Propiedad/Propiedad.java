@@ -41,9 +41,11 @@ public abstract class Propiedad extends Casilla {
     }
     //-------------------
     public void setValor(float valor){
+        if(valor > 0)
         this.valor = valor;
     }
     public void setAlquiler(float alquiler){
+        if(alquiler > 0)
         this.alquiler = alquiler;
     }
     public void setDuenho(Jugador duenho){
