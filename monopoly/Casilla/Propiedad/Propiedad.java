@@ -178,6 +178,7 @@ public abstract class Propiedad extends Casilla {
             }
             else Juego.consola.imprimirln("El jugador " + this.duenho.getNombre() + "no cobra el alquiler por " + this.getNombre() + "porque está hipotecada.");
         }
+        else if (this.duenho.equals(actual)) Juego.consola.imprimirln("Esta propiedad te pertenece.");
         else Juego.consola.imprimirln("Se puede comprar la casilla " + this.getNombre());
         return true;
     }
