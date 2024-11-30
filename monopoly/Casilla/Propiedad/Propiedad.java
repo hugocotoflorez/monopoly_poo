@@ -174,12 +174,12 @@ public abstract class Propiedad extends Casilla {
                 calcularAlquiler(tirada);
                 this.setAlquiler(this.calcularAlquiler(tirada));
                 cobrarAlquiler(actual);
-                if (actual.estaBancarrota()) return true;
+                if (actual.estaBancarrota()) return false;
             }
             else Juego.consola.imprimirln("El jugador " + this.duenho.getNombre() + "no cobra el alquiler por " + this.getNombre() + "porque está hipotecada.");
         }
         else Juego.consola.imprimirln("Se puede comprar la casilla " + this.getNombre());
-        return false;
+        return true;
     }
 
     @Override
