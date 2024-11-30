@@ -72,7 +72,7 @@ public class Jugador {
                 break;
         }
 
-        this.avatar.setTurno(avCreados.size());
+        this.avatar.setTurno(avCreados.size()-1);
         this.avatar.setLugar(inicio);
         this.fortuna = Valor.FORTUNA_INICIAL;
         this.enCarcel = false;
@@ -376,7 +376,7 @@ public class Jugador {
             ret += c.getValor();
             if (c instanceof Solar){
                 Solar s = (Solar) c;
-                for (Edificio e: s.getEdificios()) 
+                for (Edificio e: s.getEdificios())
                     ret += e.getPrecio();
             }
         }
