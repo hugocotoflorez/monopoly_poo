@@ -61,7 +61,7 @@ public class Solar extends Propiedad{
 
         float alquilerinicial = this.grupo.getValor()*0.10f;
 
-        if (this.grupo.esDuenhoGrupo(this.getDuenho()))
+        if (!this.getDuenho().esBanca() && this.grupo.esDuenhoGrupo(this.getDuenho()))
             alquilerinicial *= 2;
 
         if (numeroCasas == 1) {
