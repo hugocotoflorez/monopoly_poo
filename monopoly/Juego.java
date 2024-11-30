@@ -8,12 +8,15 @@ import java.util.Map;
 import java.util.Set;
 
 import monopoly.Casilla.Casilla;
+import monopoly.Casilla.Especial.Especial;
 import monopoly.Casilla.Propiedad.Propiedad;
+import monopoly.Casilla.Propiedad.Solar;
 import monopoly.Casilla.Propiedad.Solar;
 import partida.*;
 import partida.Avatar.*;
 import partida.Carta.*;
 import monopoly.consola.*;
+import monopoly.Casilla.*;
 
 public class Juego {
 
@@ -134,7 +137,11 @@ public class Juego {
         this.tablero.posicion_salida().anhadirAvatar(jugador.getAvatar());
     }
 
-    // Método para inciar una partida: crea los jugadores y avatares.
+    /* No se porque no funciona */
+    public static String generateColor(String s) {
+        return "\u001B[%dm".formatted(30 + s.chars().sum() % 7) ;
+    }
+
     private void iniciarPartida() {
         this.turno = 1;
         this.dado1 = new Dado();
@@ -153,7 +160,8 @@ public class Juego {
             // Para evitar que se lean comandos que no se de
             // donde salen y den error
             if (partida_empezada)
-                comando = consola.leer("[" + jugadores.get(turno).getNombre() + "]: ");
+                comando = consola.leer("[" + generateColor(jugadores.get(turno).getNombre())
+                        + jugadores.get(turno).getNombre() + "\033[0m]: ");
             else
                 comando = consola.leer("[>]: ");
 
@@ -553,6 +561,7 @@ public class Juego {
              * mover en avanzado tiene que devolver si es solvente. Si lo es y es la pelota,
              * debe llamar a evaluarSolvente() que hace lo que se hace en evaluarAccion.
              * TODO: Hugo
+             * Creo que ya lo hice pero no me acuerdo. No lo probe asi que lo dejo aqui
              */
             boolean solvente = this.avatares.get(turno).moverEnAvanzado(tablero, valor1, valor2, jugadores);
             if (this.avatares.get(turno) instanceof Pelota) {
@@ -696,44 +705,46 @@ public class Juego {
             consola.imprimirln("Se ha desactivado el modo avanzado");
     }
 
-    private void pasarPorSalida() {
-        // !!!!!! si se modifica algo de esto hay que modificarlo tambien en Carta
-        consola.imprimirln("¡Has pasado por la Salida! Ganaste " + Valor.SUMA_VUELTA);
-        jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
-        jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
-        jugadores.get(turno).setPasarPorCasillaDeSalida(
-                jugadores.get(turno).getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
-        consola.imprimirln("Llevas " + jugadores.get(turno).getVueltas() + " vueltas.");
-
-        int vueltasmin = this.jugadores.get(turno).getVueltas();
-
-        for (Jugador j : this.jugadores) {
-            if (!j.esBanca() && j.getVueltas() < vueltasmin) {
-                vueltasmin = j.getVueltas();
-            }
-        }
-
-        if ((this.jugadores.get(turno).getVueltas() == vueltasmin) && (vueltasmin % 4 == 0)) {
-            consola.imprimirln(
-                    "Todos los jugadores han dado un múltiplo de 4 vueltas, se va a incrementar el precio de los solares en un 10%.");
-            this.tablero.actualizarValorSolares();
-        }
-    }
-
+    // private void pasarPorSalida() {
+    // // !!!!!! si se modifica algo de esto hay que modificarlo tambien en Carta
+    // consola.imprimirln("¡Has pasado por la Salida! Ganaste " +
+    // Valor.SUMA_VUELTA);
+    // jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
+    // jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
+    // jugadores.get(turno).setPasarPorCasillaDeSalida(
+    // jugadores.get(turno).getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
+    // consola.imprimirln("Llevas " + jugadores.get(turno).getVueltas() + "
+    // vueltas.");
+    //
+    // int vueltasmin = this.jugadores.get(turno).getVueltas();
+    //
+    // for (Jugador j : this.jugadores) {
+    // if (!j.esBanca() && j.getVueltas() < vueltasmin) {
+    // vueltasmin = j.getVueltas();
+    // }
+    // }
+    //
+    // if ((this.jugadores.get(turno).getVueltas() == vueltasmin) && (vueltasmin % 4
+    // == 0)) {
+    // consola.imprimirln(
+    // "Todos los jugadores han dado un múltiplo de 4 vueltas, se va a incrementar
+    // el precio de los solares en un 10%.");
+    // this.tablero.actualizarValorSolares();
+    // }
+    // }
+    //
     // private void evaluarAccion(int desplazamiento) {
     /// *
     // * En estos casos no se evalua casilla, sino que la accion se realiza
     // * desde aqui. Si esto es un error borrar los else-if pero el de caja y suerte
     // * si que no puede ejecutarse evaluar casilla despues
     // */
-    /// * TODO: marina */
     // if (avatares.get(turno).getCasilla().getTipo().equals("suerte")) {
     // if (Suerte.elegirCarta(avatares.get(turno), jugadores, tablero)) {
     // pasarPorSalida();
     // }
     // }
 
-    /// * TODO: marina */
     // if (avatares.get(turno).getCasilla().getTipo().equals("caja")) {
     // if (Comunidad.elegirCarta(avatares.get(turno), jugadores, tablero)) {
     // pasarPorSalida();
@@ -789,9 +800,8 @@ public class Juego {
                 banca.anhadirPropiedad(c);
                 c.setDuenho(banca);
                 c.setHipotecada(false);
-                if(c instanceof Solar){
+                if (c instanceof Solar)
                     ((Solar) c).desedificar();
-                }
             }
 
             actual.getPropiedades().clear();
@@ -976,11 +986,12 @@ public class Juego {
 
         for (ArrayList<Casilla> ac : tablero.getPosiciones())
             for (Casilla c : ac) {
-                if (c instanceof Propiedad ){
-                    Propiedad p = (Propiedad) c;
-                    if(p.getDuenho().esBanca()){
-                        consola.imprimirln(p.toString());
-                    }
+                if ((c instanceof Propiedad) && ((Propiedad) c).getDuenho().esBanca()) {
+                    /*
+                     * TODO Si es instancia de Propiedad es instancia de lo que hay dentro
+                     * no? @marina
+                     */
+                    consola.imprimirln(((Propiedad)c).toString());
                 }
             }
     }
@@ -1017,7 +1028,6 @@ public class Juego {
                         s.listar_info_edificios();
                     }
             }
-
         }
     }
 
@@ -1048,21 +1058,18 @@ public class Juego {
         float maxrecaudado = 0f;
         for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
             for (Casilla c : Lado) {
-                if (c instanceof Propiedad){
-                    Propiedad p = (Propiedad) c;
-                    if(p.getRecaudado() >= maxrecaudado)
-                        maxrecaudado = p.getRecaudado();
-                }
+                if (c instanceof Propiedad)
+                    if (((Propiedad) c).getRecaudado() >= maxrecaudado)
+                        maxrecaudado = ((Propiedad) c).getRecaudado();
             }
         }
         for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
             for (Casilla c : Lado) {
-                if (c instanceof Propiedad){
-                    Propiedad p = (Propiedad) c;
-                    if(p.getRecaudado() == maxrecaudado)
-                        ret += p.getNombre();
+                if (c instanceof Propiedad)
+                    if (((Propiedad) c).getRecaudado() == maxrecaudado) {
+                        ret += c.getNombre();
                         ret += ", ";
-                }
+                    }
             }
         }
         return ret;
@@ -1253,8 +1260,8 @@ public class Juego {
 
     }
 
-    private void trato(String[] com) { // TODO comprobar dueños de las Propiedades. Hacer cuando se acabe casilla (DENTRO DE TRATO)
-        //TODO si alguien propone un trato y se queda en bancarrota debería desaparecer el trato
+    private void trato(String[] com) { // TODO comprobar dueños de las Propiedades. Hacer cuando se acabe casilla
+                                       // (DENTRO DE TRATO)
 
         if (com.length == 7) {
 
@@ -1279,6 +1286,7 @@ public class Juego {
             if (t.getReceptor().equals(this.jugadores.get(turno))) {
 
                 t.toString();
+                // TODO: creo que falta el printf @guille
 
             }
 

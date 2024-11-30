@@ -272,7 +272,7 @@ public abstract class Casilla {
          * el tablero. Se necesita que sea del mismo tamano que CasillaWidth-1
          */
         if (this instanceof monopoly.Casilla.Propiedad.Solar){
-            return (((monopoly.Casilla.Propiedad.Solar) this).getGrupo() + Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET);
+            return (((monopoly.Casilla.Propiedad.Solar) this).getGrupo().getColor() + Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET);
         }
         else
             return (Valor.WHITE+ Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET);
@@ -281,8 +281,8 @@ public abstract class Casilla {
     public String printAvatares() {
         String data = new String();
         for (Avatar av : this.avatares)
-            data += av.getId() + " ";
-        return Valor.BOLD + data + " ".repeat(casillaWidth - data.length() - 1) + Valor.RESET;
+            data +=Juego.generateColor(av.getJugador().getNombre())+ av.getId() + " \033[0m";
+        return Valor.BOLD + data + " ".repeat(casillaWidth - data.length() + 9*avatares.size()- 1) + Valor.RESET;
     }
 
     @Override

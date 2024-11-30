@@ -168,10 +168,11 @@ public abstract class Propiedad extends Casilla {
     }
 
 
-    
+
     @Override
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada){
-        if(!this.duenho.equals(actual)){
+        /* TODO: No se porque hay casillas que el dueño es null (Solar5 me dio el segv) */
+        if(this.duenho!=null&& !this.duenho.equals(actual)){
             if(!this.hipotecada){
                 calcularAlquiler(tirada);
                 this.setAlquiler(this.calcularAlquiler(tirada));
