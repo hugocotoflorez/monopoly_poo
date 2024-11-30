@@ -129,7 +129,6 @@ public abstract class Avatar {
          * salida 0 me muevo 5 caigo en la casilla 5, por lo que para que sea menor tuve
          * que moverme desde una casilla de antes de la salida.
          */
-        Juego.consola.imprimirln("Deberia ser true si pasa por salida: "+casillanueva+" < "+desplazamiento);
         if ((casillanueva < desplazamiento)) {
             pasarPorSalida(tablero, jugadores);
         }
