@@ -29,6 +29,23 @@ public class Coche extends Avatar {
         se_puede_tirar_en_el_siguiente_turno2 = value;
     };
 
+    public int getContadorTiradasCoche() {
+        return contadorTiradasCoche;
+    }
+
+    public void incContadorTiradasCoche() {
+        ++contadorTiradasCoche;
+    }
+
+    public void setContadorTiradasCoche(int n) {
+        contadorTiradasCoche = n;
+    }
+
+    public boolean getTirado()
+    {
+        return tirado;
+    }
+
     public Coche(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
         super(jugador, lugar, avCreados);
     }
@@ -71,8 +88,8 @@ public class Coche extends Avatar {
             contadorTiradasCoche++;
             tirado = contadorTiradasCoche >= 4;
 
-            Juego.consola.imprimirln("Se puede volver a tirar? " + !tirado);
-            Juego.consola.imprimirln("Tiradas coche = " + contadorTiradasCoche);
+            //Juego.consola.imprimirln("Se puede volver a tirar? " + !tirado);
+            //Juego.consola.imprimirln("Tiradas coche = " + contadorTiradasCoche);
 
         } else {
             contadorTiradasCoche = 1;

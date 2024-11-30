@@ -532,6 +532,10 @@ public class Juego {
         return (valor1 == valor2);
     }
 
+    public boolean getTirado() {
+        return tirado;
+    }
+
     private void lanzarDados() {
 
         this.dado1.hacerTirada();
@@ -559,12 +563,17 @@ public class Juego {
 
             // Pasar por salida ahora se hace en mover
 
+            Coche av_coche = null;
+            if (this.jugadores.get(turno).getAvatar() instanceof Coche)
+                av_coche = (Coche) this.jugadores.get(turno).getAvatar();
+
             if (dadosDobles(valor1, valor2)
                     /* Si esta usando el movimiento avanzado del coche no cuenta */
-                    && (!(this.jugadores.get(turno).getAvatar() instanceof Coche
-                            && movimientoAvanzado[turno - 1]) || contadorTiradasCoche == 4)) {
+                    && (!(av_coche != null && movimientoAvanzado[turno - 1])
+                            || av_coche.getContadorTiradasCoche() == 4)) {
 
-                ++contadorTiradasCoche; // solo puede tirar una vez si saca dobles al final
+                /* TODO no se si se incrementa dos veces y esto sobra */
+                av_coche.incContadorTiradasCoche(); // solo puede tirar una vez si saca dobles al final
                 jugador_puede_comprar = true;
                 this.tirado = false;
                 this.lanzamientos_dobles++;
@@ -586,7 +595,7 @@ public class Juego {
         if (!movimientoAvanzado[turno - 1]) {
             avatares.get(turno).moverNormal(tablero, valor1, valor2, jugadores);
             solvente = avatares.get(turno).evaluarAccion(valor1 + valor2, jugadores, tablero);
-            if(!solvente){
+            if (!solvente) {
                 evaluarSolvente();
             }
 
@@ -602,8 +611,11 @@ public class Juego {
                 if (!solvente)
                     // es solvente, hacer lo que sea
                     evaluarSolvente();
-            } else
+            } else {
+                if (this.avatares.get(turno) instanceof Coche)
+                    tirado = ((Coche) this.avatares.get(turno)).getTirado();
                 avatares.get(turno).evaluarAccion(valor1 + valor2, jugadores, tablero);
+            }
         }
     }
 
@@ -1217,7 +1229,6 @@ public class Juego {
 
             /* Esto no se donde meterlo, en cada turno se tiene que poner a true */
             movimientoAvanzadoSePuedeCambiar = true;
-            contadorTiradasCoche = 0;
             jugador_puede_comprar = true;
             lanzamientos_dobles = 0;
             casillasVisitadas.removeAll(casillasVisitadas); // se borran todas las casillas
@@ -1240,7 +1251,9 @@ public class Juego {
              */
 
             if (avatares.get(turno) instanceof Coche) {
-                Coche c = (Coche)avatares.get(turno);
+                Coche c = (Coche) avatares.get(turno);
+
+                c.setContadorTiradasCoche(0);
                 this.tirado = !c.getse_puede_tirar_en_el_siguiente_turno();
                 c.setse_puede_tirar_en_el_siguiente_turno(c.getse_puede_tirar_en_el_siguiente_turno2());
                 c.setse_puede_tirar_en_el_siguiente_turno2(true);
