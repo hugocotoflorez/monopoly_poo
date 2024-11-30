@@ -152,7 +152,6 @@ public abstract class Avatar {
     public boolean pasarPorSalidaHaciaAtras(int desplazamiento) {
 
         int casillanueva = casilla.getPosicion();
-        Juego.consola.imprimirln("Casilla actual: " + casilla.getPosicion());
         if ((casillanueva - desplazamiento < 0)) {
 
             Juego.consola.imprimirln("¡Has pasado por la Salida hacia atrás! Perdiste " + Valor.SUMA_VUELTA);
