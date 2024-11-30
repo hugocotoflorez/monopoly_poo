@@ -885,12 +885,13 @@ public class Juego {
         this.avatares.remove(turno);
         this.movimientoAvanzado.remove(turno);
         movimientoAvanzado.set(turno - 1, false);
+        this.turno--;
 
         if (this.jugadores.size() == 2) {
             partida_finalizada = true;
             consola.imprimirln("Sólo queda un jugador. La partida ha finalizado.");
             /* Esta linea creo que sobra */
-            // this.turno = 1;
+            this.turno = 1; //Es para q el mensaje del q gane salga bien (creo)
             return;
         }
         /* Si esto esta a true se puede acabar turno evitando todas las restricciones */
