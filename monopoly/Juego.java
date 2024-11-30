@@ -137,7 +137,7 @@ public class Juego {
 
     /* No se porque no funciona */
     public static String generateColor(String s) {
-        return "\u001B[%dm".formatted(30 + s.chars().sum() % 7) ;
+        return "\u001B[%dm".formatted(30 + s.chars().sum() % 7);
     }
 
     private void iniciarPartida() {
@@ -184,39 +184,72 @@ public class Juego {
 
         consola.imprimirln(
                 Valor.BGMENU + Valor.BOLD + "Opciones                                      " + Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "crear jugador <nombre> <tipo_avatar>          " + Valor.BGBLACK+" "+ Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "jugador - jugador con el turno                " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "listar enventa                                " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "listar jugadores                              " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "listar avatares                               " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "lanzar dados                                  " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "cambiar modo                                  " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "acabar - acaba el turno                       " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "salir - salir carcel)                         " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "describir jugador  <nombre>                   " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "describir avatar <letra                       " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "comprar <casilla>                             " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "bancarrota - acaba la partida para ese jugador" + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "ver - muestra el tablero                      " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "clear - limpia la pantalla                    " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "estadisticas <Jugador>                        " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "estadisticas                                  " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "hipotecar <casilla>                           " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "deshipotecar <casilla>                        " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "listar edificios                              " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "listar edificios <grupo>                      " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "edificar <tipo>                               " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "vender <tipo> <solar> <cantidad>              " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "----------------------------------------------" + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "opciones, ? -> Muestra las opciones           " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "a -> acabar                                   " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "empezar partida                               " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "q, SALIR -> acaba la ejecucion del programa   " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "c, clear -> limpia la pantalla                " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "l x y -> lanzar dados, con resultado x e y    " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "default -> crea dos jugadores                 " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "archivo file -> ejecuta comandos en file      " + Valor.BGBLACK+" "+Valor.RESET);
-        consola.imprimirln(Valor.BGMENU + "fortuna <valor>                               " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "crear jugador <nombre> <tipo_avatar>          " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "jugador - jugador con el turno                " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "listar enventa                                " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "listar jugadores                              " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "listar avatares                               " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "lanzar dados                                  " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "cambiar modo                                  " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "acabar - acaba el turno                       " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "salir - salir carcel)                         " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "describir jugador  <nombre>                   " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "describir avatar <letra                       " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "comprar <casilla>                             " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "bancarrota - acaba la partida para ese jugador" + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "ver - muestra el tablero                      " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "clear - limpia la pantalla                    " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "estadisticas <Jugador>                        " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "estadisticas                                  " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "hipotecar <casilla>                           " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "deshipotecar <casilla>                        " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "listar edificios                              " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "listar edificios <grupo>                      " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "edificar <tipo>                               " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "vender <tipo> <solar> <cantidad>              " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "----------------------------------------------" + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "opciones, ? -> Muestra las opciones           " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "a -> acabar                                   " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "empezar partida                               " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "q, SALIR -> acaba la ejecucion del programa   " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "c, clear -> limpia la pantalla                " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "l x y -> lanzar dados, con resultado x e y    " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "default -> crea dos jugadores                 " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "archivo file -> ejecuta comandos en file      " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(
+                Valor.BGMENU + "fortuna <valor>                               " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " + Valor.BGBLACK + "                                              " + Valor.RESET);
 
     }
@@ -796,7 +829,8 @@ public class Juego {
     private void bancarrota(Jugador banca) {
         Jugador actual = this.jugadores.get(turno); // Jugador actual
         Casilla casillaactual = actual.getAvatar().getCasilla();
-        if((!(casillaactual instanceof Propiedad )) || !actual.estaBancarrota()){ //Está en bancarrota por banca o se declaró voluntariamente
+        if ((!(casillaactual instanceof Propiedad)) || !actual.estaBancarrota()) { // Está en bancarrota por banca o se
+                                                                                   // declaró voluntariamente
             for (Propiedad c : actual.getPropiedades()) {
                 banca.anhadirPropiedad(c);
                 c.setDuenho(banca);
@@ -811,11 +845,13 @@ public class Juego {
                     + " se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban y todos sus edificios serán demolidos.");
         }
 
-        if ((casillaactual instanceof Propiedad && !((Propiedad) casillaactual).getDuenho().esBanca())){//Es por otro jugador
+        if ((casillaactual instanceof Propiedad && !((Propiedad) casillaactual).getDuenho().esBanca())) {// Es por otro
+                                                                                                         // jugador
             for (Propiedad c : actual.getPropiedades()) {
                 ((Propiedad) casillaactual).getDuenho().anhadirPropiedad(c);
                 c.setDuenho(((Propiedad) casillaactual).getDuenho());
-                if (c instanceof Solar) ((Solar) c).getEdificios().clear();
+                if (c instanceof Solar)
+                    ((Solar) c).getEdificios().clear();
                 c.setHipotecada(false);
             }
             actual.getPropiedades().clear();
@@ -839,7 +875,7 @@ public class Juego {
 
     private void accionhipotecar(String nombre) {
         Casilla c = this.tablero.encontrar_casilla(nombre);
-        if (c != null && c instanceof Propiedad){
+        if (c != null && c instanceof Propiedad) {
             Propiedad p = (Propiedad) c;
             p.hipotecar(jugadores.get(turno));
 
@@ -943,14 +979,15 @@ public class Juego {
             return;
 
         }
-        if (casilla instanceof Propiedad){
+        if (casilla instanceof Propiedad) {
             Propiedad p = (Propiedad) casilla;
-            if(lanzamientos > 0){
-                p.comprarCasilla(this.jugadores.get(turno), banca, movimientoAvanzado[turno - 1], avatares.get(turno).getCasillasVisitadas());
+            if (lanzamientos > 0) {
+                p.comprarCasilla(this.jugadores.get(turno), banca, movimientoAvanzado[turno - 1],
+                        avatares.get(turno).getCasillasVisitadas());
                 /*
-                * Esta variable se pone a true si los dados son dobles, asi para los que
-                * se mueven mas de una vez o pueden comprar mas de una no les dejan
-                */
+                 * Esta variable se pone a true si los dados son dobles, asi para los que
+                 * se mueven mas de una vez o pueden comprar mas de una no les dejan
+                 */
                 jugador_puede_comprar = false;
             }
         }
@@ -993,7 +1030,7 @@ public class Juego {
                      * TODO Si es instancia de Propiedad es instancia de lo que hay dentro
                      * no? @marina si :)
                      */
-                    consola.imprimirln(((Propiedad)c).toString());
+                    consola.imprimirln(((Propiedad) c).toString());
                 }
             }
     }
@@ -1025,10 +1062,10 @@ public class Juego {
         for (int i = 0; i < 4; i++) {
 
             for (int j = 0; j < 10; j++) {
-                    if (this.tablero.getPosiciones().get(i).get(j) instanceof Solar){
-                        Solar s = (Solar) this.tablero.getPosiciones().get(i).get(j);
-                        s.listar_info_edificios();
-                    }
+                if (this.tablero.getPosiciones().get(i).get(j) instanceof Solar) {
+                    Solar s = (Solar) this.tablero.getPosiciones().get(i).get(j);
+                    s.listar_info_edificios();
+                }
             }
         }
     }
@@ -1202,10 +1239,14 @@ public class Juego {
              * coche no se actualizan los valores al acabar el turno creo.
              */
 
-            this.tirado = !se_puede_tirar_en_el_siguiente_turno[turno - 1];
-            se_puede_tirar_en_el_siguiente_turno[turno - 1] = se_puede_tirar_en_el_siguiente_turno2[turno - 1];
-            se_puede_tirar_en_el_siguiente_turno2[turno - 1] = true;
-            es_coche_y_no_puede_tirar = this.tirado;
+            if (avatares.get(turno) instanceof Coche) {
+                Coche c = (Coche)avatares.get(turno);
+                this.tirado = !c.getse_puede_tirar_en_el_siguiente_turno();
+                c.setse_puede_tirar_en_el_siguiente_turno(c.getse_puede_tirar_en_el_siguiente_turno2());
+                c.setse_puede_tirar_en_el_siguiente_turno2(true);
+                es_coche_y_no_puede_tirar = this.tirado;
+            } else
+                this.tirado = false;
 
         } else if (!partida_empezada) {
             consola.imprimirln("La partida todavia no ha empezado. ");
@@ -1226,10 +1267,10 @@ public class Juego {
     // FUNCIONES PARA EDIFICAR
     private void edificar(String tipo) {
         Casilla c = this.jugadores.get(turno).getAvatar().getCasilla();
-        if (c instanceof Solar){
+        if (c instanceof Solar) {
             ((Solar) c).edificar(tipo, this.jugadores.get(this.turno));
-        }
-        else consola.imprimirln("No puedes edificar en esta casilla.");
+        } else
+            consola.imprimirln("No puedes edificar en esta casilla.");
     }
 
     private void desedificar(String casilla, String tipoedificio, String n) {
@@ -1241,14 +1282,14 @@ public class Juego {
             return;
         }
 
-        if (c instanceof Solar){
+        if (c instanceof Solar) {
             ((Solar) c).desedificar(tipoedificio, this.jugadores.get(turno), n);
             if (!jugadores.get(turno).estaBancarrota()) {
                 solvente = true;
             } else
                 consola.imprimirln("Aún no has saldado tus deudas.");
-        }
-        else consola.imprimirln("No puedes desedificar en esta casilla.");
+        } else
+            consola.imprimirln("No puedes desedificar en esta casilla.");
     }
 
     Jugador obtenerJugadorDadoNombre(String nombreJugador) {
@@ -1281,19 +1322,19 @@ public class Juego {
 
     }
 
-    //private void listarTratos() {
+    // private void listarTratos() {
 
-    //    for (Trato t : tratos) {
+    // for (Trato t : tratos) {
 
-    //        if (t.getReceptor().equals(this.jugadores.get(turno))) {
+    // if (t.getReceptor().equals(this.jugadores.get(turno))) {
 
-    //            t.toString();
-    //            // TODO: creo que falta el printf @guille
+    // t.toString();
+    // // TODO: creo que falta el printf @guille
 
-    //        }
+    // }
 
-    //    }
+    // }
 
-    //}
+    // }
 
 }
