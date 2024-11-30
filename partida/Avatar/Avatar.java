@@ -200,6 +200,7 @@ public abstract class Avatar {
             if (Suerte.elegirCarta(this, jugadores, tablero)) {
                 pasarPorSalida(tablero, jugadores);
             }
+            this.getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
             return (!jugadores.get(turno).estaBancarrota());
         }
 
@@ -207,6 +208,7 @@ public abstract class Avatar {
             if (Comunidad.elegirCarta(this, jugadores, tablero)) {
                 pasarPorSalida(tablero,jugadores );
             }
+            this.getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
             return (!jugadores.get(turno).estaBancarrota());
         }
 
