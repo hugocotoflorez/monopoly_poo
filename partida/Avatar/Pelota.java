@@ -89,18 +89,18 @@ public class Pelota extends Avatar {
             for (int i = 1; i <= desplazamiento + 1; i += 2) {
 
                 if (i == 1) // primer salto
-                    moverAtras(tablero, 1, 0);
+                    solvente = moverAtras(tablero, 1, 0);
                 else // saltos restantes
                 if (i == desplazamiento+1)
-                    moverAtras(tablero, 1, 0);
+                    solvente = moverAtras(tablero, 1, 0);
                 else
-                    moverAtras(tablero, 2, 0);
+                    solvente = moverAtras(tablero, 2, 0);
 
                 // anade la casilla en la que cae a las que puede comprar
                 casillasVisitadas.add(getCasilla());
                 // evalua casilla o hace la accion que deba hacer
 
-                solvente = evaluarAccion(valor1 + valor2, jugadores, tablero);
+                solvente &= evaluarAccion(valor1 + valor2, jugadores, tablero);
                 // si va a la carcel deja de moverse
                 if (getJugador().getEnCarcel())
                     break;

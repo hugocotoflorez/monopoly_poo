@@ -134,14 +134,15 @@ public abstract class Avatar {
         }
     }
 
-    public void moverAtras(Tablero tablero, int valor1, int valor2) {
+    public boolean moverAtras(Tablero tablero, int valor1, int valor2) {
         int desplazamiento = valor1 + valor2;
         Juego.consola.imprimir("El avatar " + getId() + " avanza " + desplazamiento
                 + " hacia atrás desde "
                 + getCasilla().getNombre());
         desplazar(tablero.getPosiciones(), -desplazamiento);
-        pasarPorSalidaHaciaAtras(desplazamiento);
+        boolean solvente = pasarPorSalidaHaciaAtras(desplazamiento);
         Juego.consola.imprimirln(" hasta " + getCasilla().getNombre());
+        return solvente;
     }
 
     public abstract boolean moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) ;

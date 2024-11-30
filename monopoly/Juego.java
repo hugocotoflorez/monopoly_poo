@@ -191,75 +191,75 @@ public class Juego {
          */
 
         consola.imprimirln(" " +
-                Valor.BGMENU + Valor.BOLD + "Opciones                                       " + Valor.RESET);
+                Valor.BGMENU + Valor.BOLD + "Opciones                                      " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "crear jugador <nombre> <tipo_avatar>           " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "crear jugador <nombre> <tipo_avatar>          " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "jugador - jugador con el turno                 " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "jugador - jugador con el turno                " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "listar enventa                                 " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "listar enventa                                " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "listar jugadores                               " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "listar jugadores                              " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "listar avatares                                " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "listar avatares                               " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "lanzar dados                                   " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "lanzar dados                                  " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "cambiar modo                                   " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "cambiar modo                                  " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "acabar - acaba el turno                        " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "acabar - acaba el turno                       " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "salir - salir carcel)                          " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "salir - salir carcel)                         " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "describir jugador  <nombre>                    " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "describir jugador  <nombre>                   " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "describir avatar <letra                        " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "describir avatar <letra                       " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "comprar <casilla>                              " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "comprar <casilla>                             " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "bancarrota - acaba la partida para ese jugador " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "bancarrota - acaba la partida para ese jugador" + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "ver - muestra el tablero                       " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "ver - muestra el tablero                      " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "clear - limpia la pantalla                     " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "clear - limpia la pantalla                    " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "estadisticas <Jugador>                         " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "estadisticas <Jugador>                        " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "estadisticas                                   " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "estadisticas                                  " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "hipotecar <casilla>                            " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "hipotecar <casilla>                           " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "deshipotecar <casilla>                         " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "deshipotecar <casilla>                        " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "listar edificios                               " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "listar edificios                              " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "listar edificios <grupo>                       " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "listar edificios <grupo>                      " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "edificar <tipo>                                " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "edificar <tipo>                               " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "vender <tipo> <solar> <cantidad>               " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "vender <tipo> <solar> <cantidad>              " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "---------------------------------------------- " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "----------------------------------------------" + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "opciones, ? -> Muestra las opciones            " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "opciones, ? -> Muestra las opciones           " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "a -> acabar                                    " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "a -> acabar                                   " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "empezar partida                                " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "empezar partida                               " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "q, SALIR -> acaba la ejecucion del programa    " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "q, SALIR -> acaba la ejecucion del programa   " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "c, clear -> limpia la pantalla                 " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "c, clear -> limpia la pantalla                " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "l x y -> lanzar dados, con resultado x e y     " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "l x y -> lanzar dados, con resultado x e y    " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "default -> crea dos jugadores                  " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "default -> crea dos jugadores                 " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "archivo file -> ejecuta comandos en file       " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "archivo file -> ejecuta comandos en file      " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "fortuna <valor>                                " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "fortuna <valor>                               " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                " " + Valor.BGBLACK + "                                               " + Valor.RESET);
+                " " + Valor.BGBLACK + "                                              " + Valor.RESET);
 
     }
 
@@ -1004,8 +1004,8 @@ public class Juego {
             return;
         }
 
-        /* Para la mierda del coche */
-        if (!jugador_puede_comprar && movimientoAvanzado.get(turno - 1) && avatares.get(turno) instanceof Coche) {
+        /* Para la mierda del coche y la pelota */
+        if (!jugador_puede_comprar && movimientoAvanzado.get(turno - 1)) {
             consola.imprimirln("Ya has comprado en este turno!");
             return;
         }

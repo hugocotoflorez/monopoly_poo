@@ -81,6 +81,7 @@ public class Coche extends Avatar {
          * se vuelve a tirar cuando se sacan dobles? como afecta?
          */
         int desplazamiento = valor1 + valor2;
+        boolean solvente = true;
         if (desplazamiento > 4) {
             moverNormal(tablero, valor1, valor2, jugadores);
             // actualiza contador coche y si el contador es 4 se pone a 0 y
@@ -90,10 +91,10 @@ public class Coche extends Avatar {
 
             //Juego.consola.imprimirln("Se puede volver a tirar? " + !tirado);
             //Juego.consola.imprimirln("Tiradas coche = " + contadorTiradasCoche);
-
+        
         } else {
             contadorTiradasCoche = 1;
-            moverAtras(tablero, valor1, valor2);
+            solvente = moverAtras(tablero, valor1, valor2);
             // Comprueba si pasa por salida hacia atras -> implicito en moveratras
             // pasarPorSalidaHaciaAtras(valor1 + valor2);
             se_puede_tirar_en_el_siguiente_turno = false;
@@ -101,6 +102,6 @@ public class Coche extends Avatar {
             Juego.consola.imprimirln("No puedes mover en dos turnos!");
             tirado = true;
         }
-        return true;
+        return solvente;
     }
 }
