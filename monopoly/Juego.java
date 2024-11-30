@@ -1116,11 +1116,11 @@ public class Juego {
         String ret = new String();
         int maxvueltas = 0;
         for (Jugador j : this.jugadores) {
-            if (j.getVueltas() >= maxvueltas)
+            if ((!j.esBanca()) && j.getVueltas() >= maxvueltas)
                 maxvueltas = j.getVueltas();
         }
         for (Jugador j : this.jugadores) {
-            if (j.getVueltas() == maxvueltas) {
+            if ((!j.esBanca()) && j.getVueltas() == maxvueltas) {
                 ret += j.getNombre();
                 ret += ", ";
             }
@@ -1132,11 +1132,11 @@ public class Juego {
         String ret = new String();
         int maxtiradas = 0;
         for (Jugador j : this.jugadores) {
-            if (j.getNumeroTiradas() >= maxtiradas)
+            if ((!j.esBanca()) && j.getNumeroTiradas() >= maxtiradas)
                 maxtiradas = j.getNumeroTiradas();
         }
         for (Jugador j : this.jugadores) {
-            if (j.getNumeroTiradas() == maxtiradas) {
+            if ((!j.esBanca()) && j.getNumeroTiradas() == maxtiradas) {
                 ret += j.getNombre();
                 ret += ", ";
             }
@@ -1148,11 +1148,11 @@ public class Juego {
         String ret = new String();
         float maxscore = 0.0f;
         for (Jugador j : this.jugadores) {
-            if (j.score() >= maxscore)
+            if ((!j.esBanca()) && j.score() >= maxscore)
                 maxscore = j.score();
         }
         for (Jugador j : this.jugadores) {
-            if (j.score() == maxscore) {
+            if ((!j.esBanca()) && j.score() == maxscore) {
                 ret += j.getNombre();
                 ret += ", ";
             }

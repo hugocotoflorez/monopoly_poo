@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import partida.Carta.*;
 import monopoly.Casilla.*;
+import monopoly.Casilla.Especial.*;
 import monopoly.Casilla.Accion.*;
 import partida.*;
 import monopoly.*;
@@ -211,13 +212,13 @@ public abstract class Avatar {
             return (jugadores.get(turno).estaBancarrota());
         }
 
-        if (casilla.getNombre().equals("IrCarcel")) {
+        if (this.casilla instanceof IrCarcel) {
             jugadores.get(turno).encarcelar(tablero.getPosiciones());
         }
 
         else {
             // evaluar casilla
-            return casilla.evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
+            return casilla.evaluarCasilla(this.jugador, jugadores.get(0), desplazamiento);
             }
 
         return true;
