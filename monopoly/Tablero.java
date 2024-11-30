@@ -89,8 +89,8 @@ public class Tablero {
     // Dado un entero y las casillas del tablero, devuelve la casilla que está en
     // esa posición
     public static Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> array, int posicion) {
-        posicion = posicion % 40;
-        return array.get(posicion / 10).get(posicion % 10);
+        int pos= (posicion +40)% 40;
+        return array.get(pos/ 10).get(pos% 10);
     }
 
     public HashMap<String, Grupo> getGruposMap() {

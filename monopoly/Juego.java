@@ -627,7 +627,6 @@ public class Juego {
             } else {
                 if (this.avatares.get(turno) instanceof Coche) {
                     tirado = ((Coche) this.avatares.get(turno)).getTirado();
-                    consola.imprimirln("Updating tirado: tirado = " + tirado);
                 }
                 avatares.get(turno).evaluarAccion(valor1 + valor2, jugadores, tablero);
             }
