@@ -20,7 +20,7 @@ public class Carcel extends Especial {
         String jugadores = new String();
         for (Avatar av : this.getAvatares()){
             if (av.getJugador().getEnCarcel()){
-                jugadores += av.getJugador().getNombre() + " lleva " + av.getJugador().getTurnosCarcel() + "turnos,";
+                jugadores += av.getJugador().getNombre() + " lleva " + av.getJugador().getTurnosCarcel() + " turnos,";
             }
         }
 
