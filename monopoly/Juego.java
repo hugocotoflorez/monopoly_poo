@@ -183,41 +183,41 @@ public class Juego {
          */
 
         consola.imprimirln(
-                Valor.BGBLACK + Valor.BOLD + "Opciones                                      " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "crear jugador <nombre> <tipo_avatar>          " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "jugador - jugador con el turno                " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "listar enventa                                " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "listar jugadores                              " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "listar avatares                               " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "lanzar dados                                  " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "cambiar modo                                  " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "acabar - acaba el turno                       " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "salir - salir carcel)                         " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "describir jugador  <nombre>                   " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "describir avatar <letra                       " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "comprar <casilla>                             " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "bancarrota - acaba la partida para ese jugador" + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "ver - muestra el tablero                      " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "clear - limpia la pantalla                    " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "estadisticas <Jugador>                        " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "estadisticas                                  " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "hipotecar <casilla>                           " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "deshipotecar <casilla>                        " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "listar edificios                              " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "listar edificios <grupo>                      " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "edificar <tipo>                               " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "vender <tipo> <solar> <cantidad>              " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "----------------------------------------------" + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "opciones, ? -> Muestra las opciones           " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "a -> acabar                                   " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "empezar partida                               " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "q, SALIR -> acaba la ejecucion del programa   " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "c, clear -> limpia la pantalla                " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "l x y -> lanzar dados, con resultado x e y    " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "default -> crea dos jugadores                 " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "archivo file -> ejecuta comandos en file      " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "fortuna <valor>                               " + Valor.RESET);
-        consola.imprimirln(Valor.BGBLACK + "----------------------------------------------" + Valor.RESET);
+                Valor.BGMENU + Valor.BOLD + "Opciones                                      " + Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "crear jugador <nombre> <tipo_avatar>          " + Valor.BGBLACK+" "+ Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "jugador - jugador con el turno                " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "listar enventa                                " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "listar jugadores                              " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "listar avatares                               " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "lanzar dados                                  " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "cambiar modo                                  " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "acabar - acaba el turno                       " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "salir - salir carcel)                         " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "describir jugador  <nombre>                   " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "describir avatar <letra                       " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "comprar <casilla>                             " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "bancarrota - acaba la partida para ese jugador" + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "ver - muestra el tablero                      " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "clear - limpia la pantalla                    " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "estadisticas <Jugador>                        " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "estadisticas                                  " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "hipotecar <casilla>                           " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "deshipotecar <casilla>                        " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "listar edificios                              " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "listar edificios <grupo>                      " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "edificar <tipo>                               " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "vender <tipo> <solar> <cantidad>              " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "----------------------------------------------" + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "opciones, ? -> Muestra las opciones           " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "a -> acabar                                   " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "empezar partida                               " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "q, SALIR -> acaba la ejecucion del programa   " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "c, clear -> limpia la pantalla                " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "l x y -> lanzar dados, con resultado x e y    " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "default -> crea dos jugadores                 " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "archivo file -> ejecuta comandos en file      " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(Valor.BGMENU + "fortuna <valor>                               " + Valor.BGBLACK+" "+Valor.RESET);
+        consola.imprimirln(" " + Valor.BGBLACK + "                                              " + Valor.RESET);
 
     }
 
