@@ -31,11 +31,15 @@ public class Juego {
     // decir, si ha pagado sus deudas.
     private boolean partida_empezada = false;
     private boolean partida_finalizada = false;
-    private boolean[] movimientoAvanzado = { false, false, false, false, false, true };
-    /* Las siguientes variables se movieron a coche (creo)
-     * private boolean[] se_puede_tirar_en_el_siguiente_turno = { true, true, true, true, true, true };
-     * private boolean[] se_puede_tirar_en_el_siguiente_turno2 = { true, true, true, true, true, true };
-     * private int contadorTiradasCoche = 0; */
+    private ArrayList<Boolean> movimientoAvanzado;
+    /*
+     * Las siguientes variables se movieron a coche (creo)
+     * private boolean[] se_puede_tirar_en_el_siguiente_turno = { true, true, true,
+     * true, true, true };
+     * private boolean[] se_puede_tirar_en_el_siguiente_turno2 = { true, true, true,
+     * true, true, true };
+     * private int contadorTiradasCoche = 0;
+     */
     private boolean es_coche_y_no_puede_tirar = false;
     private boolean movimientoAvanzadoSePuedeCambiar = true;
     private boolean jugador_puede_comprar = true;
@@ -57,6 +61,9 @@ public class Juego {
         crearCartasSuerte();
         this.avatares = new ArrayList<Avatar>();
         this.jugadores = new ArrayList<Jugador>();
+        this.movimientoAvanzado = new ArrayList<Boolean>();
+        for (int i = 0; i < 6; i++)
+            movimientoAvanzado.add(false);
         iniciarPartida();
     }
 
@@ -570,7 +577,7 @@ public class Juego {
 
             if (dadosDobles(valor1, valor2)
                     /* Si esta usando el movimiento avanzado del coche no cuenta */
-                    && (!(av_coche != null && movimientoAvanzado[turno - 1])
+                    && (!(av_coche != null && movimientoAvanzado.get(turno - 1))
                             || av_coche.getContadorTiradasCoche() == 4)) {
 
                 /* TODO no se si se incrementa dos veces y esto sobra */
@@ -593,7 +600,7 @@ public class Juego {
 
     private void mover(int valor1, int valor2) {
         /* Movimiento default */
-        if (!movimientoAvanzado[turno - 1]) {
+        if (!movimientoAvanzado.get(turno - 1)) {
             avatares.get(turno).moverNormal(tablero, valor1, valor2, jugadores);
             solvente = avatares.get(turno).evaluarAccion(valor1 + valor2, jugadores, tablero);
             if (!solvente) {
@@ -743,10 +750,10 @@ public class Juego {
             return;
         }
 
-        movimientoAvanzado[turno - 1] = !movimientoAvanzado[turno - 1];
+        movimientoAvanzado.set(turno - 1, !movimientoAvanzado.get(turno - 1));
         movimientoAvanzadoSePuedeCambiar = false;
 
-        if (movimientoAvanzado[turno - 1])
+        if (movimientoAvanzado.get(turno - 1))
             consola.imprimirln("Se ha activado el modo avanzado");
         else
             consola.imprimirln("Se ha desactivado el modo avanzado");
@@ -876,11 +883,15 @@ public class Juego {
         this.tirado = true;
         this.jugadores.remove(turno);
         this.avatares.remove(turno);
+        this.movimientoAvanzado.remove(turno);
+        movimientoAvanzado.set(turno- 1, false);
+        --turno; /* El siguiente jugador del array va a ocupar la posicion del actual */
 
         if (this.jugadores.size() == 2) {
             partida_finalizada = true;
             consola.imprimirln("Sólo queda un jugador. La partida ha finalizado.");
-            this.turno = 1;
+            /* Esta linea creo que sobra */
+            // this.turno = 1;
             return;
         }
         acabarTurno();
@@ -982,7 +993,7 @@ public class Juego {
         }
 
         /* Para la mierda del coche y la pelota */
-        if (!jugador_puede_comprar && movimientoAvanzado[turno - 1]) {
+        if (!jugador_puede_comprar && movimientoAvanzado.get(turno - 1)) {
             consola.imprimirln("Ya has comprado en este turno!");
             return;
         }
@@ -995,7 +1006,7 @@ public class Juego {
         if (casilla instanceof Propiedad) {
             Propiedad p = (Propiedad) casilla;
             if (lanzamientos > 0) {
-                p.comprarCasilla(this.jugadores.get(turno), banca, movimientoAvanzado[turno - 1],
+                p.comprarCasilla(this.jugadores.get(turno), banca, movimientoAvanzado.get(turno - 1),
                         avatares.get(turno).getCasillasVisitadas());
                 /*
                  * Esta variable se pone a true si los dados son dobles, asi para los que
@@ -1226,7 +1237,8 @@ public class Juego {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
-        // es_coche_y_no_puede_tirar es lo mismo que this.tirado (creo). No lo cambio para no joder nada (mas)
+        // es_coche_y_no_puede_tirar es lo mismo que this.tirado (creo). No lo cambio
+        // para no joder nada (mas)
         if (partida_empezada && ((lanzamientos > 0 && this.tirado) || es_coche_y_no_puede_tirar) && this.solvente) {
 
             /* Esto no se donde meterlo, en cada turno se tiene que poner a true */
@@ -1266,14 +1278,13 @@ public class Juego {
 
         } else if (!partida_empezada) {
             consola.imprimirln("La partida todavia no ha empezado. ");
-        }else if (es_coche_y_no_puede_tirar)
-        {
+        } else if (es_coche_y_no_puede_tirar) {
             consola.imprimirln("No puedes tirar en este turno");
         } else if (!this.tirado) {
             consola.imprimirln("No has lanzado los dados este turno");
         } else if (!this.solvente) {
             consola.imprimirln("No has saldado tus deudas, hipoteca tus propiedades.");
-        }else{
+        } else {
             consola.imprimirln("No puedes acabar turno");
         }
     }
