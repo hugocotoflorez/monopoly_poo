@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Coche extends Avatar {
 
-    /* Las siguientes variables si se usan */
+    /* Las siguientes variables si se usan, pero mal*/
     private boolean se_puede_tirar_en_el_siguiente_turno = true;
     private boolean se_puede_tirar_en_el_siguiente_turno2 = true;
     private int contadorTiradasCoche = 0;

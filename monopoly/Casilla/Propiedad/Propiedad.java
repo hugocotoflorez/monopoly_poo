@@ -1,10 +1,8 @@
 package monopoly.Casilla.Propiedad;
 import java.util.ArrayList;
 
-import monopoly.Grupo;
 import monopoly.Juego;
 import partida.*;
-import partida.Avatar.*;
 import monopoly.Casilla.*;;
 
 public abstract class Propiedad extends Casilla {

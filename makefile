@@ -1,8 +1,9 @@
-all: compile clean
-
-compile:
-	javac monopoly/MonopolyETSE.java
+run: compile
 	java monopoly.MonopolyETSE
+	make clean
+
+compile: clean
+	javac monopoly/MonopolyETSE.java
 
 clean:
-	rm -f {$(SRC_MONOPOLY),$(SRC_PARTIDA)}/{*,*/*}.class
+	rm monopoly/*.class; rm monopoly/{Casilla,consola,Edificio}/*.class; rm partida/*.class; rm partida/{Avatar,Carta}/*.class; rm monopoly/Casilla/{Accion,Especial,Impuesto,Propiedad}/*.class; echo Done!

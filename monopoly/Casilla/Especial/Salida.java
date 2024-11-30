@@ -1,7 +1,6 @@
 package monopoly.Casilla.Especial;
 
 import monopoly.*;
-import monopoly.Casilla.*;
 import partida.*;
 
 public class Salida extends Especial {

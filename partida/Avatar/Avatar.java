@@ -5,7 +5,6 @@ import java.util.Random;
 import partida.Carta.*;
 import monopoly.Casilla.*;
 import monopoly.Casilla.Accion.*;
-import monopoly.Casilla.Especial.*;
 import partida.*;
 import monopoly.*;
 
@@ -54,10 +53,10 @@ public abstract class Avatar {
     public Casilla getCasilla() {
         return this.casilla;
     }
-    
+
 
     //-------------------------------------
-    
+
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }
