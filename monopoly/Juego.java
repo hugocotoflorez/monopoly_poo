@@ -848,6 +848,10 @@ public class Juego {
     }
 
     private void bancarrota(Jugador banca) {
+        if(!partida_empezada){
+            consola.imprimirln("No puedes declararte en bancarrota antes de empezar la partida.");
+            return;
+        }
         Jugador actual = this.jugadores.get(turno); // Jugador actual
         Casilla casillaactual = actual.getAvatar().getCasilla();
         if ((!(casillaactual instanceof Propiedad)) || !actual.estaBancarrota()) { // Está en bancarrota por banca o se
