@@ -15,7 +15,8 @@ public class Jugador {
     private float fortuna; // Dinero que posee.
     private float gastos = 0f; // Gastos realizados a lo largo del juego.
     private boolean enCarcel; // Será true si el jugador está en la carcel
-    private int tiradasCarcel; // Cuando está en la carcel, contará las tiradas sin éxito que ha hecho allí
+    /* Lo comento porque esta en el esqueleto pero para que no salga el warning */
+    //private int tiradasCarcel; // Cuando está en la carcel, contará las tiradas sin éxito que ha hecho allí
                                // para intentar salir (se usa para limitar el numero de intentos).
     private int turnoscarcel;
     private int vueltas = 0; // Cuenta las vueltas dadas al tablero.
@@ -39,8 +40,7 @@ public class Jugador {
         this.nombre = "banca";
         this.gastos = 0;
         this.enCarcel = false;
-        this.tiradasCarcel = 0;
-        this.tiradasCarcel = 0;
+        this.turnoscarcel = 0;
         this.vueltas = 0;
     }
 
@@ -76,7 +76,6 @@ public class Jugador {
         this.avatar.setLugar(inicio);
         this.fortuna = Valor.FORTUNA_INICIAL;
         this.enCarcel = false;
-        this.tiradasCarcel = 0;
         this.turnoscarcel = 0;
         this.vueltas = 0;
         this.avatar.setJugador(this);

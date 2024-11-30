@@ -7,11 +7,44 @@ import java.util.ArrayList;
 
 public class Coche extends Avatar {
 
-    /* Las siguientes variables si se usan, pero mal*/
+    /* Las siguientes variables si se usan, pero mal */
     private boolean se_puede_tirar_en_el_siguiente_turno = true;
     private boolean se_puede_tirar_en_el_siguiente_turno2 = true;
     private int contadorTiradasCoche = 0;
     private boolean tirado = false;
+
+    public boolean getse_puede_tirar_en_el_siguiente_turno() {
+        return se_puede_tirar_en_el_siguiente_turno;
+    }
+
+    public void setse_puede_tirar_en_el_siguiente_turno(boolean value) {
+        se_puede_tirar_en_el_siguiente_turno = value;
+    }
+
+    public boolean getse_puede_tirar_en_el_siguiente_turno2() {
+        return se_puede_tirar_en_el_siguiente_turno2;
+    }
+
+    public void setse_puede_tirar_en_el_siguiente_turno2(boolean value) {
+        se_puede_tirar_en_el_siguiente_turno2 = value;
+    };
+
+    public int getContadorTiradasCoche() {
+        return contadorTiradasCoche;
+    }
+
+    public void incContadorTiradasCoche() {
+        ++contadorTiradasCoche;
+    }
+
+    public void setContadorTiradasCoche(int n) {
+        contadorTiradasCoche = n;
+    }
+
+    public boolean getTirado()
+    {
+        return tirado;
+    }
 
     public Coche(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
         super(jugador, lugar, avCreados);
@@ -55,17 +88,19 @@ public class Coche extends Avatar {
             contadorTiradasCoche++;
             tirado = contadorTiradasCoche >= 4;
 
-            Juego.consola.imprimirln("Se puede volver a tirar? " + !tirado);
-            Juego.consola.imprimirln("Tiradas coche = " + contadorTiradasCoche);
+            //Juego.consola.imprimirln("Se puede volver a tirar? " + !tirado);
+            //Juego.consola.imprimirln("Tiradas coche = " + contadorTiradasCoche);
 
         } else {
             contadorTiradasCoche = 1;
-            moverAtras(tablero,valor1, valor2);
+            moverAtras(tablero, valor1, valor2);
             // Comprueba si pasa por salida hacia atras
             pasarPorSalidaHaciaAtras(valor1 + valor2);
             /* TODO: Creo que no se actualizan estas variables */
-            /* Solucion: en acabar turno se cambiaban cuando estaban en menu, supogno
-            que ya no estan ahi, habria que cambiar estas */
+            /*
+             * Solucion: en acabar turno se cambiaban cuando estaban en menu, supogno
+             * que ya no estan ahi, habria que cambiar estas
+             */
             se_puede_tirar_en_el_siguiente_turno = false;
             se_puede_tirar_en_el_siguiente_turno2 = false;
             Juego.consola.imprimirln("No puedes mover en dos turnos!");
