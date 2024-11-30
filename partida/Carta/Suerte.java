@@ -69,7 +69,7 @@ public class Suerte extends Carta {
         if (av.getCasilla().getPosicion() > 5) {
             return true;
         }
-        av.moverAvatar(casillas.get(0).get(5));
+        av.desplazar(casillas.get(0).get(5));
         return false;
     }
 
@@ -78,7 +78,7 @@ public class Suerte extends Carta {
          * Decides hacer un viaje de placer. Avanza hasta Solar15 directamente, sin
          * pasar por la casilla de Salida y sin cobrar la cantidad habitual.
          */
-        av.moverAvatar(casillas.get(2).get(6));
+        av.desplazar(casillas.get(2).get(6));
         return false;
     }
 
@@ -100,7 +100,7 @@ public class Suerte extends Carta {
         if (av.getCasilla().getPosicion() > 6) {
             return true;
         }
-        av.moverAvatar(casillas.get(0).get(6));
+        av.desplazar(casillas.get(0).get(6));
         return false;
     }
 

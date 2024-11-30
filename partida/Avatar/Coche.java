@@ -94,8 +94,8 @@ public class Coche extends Avatar {
         } else {
             contadorTiradasCoche = 1;
             moverAtras(tablero, valor1, valor2);
-            // Comprueba si pasa por salida hacia atras
-            pasarPorSalidaHaciaAtras(valor1 + valor2);
+            // Comprueba si pasa por salida hacia atras -> implicito en moveratras
+            // pasarPorSalidaHaciaAtras(valor1 + valor2);
             se_puede_tirar_en_el_siguiente_turno = false;
             se_puede_tirar_en_el_siguiente_turno2 = false;
             Juego.consola.imprimirln("No puedes mover en dos turnos!");
