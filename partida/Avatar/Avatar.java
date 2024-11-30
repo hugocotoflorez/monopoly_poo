@@ -140,6 +140,7 @@ public abstract class Avatar {
                 + " hacia atrás desde "
                 + getCasilla().getNombre());
         desplazar(tablero.getPosiciones(), -desplazamiento);
+        pasarPorSalidaHaciaAtras(desplazamiento);
         Juego.consola.imprimirln(" hasta " + getCasilla().getNombre());
     }
 
@@ -231,22 +232,22 @@ public abstract class Avatar {
      * LEGACY CODE. TO BE REMOVED
      * TODO (Arreglar el resto sin borrar esto asi no peta y se puede probar)
      */
-    static Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valor) {
-        System.out.println("Estas usando Avatar.obtenerCasilla(deprecated)");
-        valor = valor % 40;
-        return casillas.get(valor / 10).get(valor % 10);
-    }
+    //static Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valor) {
+    //    System.out.println("Estas usando Avatar.obtenerCasilla(deprecated)");
+    //    valor = valor % 40;
+    //    return casillas.get(valor / 10).get(valor % 10);
+    //}
 
-    public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-        moverAvatar(obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion() - 1));
-    }
+    //public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
+    //    moverAvatar(obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion() - 1));
+    //}
 
-    public void moverAvatar(Casilla casilla) {
-        System.out.println("Estas usando Avatar.moverAvatar (deprecated)");
-        this.casilla.eliminarAvatarCasilla(this.id);
-        this.casilla = casilla;
-        this.casilla.anhadirAvatarCasilla(this);
-        casilla.actualizarCaidasEnCasilla(this.turno);
-    }
+    //public void moverAvatar(Casilla casilla) {
+    //    System.out.println("Estas usando Avatar.moverAvatar (deprecated)");
+    //    this.casilla.eliminarAvatarCasilla(this.id);
+    //    this.casilla = casilla;
+    //    this.casilla.anhadirAvatarCasilla(this);
+    //    casilla.actualizarCaidasEnCasilla(this.turno);
+    //}
 
 }

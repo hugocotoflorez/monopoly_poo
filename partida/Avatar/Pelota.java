@@ -28,7 +28,7 @@ public class Pelota extends Avatar {
     }
 
     @Override
-    public ArrayList<Casilla> getCasillasVisitadas(){
+    public ArrayList<Casilla> getCasillasVisitadas() {
         return casillasVisitadas;
     }
 
@@ -60,7 +60,7 @@ public class Pelota extends Avatar {
                 if (i == 5) // primer salto
                     moverNormal(tablero, 5, 0, jugadores);
                 else // saltos restantes
-                if (i == desplazamiento)
+                if (i == desplazamiento+1)
                     moverNormal(tablero, 1, 0, jugadores);
                 else
                     moverNormal(tablero, 2, 0, jugadores);
@@ -72,20 +72,44 @@ public class Pelota extends Avatar {
                 solvente = evaluarAccion(valor1 + valor2, jugadores, tablero);
                 // si va a la carcel deja de moverse
                 if (getJugador().getEnCarcel())
-                break;
+                    break;
 
                 if (!solvente)
-                return solvente;
+                    return solvente;
             }
             return solvente;
 
-        } else { //TODO: aquí también se rebota y además se debería poder comprar
+        } else { // TODO: aquí también se rebota y además se debería poder comprar
             // retroceder
-            moverAtras(tablero, valor1, valor2);
+            //moverAtras(tablero, valor1, valor2);
             // Comprueba si pasa por salida hacia atras
-            solvente &= pasarPorSalidaHaciaAtras(valor1 + valor2);
-            solvente &= evaluarAccion(valor1 + valor2, jugadores, tablero);
+            //solvente &= pasarPorSalidaHaciaAtras(valor1 + valor2);
+            //solvente &= evaluarAccion(valor1 + valor2, jugadores, tablero);
+
+            for (int i = 1; i <= desplazamiento + 1; i += 2) {
+
+                if (i == 1) // primer salto
+                    moverAtras(tablero, 1, 0);
+                else // saltos restantes
+                if (i == desplazamiento+1)
+                    moverAtras(tablero, 1, 0);
+                else
+                    moverAtras(tablero, 2, 0);
+
+                // anade la casilla en la que cae a las que puede comprar
+                casillasVisitadas.add(getCasilla());
+                // evalua casilla o hace la accion que deba hacer
+
+                solvente = evaluarAccion(valor1 + valor2, jugadores, tablero);
+                // si va a la carcel deja de moverse
+                if (getJugador().getEnCarcel())
+                    break;
+
+                if (!solvente)
+                    return solvente;
+            }
             return solvente;
+
         }
     }
 }
