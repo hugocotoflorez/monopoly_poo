@@ -895,7 +895,8 @@ public class Juego {
         this.avatares.remove(turno);
         this.movimientoAvanzado.remove(turno);
         movimientoAvanzado.set(turno - 1, false);
-        this.turno--;
+        if (this.turno != 0) this.turno--;
+        if (this.turno == 0) this.turno = 0;
 
         if (this.jugadores.size() == 2) {
             partida_finalizada = true;
