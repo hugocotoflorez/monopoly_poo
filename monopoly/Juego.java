@@ -52,14 +52,14 @@ public class Juego {
     public static ConsolaNormal consola = new ConsolaNormal();
 
     public Juego() {
-        crear_cartas_comunidad();
-        crear_cartas_suerte();
+        crearCartasComunidad();
+        crearCartasSuerte();
         this.avatares = new ArrayList<Avatar>();
         this.jugadores = new ArrayList<Jugador>();
         iniciarPartida();
     }
 
-    private void crear_cartas_suerte() {
+    private void crearCartasSuerte() {
         new Suerte();
         new Suerte();
         new Suerte();
@@ -68,7 +68,7 @@ public class Juego {
         new Suerte();
     }
 
-    private void crear_cartas_comunidad() {
+    private void crearCartasComunidad() {
         new Comunidad();
         new Comunidad();
         new Comunidad();
