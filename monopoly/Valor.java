@@ -37,7 +37,7 @@ public class Valor {
     public static final String WHITE = "\u001B[37m";
     public static final String BGBLACK = "\u001B[37;40m";
     public static final String BGWHITE = "\u001B[30;47m";
-    public static final String BGMENU = "\u001B[30;44m";
+    public static final String BGMENU = "\u001B[30;47m";
 
     public static final String COLOR_G1 = BLACK;
     public static final String COLOR_G2 = CYAN;
