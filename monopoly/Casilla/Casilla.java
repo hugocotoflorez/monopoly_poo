@@ -280,9 +280,10 @@ public abstract class Casilla {
 
     public String printAvatares() {
         String data = new String();
+        data += "\033[0;1m";
         for (Avatar av : this.avatares)
-            data +=Juego.generateColor(av.getJugador().getNombre())+ av.getId() + " \033[0m";
-        return Valor.BOLD + data + " ".repeat(casillaWidth - data.length() + 9*avatares.size()- 1) + Valor.RESET;
+            data +=Juego.generateColor(av.getJugador().getNombre())+ av.getId() + "\033[1m";
+        return Valor.BOLD + data + " ".repeat(casillaWidth - data.length() + 9*avatares.size()+ 5) + Valor.RESET;
     }
 
     @Override
