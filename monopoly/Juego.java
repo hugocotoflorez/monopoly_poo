@@ -831,6 +831,7 @@ public class Juego {
         if (this.jugadores.size() == 2) {
             partida_finalizada = true;
             consola.imprimirln("Sólo queda un jugador. La partida ha finalizado.");
+            this.turno = 1;
             return;
         }
         acabarTurno();
