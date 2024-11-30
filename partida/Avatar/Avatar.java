@@ -79,7 +79,7 @@ public abstract class Avatar {
     }
 
     public void desplazar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-        desplazar(Tablero.obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion()));
+        desplazar(Tablero.obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion() - 1));
     }
 
     public void desplazar(Casilla casilla) {
