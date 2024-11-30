@@ -785,6 +785,7 @@ public class Juego {
                 case 'N':
                     bancarrota(this.banca);
                     solvente = true;
+
                     break;
                 default:
                     consola.imprimirln("Opción errónea.");
@@ -824,7 +825,6 @@ public class Juego {
                     + ((Propiedad) casillaactual).getDuenho().getNombre());
         }
 
-        this.tirado = true;
         this.jugadores.remove(turno);
         this.avatares.remove(turno);
 
