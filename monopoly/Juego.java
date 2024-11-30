@@ -22,7 +22,7 @@ public class Juego {
 
     // Atributos
     private ArrayList<Jugador> jugadores = new ArrayList<Jugador>(); // Jugadores de la partida.
-    private ArrayList<Avatar> avatares = new ArrayList<Avatar>(); // Avatares en la partida.
+    private ArrayList<Avatar> avatares; // Avatares en la partida.
     private int turno; // Índice correspondiente a la posición en el arrayList del jugador (y el
                        // avatar) que tienen el turno
     private int lanzamientos = 0; // Variable para contar el número de lanzamientos de un jugador en un turno.
@@ -58,6 +58,8 @@ public class Juego {
     public Juego() {
         crear_cartas_comunidad();
         crear_cartas_suerte();
+        this.avatares = new ArrayList<Avatar>();
+        this.jugadores = new ArrayList<Jugador>();
         iniciarPartida();
     }
 

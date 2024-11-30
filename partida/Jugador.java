@@ -60,10 +60,13 @@ public class Jugador {
         switch (tipoAvatar) {
             case "Pelota":
                 this.avatar = new Pelota(this, inicio, avCreados);
+                break;
             case "Coche":
                 this.avatar = new Coche(this, inicio, avCreados);
+                break;
             case "Esfinge":
                 this.avatar = new Esfinge(this, inicio, avCreados);
+                break;
             case "Sombrero":
                 this.avatar = new Sombrero(this, inicio, avCreados);
                 break;
