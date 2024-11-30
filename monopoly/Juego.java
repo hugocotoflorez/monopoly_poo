@@ -9,6 +9,7 @@ import java.util.Set;
 
 import monopoly.Casilla.Casilla;
 import monopoly.Casilla.Propiedad.Propiedad;
+import monopoly.Casilla.Propiedad.Solar;
 import partida.*;
 import partida.Avatar.*;
 import partida.Carta.*;
@@ -481,7 +482,7 @@ public class Juego {
     private void descCasilla(String nombre) {
         Casilla c = this.tablero.encontrar_casilla(nombre);
         if (c != null)
-            consola.imprimirln(c.infoCasilla());
+            consola.imprimirln(c.infoCasilla(this.banca));
         else
             consola.imprimirln("La casilla " + nombre + " no existe.");
     }
@@ -521,7 +522,7 @@ public class Juego {
 
             if (dadosDobles(valor1, valor2)
                     /* Si esta usando el movimiento avanzado del coche no cuenta */
-                    && (!(this.jugadores.get(turno).getAvatar().getTipo().equals("Coche")
+                    && (!(this.jugadores.get(turno).getAvatar() instanceof Coche
                             && movimientoAvanzado[turno - 1]) || contadorTiradasCoche == 4)) {
 
                 ++contadorTiradasCoche; // solo puede tirar una vez si saca dobles al final
@@ -782,18 +783,15 @@ public class Juego {
 
     private void bancarrota(Jugador banca) {
         Jugador actual = this.jugadores.get(turno); // Jugador actual
-
-        if (actual.getAvatar().getCasilla().getDuenho().equals(banca) || !actual.estaBancarrota()) { // Está en
-                                                                                                     // bancarrota por
-                                                                                                     // banca o se
-                                                                                                     // declaró
-                                                                                                     // voluntariamente
-
-            for (Casilla c : actual.getPropiedades()) {
+        Casilla casillaactual = actual.getAvatar().getCasilla();
+        if((!(casillaactual instanceof Propiedad )) || !actual.estaBancarrota()){ //Está en bancarrota por banca o se declaró voluntariamente
+            for (Propiedad c : actual.getPropiedades()) {
                 banca.anhadirPropiedad(c);
                 c.setDuenho(banca);
                 c.setHipotecada(false);
-                c.desEdificar();
+                if(c instanceof Solar){
+                    ((Solar) c).desedificar();
+                }
             }
 
             actual.getPropiedades().clear();
@@ -802,17 +800,17 @@ public class Juego {
                     + " se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban y todos sus edificios serán demolidos.");
         }
 
-        if (!actual.getAvatar().getCasilla().getDuenho().equals(banca)) { // Si es por otro jugador
-            for (Casilla c : actual.getPropiedades()) {
-                actual.getAvatar().getCasilla().getDuenho().anhadirPropiedad(c);
-                c.setDuenho(actual.getAvatar().getCasilla().getDuenho());
-                c.getEdificios().clear();
+        if ((casillaactual instanceof Propiedad && !((Propiedad) casillaactual).getDuenho().esBanca())){//Es por otro jugador
+            for (Propiedad c : actual.getPropiedades()) {
+                ((Propiedad) casillaactual).getDuenho().anhadirPropiedad(c);
+                c.setDuenho(((Propiedad) casillaactual).getDuenho());
+                if (c instanceof Solar) ((Solar) c).getEdificios().clear();
                 c.setHipotecada(false);
             }
             actual.getPropiedades().clear();
             consola.imprimirln("El jugador " + actual.getNombre()
                     + " se ha declarado en bancarrota. Sus propiedades y fortuna pasan a "
-                    + actual.getAvatar().getCasilla().getDuenho().getNombre());
+                    + ((Propiedad) casillaactual).getDuenho().getNombre());
         }
 
         this.tirado = true;
@@ -829,8 +827,9 @@ public class Juego {
 
     private void accionhipotecar(String nombre) {
         Casilla c = this.tablero.encontrar_casilla(nombre);
-        if (c != null) {
-            c.hipotecar(jugadores.get(turno));
+        if (c != null && c instanceof Propiedad){
+            Propiedad p = (Propiedad) c;
+            p.hipotecar(jugadores.get(turno));
 
             if (!jugadores.get(turno).estaBancarrota()) {
                 solvente = true;
@@ -845,8 +844,9 @@ public class Juego {
 
     private void acciondeshipotecar(String nombre) {
         Casilla c = this.tablero.encontrar_casilla(nombre);
-        if (c != null) {
-            c.deshipotecar(jugadores.get(turno));
+        if (c != null && c instanceof Propiedad) {
+            Propiedad p = (Propiedad) c;
+            p.deshipotecar(jugadores.get(turno));
         } else
             consola.imprimirln("La casilla " + nombre + " no existe.");
 
@@ -931,15 +931,16 @@ public class Juego {
             return;
 
         }
-        if (lanzamientos > 0) {
-            casilla.comprarCasilla(this.jugadores.get(turno), this.banca, movimientoAvanzado[turno - 1],
-                    avatares.get(turno).getCasillasVisitadas());
-
-            /*
-             * Esta variable se pone a true si los dados son dobles, asi para los que
-             * se mueven mas de una vez o pueden comprar mas de una no les dejan
-             */
-            jugador_puede_comprar = false;
+        if (casilla instanceof Propiedad){
+            Propiedad p = (Propiedad) casilla;
+            if(lanzamientos > 0){
+                p.comprarCasilla(this.jugadores.get(turno), banca, movimientoAvanzado[turno - 1], avatares.get(turno).getCasillasVisitadas());
+                /*
+                * Esta variable se pone a true si los dados son dobles, asi para los que
+                * se mueven mas de una vez o pueden comprar mas de una no les dejan
+                */
+                jugador_puede_comprar = false;
+            }
         }
     }
 
@@ -975,12 +976,11 @@ public class Juego {
 
         for (ArrayList<Casilla> ac : tablero.getPosiciones())
             for (Casilla c : ac) {
-                if (c.getDuenho().esBanca() &&
-                        (c.getTipo().equals("solar") ||
-                                c.getTipo().equals("transporte")
-                                || c.getTipo().equals("servicios"))) {
-
-                    consola.imprimirln(c.toString());
+                if (c instanceof Propiedad ){
+                    Propiedad p = (Propiedad) c;
+                    if(p.getDuenho().esBanca()){
+                        consola.imprimirln(p.toString());
+                    }
                 }
             }
     }
@@ -1012,9 +1012,10 @@ public class Juego {
         for (int i = 0; i < 4; i++) {
 
             for (int j = 0; j < 10; j++) {
-
-                this.tablero.getPosiciones().get(i).get(j).listar_edificios_casilla();
-
+                    if (this.tablero.getPosiciones().get(i).get(j) instanceof Solar){
+                        Solar s = (Solar) this.tablero.getPosiciones().get(i).get(j);
+                        s.listar_info_edificios();
+                    }
             }
 
         }
@@ -1044,18 +1045,23 @@ public class Juego {
     // PARTIDA------------------------------------
     private String buscarCasillasMasRentables() {
         String ret = new String();
-        float maxrecaudado = tablero.posicion_salida().getRecaudado();
+        float maxrecaudado = 0f;
         for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
             for (Casilla c : Lado) {
-                if (c.getRecaudado() >= maxrecaudado)
-                    maxrecaudado = c.getRecaudado();
+                if (c instanceof Propiedad){
+                    Propiedad p = (Propiedad) c;
+                    if(p.getRecaudado() >= maxrecaudado)
+                        maxrecaudado = p.getRecaudado();
+                }
             }
         }
         for (ArrayList<Casilla> Lado : this.tablero.getPosiciones()) {
             for (Casilla c : Lado) {
-                if (c.getRecaudado() == maxrecaudado) {
-                    ret += c.getNombre();
-                    ret += ", ";
+                if (c instanceof Propiedad){
+                    Propiedad p = (Propiedad) c;
+                    if(p.getRecaudado() == maxrecaudado)
+                        ret += p.getNombre();
+                        ret += ", ";
                 }
             }
         }
@@ -1211,7 +1217,10 @@ public class Juego {
     // FUNCIONES PARA EDIFICAR
     private void edificar(String tipo) {
         Casilla c = this.jugadores.get(turno).getAvatar().getCasilla();
-        c.edificar(tipo, this.jugadores.get(this.turno));
+        if (c instanceof Solar){
+            ((Solar) c).edificar(tipo, this.jugadores.get(this.turno));
+        }
+        else consola.imprimirln("No puedes edificar en esta casilla.");
     }
 
     private void desedificar(String casilla, String tipoedificio, String n) {
@@ -1223,11 +1232,14 @@ public class Juego {
             return;
         }
 
-        c.desEdificar(tipoedificio, this.jugadores.get(turno), n);
-        if (!jugadores.get(turno).estaBancarrota()) {
-            solvente = true;
-        } else
-            consola.imprimirln("Aún no has saldado tus deudas.");
+        if (c instanceof Solar){
+            ((Solar) c).desedificar(tipoedificio, this.jugadores.get(turno), n);
+            if (!jugadores.get(turno).estaBancarrota()) {
+                solvente = true;
+            } else
+                consola.imprimirln("Aún no has saldado tus deudas.");
+        }
+        else consola.imprimirln("No puedes desedificar en esta casilla.");
     }
 
     Jugador obtenerJugadorDadoNombre(String nombreJugador) {
@@ -1242,6 +1254,7 @@ public class Juego {
     }
 
     private void trato(String[] com) { // TODO comprobar dueños de las Propiedades. Hacer cuando se acabe casilla (DENTRO DE TRATO)
+        //TODO si alguien propone un trato y se queda en bancarrota debería desaparecer el trato
 
         if (com.length == 7) {
 
