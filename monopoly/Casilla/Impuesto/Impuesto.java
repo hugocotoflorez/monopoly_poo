@@ -44,7 +44,7 @@ public class Impuesto extends Casilla{
         Juego.consola.imprimirln("Ahora el jugador " + actual.getNombre() + " tiene " + actual.getFortuna());
         Juego.consola.imprimirln("El bote de la banca es " + banca.getGastos());
         
-        if (actual.estaBancarrota()) return true;
-        return false;
+        if (actual.estaBancarrota()) return false;
+        return true;
     }
 }
