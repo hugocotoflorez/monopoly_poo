@@ -553,6 +553,9 @@ public class Juego {
         if (!movimientoAvanzado[turno - 1]) {
             avatares.get(turno).moverNormal(tablero, valor1, valor2, jugadores);
             solvente = avatares.get(turno).evaluarAccion(valor1 + valor2, jugadores, tablero);
+            if(!solvente){
+                evaluarSolvente();
+            }
 
         } else {
             /*
