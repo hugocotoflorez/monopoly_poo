@@ -139,7 +139,7 @@ public abstract class Avatar {
         Juego.consola.imprimir("El avatar " + getId() + " avanza " + desplazamiento
                 + " hacia atrás desde "
                 + getCasilla().getNombre());
-        desplazar(tablero.getPosiciones(), 40 - desplazamiento);
+        desplazar(tablero.getPosiciones(), -desplazamiento);
         Juego.consola.imprimirln(" hasta " + getCasilla().getNombre());
     }
 
@@ -152,12 +152,7 @@ public abstract class Avatar {
 
         int casillanueva = casilla.getPosicion();
         Juego.consola.imprimirln("Casilla actual: " + casilla.getPosicion());
-        /*
-         * Si la casilla anterior, que se obtiene de sumarle el desplazamiento a la
-         * casilla actual porque se va hacia atras, esta fuera de los indices del
-         * tablero quiere decir que paso por salida
-         */
-        if ((casillanueva + desplazamiento >= 40)) {
+        if ((casillanueva - desplazamiento < 0)) {
 
             Juego.consola.imprimirln("¡Has pasado por la Salida hacia atrás! Perdiste " + Valor.SUMA_VUELTA);
             jugador.sumarFortuna(-Valor.SUMA_VUELTA);
