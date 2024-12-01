@@ -496,6 +496,11 @@ public class Juego {
                     eliminar_trato(com[1]);
                     break;
     
+                case "aceptar":
+                
+                    aceptar_trato(com[1]);
+                    break;
+
                 default:
                     throw new ComandoIncorrectoException();
             }
