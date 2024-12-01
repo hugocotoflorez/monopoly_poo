@@ -155,6 +155,7 @@ public abstract class Avatar {
 
         int casillanueva = casilla.getPosicion();
         if ((casillanueva + desplazamiento > 40)) {
+            // Algun dia razoné porque la condicion era esta
 
             Juego.consola.imprimirln("¡Has pasado por la Salida hacia atrás! Perdiste " + Valor.SUMA_VUELTA);
             jugador.sumarFortuna(-Valor.SUMA_VUELTA);
