@@ -1,11 +1,18 @@
 crear jugador Hugo Coche
 crear jugador Guille Esfinge
 <<<<<<< HEAD
-crear jugador Jugador3 Pelota
 l 1 0
-acabar
+comprar Solar1
+a
 l 1 0
-acabar
+a
+l 40 0
+a
+l 2 0
+a
+l 40 0
+a
 l 1 0
-acabar
+a
+edificar casa
 >>>>>>> origin/main

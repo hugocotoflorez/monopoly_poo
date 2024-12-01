@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import monopoly.Casilla.Propiedad.*;
+import monopoly.Edificio.Hotel;
 import monopoly.MonopolyException.MonopolyException;
 import monopoly.MonopolyException.AccionException.AccionIncompatibleException;
 import monopoly.MonopolyException.AccionException.EstadoPartidaException;
@@ -16,6 +17,11 @@ import monopoly.MonopolyException.AccionException.FortunaInsuficienteException;
 import monopoly.MonopolyException.ComandoException.NoExisteElementoException;
 import monopoly.MonopolyException.PropiedadException.ComprableException;
 import monopoly.MonopolyException.PropiedadException.TipoPropiedadException;
+import monopoly.MonopolyException.PropiedadException.EdificioException.CasaEdificableException;
+import monopoly.MonopolyException.PropiedadException.EdificioException.HotelEdificableException;
+import monopoly.MonopolyException.PropiedadException.EdificioException.NumeroEdificiosException;
+import monopoly.MonopolyException.PropiedadException.EdificioException.PiscinaEdificableException;
+import monopoly.MonopolyException.PropiedadException.EdificioException.PistaEdificableException;
 import partida.*;
 import partida.Avatar.*;
 import partida.Carta.*;
@@ -926,8 +932,8 @@ public class Juego {
     }
 
     private void accionhipotecar(String nombre) {
+        Casilla c = this.tablero.encontrar_casilla(nombre);
         try{
-            Casilla c = this.tablero.encontrar_casilla(nombre);
             if (c == null)
                 throw new NoExisteElementoException("La casilla " + nombre + " no existe.");
 
@@ -945,7 +951,11 @@ public class Juego {
                 } else
                     consola.imprimirln("Aún no has saldado tus deudas.");
                 }
-        }catch(MonopolyException e){
+        }catch(NumeroEdificiosException nee){
+            consola.imprimirError(nee.getMessage());
+            consola.imprimirError("Edificios a demoler: " + ((Solar) c).listar_nombre_edificios());;
+        }
+        catch(MonopolyException e){
             consola.imprimirError(e.getMessage());
         }
 
@@ -1127,9 +1137,7 @@ public class Juego {
 
     // Método que muestra todos los edifcios construidos en la partida
     private void listarEdificios() {
-
         for (int i = 0; i < 4; i++) {
-
             for (int j = 0; j < 10; j++) {
                 if (this.tablero.getPosiciones().get(i).get(j) instanceof Solar) {
                     Solar s = (Solar) this.tablero.getPosiciones().get(i).get(j);
@@ -1343,12 +1351,43 @@ public class Juego {
     }
 
     // FUNCIONES PARA EDIFICAR
+
     private void edificar(String tipo) {
-        Casilla c = this.jugadores.get(turno).getAvatar().getCasilla();
-        if (c instanceof Solar) {
-            ((Solar) c).edificar(tipo, this.jugadores.get(this.turno));
-        } else
-            consola.imprimirln("No puedes edificar en esta casilla.");
+        Casilla c = null;
+        try{
+            if (!partida_empezada)
+                throw new EstadoPartidaException("No puedes edificar antes de que empiece la partida.");
+            
+            c = this.jugadores.get(turno).getAvatar().getCasilla();
+
+            if (!(c instanceof Solar)) 
+                throw new TipoPropiedadException("No puedes edificar en " + c.getNombre() + " porque no es un solar.");
+
+            else ((Solar) c).edificar(tipo, this.jugadores.get(this.turno));
+
+        } catch(CasaEdificableException cee){
+            consola.imprimirError(cee.getMessage());
+            consola.imprimirError("Hay " + ((Solar)c).obtenerNumeroCasas() + " casas en " + c.getNombre());
+
+        } catch(HotelEdificableException hee){
+            consola.imprimirError(hee.getMessage());
+            consola.imprimirError("Hay " + ((Solar)c).obtenerNumeroCasas() + " casas en " + c.getNombre());
+            consola.imprimirError("Hay " + ((Solar)c).obtenerNumeroHoteles() + " hoteles en " + c.getNombre());
+
+        } catch(PiscinaEdificableException psee){
+            consola.imprimirError(psee.getMessage());
+            consola.imprimirError("Hay " + ((Solar)c).obtenerNumeroCasas() + " casas en " + c.getNombre());
+            consola.imprimirError("Hay " + ((Solar)c).obtenerNumeroHoteles() + " hoteles en " + c.getNombre());
+            consola.imprimirError("Hay " + ((Solar)c).obtenerNumeroPiscinas() + " piscinas en " + c.getNombre());
+
+        } catch(PistaEdificableException ptee){
+            consola.imprimirError(ptee.getMessage());
+            consola.imprimirError("Hay " + ((Solar)c).obtenerNumeroHoteles() + " hoteles en " + c.getNombre());
+            consola.imprimirError("Hay " + ((Solar)c).obtenerNumeroPistasDeporte() + " pistas de deporte en " + c.getNombre());
+            
+        } catch(MonopolyException e){
+            consola.imprimirError(e.getMessage());
+        }
     }
 
     private void desedificar(String casilla, String tipoedificio, String n) {

@@ -9,7 +9,8 @@ import monopoly.MonopolyException.AccionException.CarcelException;
 import monopoly.MonopolyException.AccionException.FortunaInsuficienteException;
 import monopoly.MonopolyException.PropiedadException.ComprableException;
 import monopoly.MonopolyException.PropiedadException.DuenhoException;
-import monopoly.MonopolyException.PropiedadException.HipotecadaException;;
+import monopoly.MonopolyException.PropiedadException.HipotecadaException;
+import monopoly.MonopolyException.PropiedadException.EdificioException.NumeroEdificiosException;;
 
 public abstract class Propiedad extends Casilla {
     private float valor;
@@ -115,7 +116,7 @@ public abstract class Propiedad extends Casilla {
 
 
 
-    public void hipotecar(Jugador solicitante) throws DuenhoException, HipotecadaException, CarcelException{
+    public void hipotecar(Jugador solicitante) throws DuenhoException, HipotecadaException, CarcelException, NumeroEdificiosException{
         if (!this.perteneceAJugador(solicitante))
             throw new DuenhoException("No puedes hipotecar una propiedad que no te pertenece.");
 
