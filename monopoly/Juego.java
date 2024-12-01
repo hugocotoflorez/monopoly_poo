@@ -8,11 +8,19 @@ import java.util.Map;
 import java.util.Set;
 
 import monopoly.Casilla.Propiedad.*;
+import monopoly.MonopolyException.MonopolyException;
+import monopoly.MonopolyException.AccionException.AccionIncompatibleException;
+import monopoly.MonopolyException.AccionException.AccionIncompatibleException;
+import monopoly.MonopolyException.AccionException.FortunaInsuficienteException;
+import monopoly.MonopolyException.ComandoException.NoExisteElementoException;
+import monopoly.MonopolyException.PropiedadException.ComprableException;
+import monopoly.MonopolyException.PropiedadException.TipoPropiedadException;
 import partida.*;
 import partida.Avatar.*;
 import partida.Carta.*;
 import monopoly.consola.*;
 import monopoly.Casilla.*;
+import monopoly.Casilla.Especial.Carcel;
 
 public class Juego {
 
@@ -996,36 +1004,33 @@ public class Juego {
      * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
+        try{
+            Casilla casilla = tablero.encontrar_casilla(nombre);
+            if (casilla == null)
+                throw new NoExisteElementoException("La casilla " + nombre + " no existe.");
+            
+            /* Para la mierda del coche y la pelota */
+            else if (!jugador_puede_comprar && movimientoAvanzado.get(turno - 1)) 
+                throw new AccionIncompatibleException("Ya has comprado en este turno.");
+            
+            else if (!(casilla instanceof Propiedad))
+                throw new TipoPropiedadException("La casilla " + nombre + " no es una propiedad.");
 
-        Casilla casilla = tablero.encontrar_casilla(nombre);
+            else if (!(lanzamientos > 0))
+                throw new AccionIncompatibleException("No puedes comprar sin tirar los dados antes.");
 
-        if (jugadores.get(turno).getEnCarcel()) {
-            consola.imprimirln("No puedes comprar desde la carcel!");
-            return;
-        }
-
-        /* Para la mierda del coche y la pelota */
-        if (!jugador_puede_comprar && movimientoAvanzado.get(turno - 1)) {
-            consola.imprimirln("Ya has comprado en este turno!");
-            return;
-        }
-
-        if (casilla == null) {
-            consola.imprimirln("La casilla no existe.");
-            return;
-
-        }
-        if (casilla instanceof Propiedad) {
-            Propiedad p = (Propiedad) casilla;
-            if (lanzamientos > 0) {
-                p.comprarCasilla(this.jugadores.get(turno), banca, movimientoAvanzado.get(turno - 1),
-                        avatares.get(turno).getCasillasVisitadas());
-                /*
-                 * Esta variable se pone a true si los dados son dobles, asi para los que
-                 * se mueven mas de una vez o pueden comprar mas de una no les dejan
-                 */
+            else {
+                Propiedad p = (Propiedad) casilla;
+                p.comprarCasilla(this.jugadores.get(turno), banca, movimientoAvanzado.get(turno - 1), avatares.get(turno).getCasillasVisitadas());
+                    /*
+                     * Esta variable se pone a true si los dados son dobles, asi para los que
+                     * se mueven mas de una vez o pueden comprar mas de una no les dejan
+                     */
                 jugador_puede_comprar = false;
             }
+
+        } catch(MonopolyException e){
+            consola.imprimirError(e.getMessage());
         }
     }
 

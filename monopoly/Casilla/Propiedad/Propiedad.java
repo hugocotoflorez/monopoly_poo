@@ -3,7 +3,12 @@ import java.util.ArrayList;
 
 import monopoly.Juego;
 import partida.*;
-import monopoly.Casilla.*;;
+import monopoly.Casilla.*;
+import monopoly.Casilla.Especial.Carcel;
+import monopoly.MonopolyException.AccionException.CarcelException;
+import monopoly.MonopolyException.AccionException.FortunaInsuficienteException;
+import monopoly.MonopolyException.PropiedadException.ComprableException;
+import monopoly.MonopolyException.PropiedadException.HipotecadaException;;
 
 public abstract class Propiedad extends Casilla {
     private float valor;
@@ -75,7 +80,7 @@ public abstract class Propiedad extends Casilla {
     }
 
 
-    public void comprarCasilla(Jugador solicitante, Jugador banca) {
+    public void comprarCasilla(Jugador solicitante, Jugador banca) throws FortunaInsuficienteException, ComprableException, HipotecadaException, CarcelException {
         /*
          * si llamas a esto no eres la pelota, por lo que el resto de argumentos
          * dan igual
@@ -83,16 +88,19 @@ public abstract class Propiedad extends Casilla {
         comprarCasilla(solicitante, banca, false, null);
     }
 
-    public void comprarCasilla(Jugador solicitante, Jugador banca, boolean movAv, ArrayList<Casilla> casVis){ //TODO excepcion
-        if (solicitante.getFortuna() < this.valor){
-            Juego.consola.imprimirln("No tienes suficiente fortuna. Necesitas " + this.valor);
-        }
-        else if (solicitante.getAvatar() instanceof partida.Avatar.Pelota && movAv && !esComprable(casVis)){
-            Juego.consola.imprimirln("No caíste en esta propiedad.");
-        }
-        else if ( (!(solicitante.getAvatar() instanceof partida.Avatar.Pelota) || !movAv) && !this.esComprable(solicitante)){
-            Juego.consola.imprimirln("No puedes comprar esta propiedad.");
-        }
+    public void comprarCasilla(Jugador solicitante, Jugador banca, boolean movAv, ArrayList<Casilla> casVis) throws FortunaInsuficienteException, ComprableException, HipotecadaException, CarcelException{
+        if (solicitante.getFortuna() < this.valor)
+            throw new FortunaInsuficienteException(solicitante.getFortuna(), this.valor);
+        
+        else if (solicitante.getAvatar() instanceof partida.Avatar.Pelota && movAv && !esComprable(casVis))
+            throw new ComprableException("No has caído en la propiedad " + this.getNombre());
+        
+        else if ( (!(solicitante.getAvatar() instanceof partida.Avatar.Pelota) || !movAv) && !this.esComprable(solicitante))
+            throw new ComprableException("La propiedad " + this.getNombre() + " no se puede comprar.");
+
+        else if (solicitante.getEnCarcel())
+            throw new CarcelException("No puedes comprar desde la cárcel.");
+
         else {
             solicitante.setFortuna(solicitante.getFortuna() - this.valor);
             solicitante.anhadirPropiedad(this);
@@ -106,7 +114,6 @@ public abstract class Propiedad extends Casilla {
 
 
 
-    //TODO Excepciones
     public void hipotecar(Jugador solicitante){
         if (this.perteneceAJugador(solicitante) && this.hipotecada == false && this.duenho.getEnCarcel() == false){
             solicitante.sumarFortuna(hipoteca);
@@ -121,11 +128,8 @@ public abstract class Propiedad extends Casilla {
         else if (this.hipotecada == true){
             Juego.consola.imprimirln("Esta propiedad ya está hipotecada.");
         }
-        else if (this.duenho.getEnCarcel() == true){
-            Juego.consola.imprimirln("¡Estás en la cárcel!");
-        }
     }
-    //TODO excepciones
+
     public void deshipotecar(Jugador solicitante){
         if(this.perteneceAJugador(solicitante) && this.hipotecada == true && this.duenho.getEnCarcel() == false){
             if (this.duenho.getFortuna() >= this.hipoteca * 1.10f){
@@ -144,9 +148,6 @@ public abstract class Propiedad extends Casilla {
         }
         else if (this.hipotecada == false){
             Juego.consola.imprimirln("Esta propiedad no está hipotecada.");
-        }
-        else if (this.duenho.getEnCarcel() == true){
-            Juego.consola.imprimirln("¡Estás en la cárcel!");
         }
     }
 
