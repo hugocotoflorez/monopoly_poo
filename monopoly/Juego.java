@@ -1443,7 +1443,7 @@ public class Juego {
         while (it.hasNext()) {
 
             Trato t = it.next();
-            
+
             if (t.getID().equals(ID) && this.jugadores.get(turno).equals(t.getReceptor())) {
                 it.remove();
             }
@@ -1451,8 +1451,11 @@ public class Juego {
     }
 
     private void listarTratos() {
+
         boolean comprobacion = false;
+
         if (this.tratos.size() == 0) {
+
             this.consola.imprimir("Todavia no hay tratos en esta partida!\n");
             return;
         }
@@ -1460,6 +1463,7 @@ public class Juego {
         for (Trato t : tratos) {
 
             if (t.getReceptor().equals(this.jugadores.get(turno))) {
+
                 comprobacion = true;
                 Juego.consola.imprimir(t.toString());
 
@@ -1467,6 +1471,7 @@ public class Juego {
 
         }
         if (comprobacion == false) {
+            
             Juego.consola
                     .imprimir("No hay tratos disponibles para el jugador: " + this.jugadores.get(turno).getNombre());
         }
