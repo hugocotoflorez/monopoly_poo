@@ -1034,21 +1034,21 @@ public class Juego {
     private void salirCarcel() {
 
         if (this.jugadores.get(turno).getEnCarcel() == true && this.tirado == false) {
-            consola.imprimirln("Como quieres salir de la cárcel?");
-            consola.imprimirln("1) Lanzar dados (sacando dobles)");
-            consola.imprimirln("2) Pagando el impuesto " + Valor.PAGO_SALIR_CARCEL);
-            char opcion = consola.leerChar("[" + jugadores.get(turno).getNombre() + "] ");
-            switch (opcion) {
-                case '1':
-                    lanzarDadosCarcel();
-                    break;
-                case '2':
-                    pagarCarcel();
-                    break;
-                default:
-                    consola.imprimirln("Opcion incorrecta");
-                    break;
+            char opcion;
+            do{
+                consola.imprimirln("Como quieres salir de la cárcel?");
+                consola.imprimirln("1) Lanzar dados (sacando dobles)");
+                consola.imprimirln("2) Pagando el impuesto " + Valor.PAGO_SALIR_CARCEL);
+                opcion = consola.leerChar("[" + jugadores.get(turno).getNombre() + "] ");
+                switch (opcion) {
+                    case '1':
+                        lanzarDadosCarcel();
+                        break;
+                    case '2':
+                        pagarCarcel();
+                        break;
             }
+            } while (opcion != '1' && opcion != '2');
         } else if (this.jugadores.get(turno).getEnCarcel() == false) {
             consola.imprimirln("El jugador " + this.jugadores.get(turno).getNombre() + " no está en la cárcel.");
         } else if (this.tirado == true) {
@@ -1326,6 +1326,8 @@ public class Juego {
             consola.imprimirln("Nombre de casilla incorrecto!");
             return;
         }
+
+        if(this.jugadores.get(turno).getEnCarcel()) consola.imprimirln("Estás en la cárcel!");
 
         if (c instanceof Solar) {
             ((Solar) c).desedificar(tipoedificio, this.jugadores.get(turno), n);
