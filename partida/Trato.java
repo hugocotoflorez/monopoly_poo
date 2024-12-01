@@ -236,7 +236,7 @@ public class Trato {
         this.receptor.anhadirPropiedad(PropiedadJ1);
         this.receptor.eliminarPropiedad(PropiedadJ2);
 
-        Juego.consola.imprimirln("Se ha aceptado el siguiente trato con: " + this.proponedor + ": le doy "
+        Juego.consola.imprimirln("Se ha aceptado el siguiente trato con: " + this.proponedor.getNombre() + ": le doy "
                 + this.PropiedadJ2.getNombre() + " a cambio de " + this.PropiedadJ1.getNombre());
 
     }
