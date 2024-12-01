@@ -82,16 +82,14 @@ public class Coche extends Avatar {
          */
         int desplazamiento = valor1 + valor2;
         boolean solvente = true;
+
         if (desplazamiento > 4) {
             moverNormal(tablero, valor1, valor2, jugadores);
             // actualiza contador coche y si el contador es 4 se pone a 0 y
             // this.tirado es false por lo que no se puede seguir tirando
             contadorTiradasCoche++;
-            tirado = contadorTiradasCoche >= 4;
+            tirado = contadorTiradasCoche >= 4 || this.getJugador().getEnCarcel();
 
-            //Juego.consola.imprimirln("Se puede volver a tirar? " + !tirado);
-            //Juego.consola.imprimirln("Tiradas coche = " + contadorTiradasCoche);
-        
         } else {
             contadorTiradasCoche = 1;
             solvente = moverAtras(tablero, valor1, valor2);
@@ -102,6 +100,6 @@ public class Coche extends Avatar {
             Juego.consola.imprimirln("No puedes mover en dos turnos!");
             tirado = true;
         }
-        return solvente;
+        return solvente && !getJugador().estaBancarrota();
     }
 }

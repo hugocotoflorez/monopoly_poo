@@ -140,10 +140,10 @@ public abstract class Avatar {
         Juego.consola.imprimir("El avatar " + getId() + " avanza " + desplazamiento
                 + " hacia atrás desde "
                 + getCasilla().getNombre());
+
         desplazar(tablero.getPosiciones(), -desplazamiento);
-        boolean solvente = pasarPorSalidaHaciaAtras(desplazamiento);
         Juego.consola.imprimirln(" hasta " + getCasilla().getNombre());
-        return solvente;
+        return pasarPorSalidaHaciaAtras(desplazamiento);
     }
 
     public abstract boolean moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) ;
@@ -154,7 +154,7 @@ public abstract class Avatar {
     public boolean pasarPorSalidaHaciaAtras(int desplazamiento) {
 
         int casillanueva = casilla.getPosicion();
-        if ((casillanueva - desplazamiento < 0)) {
+        if ((casillanueva + desplazamiento > 40)) {
 
             Juego.consola.imprimirln("¡Has pasado por la Salida hacia atrás! Perdiste " + Valor.SUMA_VUELTA);
             jugador.sumarFortuna(-Valor.SUMA_VUELTA);

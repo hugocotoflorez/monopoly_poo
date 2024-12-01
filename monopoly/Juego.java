@@ -404,15 +404,15 @@ public class Juego {
                             descCasilla(com[1]);
                             break;
                     }
-                }
-                else consola.imprimirln("Comando incorrecto.");
+                } else
+                    consola.imprimirln("Comando incorrecto.");
                 break;
 
             case "comprar":
                 if (com.length == 2) {
                     comprar(com[1]);
-                }
-                else consola.imprimir("Comando incorrecto.");
+                } else
+                    consola.imprimir("Comando incorrecto.");
                 break;
 
             case "estadisticas":
@@ -427,15 +427,15 @@ public class Juego {
             case "hipotecar":
                 if (com.length == 2) {
                     accionhipotecar(com[1]);
-                }
-                else consola.imprimirln("Comando incorrecto.");
+                } else
+                    consola.imprimirln("Comando incorrecto.");
                 break;
-                
+
             case "deshipotecar":
                 if (com.length == 2) {
                     acciondeshipotecar(com[1]);
-                }
-                else consola.imprimirln("Comando incorrecto.");
+                } else
+                    consola.imprimirln("Comando incorrecto.");
                 break;
 
             case "ver":
@@ -455,14 +455,15 @@ public class Juego {
             case "edificar":
                 if (com.length == 2)
                     edificar(com[1]);
-                else consola.imprimirln("Comando incorrecto.");
+                else
+                    consola.imprimirln("Comando incorrecto.");
                 break;
 
             case "vender":
                 if (com.length == 4) {
                     desedificar(com[2], com[1], com[3]);
-                }
-                else consola.imprimirln("Comando incorrecto.");
+                } else
+                    consola.imprimirln("Comando incorrecto.");
                 break;
 
             case "fortuna":
@@ -472,7 +473,7 @@ public class Juego {
             case "trato":
                 trato(com);
                 break;
-                
+
             default:
                 consola.imprimirln("Opcion incorrecta. [? para ver las opciones]");
                 break;
@@ -619,16 +620,20 @@ public class Juego {
              * Creo que ya lo hice pero no me acuerdo. No lo probe asi que lo dejo aqui
              */
             boolean solvente = this.avatares.get(turno).moverEnAvanzado(tablero, valor1, valor2, jugadores);
-            if (this.avatares.get(turno) instanceof Pelota) {
-                if (!solvente)
-                    // es solvente, hacer lo que sea
-                    evaluarSolvente();
-            } else {
-                if (this.avatares.get(turno) instanceof Coche) {
+
+            // es solvente, hacer lo que sea
+            if (!solvente)
+                evaluarSolvente();
+
+            if (!(this.avatares.get(turno) instanceof Pelota)) {
+
+                if (this.avatares.get(turno) instanceof Coche)
                     tirado = ((Coche) this.avatares.get(turno)).getTirado();
-                }
+
                 avatares.get(turno).evaluarAccion(valor1 + valor2, jugadores, tablero);
             }
+
+            tirado = (tirado == true) ? true : jugadores.get(turno).getEnCarcel();
         }
     }
 
@@ -894,8 +899,10 @@ public class Juego {
         this.avatares.remove(turno);
         this.movimientoAvanzado.remove(turno);
         movimientoAvanzado.set(turno - 1, false);
-        if (this.turno != 0) this.turno--;
-        if (this.turno == 0) this.turno = 0;
+        if (this.turno != 0)
+            this.turno--;
+        if (this.turno == 0)
+            this.turno = 0;
 
         if (this.jugadores.size() == 2) {
             partida_finalizada = true;
@@ -1035,7 +1042,7 @@ public class Juego {
 
         if (this.jugadores.get(turno).getEnCarcel() == true && this.tirado == false) {
             char opcion;
-            do{
+            do {
                 consola.imprimirln("Como quieres salir de la cárcel?");
                 consola.imprimirln("1) Lanzar dados (sacando dobles)");
                 consola.imprimirln("2) Pagando el impuesto " + Valor.PAGO_SALIR_CARCEL);
@@ -1047,7 +1054,7 @@ public class Juego {
                     case '2':
                         pagarCarcel();
                         break;
-            }
+                }
             } while (opcion != '1' && opcion != '2');
         } else if (this.jugadores.get(turno).getEnCarcel() == false) {
             consola.imprimirln("El jugador " + this.jugadores.get(turno).getNombre() + " no está en la cárcel.");
@@ -1327,7 +1334,8 @@ public class Juego {
             return;
         }
 
-        if(this.jugadores.get(turno).getEnCarcel()) consola.imprimirln("Estás en la cárcel!");
+        if (this.jugadores.get(turno).getEnCarcel())
+            consola.imprimirln("Estás en la cárcel!");
 
         if (c instanceof Solar) {
             ((Solar) c).desedificar(tipoedificio, this.jugadores.get(turno), n);
