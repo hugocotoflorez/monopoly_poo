@@ -304,7 +304,7 @@ public class Juego {
                 else
                     throw new ComandoIncorrectoException();
             }
-            
+
             if (com.length == 1)
                 throw new ComandoIncorrectoException();
 
@@ -487,7 +487,13 @@ public class Juego {
                     break;
     
                 case "trato":
+
                     trato(com);
+                    break;
+
+                case "eliminar":
+                
+                    eliminar_trato(com[1]);
                     break;
     
                 default:
