@@ -1456,7 +1456,7 @@ public class Juego {
 
         if (this.tratos.size() == 0) {
 
-            this.consola.imprimir("Todavia no hay tratos en esta partida!\n");
+            this.consola.imprimirln("Todavia no hay tratos en esta partida!\n");
             return;
         }
 
@@ -1471,7 +1471,7 @@ public class Juego {
 
         }
         if (comprobacion == false) {
-            
+
             Juego.consola
                     .imprimir("No hay tratos disponibles para el jugador: " + this.jugadores.get(turno).getNombre());
         }
