@@ -10,6 +10,7 @@ import java.util.Set;
 import monopoly.Casilla.Propiedad.*;
 import monopoly.MonopolyException.MonopolyException;
 import monopoly.MonopolyException.AccionException.AccionIncompatibleException;
+import monopoly.MonopolyException.AccionException.EstadoPartidaException;
 import monopoly.MonopolyException.AccionException.AccionIncompatibleException;
 import monopoly.MonopolyException.AccionException.FortunaInsuficienteException;
 import monopoly.MonopolyException.ComandoException.NoExisteElementoException;
@@ -925,30 +926,50 @@ public class Juego {
     }
 
     private void accionhipotecar(String nombre) {
-        Casilla c = this.tablero.encontrar_casilla(nombre);
-        if (c != null && c instanceof Propiedad) {
-            Propiedad p = (Propiedad) c;
-            p.hipotecar(jugadores.get(turno));
+        try{
+            Casilla c = this.tablero.encontrar_casilla(nombre);
+            if (c == null)
+                throw new NoExisteElementoException("La casilla " + nombre + " no existe.");
 
-            if (!jugadores.get(turno).estaBancarrota()) {
-                solvente = true;
-            }
+            else if (!(c instanceof Propiedad)) 
+                throw new TipoPropiedadException("No puedes hipotecar " + nombre + " porque no es una propiedad.");
+            
+            else if (!partida_empezada)
+                throw new EstadoPartidaException("No puedes hipotecar antes de que empiece la partida.");
 
-            else
-                consola.imprimirln("Aún no has saldado tus deudas.");
-        } else
-            consola.imprimirln("La casilla " + nombre + " no existe.");
+            else {
+                Propiedad p = (Propiedad) c;
+                p.hipotecar(jugadores.get(turno));
+                if (!jugadores.get(turno).estaBancarrota()) {
+                    solvente = true;
+                } else
+                    consola.imprimirln("Aún no has saldado tus deudas.");
+                }
+        }catch(MonopolyException e){
+            consola.imprimirError(e.getMessage());
+        }
 
     }
 
     private void acciondeshipotecar(String nombre) {
-        Casilla c = this.tablero.encontrar_casilla(nombre);
-        if (c != null && c instanceof Propiedad) {
-            Propiedad p = (Propiedad) c;
-            p.deshipotecar(jugadores.get(turno));
-        } else
-            consola.imprimirln("La casilla " + nombre + " no existe.");
+        try{
+            Casilla c = this.tablero.encontrar_casilla(nombre);
+            if (c == null)
+                throw new NoExisteElementoException("La casilla " + nombre + " no existe.");
 
+            else if (!(c instanceof Propiedad)) 
+                throw new TipoPropiedadException("No puedes deshipotecar " + nombre + " porque no es una propiedad.");
+            
+            else if (!partida_empezada)
+                throw new EstadoPartidaException("No puedes deshipotecar antes de que empiece la partida.");
+
+            else {
+                Propiedad p = (Propiedad) c;
+                p.deshipotecar(jugadores.get(turno));
+            }
+        }catch(MonopolyException e){
+            consola.imprimirError(e.getMessage());
+        }
     }
 
     private void lanzarDadosCarcel() {
@@ -1021,7 +1042,7 @@ public class Juego {
                 throw new AccionIncompatibleException("Ya has comprado en este turno.");
             
             else if (!(casilla instanceof Propiedad))
-                throw new TipoPropiedadException("La casilla " + nombre + " no es una propiedad.");
+                throw new TipoPropiedadException("No puedes comprar " + nombre + " porque no es una propiedad.");
 
             else if (!(lanzamientos > 0))
                 throw new AccionIncompatibleException("No puedes comprar sin tirar los dados antes.");
