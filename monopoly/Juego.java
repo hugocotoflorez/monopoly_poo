@@ -112,41 +112,6 @@ public class Juego {
         }
     }
 
-    /*
-     * Cuando se caiga en una casilla en la cual hay que lanzar cartas, se tiene que
-     * llamar
-     * a esta funcion.
-     */
-    // private boolean elegir_carta_suerte() {
-    // int n;
-
-    // do {
-    // n = consola.leerInt("Elige una carta del 1 al 6: ");
-
-    // } while (n < 1 || n > 6);
-
-    //// Carta.barajar(baraja);
-    // Suerte c = Suerte.obtenerCarta(n);
-    // c.mostrarDescipcion();
-    // return c.realizarAccion(avatares.get(turno), jugadores,
-    //// tablero.getPosiciones());
-    // }
-
-    // private boolean elegir_carta_comunidad() {
-    // int n;
-
-    // do {
-    // n = consola.leerInt("Elige una carta del 1 al 6: ");
-
-    // } while (n < 1 || n > 6);
-
-    //// Carta.barajar(baraja);
-    // Comunidad c = Comunidad.obtenerCarta(n);
-    // c.mostrarDescipcion();
-    // return c.realizarAccion(avatares.get(turno), jugadores,
-    //// tablero.getPosiciones());
-    // }
-
     private void crear_jugador(String nombreJugador, String tipoAvatar) {
 
         if (!Avatar.esTipo(tipoAvatar)) {
@@ -197,7 +162,7 @@ public class Juego {
 
     /* */
     /*--------------------------------------- FUNCIONES DE LINEA DE COMANDOS ---------------------------------------*/
-    private void __analizarComandos_opciones() {
+    private void analizarComandosOpciones() {
 
         /*
          * El color de fondo da problemas con la terminal de vscode si tiene que
@@ -278,14 +243,14 @@ public class Juego {
 
     }
 
-    private void __analizarComandos_default() {
+    private void analizarComandosDefault() {
 
         analizarComando("crear jugador Jugador1 Coche");
         analizarComando("crear jugador Jugador2 Pelota");
 
     }
 
-    private void __analizarComandos_listar(String[] com) {
+    private void analizarComandosListar(String[] com) {
         if (com.length == 2) {
             switch (com[1]) {
                 case "enventa":
@@ -325,11 +290,11 @@ public class Juego {
         switch (com[0]) {
             case "opciones":
             case "?":
-                __analizarComandos_opciones();
+                analizarComandosOpciones();
                 break;
 
             case "default":
-                __analizarComandos_default();
+                analizarComandosDefault();
                 break;
 
             case "archivo":
@@ -358,7 +323,7 @@ public class Juego {
                 break;
 
             case "listar":
-                __analizarComandos_listar(com);
+                analizarComandosListar(com);
                 break;
 
             case "empezar":
@@ -384,12 +349,11 @@ public class Juego {
                 if (com.length == 3) {
                     if (jugadores.size() >= 3) { // iniciar la partida
                         partida_empezada = true;
-                        int valor = Integer.parseInt(com[1]);
-                        int valor2 = Integer.parseInt(com[2]);
-                        lanzarDados(valor, valor2);
+                        lanzarDados(Integer.parseInt(com[1]), Integer.parseInt(com[2]));
                     } else
                         consola.imprimirln("No tienes suficientes jugadores creados! (Mínimo 2).");
-                }
+                } else
+                    consola.imprimirln("Comando incorrecto");
                 break;
 
             case "a":
@@ -652,119 +616,6 @@ public class Juego {
         }
     }
 
-    // private void moverNormal(int valor1, int valor2) {
-    // int desplazamiento = valor1 + valor2;
-    // consola.imprimir("El avatar " + this.avatares.get(turno).getId() + " avanza "
-    // + desplazamiento + " desde "
-    // + this.avatares.get(turno).getCasilla().getNombre());
-    // this.avatares.get(turno).moverNormal(this.tablero, valor1, valor2);
-    // consola.imprimirln(" hasta " + avatares.get(turno).getCasilla().getNombre());
-    //
-    // // Comprueba si pasa por salida
-    // comprobarSiPasasPorSalida(valor1 + valor2);
-    //
-    // }
-    //
-    // private void moverCoche(int valor1, int valor2) {
-    // /*
-    // * Coche: si el valor de los dados es mayor que 4, avanza tantas casillas como
-    // * dicho valor y puede seguir lanzando los dados tres veces más mientras el
-    // * valor sea mayor que 4. Durante el turno solo se puede realizar una sola
-    // * compra de propiedades, servicios o transportes, aunque se podría hacer en
-    // * cualesquiera de los 4 intentos posibles. Sin embargo, se puede edificar
-    // * cualquier tipo de edificio en cualquier intento. Si el valor de los dados
-    // es
-    // * menor que 4, el avatar retrocederá el número de casillas correspondientes y
-    // * además no puede volver a lanzar los dados en los siguientes dos turnos.
-    // */
-    // /*
-    // * DUDAS:
-    // * se vuelve a tirar cuando se sacan dobles? como afecta?
-    // */
-    // int desplazamiento = valor1 + valor2;
-    // if (desplazamiento > 4) {
-    // moverNormal(valor1, valor2);
-    // // actualiza contador coche y si el contador es 4 se pone a 0 y
-    // // this.tirado es false por lo que no se puede seguir tirando
-    // contadorTiradasCoche++;
-    // this.tirado = contadorTiradasCoche >= 4;
-    //
-    // consola.imprimirln("Se puede volver a tirar? " + !this.tirado);
-    // consola.imprimirln("Tiradas coche = " + contadorTiradasCoche);
-    //
-    // } else {
-    // contadorTiradasCoche = 1;
-    // moverAtras(valor1, valor2);
-    // // Comprueba si pasa por salida hacia atras
-    // pasarPorSalidaHaciaAtras(valor1 + valor2);
-    // se_puede_tirar_en_el_siguiente_turno[turno - 1] = false;
-    // se_puede_tirar_en_el_siguiente_turno2[turno - 1] = false;
-    // consola.imprimirln("No puedes mover en dos turnos!");
-    // }
-    // }
-
-    // private void moverPelota(int valor1, int valor2) {
-    // /*
-    // * Pelota: si el valor de los dados es mayor que 4, avanza tantas casillas
-    // como
-    // * dicho valor; mientras que, si el valor es menor o igual que 4, retrocede el
-    // * número de casillas correspondiente. En cualquiera de los dos casos, el
-    // avatar
-    // * se parará en las casillas por las que va pasando y cuyos valores son
-    // impares
-    // * contados desde el número 4. Por ejemplo, si el valor del dado es 9,
-    // entonces
-    // * el avatar avanzará hasta la casilla 5, de manera que si pertenece a otro
-    // * jugador y es una casilla de propiedad deberá pagar el alquiler, y después
-    // * avanzará hasta la casilla 7, que podrá comprar si no pertenece a ningún
-    // * jugador, y finalmente a la casilla 9, que podrá comprar o deberá pagar
-    // * alquiler si no pertenece al jugador. Si una de esas casillas es Ir a
-    // Cárcel,
-    // * entonces no se parará en las subsiguientes casillas
-    // */
-    // int desplazamiento = valor1 + valor2;
-    // if (desplazamiento > 4) {
-    // for (int i = 5; i <= desplazamiento + 1; i += 2) {
-    //
-    // if (i == 5) // primer salto
-    // moverNormal(5, 0);
-    // else // saltos restantes
-    // if (i == desplazamiento)
-    // moverNormal(1, 0);
-    // else
-    // moverNormal(2, 0);
-    //
-    // // anade la casilla en la que cae a las que puede comprar
-    // casillasVisitadas.add(jugadores.get(turno).getAvatar().getCasilla());
-    // // evalua casilla o hace la accion que deba hacer
-    // evaluarAccion(valor1 + valor2);
-    //
-    // // si va a la carcel deja de moverse
-    // if (jugadores.get(turno).getEnCarcel())
-    // break;
-    //
-    // }
-    // } else {
-    // // retroceder
-    // moverAtras(valor1, valor2);
-    // // Comprueba si pasa por salida hacia atras
-    // pasarPorSalidaHaciaAtras(valor1 + valor2);
-    // evaluarAccion(valor1 + valor2);
-    // }
-    // }
-    //
-    /* No para esta entrega */
-    // private void moverEsfinge(int valor1, int valor2) {
-    // consola.imprimirln("Movimendo normal, no para esta entrega");
-    // moverNormal(valor1, valor2);
-    // }
-    //
-    // /* No para esta entrega */
-    // private void moverSombrero(int valor1, int valor2) {
-    // consola.imprimirln("Movimendo normal, no para esta entrega");
-    // moverNormal(valor1, valor2);
-    // }
-
     private void cambairModo() {
         if (!movimientoAvanzadoSePuedeCambiar) {
             consola.imprimirln("Ya cambiaste de modo en este turno!");
@@ -783,67 +634,6 @@ public class Juego {
         else
             consola.imprimirln("Se ha desactivado el modo avanzado");
     }
-
-    // private void pasarPorSalida() {
-    // // !!!!!! si se modifica algo de esto hay que modificarlo tambien en Carta
-    // consola.imprimirln("¡Has pasado por la Salida! Ganaste " +
-    // Valor.SUMA_VUELTA);
-    // jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);
-    // jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
-    // jugadores.get(turno).setPasarPorCasillaDeSalida(
-    // jugadores.get(turno).getPasarPorCasillaDeSalida() + Valor.SUMA_VUELTA);
-    // consola.imprimirln("Llevas " + jugadores.get(turno).getVueltas() + "
-    // vueltas.");
-    //
-    // int vueltasmin = this.jugadores.get(turno).getVueltas();
-    //
-    // for (Jugador j : this.jugadores) {
-    // if (!j.esBanca() && j.getVueltas() < vueltasmin) {
-    // vueltasmin = j.getVueltas();
-    // }
-    // }
-    //
-    // if ((this.jugadores.get(turno).getVueltas() == vueltasmin) && (vueltasmin % 4
-    // == 0)) {
-    // consola.imprimirln(
-    // "Todos los jugadores han dado un múltiplo de 4 vueltas, se va a incrementar
-    // el precio de los solares en un 10%.");
-    // this.tablero.actualizarValorSolares();
-    // }
-    // }
-    //
-    // private void evaluarAccion(int desplazamiento) {
-    /// *
-    // * En estos casos no se evalua casilla, sino que la accion se realiza
-    // * desde aqui. Si esto es un error borrar los else-if pero el de caja y suerte
-    // * si que no puede ejecutarse evaluar casilla despues
-    // */
-    // if (avatares.get(turno).getCasilla().getTipo().equals("suerte")) {
-    // if (Suerte.elegirCarta(avatares.get(turno), jugadores, tablero)) {
-    // pasarPorSalida();
-    // }
-    // }
-
-    // if (avatares.get(turno).getCasilla().getTipo().equals("caja")) {
-    // if (Comunidad.elegirCarta(avatares.get(turno), jugadores, tablero)) {
-    // pasarPorSalida();
-    // }
-    // }
-
-    // if (avatares.get(turno).getCasilla().getNombre().equals("IrCarcel")) {
-    // jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
-    // }
-
-    // else {
-    //// evaluar casilla
-    // solvente =
-    // avatares.get(turno).getCasilla().evaluarCasilla(jugadores.get(turno), banca,
-    // desplazamiento);
-    // if (!solvente) {
-    // evaluarSolvente();
-    // }
-    // }
-    // }
 
     private void evaluarSolvente() {
         consola.imprimirln("El jugador " + jugadores.get(turno).getNombre()
@@ -914,18 +704,18 @@ public class Juego {
         this.avatares.remove(turno);
         this.movimientoAvanzado.remove(turno);
         movimientoAvanzado.set(turno - 1, false);
-        if (this.turno != 0)
-            this.turno--;
-        if (this.turno == 0)
-            this.turno = 0;
+
+        if (this.turno > 0)
+            --this.turno;
 
         if (this.jugadores.size() == 2) {
-            partida_finalizada = true;
             consola.imprimirln("Sólo queda un jugador. La partida ha finalizado.");
             /* Esta linea creo que sobra */
             this.turno = 1; // Es para q el mensaje del q gane salga bien (creo)
+            partida_finalizada = true;
             return;
         }
+
         /* Si esto esta a true se puede acabar turno evitando todas las restricciones */
         es_coche_y_no_puede_tirar = true;
         acabarTurno();
@@ -937,9 +727,9 @@ public class Juego {
             if (c == null)
                 throw new NoExisteElementoException("La casilla " + nombre + " no existe.");
 
-            else if (!(c instanceof Propiedad)) 
+            else if (!(c instanceof Propiedad))
                 throw new TipoPropiedadException("No puedes hipotecar " + nombre + " porque no es una propiedad.");
-            
+
             else if (!partida_empezada)
                 throw new EstadoPartidaException("No puedes hipotecar antes de que empiece la partida.");
 
@@ -962,14 +752,14 @@ public class Juego {
     }
 
     private void acciondeshipotecar(String nombre) {
-        try{
+        try {
             Casilla c = this.tablero.encontrar_casilla(nombre);
             if (c == null)
                 throw new NoExisteElementoException("La casilla " + nombre + " no existe.");
 
-            else if (!(c instanceof Propiedad)) 
+            else if (!(c instanceof Propiedad))
                 throw new TipoPropiedadException("No puedes deshipotecar " + nombre + " porque no es una propiedad.");
-            
+
             else if (!partida_empezada)
                 throw new EstadoPartidaException("No puedes deshipotecar antes de que empiece la partida.");
 
@@ -977,7 +767,7 @@ public class Juego {
                 Propiedad p = (Propiedad) c;
                 p.deshipotecar(jugadores.get(turno));
             }
-        }catch(MonopolyException e){
+        } catch (MonopolyException e) {
             consola.imprimirError(e.getMessage());
         }
     }
@@ -1042,15 +832,15 @@ public class Juego {
      * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
-        try{
+        try {
             Casilla casilla = tablero.encontrar_casilla(nombre);
             if (casilla == null)
                 throw new NoExisteElementoException("La casilla " + nombre + " no existe.");
-            
+
             /* Para la mierda del coche y la pelota */
-            else if (!jugador_puede_comprar && movimientoAvanzado.get(turno - 1)) 
+            else if (!jugador_puede_comprar && movimientoAvanzado.get(turno - 1))
                 throw new AccionIncompatibleException("Ya has comprado en este turno.");
-            
+
             else if (!(casilla instanceof Propiedad))
                 throw new TipoPropiedadException("No puedes comprar " + nombre + " porque no es una propiedad.");
 
@@ -1059,15 +849,16 @@ public class Juego {
 
             else {
                 Propiedad p = (Propiedad) casilla;
-                p.comprarCasilla(this.jugadores.get(turno), banca, movimientoAvanzado.get(turno - 1), avatares.get(turno).getCasillasVisitadas());
-                    /*
-                     * Esta variable se pone a true si los dados son dobles, asi para los que
-                     * se mueven mas de una vez o pueden comprar mas de una no les dejan
-                     */
+                p.comprarCasilla(this.jugadores.get(turno), banca, movimientoAvanzado.get(turno - 1),
+                        avatares.get(turno).getCasillasVisitadas());
+                /*
+                 * Esta variable se pone a true si los dados son dobles, asi para los que
+                 * se mueven mas de una vez o pueden comprar mas de una no les dejan
+                 */
                 jugador_puede_comprar = false;
             }
 
-        } catch(MonopolyException e){
+        } catch (MonopolyException e) {
             consola.imprimirError(e.getMessage());
         }
     }
@@ -1439,20 +1230,4 @@ public class Juego {
         }
 
     }
-
-    // private void listarTratos() {
-
-    // for (Trato t : tratos) {
-
-    // if (t.getReceptor().equals(this.jugadores.get(turno))) {
-
-    // t.toString();
-    // // TODO: creo que falta el printf @guille
-
-    // }
-
-    // }
-
-    // }
-
 }
