@@ -468,8 +468,7 @@ public class Juego {
                     break;
     
                 default:
-                    consola.imprimirln("Opcion incorrecta. [? para ver las opciones]");
-                    break;
+                    throw new ComandoIncorrectoException();
             }
         }catch(NumberFormatException nfe){
             consola.imprimirError(com[1] + " y/o " + com[2] + " no es/son entero/s.");
