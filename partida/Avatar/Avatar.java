@@ -21,6 +21,9 @@ public abstract class Avatar {
     public Avatar() {
     }
 
+    public abstract boolean moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores);
+    public abstract String getInfo();
+
     /*
      * Constructor principal. Requiere éstos parámetros:
      * Tipo del avatar, jugador al que pertenece, lugar en el que estará ubicado, y
@@ -34,7 +37,7 @@ public abstract class Avatar {
         avCreados.add(this);
     }
 
-    public ArrayList<Casilla> getCasillasVisitadas(){
+    public ArrayList<Casilla> getCasillasVisitadas() {
         return null;
     }
 
@@ -55,8 +58,7 @@ public abstract class Avatar {
         return this.casilla;
     }
 
-
-    //-------------------------------------
+    // -------------------------------------
 
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
@@ -67,20 +69,20 @@ public abstract class Avatar {
     }
 
     public void setTurno(int turno) {
-        if(turno >= 0)
-        this.turno = turno;
+        if (turno >= 0)
+            this.turno = turno;
     }
 
-    //No hay setId porque no se modifica una vez creada
+    // No hay setId porque no se modifica una vez creada
 
-    //-----------------------------------------------------------------
+    // -----------------------------------------------------------------
 
     public static Boolean esTipo(String tipo) {
         return tipo.equals("Coche") || tipo.equals("Esfinge") || tipo.equals("Sombrero") || tipo.equals("Pelota");
     }
 
     public void desplazar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-        desplazar(Tablero.obtenerCasilla(casillas, (valorTirada + this.casilla.getPosicion() - 1)%40 ));
+        desplazar(Tablero.obtenerCasilla(casillas, (valorTirada + this.casilla.getPosicion() - 1) % 40));
     }
 
     public void desplazar(Casilla casilla) {
@@ -107,7 +109,8 @@ public abstract class Avatar {
         }
 
         if ((jugador.getVueltas() == vueltasmin) && (vueltasmin % 4 == 0)) {
-            Juego.consola.imprimirln("Todos los jugadores han dado un múltiplo de 4 vueltas, se va a incrementar el precio de los solares en un 5%.");
+            Juego.consola.imprimirln(
+                    "Todos los jugadores han dado un múltiplo de 4 vueltas, se va a incrementar el precio de los solares en un 5%.");
             tablero.actualizarValorSolares();
         }
     }
@@ -123,7 +126,7 @@ public abstract class Avatar {
     }
 
     private void comprobarSiPasasPorSalida(Tablero tablero, int desplazamiento, ArrayList<Jugador> jugadores) {
-        int casillanueva = casilla.getPosicion()-1;
+        int casillanueva = casilla.getPosicion() - 1;
         /*
          * Si estas en una casilla que la posicion de la casilla es menor que
          * la tirada quiere decir que pasaste por salida. Por ejemplo, si desde la
@@ -146,25 +149,21 @@ public abstract class Avatar {
         return pasarPorSalidaHaciaAtras(desplazamiento);
     }
 
-    public abstract boolean moverEnAvanzado(Tablero tablero, int valor1, int valor2, ArrayList<Jugador> jugadores) ;
-
-    public abstract String getInfo();
-
-    //TODO esto te puede dejar en bancarrota
+    // TODO esto te puede dejar en bancarrota
     public boolean pasarPorSalidaHaciaAtras(int desplazamiento) {
 
         int casillanueva = casilla.getPosicion();
-        if ((casillanueva + desplazamiento > 40)) {
-            // Algun dia razoné porque la condicion era esta
+        if ((casillanueva + desplazamiento > 40)) { // Algun dia supe porque la condicion era esta
 
             Juego.consola.imprimirln("¡Has pasado por la Salida hacia atrás! Perdiste " + Valor.SUMA_VUELTA);
             jugador.sumarFortuna(-Valor.SUMA_VUELTA);
             Juego.consola.imprimirln("Tu fortuna actual es: " + jugador.getFortuna());
-            if (jugador.getVueltas() != 0) jugador.setVueltas(jugador.getVueltas() - 1);
+            if (jugador.getVueltas() != 0)
+                jugador.setVueltas(jugador.getVueltas() - 1);
             jugador.setPasarPorCasillaDeSalida(jugador.getPasarPorCasillaDeSalida() - Valor.SUMA_VUELTA);
             Juego.consola.imprimirln("Llevas " + jugador.getVueltas() + " vueltas.");
         }
-        return(!jugador.estaBancarrota());
+        return (!jugador.estaBancarrota());
     }
 
     /*
@@ -178,6 +177,7 @@ public abstract class Avatar {
 
         Random rnd = new Random();
         String letra = String.valueOf((char) ('A' + rnd.nextInt(26)));
+        /* Se nota que el que hizo esto viene de C xd */
         int aseguradodistinto = 0;
         while ((aseguradodistinto == 0) && (avCreados.size() != 0)) {
             for (Avatar A : avCreados) {
@@ -191,7 +191,6 @@ public abstract class Avatar {
         }
         this.id = letra;
     }
-
 
     public boolean evaluarAccion(int desplazamiento, ArrayList<Jugador> jugadores, Tablero tablero) {
         /*
@@ -209,7 +208,7 @@ public abstract class Avatar {
 
         if (this.casilla instanceof AccionCajaComunidad) {
             if (Comunidad.elegirCarta(this, jugadores, tablero)) {
-                pasarPorSalida(tablero,jugadores );
+                pasarPorSalida(tablero, jugadores);
             }
             this.getCasilla().evaluarCasilla(jugadores.get(turno), jugadores.get(0), desplazamiento);
             return (!jugadores.get(turno).estaBancarrota());
@@ -222,7 +221,7 @@ public abstract class Avatar {
         else {
             // evaluar casilla
             return casilla.evaluarCasilla(this.jugador, jugadores.get(0), desplazamiento);
-            }
+        }
 
         return true;
     }
@@ -231,27 +230,4 @@ public abstract class Avatar {
     public String toString() {
         return this.id;
     }
-
-    /*
-     * LEGACY CODE. TO BE REMOVED
-     * TODO (Arreglar el resto sin borrar esto asi no peta y se puede probar)
-     */
-    //static Casilla obtenerCasilla(ArrayList<ArrayList<Casilla>> casillas, int valor) {
-    //    System.out.println("Estas usando Avatar.obtenerCasilla(deprecated)");
-    //    valor = valor % 40;
-    //    return casillas.get(valor / 10).get(valor % 10);
-    //}
-
-    //public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-    //    moverAvatar(obtenerCasilla(casillas, valorTirada + this.casilla.getPosicion() - 1));
-    //}
-
-    //public void moverAvatar(Casilla casilla) {
-    //    System.out.println("Estas usando Avatar.moverAvatar (deprecated)");
-    //    this.casilla.eliminarAvatarCasilla(this.id);
-    //    this.casilla = casilla;
-    //    this.casilla.anhadirAvatarCasilla(this);
-    //    casilla.actualizarCaidasEnCasilla(this.turno);
-    //}
-
 }
