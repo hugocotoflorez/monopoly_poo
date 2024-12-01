@@ -150,9 +150,6 @@ public abstract class Propiedad extends Casilla {
         }
     }
 
-
-
-
     public abstract float calcularAlquiler(int tirada);
 
     public void cobrarAlquiler(Jugador actual){
@@ -178,7 +175,7 @@ public abstract class Propiedad extends Casilla {
                 cobrarAlquiler(actual);
                 if (actual.estaBancarrota()) return false;
             }
-            else Juego.consola.imprimirln("El jugador " + this.duenho.getNombre() + "no cobra el alquiler por " + this.getNombre() + "porque está hipotecada.");
+            else Juego.consola.imprimirln("El jugador " + this.duenho.getNombre() + " no cobra el alquiler por " + this.getNombre() + " porque está hipotecada.");
         }
         else if (this.duenho.equals(actual)) Juego.consola.imprimirln("Esta propiedad te pertenece.");
         else Juego.consola.imprimirln("Se puede comprar la casilla " + this.getNombre());

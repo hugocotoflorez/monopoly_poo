@@ -24,20 +24,6 @@ public abstract class Casilla {
         this.avatares = new ArrayList<Avatar>();
     }
 
-    /*
-     * Constructor utilizado para crear las otras casillas (Suerte, Caja de
-     * comunidad y Especiales):
-     * Parámetros: nombre, tipo de la casilla (será uno de los que queda), posición
-     * en el tablero y dueño.
-     */
-    /*public Casilla(String nombre, String tipo, int posicion, Jugador duenho) {
-        this.nombre = nombre;
-        check(tipo.equals("suerte") || tipo.equals("caja") || tipo.equals("especial"), "casilla.tipo unexpected value");
-        this.tipo = tipo;
-        this.posicion = posicion;
-        this.duenho = duenho;
-    }*/
-
     // GETTERS Y SETTERS ------------------------------------
     public String getNombre() {
         return this.nombre;
@@ -70,16 +56,6 @@ public abstract class Casilla {
 
     //--------------------------------------------------------
 
-    // Método utilizado para añadir un avatar al array de avatares en casilla.
-    public void anhadirAvatar(Avatar av) {
-        this.avatares.add(av);
-    }
-
-    // Método utilizado para eliminar un avatar del array de avatares en casilla.
-    public void eliminarAvatar(Avatar av) {
-        this.avatares.remove(av);
-    }
-
     // Método para incrementar en 1 el número de veces que se cayó en una casilla.
     public void actualizarCaidasEnCasilla(int jugador) {
         if (jugador < 6 && jugador >= 0)
@@ -95,21 +71,14 @@ public abstract class Casilla {
     }
 
 
-    /*
-     * Método para evaluar qué hacer en una casilla concreta. Parámetros:
-     * - Jugador cuyo avatar está en esa casilla.
-     * - La banca (para ciertas comprobaciones).
-     * - El valor de la tirada: para determinar impuesto a pagar en casillas de
-     * servicios.KO
-     * Valor devuelto: true en caso de ser solvente (es decir, de cumplir las
-     * deudas), y false
-     * en caso de no cumplirlas.
-     */
-    //Sólo dios sabe dónde vamos a meter todo esto
     public abstract boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada);
 
-    public void eliminarAvatarCasilla(String ID) { // Elimina un avatar de la lista de avatares dado su ID
+    // Método utilizado para eliminar un avatar del array de avatares en casilla.
+    public void eliminarAvatar(Avatar av) {
+        this.avatares.remove(av);
+    }
 
+    public void eliminarAvatarCasilla(String ID) { // Elimina un avatar de la lista de avatares dado su ID
         for (int i = 0; i < avatares.size(); i++) {
             if (this.avatares.get(i).getId().equals(ID)) {
                 this.avatares.remove(i);
@@ -122,14 +91,6 @@ public abstract class Casilla {
     }
 
     public abstract String infoCasilla(Jugador banca);
-
-    /*
-     * Método para mostrar información de una casilla en venta.
-     * Valor devuelto: texto con esa información.
-     */
-    public String casEnVenta() {
-        return "";
-    }
 
     public String printCasilla() {
         String data = new String();

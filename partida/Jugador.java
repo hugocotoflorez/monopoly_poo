@@ -266,7 +266,7 @@ public class Jugador {
         this.avatar.getCasilla().eliminarAvatar(this.avatar);
         this.avatar.setLugar(pos.get(1).get(0));
         this.enCarcel = true;
-        this.avatar.getCasilla().anhadirAvatar(this.avatar);
+        this.avatar.getCasilla().anhadirAvatarCasilla(this.avatar);
         this.vecesEnLaCarcel += 1;
 
     }

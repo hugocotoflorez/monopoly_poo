@@ -140,7 +140,7 @@ public class Juego {
         }
         Jugador jugador = new Jugador(nombreJugador, tipoAvatar, this.tablero.posicion_salida(), this.avatares);
         this.jugadores.add(jugador);
-        this.tablero.posicion_salida().anhadirAvatar(jugador.getAvatar());
+        this.tablero.posicion_salida().anhadirAvatarCasilla(jugador.getAvatar());
     }
 
     /* No se porque no funciona */
