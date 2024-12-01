@@ -11,7 +11,7 @@ public class Accion extends Casilla {
 
     @Override 
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada){
-        Juego.consola.imprimirln("El jugador " + actual.getNombre() + "ha caído en una casilla de acción.");
+        Juego.consola.imprimirln("El jugador " + actual.getNombre() + " ha caído en una casilla de acción.");
         return true;
     }
 

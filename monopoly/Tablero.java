@@ -72,9 +72,13 @@ public class Tablero {
         return posiciones.get(0).get(0);
     }
 
+    //Solo existe este getter porque no se necesita acceder al resto de atributos fuera de la clase
+
     public ArrayList<ArrayList<Casilla>> getPosiciones() {
         return posiciones;
     }
+
+    //No hay setters porque en principio no se debería modificar fuera de su constructor
 
     // Método para crear todas las casillas del tablero. Formado a su vez por cuatro
     // métodos (1/lado).

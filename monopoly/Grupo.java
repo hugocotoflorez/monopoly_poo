@@ -51,7 +51,7 @@ public class Grupo {
         ((Solar) cas3).setGrupo(this);
     }
 
-    // GETTERS
+    // GETTERS -------------------
     public ArrayList<Solar> getMiembros() {
         return this.miembros;
     }
@@ -64,10 +64,10 @@ public class Grupo {
         return this.numCasillas;
     }
     public String getID(){
-
         return this.ID;
-
     }
+
+    //No hay setters porque los grupos en principio no se modifican fuera del constructor de tablero
 
     public int obtenerNumCasasGrupo(){
 
@@ -154,18 +154,21 @@ public class Grupo {
     @Override
     public String toString() {
         String ret = new String();
-
-        ret += "{\n";
-        for (Solar c : this.miembros) {
-            ret += ("propiedad: " + c.getNombre());
-            ret += ("hoteles: [ " + c.listar_nombre_edificios_tipo("Hotel"));
-            ret += ("casas: " + c.listar_nombre_edificios_tipo("Casa"));
-            ret += ("piscinas: " + c.listar_nombre_edificios_tipo("Piscina"));
-            ret += ("pistasDeDeporte: " + c.listar_nombre_edificios_tipo("Pista de deportes"));
-            ret += ("alquiler: " + c.getAlquiler());
+        for(Solar c : this.miembros){
+            if (c.getEdificios().size()!=0){
+                ret += """
+                    {
+                    propiedad: %s
+                    casas: %s
+                    hoteles: %s
+                    piscinas: %s
+                    pistas de deporte: %s
+                    alquiler: %f
+                    }
+                    """.formatted(c.getNombre(), c.listar_nombre_edificios_tipo("casa"), c.listar_nombre_edificios_tipo("hotel"),c.listar_nombre_edificios_tipo("piscina"), c.listar_nombre_edificios_tipo("pista"), c.calcularAlquiler(0));
+        
+            }
         }
-        ret += "}\n";
-
         return ret;
     }
 

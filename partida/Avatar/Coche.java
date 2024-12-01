@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public class Coche extends Avatar {
 
     /* Las siguientes variables si se usan, pero mal */
+    private boolean tirado = false;
     private boolean se_puede_tirar_en_el_siguiente_turno = true;
     private boolean se_puede_tirar_en_el_siguiente_turno2 = true;
     private int contadorTiradasCoche = 0;
-    private boolean tirado = false;
 
     public boolean getse_puede_tirar_en_el_siguiente_turno() {
         return se_puede_tirar_en_el_siguiente_turno;
@@ -76,31 +76,26 @@ public class Coche extends Avatar {
          * menor que 4, el avatar retrocederá el número de casillas correspondientes y
          * además no puede volver a lanzar los dados en los siguientes dos turnos.
          */
-        /*
-         * DUDAS:
-         * se vuelve a tirar cuando se sacan dobles? como afecta?
-         */
         int desplazamiento = valor1 + valor2;
+
         if (desplazamiento > 4) {
             moverNormal(tablero, valor1, valor2, jugadores);
             // actualiza contador coche y si el contador es 4 se pone a 0 y
-            // this.tirado es false por lo que no se puede seguir tirando
+            // this.tirado es false por lo que no se puede seguir tirando.
+            // Si esta en la carcel tirado tambien se pone a true para que
+            // pueda acabar turno.
             contadorTiradasCoche++;
-            tirado = contadorTiradasCoche >= 4;
-
-            //Juego.consola.imprimirln("Se puede volver a tirar? " + !tirado);
-            //Juego.consola.imprimirln("Tiradas coche = " + contadorTiradasCoche);
+            tirado = contadorTiradasCoche >= 4 || this.getJugador().getEnCarcel();
 
         } else {
-            contadorTiradasCoche = 1;
             moverAtras(tablero, valor1, valor2);
-            // Comprueba si pasa por salida hacia atras -> implicito en moveratras
-            // pasarPorSalidaHaciaAtras(valor1 + valor2);
+
+            contadorTiradasCoche = 1;
             se_puede_tirar_en_el_siguiente_turno = false;
             se_puede_tirar_en_el_siguiente_turno2 = false;
-            Juego.consola.imprimirln("No puedes mover en dos turnos!");
             tirado = true;
+            Juego.consola.imprimirln("No puedes mover en dos turnos!");
         }
-        return true;
+        return !getJugador().estaBancarrota();
     }
 }

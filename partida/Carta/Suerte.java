@@ -67,6 +67,7 @@ public class Suerte extends Carta {
          */
         /* 5 es la posicion de transportes1 */
         if (av.getCasilla().getPosicion() > 5) {
+            av.desplazar(casillas.get(0).get(5));
             return true;
         }
         av.desplazar(casillas.get(0).get(5));
@@ -98,6 +99,7 @@ public class Suerte extends Carta {
          */
         // cobrar
         if (av.getCasilla().getPosicion() > 6) {
+            av.desplazar(casillas.get(0).get(6));
             return true;
         }
         av.desplazar(casillas.get(0).get(6));

@@ -1,33 +1,18 @@
 crear jugador Hugo Coche
 crear jugador Guille Esfinge
 <<<<<<< HEAD
-l 40 0
-acabar
-l 40 0
-acabar
-l 40 0
-acabar
-l 40 0
-acabar
-l 40 0
-acabar
-l 40 0
-acabar
-l 40 0
-acabar
-=======
 l 1 0
 comprar Solar1
-acabar turno
-l 2 0
-acabar
-l 2 0
-comprar Solar2
-acabar
-l 5 6
-acabar
+a
+l 1 0
+a
 l 40 0
-edificar Casa
-acabar
-l 30 0
+a
+l 2 0
+a
+l 40 0
+a
+l 1 0
+a
+edificar casa
 >>>>>>> origin/main
