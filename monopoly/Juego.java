@@ -1182,25 +1182,29 @@ public class Juego {
     }
 
     private void desedificar(String casilla, String tipoedificio, String n) {
+        try{
+            if (!partida_empezada)
+                throw new EstadoPartidaException("No puedes vender edificios antes de que empiece la partida.");
 
-        Casilla c = this.tablero.encontrar_casilla(casilla);
-        if (c == null) {
+            Casilla c = this.tablero.encontrar_casilla(casilla);
 
-            consola.imprimirln("Nombre de casilla incorrecto!");
-            return;
-        }
+            if (c == null)
+                throw new NoExisteElementoException("La casilla " + casilla + " no existe.");
 
-        if (this.jugadores.get(turno).getEnCarcel())
-            consola.imprimirln("Estás en la cárcel!");
+            if (!(c instanceof Solar)) 
+                throw new TipoPropiedadException("No puedes vender edificios de " + c.getNombre() + " porque no es un solar.");
 
-        if (c instanceof Solar) {
             ((Solar) c).desedificar(tipoedificio, this.jugadores.get(turno), n);
             if (!jugadores.get(turno).estaBancarrota()) {
                 solvente = true;
             } else
                 consola.imprimirln("Aún no has saldado tus deudas.");
-        } else
-            consola.imprimirln("No puedes desedificar en esta casilla.");
+
+        } catch (NumberFormatException nfe){
+            consola.imprimirError(n + " no es un entero.");
+        } catch (Exception e){
+            consola.imprimirError(e.getMessage());
+        }
     }
 
     Jugador obtenerJugadorDadoNombre(String nombreJugador) {
