@@ -1,0 +1,17 @@
+crear jugador j1 Pelota
+crear jugador j2 Pelota
+l 1 0
+comprar Solar1
+acabar
+l 3 0
+comprar Solar2
+acabar
+trato j2 cambiar Solar1 Solar2
+trato j2 cambiar Solar1 10000
+trato j2 cambiar 10000 Solar2
+listar jugadores
+l 10 0
+listar jugadores
+acabar
+listar tratos
+listar jugadores

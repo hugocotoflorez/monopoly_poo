@@ -1,16 +1,13 @@
 package partida;
 
-import monopoly.Casilla.Casilla;
+import monopoly.*;
 import monopoly.Casilla.Propiedad.Propiedad;
-import monopoly.Juego;
-import monopoly.Tablero;
-import monopoly.Valor;
 
 // Queda por cambiar Propiedad por Propiedad
 
 public class Trato {
 
-    Jugador proponiente;
+    Jugador proponedor;
     Jugador receptor;
 
     Float dineroJ1;
@@ -22,210 +19,283 @@ public class Trato {
     int tipo;
     String ID;
 
-    private void trato(Jugador proponiente, Jugador receptor, Propiedad PropiedadJ1, Propiedad PropiedadJ2) { // Propiedad
-                                                                                                              // por
+    public Trato(Jugador proponedor, Jugador receptor, Propiedad PropiedadJ1, Propiedad PropiedadJ2) { // Propiedad
+                                                                                                       // por
         // Propiedad
+        if (proponedor != null && receptor != null && PropiedadJ1.getDuenho().equals(proponedor)
+                && PropiedadJ2.getDuenho().equals(receptor)) {
 
-        this.proponiente = proponiente;
-        this.receptor = receptor;
+            this.proponedor = proponedor;
+            this.receptor = receptor;
 
-        this.PropiedadJ1 = PropiedadJ1;
+            this.PropiedadJ1 = PropiedadJ1;
+            this.dineroJ1 = 0f;
 
-        this.PropiedadJ2 = PropiedadJ2;
+            this.PropiedadJ2 = PropiedadJ2;
+            this.dineroJ2 = 0f;
 
-        this.tipo = 0;
+            this.tipo = 0;
 
-        this.ID = "trato" + Valor.NumeroTratos++;
-    }
-
-    private void trato(Jugador proponiente, Jugador receptor, Propiedad PropiedadJ1, Float dineroJ2) { // Propiedad por
-                                                                                                       // dinero
-
-        this.proponiente = proponiente;
-        this.receptor = receptor;
-
-        this.PropiedadJ1 = PropiedadJ1;
-
-        this.dineroJ2 = dineroJ2;
-
-        this.tipo = 1;
-
-        this.ID = "trato" + Valor.NumeroTratos++;
-
-    }
-
-    private void trato(Jugador proponiente, Jugador receptor, Float dineroJ1, Propiedad PropiedadJ2) { // Dinero por
-                                                                                                       // propiedad
-
-        this.proponiente = proponiente;
-        this.receptor = receptor;
-
-        this.dineroJ1 = dineroJ1;
-
-        this.PropiedadJ2 = PropiedadJ2;
-
-        this.tipo = 2;
-        this.ID = "trato" + Valor.NumeroTratos++;
-    }
-
-    private void trato(Jugador proponiente, Jugador receptor, Propiedad PropiedadJ1, Propiedad PropiedadJ2,
-            Float dineroJ2) {// Propiedad por Propiedad y dinero
-
-        this.proponiente = proponiente;
-        this.receptor = receptor;
-
-        this.PropiedadJ1 = PropiedadJ1;
-
-        this.PropiedadJ2 = PropiedadJ2;
-        this.dineroJ2 = dineroJ2;
-
-        this.tipo = 3;
-        this.ID = "trato" + Valor.NumeroTratos++;
-    }
-
-    private void trato(Jugador proponiente, Jugador receptor, Propiedad PropiedadJ1, Float dineroJ1,
-            Propiedad PropiedadJ2) { // Propiedad y dinero por Propiedad
-
-        this.proponiente = proponiente;
-        this.receptor = receptor;
-
-        this.PropiedadJ1 = PropiedadJ1;
-        this.dineroJ1 = dineroJ1;
-
-        this.PropiedadJ2 = PropiedadJ2;
-
-        this.tipo = 4;
-        this.ID = "trato" + Valor.NumeroTratos++;
-    }
-
-    public Trato(Jugador proponedor, Jugador receptor, String of1, String of2, Tablero tablero) {
-
-        Casilla c1 = tablero.encontrar_casilla(of1);
-        Casilla c2 = tablero.encontrar_casilla(of2);
-
-        if (receptor == null) {
-            Juego.consola.imprimirError("No se ha encontrado el jugador!\n");
-            return;
+            this.ID = "trato" + Valor.NumeroTratos++;
         }
 
-        if (c1 != null && c2 != null) {
-            if (!(c1 instanceof Propiedad)){
-                Juego.consola.imprimirError("La casilla " + c1.getNombre() + "no es una propiedad");
-                return;
-            }
-            if (!(c2 instanceof Propiedad)){
-                Juego.consola.imprimirError("La casilla " + c2.getNombre() + "no es una propiedad");
-                return;
-            }
+        else if (proponedor == null) {
 
-            Propiedad p1 = (Propiedad) c1;
-            Propiedad p2 = (Propiedad) c2;
+            Juego.consola.imprimirError("El jugador proponedor no existe");
 
-            if(!p1.getDuenho().equals(proponedor)){
-                Juego.consola.imprimirError("El jugador " + proponedor.getNombre() + " no es dueño de la Casilla\n");
-                return;
-            }
-            if(!p2.getDuenho().equals(receptor)){
+            this.receptor = null;
+            this.proponedor = null;
+        } 
+        
+        else if (receptor == null) {
 
-                Juego.consola.imprimirError("El jugador " + receptor.getNombre() + " no es dueño de la Casilla\n");
-                return;
+            Juego.consola.imprimirError("El jugador receptor no existe");
 
-            }
-
-            trato(proponedor, receptor, p1, p2);
-
-        } else if (c1 != null && c2 == null) {
-            if (!(c1 instanceof Propiedad)){
-                Juego.consola.imprimirError("La casilla " + c1.getNombre() + "no es una propiedad");
-                return;
-            }
-
-            trato(proponedor, receptor, Float.parseFloat(of1), (Propiedad) c2);
-
+            this.receptor = null;
+            this.proponedor = null;
         }
+    }
 
-        else if (c1 == null && c2 != null) {
-            if (!(c2 instanceof Propiedad)){
-                /* TODO: GUILLE c1 es null no puedes acceder a su nombre */
-                Juego.consola.imprimirError("La casilla " + c1.getNombre() + "no es una propiedad");
-                return;
-            }
+    public Trato(Jugador proponedor, Jugador receptor, Propiedad PropiedadJ1, Float dineroJ2) { // Propiedad por
+                                                                                                // dinero
+        if (proponedor != null && receptor != null && PropiedadJ1.getDuenho().equals(proponedor)) {
 
-            trato(proponedor, receptor, (Propiedad) c1, Float.parseFloat(of2));
+            this.proponedor = proponedor;
+            this.receptor = receptor;
 
+            this.PropiedadJ1 = PropiedadJ1;
+            this.dineroJ1 = 0f;
+
+            this.PropiedadJ2 = null;
+            this.dineroJ2 = dineroJ2;
+
+            this.tipo = 1;
+
+            this.ID = "trato" + Valor.NumeroTratos++;
+        } 
+        
+        else if (proponedor == null) {
+
+            Juego.consola.imprimirError("El jugador proponedor no existe");
+
+            this.receptor = null;
+            this.proponedor = null;
+        } 
+        
+        else if (receptor == null) {
+            Juego.consola.imprimirError("El jugador receptor no existe");
+            this.receptor = null;
+            this.proponedor = null;
+        } 
+        
+        else if (!PropiedadJ1.getDuenho().equals(proponedor)) {
+
+            Juego.consola.imprimirError(
+                    "El jugador " + proponedor.getNombre() + " no tiene la propiedad " + PropiedadJ1.getNombre());
+
+            this.receptor = null;
+            this.proponedor = null;
         }
-
-        else
-            Juego.consola.imprimirError("Uso incorrecto < trato Maria: cambiar ( Solar1, 300000 ) >");
 
     }
 
-    public Trato(Jugador proponedor, Jugador receptor, String of1, String of2, String of3, Tablero tablero){
+    public Trato(Jugador proponedor, Jugador receptor, Float dineroJ1, Propiedad PropiedadJ2) { // Dinero por
+                                                                                                // propiedad
+        if (proponedor != null && receptor != null && dineroJ1 < proponedor.getFortuna()
+                && PropiedadJ2.getDuenho().equals(receptor)) {
+            this.proponedor = proponedor;
+            this.receptor = receptor;
 
-        Casilla c1 = tablero.encontrar_casilla(of1);
-        Casilla c2 = tablero.encontrar_casilla(of2);
-        Casilla c3 = tablero.encontrar_casilla(of3);
+            this.PropiedadJ1 = null;
+            this.dineroJ1 = dineroJ1;
 
-        if(c1 != null && c2 != null && c3 == null) // Propiedad por propiedad y dinero
-            trato(proponedor, receptor, (Propiedad) c1, (Propiedad) c2, Float.parseFloat(of3));
+            this.PropiedadJ2 = PropiedadJ2;
+            this.dineroJ2 = 0f;
 
-        else if(c1 != null && c2 == null && c3 != null) // Propiedad y dinero por propieadad
-            trato(proponedor,receptor, (Propiedad) c1, Float.parseFloat(of2), (Propiedad) c3);
-        else
-            Juego.consola.imprimirError("Uso incorrecto < trato Maria: cambiar ( Solar1, Solar14 y 300000 ) >");
+            this.tipo = 2;
+            this.ID = "trato" + Valor.NumeroTratos++;
+        }
+
+        else if (proponedor == null) {
+
+            Juego.consola.imprimirError("El jugador proponedor no existe");
+
+            this.receptor = null;
+            this.proponedor = null;
+        }
+
+        else if (receptor == null) {
+
+            Juego.consola.imprimirError("El jugador receptor no existe");
+
+            this.receptor = null;
+            this.proponedor = null;
+        }
+
+        else if (dineroJ1 > proponedor.getFortuna()) {
+
+            Juego.consola
+                    .imprimirError("No tienes suficiente dinero para ejecutar el trato: " + proponedor.getFortuna());
+
+            this.proponedor = null;
+            this.receptor = null;
+        }
+
+        else if (!PropiedadJ2.getDuenho().equals(receptor)) {
+
+            Juego.consola.imprimirError(
+                    "El jugador " + receptor.getNombre() + " no tiene la propiedad " + PropiedadJ2.getNombre());
+
+            this.receptor = null;
+            this.proponedor = null;
+        }
+    }
+
+    public Trato(Jugador proponedor, Jugador receptor, Propiedad PropiedadJ1, Propiedad PropiedadJ2, Float dineroJ2) { // Propiedad
+        // por
+        // Propiedad
+        // +
+        // Dinero
+        if (proponedor != null && receptor != null && PropiedadJ1.getDuenho().equals(proponedor)
+                && PropiedadJ2.getDuenho().equals(receptor)) {
+
+            this.proponedor = proponedor;
+            this.receptor = receptor;
+
+            this.PropiedadJ1 = PropiedadJ1;
+            this.dineroJ1 = 0f;
+
+            this.PropiedadJ2 = PropiedadJ2;
+            this.dineroJ2 = dineroJ2;
+
+            this.tipo = 3;
+        }
+
+        else if (proponedor == null) {
+
+            Juego.consola.imprimirError("El jugador proponedor no existe");
+
+            this.receptor = null;
+            this.proponedor = null;
+        }
+
+        else if (receptor == null) {
+
+            Juego.consola.imprimirError("El jugador receptor no existe");
+
+            this.receptor = null;
+            this.proponedor = null;
+        }
+
+    }
+
+    public Trato(Jugador proponedor, Jugador receptor, Propiedad PropiedadJ1, Float dineroJ1, Propiedad PropiedadJ2) { // Propiedad
+                                                                                                                       // +
+                                                                                                                       // Dinero
+                                                                                                                       // por
+                                                                                                                       // propiedad
+        if (proponedor != null && receptor != null && PropiedadJ1.getDuenho().equals(proponedor)
+                && PropiedadJ2.getDuenho().equals(receptor)) {
+
+            this.proponedor = proponedor;
+            this.receptor = receptor;
+
+            this.PropiedadJ1 = PropiedadJ1;
+            this.dineroJ1 = dineroJ1;
+
+            this.PropiedadJ2 = PropiedadJ2;
+            this.dineroJ2 = 0f;
+
+            this.tipo = 4;
+        }
+
+        else if (proponedor == null) {
+
+            Juego.consola.imprimirError("El jugador proponedor no existe");
+
+            this.receptor = null;
+            this.proponedor = null;
+
+        }
+
+        else if (receptor == null) {
+
+            Juego.consola.imprimirError("El jugador receptor no existe");
+
+            this.receptor = null;
+            this.proponedor = null;
+
+        }
     }
 
     private void trato0() {
 
-        this.proponiente.anhadirPropiedad(PropiedadJ2);
-        this.proponiente.eliminarPropiedad(PropiedadJ1);
+        this.proponedor.anhadirPropiedad(PropiedadJ2);
+        this.proponedor.eliminarPropiedad(PropiedadJ1);
 
         this.receptor.anhadirPropiedad(PropiedadJ1);
         this.receptor.eliminarPropiedad(PropiedadJ2);
+
+        Juego.consola.imprimir("Se ha aceptado el siguiente trato con: " + this.proponedor + ": le doy "
+                + this.PropiedadJ2.getNombre() + " a cambio de " + this.PropiedadJ1.getNombre());
 
     }
 
     private void trato1() {
 
-        this.proponiente.sumarFortuna(dineroJ2);
-        this.proponiente.eliminarPropiedad(PropiedadJ1);
+        this.proponedor.sumarFortuna(dineroJ2);
+        this.proponedor.eliminarPropiedad(PropiedadJ1);
 
         this.receptor.anhadirPropiedad(PropiedadJ1);
         this.receptor.sumarFortuna(-dineroJ2);
+
+        Juego.consola.imprimir("Se ha aceptado el siguiente trato con: " + this.proponedor + ": le doy "
+                + this.dineroJ2 + " a cambio de " + this.PropiedadJ1.getNombre());
 
     }
 
     private void trato2() {
 
-        this.proponiente.anhadirPropiedad(PropiedadJ2);
-        this.proponiente.sumarFortuna(-dineroJ1);
+        this.proponedor.anhadirPropiedad(PropiedadJ2);
+        this.proponedor.sumarFortuna(-dineroJ1);
 
         this.receptor.eliminarPropiedad(PropiedadJ2);
         this.receptor.sumarFortuna(dineroJ1);
+
+        Juego.consola.imprimir("Se ha aceptado el siguiente trato con: " + this.proponedor + ": le doy "
+                + this.PropiedadJ2.getNombre() + " a cambio de " + this.dineroJ1);
 
     }
 
     private void trato3() {
 
-        this.proponiente.anhadirPropiedad(PropiedadJ2);
-        this.proponiente.eliminarPropiedad(PropiedadJ1);
-        this.proponiente.sumarFortuna(dineroJ2);
+        this.proponedor.anhadirPropiedad(PropiedadJ2);
+        this.proponedor.eliminarPropiedad(PropiedadJ1);
+        this.proponedor.sumarFortuna(dineroJ2);
 
         this.receptor.anhadirPropiedad(PropiedadJ1);
         this.receptor.eliminarPropiedad(PropiedadJ2);
         this.receptor.sumarFortuna(-dineroJ2);
 
+        Juego.consola.imprimir("Se ha aceptado el siguiente trato con: " + this.proponedor + ": le doy "
+                + this.PropiedadJ2.getNombre() + " y " + this.dineroJ2 + " a cambio de "
+                + this.PropiedadJ1.getNombre());
+
     }
 
     private void trato4() {
 
-        this.proponiente.anhadirPropiedad(PropiedadJ2);
-        this.proponiente.eliminarPropiedad(PropiedadJ1);
-        this.proponiente.sumarFortuna(-dineroJ1);
+        this.proponedor.anhadirPropiedad(PropiedadJ2);
+        this.proponedor.eliminarPropiedad(PropiedadJ1);
+        this.proponedor.sumarFortuna(-dineroJ1);
 
         this.receptor.anhadirPropiedad(PropiedadJ1);
         this.receptor.eliminarPropiedad(PropiedadJ2);
         this.receptor.sumarFortuna(dineroJ1);
+
+        Juego.consola.imprimir("Se ha aceptado el siguiente trato con: " + this.proponedor + ": le doy "
+                + this.PropiedadJ2.getNombre() + " a cambio de " + this.PropiedadJ1.getNombre() + " y "
+                + this.dineroJ1);
 
     }
 
@@ -233,27 +303,95 @@ public class Trato {
 
         switch (tipo) {
 
-            case 0:
+            case 0: // Propiedad por propiedad
 
+                if (!this.PropiedadJ1.getDuenho().equals(this.proponedor)) {
+
+                    // TODO Gestion de errores
+                    return;
+                }
+
+                if (!this.PropiedadJ2.getDuenho().equals(this.receptor)) {
+
+                    // TODO Gestion de errores
+                    return;
+
+                }
                 this.trato0();
                 break;
 
-            case 1:
+            case 1: // Propiedad por dinero
+
+                if (!this.PropiedadJ1.getDuenho().equals(this.proponedor)) {
+
+                    // TODO Gestion de errores
+                    return;
+                }
+
+                if (this.dineroJ2 > this.receptor.getFortuna()) {
+                    // TODO Gestion de errores
+                    return;
+                }
 
                 this.trato1();
                 break;
 
-            case 2:
+            case 2: // Dinero por proiedad
+
+                if (!this.PropiedadJ2.getDuenho().equals(this.receptor)) {
+
+                    // TODO Gestion de errores
+                    return;
+                }
+
+                if (this.dineroJ1 > this.proponedor.getFortuna()) {
+                    // TODO Gestion de errores
+                    return;
+                }
 
                 this.trato2();
                 break;
 
-            case 3:
+            case 3: // Propiedad + Dinero por propiedad
+
+                if (!this.PropiedadJ1.getDuenho().equals(this.proponedor)) {
+
+                    // TODO Gestion de errores
+                    return;
+                }
+
+                if (this.dineroJ1 > this.proponedor.getFortuna()) {
+                    // TODO Gestion de errores
+                    return;
+                }
+
+                if (!this.PropiedadJ2.getDuenho().equals(this.receptor)) {
+
+                    // TODO Gestion de errores
+                    return;
+                }
 
                 this.trato3();
                 break;
 
-            case 4:
+            case 4: // Propiedad por Propiedad + Dinero
+
+                if (!this.PropiedadJ1.getDuenho().equals(this.proponedor)) {
+
+                    // TODO Gestion de errores
+                    return;
+                }
+
+                if (this.dineroJ2 > this.receptor.getFortuna()) {
+                    // TODO Gestion de errores
+                    return;
+                }
+
+                if (!this.PropiedadJ2.getDuenho().equals(this.receptor)) {
+
+                    // TODO Gestion de errores
+                    return;
+                }
 
                 this.trato4();
                 break;
@@ -268,44 +406,62 @@ public class Trato {
 
     }
 
+    public Jugador getProponedor() {
+
+        return this.proponedor;
+
+    }
+
+    public String getID() {
+
+        return this.ID;
+
+    }
+
     @Override
     public String toString() {
 
         String ret = new String();
-
-        ret += ("id" + this.ID + "\n");
-        ret += ("jugadorPropone" + this.proponiente.getNombre() + "\n");
+        ret += "{\n";
+        ret += ("\n\tid " + this.ID + "\n");
+        ret += ("\tjugadorPropone " + this.proponedor.getNombre() + "\n");
 
         switch (tipo) {
 
             case 0: // Propiedad por propiedad
 
-                ret += ("cambiar (" + this.PropiedadJ1.getNombre() + ", " + this.PropiedadJ2.getNombre() + ")\n");
+                ret += ("\tcambiar (" + this.PropiedadJ1.getNombre() + ", " + this.PropiedadJ2.getNombre() + ")\n");
                 break;
 
             case 1: // Propiedad por dinero
 
-                ret += ("cambiar (" + this.PropiedadJ1.getNombre() + ", " + this.dineroJ2 + ")\n");
+                ret += ("\tcambiar (" + this.PropiedadJ1.getNombre() + ", " + this.dineroJ2 + ")\n");
                 break;
 
             case 2: // Dinero por propiedad
 
-                ret += ("cambiar (" + this.dineroJ1 + ", " + this.PropiedadJ2.getNombre() + ")\n");
+                ret += ("\tcambiar (" + this.dineroJ1 + ", " + this.PropiedadJ2.getNombre() + ")\n");
                 break;
 
             case 3: // Propiedad por propiedad y dinero
 
-                ret += ("cambiar (" + this.PropiedadJ1.getNombre() + ", " + this.PropiedadJ2.getNombre() + " y "
+                ret += ("\tcambiar (" + this.PropiedadJ1.getNombre() + ", " + this.PropiedadJ2.getNombre() + " y "
                         + this.dineroJ2 + ")\n");
                 break;
 
             case 4: // Propiedad y dinero por propiedad
 
-                ret += ("cambiar (" + this.PropiedadJ1.getNombre() + " y " + this.dineroJ1 + ", "
+                ret += ("\tcambiar (" + this.PropiedadJ1.getNombre() + " y " + this.dineroJ1 + ", "
                         + this.PropiedadJ2.getNombre() + ")\n");
                 break;
         }
-
+        ret += "}\n";
         return ret;
+    }
+
+    public boolean esTratoValido(){
+
+        return this.proponedor != null && this.receptor != null;
+        
     }
 }

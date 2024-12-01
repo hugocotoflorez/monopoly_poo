@@ -14,6 +14,8 @@ import partida.Carta.*;
 import monopoly.consola.*;
 import monopoly.Casilla.*;
 
+import java.util.Iterator;
+
 public class Juego {
 
     // Atributos
@@ -1349,38 +1351,167 @@ public class Juego {
 
     }
 
-    private void trato(String[] com) { // TODO comprobar dueños de las Propiedades. Hacer cuando se acabe casilla
-                                       // (DENTRO DE TRATO)
+    private boolean comprobaciones_trato(String[] com) {
 
-        if (com.length == 7) {
-
-            Jugador j2 = obtenerJugadorDadoNombre(com[1]);
-            Trato trato = new Trato(this.jugadores.get(turno), j2, com[4], com[5], com[7], this.tablero);
-            this.tratos.add(trato);
-
-        } else if (com.length == 5) {
-
-            Jugador j2 = obtenerJugadorDadoNombre(com[1]);
-            Trato trato = new Trato(this.jugadores.get(turno), j2, com[4], com[5], this.tablero);
-            this.tratos.add(trato);
-
+        if (com.length < 5 || com.length > 7) {
+            Juego.consola.imprimirError("Uso incorrecto del comando trato. Verifica los argumentos."); // TODO
+                                                                                                       // excepciones
+            return false;
         }
+
+        return true;
 
     }
 
-    // private void listarTratos() {
+    private void trato(String[] com) {
 
-    // for (Trato t : tratos) {
+        if (comprobaciones_trato(com) == true) {
 
-    // if (t.getReceptor().equals(this.jugadores.get(turno))) {
+            Jugador proponedor = this.jugadores.get(turno);
+            Jugador receptor = obtenerJugadorDadoNombre(com[1]);
 
-    // t.toString();
-    // // TODO: creo que falta el printf @guille
+            switch (com.length) {
 
-    // }
+                case 5:
 
-    // }
+                    Casilla c1 = this.tablero.encontrar_casilla(com[3]);
+                    Casilla c2 = this.tablero.encontrar_casilla(com[4]);
 
-    // }
+                    if (c1 != null && c2 != null && c1 instanceof Propiedad && c2 instanceof Propiedad) {
+
+                        Propiedad p1 = (Propiedad) c1;
+                        Propiedad p2 = (Propiedad) c2;
+
+                        Trato t = new Trato(proponedor, receptor, p1, p2);
+
+                        if (t.esTratoValido()) {
+
+                            this.tratos.add(t);
+
+                        }
+                    }
+
+                    if (c1 != null && c2 == null && c1 instanceof Propiedad) {
+
+                        Propiedad p1 = (Propiedad) c1;
+                        Float dineroJ2 = Float.parseFloat(com[4]); // TODO marina
+
+                        Trato t = new Trato(proponedor, receptor, p1, dineroJ2);
+
+                        if (t.esTratoValido()) {
+
+                            this.tratos.add(t);
+
+                        }
+                    }
+
+                    if (c1 == null && c2 != null && c2 instanceof Propiedad) {
+
+                        Float dineroJ1 = Float.parseFloat(com[3]); // TODO marina
+                        Propiedad p2 = (Propiedad) c2;
+
+                        Trato t = new Trato(proponedor, receptor, dineroJ1, p2);
+
+                        if (t.esTratoValido()) {
+
+                            this.tratos.add(t);
+
+                        }
+
+                    }
+
+                    break;
+
+                case 7:
+
+                    Casilla ca1 = this.tablero.encontrar_casilla(com[3]);
+                    Casilla ca2 = this.tablero.encontrar_casilla(com[4]);
+
+                    if (ca1 != null & ca2 != null && com[4].equals("y") && ca1 instanceof Propiedad
+                            && ca2 instanceof Propiedad) {
+
+                        Propiedad pr1 = (Propiedad) ca1;
+                        Propiedad pr2 = (Propiedad) ca2;
+
+                        Float dineroJ1 = Float.parseFloat(com[5]); // TODO marina
+
+                        Trato t = new Trato(proponedor, receptor, pr1, dineroJ1, pr2);
+
+                        if (t.esTratoValido()) {
+
+                            tratos.add(t);
+
+                        }
+                    }
+
+                    if (ca1 != null && ca2 != null && com[5].equals("y")) {
+
+                        Propiedad pr1 = (Propiedad) ca1;
+                        Propiedad pr2 = (Propiedad) ca2;
+
+                        Float dineroJ2 = Float.parseFloat(com[6]); // TODO Marina
+
+                        Trato t = new Trato(proponedor, receptor, pr1, pr2, dineroJ2);
+
+                        if (t.esTratoValido()) {
+
+                            tratos.add(t);
+
+                        }
+
+                    }
+
+                    break;
+
+                default:
+                    Juego.consola.imprimirError("Invocacion incorrecta!"); // TODO gestion errores
+                    break;
+
+            }
+        }
+    }
+
+    private void aceptar_trato(String ID) {
+        Iterator<Trato> it = this.tratos.iterator();
+        while (it.hasNext()) {
+            Trato t = it.next();
+            if (t.getID().equals(ID) && this.jugadores.get(turno).equals(t.getReceptor())) {
+                t.aceptar();
+                it.remove();
+            }
+        }
+    }
+
+    private void eliminar_trato(String ID) {
+        Iterator<Trato> it = this.tratos.iterator();
+        while (it.hasNext()) {
+            Trato t = it.next();
+            if (t.getID().equals(ID) && this.jugadores.get(turno).equals(t.getReceptor())) {
+                it.remove();
+            }
+        }
+    }
+
+    private void listarTratos() {
+        boolean comprobacion = false;
+        if (this.tratos.size() == 0) {
+            this.consola.imprimir("Todavia no hay tratos en esta partida!\n");
+            return;
+        }
+
+        for (Trato t : tratos) {
+
+            if (t.getReceptor().equals(this.jugadores.get(turno))) {
+                comprobacion = true;
+                Juego.consola.imprimir(t.toString());
+
+            }
+
+        }
+        if (comprobacion == false) {
+            Juego.consola
+                    .imprimir("No hay tratos disponibles para el jugador: " + this.jugadores.get(turno).getNombre());
+        }
+    }
 
 }
