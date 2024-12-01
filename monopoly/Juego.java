@@ -287,6 +287,9 @@ public class Juego {
                 else
                     throw new ComandoIncorrectoException();
             }
+            if (com.length == 1)
+                throw new ComandoIncorrectoException();
+
         } catch(ComandoIncorrectoException cie){
             consola.imprimirError(cie.getMessage());
         }
@@ -346,7 +349,7 @@ public class Juego {
     
                 case "lanzar":
                     if(jugadores.size() <= 2)
-                        throw new NumeroJugadoresException("No hay suficientes jugadores creados. Hay " + jugadores.size() + "jugadores creados.");
+                        throw new NumeroJugadoresException("No hay suficientes jugadores creados. Hay " + jugadores.size() + " jugadores creados.");
                     partida_empezada = true;
                     lanzarDados();
                     consola.imprimirln(this.tablero.toString());
@@ -361,7 +364,7 @@ public class Juego {
     
                 case "l":
                     if(jugadores.size() <= 2)
-                        throw new NumeroJugadoresException("No hay suficientes jugadores creados. Hay " + jugadores.size() + "jugadores creados.");
+                        throw new NumeroJugadoresException("No hay suficientes jugadores creados. Hay " + jugadores.size() + " jugadores creados.");
                     if (com.length != 3)
                         throw new ComandoIncorrectoException();
                     partida_empezada = true;
@@ -460,6 +463,8 @@ public class Juego {
                     break;
     
                 case "fortuna":
+                    if (!partida_empezada) 
+                        throw new EstadoPartidaException("La partida no está iniciada.");
                     this.jugadores.get(turno).setFortuna(Float.parseFloat(com[1]));
                     break;
     
@@ -471,7 +476,7 @@ public class Juego {
                     throw new ComandoIncorrectoException();
             }
         }catch(NumberFormatException nfe){
-            consola.imprimirError(com[1] + " y/o " + com[2] + " no es/son entero/s.");
+            consola.imprimirError("Número/s mal introducido/s.");
         }catch(MonopolyException e){
             consola.imprimirError(e.getMessage());
         }
@@ -539,6 +544,7 @@ public class Juego {
             Casilla c = this.tablero.encontrar_casilla(nombre);
             if (c == null)
                 throw new NoExisteElementoException("La casilla " + nombre + " no existe.");
+            consola.imprimir(c.infoCasilla(this.banca));
         } catch(NoExisteElementoException neee){
             consola.imprimirError(neee.getMessage());
         }
@@ -644,6 +650,8 @@ public class Juego {
 
     private void cambairModo() {
         try{
+            if (!partida_empezada)
+                throw new EstadoPartidaException("No puedes cambiar el modo de movimiento antes de empezar la partida.");
             if (!movimientoAvanzadoSePuedeCambiar)
                 throw new AccionIncompatibleException("¡Ya has cambiado de modo en este turno!");
             if (lanzamientos > 0) 
@@ -906,6 +914,8 @@ public class Juego {
     // carcel'.
     private void salirCarcel() {
         try{
+            if (!partida_empezada)
+                throw new EstadoPartidaException("No puedes salir de la cárcel antes de empezar la partida.");
             if (!this.jugadores.get(turno).getEnCarcel())
                 throw new CarcelException("El jugador " + jugadores.get(turno).getNombre() + " no está en la cárcel.");
             if (this.tirado)
