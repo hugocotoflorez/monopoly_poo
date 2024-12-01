@@ -492,7 +492,7 @@ public class Juego {
                     break;
 
                 case "eliminar":
-                
+
                     eliminar_trato(com[1]);
                     break;
     
@@ -1421,10 +1421,15 @@ public class Juego {
     }
 
     private void aceptar_trato(String ID) {
+
         Iterator<Trato> it = this.tratos.iterator();
+
         while (it.hasNext()) {
+
             Trato t = it.next();
+
             if (t.getID().equals(ID) && this.jugadores.get(turno).equals(t.getReceptor())) {
+
                 t.aceptar();
                 it.remove();
             }
@@ -1432,9 +1437,13 @@ public class Juego {
     }
 
     private void eliminar_trato(String ID) {
+
         Iterator<Trato> it = this.tratos.iterator();
+
         while (it.hasNext()) {
+
             Trato t = it.next();
+            
             if (t.getID().equals(ID) && this.jugadores.get(turno).equals(t.getReceptor())) {
                 it.remove();
             }
