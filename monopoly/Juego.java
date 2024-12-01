@@ -11,10 +11,15 @@ import monopoly.Casilla.Propiedad.*;
 import monopoly.Edificio.Hotel;
 import monopoly.MonopolyException.MonopolyException;
 import monopoly.MonopolyException.AccionException.AccionIncompatibleException;
+import monopoly.MonopolyException.AccionException.CarcelException;
 import monopoly.MonopolyException.AccionException.EstadoPartidaException;
 import monopoly.MonopolyException.AccionException.AccionIncompatibleException;
 import monopoly.MonopolyException.AccionException.FortunaInsuficienteException;
+import monopoly.MonopolyException.AccionException.NoSolventeException;
+import monopoly.MonopolyException.AccionException.NumeroJugadoresException;
+import monopoly.MonopolyException.ComandoException.ComandoIncorrectoException;
 import monopoly.MonopolyException.ComandoException.NoExisteElementoException;
+import monopoly.MonopolyException.ComandoException.TipoIncorrectoException;
 import monopoly.MonopolyException.PropiedadException.ComprableException;
 import monopoly.MonopolyException.PropiedadException.TipoPropiedadException;
 import monopoly.MonopolyException.PropiedadException.EdificioException.CasaEdificableException;
@@ -113,14 +118,16 @@ public class Juego {
     }
 
     private void crear_jugador(String nombreJugador, String tipoAvatar) {
-
-        if (!Avatar.esTipo(tipoAvatar)) {
-            consola.imprimirln("Tipo invalido: " + tipoAvatar);
-            return;
+        try{
+            if(!Avatar.esTipo(tipoAvatar))
+                throw new TipoIncorrectoException("Tipo de avatar incorrecto. Tipos correctos: <Coche>, <Sombrero>, <Pelota>, <Esfinge>.");
+           
+            Jugador jugador = new Jugador(nombreJugador, tipoAvatar, this.tablero.posicion_salida(), this.avatares);
+            this.jugadores.add(jugador);
+            this.tablero.posicion_salida().anhadirAvatarCasilla(jugador.getAvatar());
+        } catch(TipoIncorrectoException tie){
+            consola.imprimirError(tie.getMessage());
         }
-        Jugador jugador = new Jugador(nombreJugador, tipoAvatar, this.tablero.posicion_salida(), this.avatares);
-        this.jugadores.add(jugador);
-        this.tablero.posicion_salida().anhadirAvatarCasilla(jugador.getAvatar());
     }
 
     /* No se porque no funciona */
@@ -251,31 +258,37 @@ public class Juego {
     }
 
     private void analizarComandosListar(String[] com) {
-        if (com.length == 2) {
-            switch (com[1]) {
-                case "enventa":
-                    listarVenta();
-                    break;
-
-                case "jugadores":
-                    listarJugadores();
-                    break;
-
-                case "avatares":
-                    listarAvatares();
-                    break;
-
-                case "edificios":
-                    listarEdificios();
-                    break;
-
-                default:
-                    Juego.consola.imprimirError("Opcion incorrecta! <enventa> <jugadores> <avatares> <edificios>");
+        try{
+            if (com.length == 2) {
+                switch (com[1]) {
+                    case "enventa":
+                        listarVenta();
+                        break;
+    
+                    case "jugadores":
+                        listarJugadores();
+                        break;
+    
+                    case "avatares":
+                        listarAvatares();
+                        break;
+    
+                    case "edificios":
+                        listarEdificios();
+                        break;
+    
+                    default:
+                        throw new ComandoIncorrectoException();
+                }
             }
-        }
-        if (com.length == 3) {
-            if (com[1].equals("edificios"))
-                listarEdificios(this.tablero.getGruposMap().get(com[2]));
+            if (com.length == 3) {
+                if (com[1].equals("edificios"))
+                    listarEdificios(this.tablero.getGruposMap().get(com[2]));
+                else
+                    throw new ComandoIncorrectoException();
+            }
+        } catch(ComandoIncorrectoException cie){
+            consola.imprimirError(cie.getMessage());
         }
     }
 
@@ -285,178 +298,185 @@ public class Juego {
      * Parámetro: cadena de caracteres (el comando).
      */
     private void analizarComando(String comando) {
-
         String[] com = comando.split(" ");
-        switch (com[0]) {
-            case "opciones":
-            case "?":
-                analizarComandosOpciones();
-                break;
-
-            case "default":
-                analizarComandosDefault();
-                break;
-
-            case "archivo":
-                if (com.length == 2) {
-                    cargarArchivo(com[1]);
-                }
-                break;
-
-            case "crear":
-                if (partida_empezada) {
-                    consola.imprimirln("La partida ya esta iniciada!");
+        try{
+            
+            switch (com[0]) {
+                case "opciones":
+                case "?":
+                    analizarComandosOpciones();
                     break;
-                } else if (com.length == 4 && com[1].equals("jugador")) {
-                    if (jugadores.size() <= 6) {
-                        crear_jugador(com[2], com[3]);
-                        consola.imprimirln(this.tablero.toString());
+    
+                case "default":
+                    analizarComandosDefault();
+                    break;
+    
+                case "archivo":
+                    if (com.length == 2) {
+                        cargarArchivo(com[1]);
+                    }
+                    break;
+    
+                case "crear":
+                    if (partida_empezada) 
+                        throw new EstadoPartidaException("La partida ya está iniciada.");
+                    else if (com.length == 4 && com[1].equals("jugador")) {
+                        if (jugadores.size() <= 6) {
+                            crear_jugador(com[2], com[3]);
+                            consola.imprimirln(this.tablero.toString());
+                        } else
+                            throw new NumeroJugadoresException("Ya se ha alcanzado el número máximo de jugadores.");
                     } else
-                        consola.imprimirln("Ya se ha alcanzado el número máximo de jugadores.");
-
-                } else
-                    consola.imprimirln("No se pudo crear el jugador");
-                break;
-
-            case "jugador":
-                descJugador();
-                break;
-
-            case "listar":
-                analizarComandosListar(com);
-                break;
-
-            case "empezar":
-                if (jugadores.size() >= 3) // iniciar la partida
+                        throw new ComandoIncorrectoException();
+                    break;
+    
+                case "jugador":
+                    descJugador();
+                    break;
+    
+                case "listar":
+                    analizarComandosListar(com);
+                    break;
+    
+                case "empezar":
+                    if(jugadores.size() <= 2)
+                        throw new NumeroJugadoresException("No hay suficientes jugadores creados.");
                     partida_empezada = true;
-                break;
-
-            case "lanzar":
-                if (jugadores.size() >= 3) { // iniciar la partida
+                    break;
+    
+                case "lanzar":
+                    if(jugadores.size() <= 2)
+                        throw new NumeroJugadoresException("No hay suficientes jugadores creados. Hay " + jugadores.size() + "jugadores creados.");
                     partida_empezada = true;
                     lanzarDados();
                     consola.imprimirln(this.tablero.toString());
-                } else
-                    consola.imprimirln("No tienes suficientes jugadores creados! (Mínimo 2).");
-                break;
-
-            case "cambiar":
-                if (com.length == 2 && com[1].equals("modo"))
-                    cambairModo();
-                break;
-
-            case "l":
-                if (com.length == 3) {
-                    if (jugadores.size() >= 3) { // iniciar la partida
-                        partida_empezada = true;
-                        lanzarDados(Integer.parseInt(com[1]), Integer.parseInt(com[2]));
+                    break;
+    
+                case "cambiar":
+                    if (com.length == 2 && com[1].equals("modo"))
+                        cambairModo();
+                    else 
+                        throw new ComandoIncorrectoException();
+                    break;
+    
+                case "l":
+                    if(jugadores.size() <= 2)
+                        throw new NumeroJugadoresException("No hay suficientes jugadores creados. Hay " + jugadores.size() + "jugadores creados.");
+                    if (com.length != 3)
+                        throw new ComandoIncorrectoException();
+                    partida_empezada = true;
+                    lanzarDados(Integer.parseInt(com[1]), Integer.parseInt(com[2]));
+                    break;
+    
+                case "a":
+                case "acabar":
+                    acabarTurno();
+                    break;
+    
+                case "salir":
+                    salirCarcel();
+                    break;
+    
+                case "bancarrota":
+                    bancarrota(banca);
+                    break;
+    
+                case "describir":
+                    if (com.length >= 2) {
+                        switch (com[1]) {
+                            case "jugador": // describir jugador
+                                descJugador(com);
+                                break;
+                            case "avatar": // describir avatar
+                                if (com.length == 3)
+                                    descAvatar(com[2]);
+                                else
+                                    throw new ComandoIncorrectoException();
+                                break;
+                            default: // describir casilla
+                                descCasilla(com[1]);
+                                break;
+                        }
                     } else
-                        consola.imprimirln("No tienes suficientes jugadores creados! (Mínimo 2).");
-                } else
-                    consola.imprimirln("Comando incorrecto");
-                break;
-
-            case "a":
-            case "acabar":
-                acabarTurno();
-                break;
-
-            case "salir":
-                salirCarcel();
-                break;
-
-            case "bancarrota":
-                bancarrota(banca);
-                break;
-
-            case "describir":
-                if (com.length >= 2) {
-                    switch (com[1]) {
-                        case "jugador": // describir jugador
-                            descJugador(com);
-                            break;
-                        case "avatar": // describir avatar
-                            if (com.length == 3)
-                                descAvatar(com[2]);
-                            break;
-                        default: // describir casilla
-                            descCasilla(com[1]);
-                            break;
-                    }
-                } else
-                    consola.imprimirln("Comando incorrecto.");
-                break;
-
-            case "comprar":
-                if (com.length == 2) {
-                    comprar(com[1]);
-                } else
-                    consola.imprimir("Comando incorrecto.");
-                break;
-
-            case "estadisticas":
-                if (com.length == 2) {
-                    mostrarEstadisticasJugador(com[1]);
-                } else if (com.length == 1) {
-                    mostrarEstadisticasPartida();
-                } else
+                        throw new ComandoIncorrectoException();
+                    break;
+    
+                case "comprar":
+                    if (com.length == 2) {
+                        comprar(com[1]);
+                    } else
+                        throw new ComandoIncorrectoException();
+                    break;
+    
+                case "estadisticas":
+                    if (com.length == 2) {
+                        mostrarEstadisticasJugador(com[1]);
+                    } else if (com.length == 1) {
+                        mostrarEstadisticasPartida();
+                    } else
+                        throw new ComandoIncorrectoException();
+                    break;
+    
+                case "hipotecar":
+                    if (com.length == 2) {
+                        accionhipotecar(com[1]);
+                    } else
+                        throw new ComandoIncorrectoException();
+                    break;
+    
+                case "deshipotecar":
+                    if (com.length == 2) {
+                        acciondeshipotecar(com[1]);
+                    } else
+                        throw new ComandoIncorrectoException();
+                    break;
+    
+                case "ver":
+                    consola.imprimirln(this.tablero.toString());
+                    break;
+    
+                case "q":
+                case "SALIR":
+                    this.partida_finalizada = true;
+                    break;
+    
+                case "c":
+                case "clear":
+                    consola.imprimir("\033[H\033[2J");
+                    break;
+    
+                case "edificar":
+                    if (com.length == 2)
+                        edificar(com[1]);
+                    else
+                        throw new ComandoIncorrectoException();
+                    break;
+    
+                case "vender":
+                    if (com.length == 4) {
+                        desedificar(com[2], com[1], com[3]);
+                    } else
+                        throw new ComandoIncorrectoException();
+                    break;
+    
+                case "fortuna":
+                    this.jugadores.get(turno).setFortuna(Float.parseFloat(com[1]));
+                    break;
+    
+                case "trato":
+                    trato(com);
+                    break;
+    
+                default:
                     consola.imprimirln("Opcion incorrecta. [? para ver las opciones]");
-                break;
-
-            case "hipotecar":
-                if (com.length == 2) {
-                    accionhipotecar(com[1]);
-                } else
-                    consola.imprimirln("Comando incorrecto.");
-                break;
-
-            case "deshipotecar":
-                if (com.length == 2) {
-                    acciondeshipotecar(com[1]);
-                } else
-                    consola.imprimirln("Comando incorrecto.");
-                break;
-
-            case "ver":
-                consola.imprimirln(this.tablero.toString());
-                break;
-
-            case "q":
-            case "SALIR":
-                this.partida_finalizada = true;
-                break;
-
-            case "c":
-            case "clear":
-                consola.imprimir("\033[H\033[2J");
-                break;
-
-            case "edificar":
-                if (com.length == 2)
-                    edificar(com[1]);
-                else
-                    consola.imprimirln("Comando incorrecto.");
-                break;
-
-            case "vender":
-                if (com.length == 4) {
-                    desedificar(com[2], com[1], com[3]);
-                } else
-                    consola.imprimirln("Comando incorrecto.");
-                break;
-
-            case "fortuna":
-                this.jugadores.get(turno).setFortuna(Float.parseFloat(com[1]));
-                break;
-
-            case "trato":
-                trato(com);
-                break;
-
-            default:
-                consola.imprimirln("Opcion incorrecta. [? para ver las opciones]");
-                break;
+                    break;
+            }
+        }catch(NumberFormatException nfe){
+            consola.imprimirError(com[1] + " y/o " + com[2] + " no es/son entero/s.");
+        }catch(MonopolyException e){
+            consola.imprimirError(e.getMessage());
         }
+        
     }
 
     /*
@@ -464,27 +484,32 @@ public class Juego {
      * Parámetro: comando introducido
      */
     private void descJugador(String[] partes) {
-
-        for (Jugador J : this.jugadores) {
-            if (J.getNombre().equals(partes[2])) {
-                consola.imprimirln(J.toString());
-                return;
+        try{
+            for (Jugador J : this.jugadores) {
+                if (J.getNombre().equals(partes[2])) {
+                    consola.imprimirln(J.toString());
+                    return;
+                }
             }
+            throw new NoExisteElementoException("El jugador " + partes[2] + " no existe.");
+        } catch(NoExisteElementoException neee){
+            consola.imprimirError(neee.getMessage());
         }
-        consola.imprimirln("No se ha encontrado este jugador.\n");
     }
 
     // Sobrecarga: si no se pasa argumentos describe el jugador que tiene el turno
     // actual
     private void descJugador() {
-        if ((jugadores.size() != 1) && !jugadores.get(turno).esBanca()) {
-            consola.imprimirln("""
+        try{
+            if (!partida_empezada)
+                throw new EstadoPartidaException("No puedes describir un avatar antes de que empiece la partida.");
+                consola.imprimirln("""
                     | Nombre: %s
                     | Avatar: %s
                     """.formatted(jugadores.get(turno).getNombre(), jugadores.get(turno).getAvatar().getId()));
-            return;
+        } catch (EstadoPartidaException epe){
+            consola.imprimirError(epe.getMessage());
         }
-        consola.imprimirln("No se ha encontrado este jugador.\n");
     }
 
     /*
@@ -492,13 +517,17 @@ public class Juego {
      * Parámetro: id del avatar a describir.
      */
     private void descAvatar(String ID) {
-        for (int i = 1; i < avatares.size(); i++) {
-            if (avatares.get(i).getId().equals(ID)) {
-                consola.imprimirln(avatares.get(i).getInfo());
-                return;
+        try{
+            for (int i = 1; i < avatares.size(); i++) {
+                if (avatares.get(i).getId().equals(ID)) {
+                    consola.imprimirln(avatares.get(i).getInfo());
+                    return;
+                }
             }
+            throw new NoExisteElementoException("El avatar " + ID + " no existe.");
+        } catch(NoExisteElementoException neee){
+            consola.imprimirError(neee.getMessage());
         }
-        consola.imprimirln("No se ha encontrado ese avatar.");
     }
 
     /*
@@ -507,11 +536,13 @@ public class Juego {
      * Parámetros: nombre de la casilla a describir.
      */
     private void descCasilla(String nombre) {
-        Casilla c = this.tablero.encontrar_casilla(nombre);
-        if (c != null)
-            consola.imprimirln(c.infoCasilla(this.banca));
-        else
-            consola.imprimirln("La casilla " + nombre + " no existe.");
+        try{
+            Casilla c = this.tablero.encontrar_casilla(nombre);
+            if (c == null)
+                throw new NoExisteElementoException("La casilla " + nombre + " no existe.");
+        } catch(NoExisteElementoException neee){
+            consola.imprimirError(neee.getMessage());
+        }
     }
 
     // Método que ejecuta todas las acciones relacionadas con el comando 'lanzar
@@ -525,7 +556,6 @@ public class Juego {
     }
 
     private void lanzarDados() {
-
         this.dado1.hacerTirada();
         this.dado2.hacerTirada();
         lanzarDados(dado1.getValor(), dado2.getValor());
@@ -533,52 +563,49 @@ public class Juego {
 
     // sobrecarga de lanzar dados en la cual elegimos qué valor sacan los dados
     private void lanzarDados(int valor1, int valor2) {
+        try{
+            if (this.jugadores.get(turno).getEnCarcel())
+                throw new CarcelException("No puedes lanzar los dados porque estás en la cárcel.");
+            if (this.tirado)
+                throw new AccionIncompatibleException("Ya has tirado en este turno.");
 
-        if (this.jugadores.get(turno).getEnCarcel()) {
-            consola.imprimirln("Oh no! Estás en la cárcel!");
-
-        } else if (this.tirado) {
-            consola.imprimirln("Ya has tirado en este turno!");
-
-        } else {
-
-            this.tirado = true;
-            this.lanzamientos += 1;
-            this.jugadores.get(turno).sumarNumeroTiradas();
-            consola.imprimirln("Tirada: " + valor1 + ", " + valor2);
-
-            mover(valor1, valor2);
-
-            // Pasar por salida ahora se hace en mover
-
-            Coche av_coche = null;
-            if (this.jugadores.get(turno).getAvatar() instanceof Coche)
-                av_coche = (Coche) this.jugadores.get(turno).getAvatar();
-
-            if (dadosDobles(valor1, valor2)
-                    /*
-                     * Si esta usando el movimiento avanzado del coche no cuenta,
-                     * a no ser que sea la ultima tirada
-                     */
-                    && (!(av_coche != null && movimientoAvanzado.get(turno - 1))
-                            || av_coche.getContadorTiradasCoche() == 4)) {
-
-                if (av_coche != null)
-                    /* TODO no se si se incrementa dos veces y esto sobra */
-                    av_coche.incContadorTiradasCoche(); // solo puede tirar una vez si saca dobles al final
-                jugador_puede_comprar = true;
-                this.tirado = false;
-                this.lanzamientos_dobles++;
-                consola.imprimirln(("Has sacado dobles! Puedes tirar otra vez."));
-
-                if (this.lanzamientos_dobles == 3) {
-                    this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
-                    consola.imprimirln("Has sacado tres dobles seguidos! Vas a la carcel sin pasar por salida.");
-                    this.tirado = true;
+                this.tirado = true;
+                this.lanzamientos += 1;
+                this.jugadores.get(turno).sumarNumeroTiradas();
+                consola.imprimirln("Tirada: " + valor1 + ", " + valor2);
+    
+                mover(valor1, valor2);
+    
+                // Pasar por salida ahora se hace en mover
+    
+                Coche av_coche = null;
+                if (this.jugadores.get(turno).getAvatar() instanceof Coche)
+                    av_coche = (Coche) this.jugadores.get(turno).getAvatar();
+    
+                if (dadosDobles(valor1, valor2)
+                        /*
+                         * Si esta usando el movimiento avanzado del coche no cuenta,
+                         * a no ser que sea la ultima tirada
+                         */
+                        && (!(av_coche != null && movimientoAvanzado.get(turno - 1))
+                                || av_coche.getContadorTiradasCoche() == 4)) {
+    
+                    if (av_coche != null)
+                        /* TODO no se si se incrementa dos veces y esto sobra */
+                        av_coche.incContadorTiradasCoche(); // solo puede tirar una vez si saca dobles al final
+                    jugador_puede_comprar = true;
+                    this.tirado = false;
+                    this.lanzamientos_dobles++;
+                    consola.imprimirln(("¡Has sacado dobles! Puedes tirar otra vez."));
+    
+                    if (this.lanzamientos_dobles == 3) {
+                        this.jugadores.get(turno).encarcelar(this.tablero.getPosiciones());
+                        consola.imprimirln("¡Has sacado tres dobles seguidos! Vas a la cárcel sin pasar por salida.");
+                        this.tirado = true;
+                    }
                 }
-            }
-
-            // evaluarAcceion ahora esta en mover
+        } catch(MonopolyException e){
+            consola.imprimirError(e.getMessage());
         }
     }
 
@@ -617,22 +644,23 @@ public class Juego {
     }
 
     private void cambairModo() {
-        if (!movimientoAvanzadoSePuedeCambiar) {
-            consola.imprimirln("Ya cambiaste de modo en este turno!");
-            return;
-        }
-        if (lanzamientos > 0) {
-            consola.imprimirln("No puedes cambiar de modo despues de lanzar los dados!");
-            return;
-        }
+        try{
+            if (!movimientoAvanzadoSePuedeCambiar)
+                throw new AccionIncompatibleException("¡Ya has cambiado de modo en este turno!");
+            if (lanzamientos > 0) 
+                throw new AccionIncompatibleException("No puedes cambiar de modo después de lanzar los dados.");
 
-        movimientoAvanzado.set(turno - 1, !movimientoAvanzado.get(turno - 1));
-        movimientoAvanzadoSePuedeCambiar = false;
-
-        if (movimientoAvanzado.get(turno - 1))
-            consola.imprimirln("Se ha activado el modo avanzado");
-        else
-            consola.imprimirln("Se ha desactivado el modo avanzado");
+                movimientoAvanzado.set(turno - 1, !movimientoAvanzado.get(turno - 1));
+                movimientoAvanzadoSePuedeCambiar = false;
+        
+                if (movimientoAvanzado.get(turno - 1))
+                    consola.imprimirln("Se ha activado el modo avanzado");
+                else
+                    consola.imprimirln("Se ha desactivado el modo avanzado");
+    
+        } catch(MonopolyException e){
+            consola.imprimirError(e.getMessage());
+        }
     }
 
     private void evaluarSolvente() {
@@ -653,72 +681,73 @@ public class Juego {
                 case 'N':
                     bancarrota(this.banca);
                     solvente = true;
-
-                    break;
-                default:
-                    consola.imprimirln("Opción errónea.");
                     break;
             }
         } while (opcion != 'S' && opcion != 's' && opcion != 'n' && opcion != 'N');
     }
 
     private void bancarrota(Jugador banca) {
-        if (!partida_empezada) {
-            consola.imprimirln("No puedes declararte en bancarrota antes de empezar la partida.");
-            return;
+        try{
+            if (!partida_empezada)
+                throw new EstadoPartidaException("No puedes decalrarte en bancarrota antes de que empiece la partida.");
+
+                Jugador actual = this.jugadores.get(turno); // Jugador actual
+                Casilla casillaactual = actual.getAvatar().getCasilla();
+                if ((!(casillaactual instanceof Propiedad)) || !actual.estaBancarrota()) { // Está en bancarrota por banca o se
+                                                                                           // declaró voluntariamente
+                    for (Propiedad c : actual.getPropiedades()) {
+                        banca.anhadirPropiedad(c);
+                        c.setDuenho(banca);
+                        c.setHipotecada(false);
+                        if (c instanceof Solar)
+                            ((Solar) c).desedificar();
+                    }
+        
+                    actual.getPropiedades().clear();
+        
+                    consola.imprimirln("El jugador " + actual.getNombre()
+                            + " se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban y todos sus edificios serán demolidos.");
+                }
+        
+                if ((casillaactual instanceof Propiedad && !((Propiedad) casillaactual).getDuenho().esBanca())) {// Es por otro
+                                                                                                                 // jugador
+                    for (Propiedad c : actual.getPropiedades()) {
+                        ((Propiedad) casillaactual).getDuenho().anhadirPropiedad(c);
+                        c.setDuenho(((Propiedad) casillaactual).getDuenho());
+                        if (c instanceof Solar)
+                            ((Solar) c).getEdificios().clear();
+                        c.setHipotecada(false);
+                    }
+                    actual.getPropiedades().clear();
+                    consola.imprimirln("El jugador " + actual.getNombre()
+                            + " se ha declarado en bancarrota. Sus propiedades y fortuna pasan a "
+                            + ((Propiedad) casillaactual).getDuenho().getNombre());
+                }
+        
+                this.jugadores.remove(turno);
+                this.avatares.remove(turno);
+                this.movimientoAvanzado.remove(turno);
+                movimientoAvanzado.set(turno - 1, false);
+        
+                if (this.turno > 0)
+                    --this.turno;
+        
+                if (this.jugadores.size() == 2) {
+                    consola.imprimirln("Sólo queda un jugador. La partida ha finalizado.");
+                    /* Esta linea creo que sobra */
+                    this.turno = 1; // Es para q el mensaje del q gane salga bien (creo)
+                    partida_finalizada = true;
+                    return;
+                }
+        
+                /* Si esto esta a true se puede acabar turno evitando todas las restricciones */
+                es_coche_y_no_puede_tirar = true;
+                acabarTurno();
+        }catch (EstadoPartidaException epe){
+            consola.imprimirError(epe.getMessage());
         }
-        Jugador actual = this.jugadores.get(turno); // Jugador actual
-        Casilla casillaactual = actual.getAvatar().getCasilla();
-        if ((!(casillaactual instanceof Propiedad)) || !actual.estaBancarrota()) { // Está en bancarrota por banca o se
-                                                                                   // declaró voluntariamente
-            for (Propiedad c : actual.getPropiedades()) {
-                banca.anhadirPropiedad(c);
-                c.setDuenho(banca);
-                c.setHipotecada(false);
-                if (c instanceof Solar)
-                    ((Solar) c).desedificar();
-            }
 
-            actual.getPropiedades().clear();
-
-            consola.imprimirln("El jugador " + actual.getNombre()
-                    + " se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban y todos sus edificios serán demolidos.");
-        }
-
-        if ((casillaactual instanceof Propiedad && !((Propiedad) casillaactual).getDuenho().esBanca())) {// Es por otro
-                                                                                                         // jugador
-            for (Propiedad c : actual.getPropiedades()) {
-                ((Propiedad) casillaactual).getDuenho().anhadirPropiedad(c);
-                c.setDuenho(((Propiedad) casillaactual).getDuenho());
-                if (c instanceof Solar)
-                    ((Solar) c).getEdificios().clear();
-                c.setHipotecada(false);
-            }
-            actual.getPropiedades().clear();
-            consola.imprimirln("El jugador " + actual.getNombre()
-                    + " se ha declarado en bancarrota. Sus propiedades y fortuna pasan a "
-                    + ((Propiedad) casillaactual).getDuenho().getNombre());
-        }
-
-        this.jugadores.remove(turno);
-        this.avatares.remove(turno);
-        this.movimientoAvanzado.remove(turno);
-        movimientoAvanzado.set(turno - 1, false);
-
-        if (this.turno > 0)
-            --this.turno;
-
-        if (this.jugadores.size() == 2) {
-            consola.imprimirln("Sólo queda un jugador. La partida ha finalizado.");
-            /* Esta linea creo que sobra */
-            this.turno = 1; // Es para q el mensaje del q gane salga bien (creo)
-            partida_finalizada = true;
-            return;
-        }
-
-        /* Si esto esta a true se puede acabar turno evitando todas las restricciones */
-        es_coche_y_no_puede_tirar = true;
-        acabarTurno();
+        
     }
 
     private void accionhipotecar(String nombre) {
@@ -773,43 +802,56 @@ public class Juego {
     }
 
     private void lanzarDadosCarcel() {
+        try{
+            if (this.tirado)
+                throw new AccionIncompatibleException("Ya has tirado en este turno.");
+            
+            this.dado1.hacerTirada();
+            this.dado2.hacerTirada();
+            this.jugadores.get(turno).sumarNumeroTiradas();
 
-        this.dado1.hacerTirada();
-        this.dado2.hacerTirada();
-        this.jugadores.get(turno).sumarNumeroTiradas();
-        if (dadosDobles(dado1.getValor(), dado2.getValor()) && this.jugadores.get(turno).getTurnosCarcel() < 3
-                && !this.tirado) {
-            int desplazamiento = dado1.getValor() + dado2.getValor();
-            consola.imprimirln("Has sacado dobles! Sales de la Cárcel y avanzas hasta");
-            this.jugadores.get(turno).setEnCarcel(false);
-            this.avatares.get(turno).desplazar(this.tablero.getPosiciones(), desplazamiento);
-            consola.imprimirln(this.avatares.get(turno).getCasilla().toString());
-            this.lanzamientos += 1;
-            return;
-        } else if (this.jugadores.get(turno).getTurnosCarcel() >= 3) {
-            consola.imprimirln("No has sacado dobles! Dado1: " + dado1.getValor() + " Dado2: " + dado2.getValor());
-            consola.imprimirln("Oh no! Llevas tres turnos en la cárcel. Paga " + Valor.PAGO_SALIR_CARCEL);
-            this.tirado = false;
-            pagarCarcel();
-            if (this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL) {
-                consola.imprimirln("Como no puedes pagar para salir de la cárcel, se te declara en bancarrota.");
-                bancarrota(this.banca);
+            if (dadosDobles(dado1.getValor(), dado2.getValor()) && this.jugadores.get(turno).getTurnosCarcel() < 3
+                    && !this.tirado) {
+                int desplazamiento = dado1.getValor() + dado2.getValor();
+                consola.imprimirln("Has sacado dobles! Sales de la Cárcel y avanzas hasta");
+                this.jugadores.get(turno).setEnCarcel(false);
+                this.avatares.get(turno).desplazar(this.tablero.getPosiciones(), desplazamiento);
+                consola.imprimirln(this.avatares.get(turno).getCasilla().toString());
+                this.lanzamientos += 1;
+                return;
+
+            } else if (this.jugadores.get(turno).getTurnosCarcel() >= 3) {
+                consola.imprimirln("No has sacado dobles! Dado1: " + dado1.getValor() + " Dado2: " + dado2.getValor());
+                consola.imprimirln("Oh no! Llevas tres turnos en la cárcel. Paga " + Valor.PAGO_SALIR_CARCEL);
+                this.tirado = false;
+                pagarCarcel();
+                if (this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL) {
+                    consola.imprimirln("Como no puedes pagar para salir de la cárcel, se te declara en bancarrota.");
+                    bancarrota(this.banca);
+                }
+                return;
+            } else if (!dadosDobles(dado1.getValor(), dado2.getValor())) {
+                consola.imprimirln("No has sacado dobles! Dado1: " + dado1.getValor() + " Dado2: " + dado2.getValor());
+                this.lanzamientos += 1;
             }
-            return;
-        } else if (this.tirado) {
-            consola.imprimirln("Ya has tirado este turno! ");
-            return;
-        } else if (!dadosDobles(dado1.getValor(), dado2.getValor())) {
-            consola.imprimirln("No has sacado dobles! Dado1: " + dado1.getValor() + " Dado2: " + dado2.getValor());
-            this.lanzamientos += 1;
+
+            this.jugadores.get(turno).setTurnosCarcel(this.jugadores.get(turno).getTurnosCarcel() + 1);
+            this.tirado = true;
+        } catch(AccionIncompatibleException aie){
+            consola.imprimirError(aie.getMessage());
         }
-        this.jugadores.get(turno).setTurnosCarcel(this.jugadores.get(turno).getTurnosCarcel() + 1);
-        this.tirado = true;
+
+        
 
     }
 
     private void pagarCarcel() {
-        if (!this.tirado && this.jugadores.get(turno).getFortuna() >= Valor.PAGO_SALIR_CARCEL) {
+        try{
+            if (this.tirado)
+                throw new AccionIncompatibleException("Ya has tirado en este turno.");
+            if(this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL)
+                throw new FortunaInsuficienteException(this.jugadores.get(turno).getFortuna(), Valor.PAGO_SALIR_CARCEL);
+
             this.tirado = false;
             this.jugadores.get(turno).setEnCarcel(false);
             this.jugadores.get(turno).sumarFortuna(-Valor.PAGO_SALIR_CARCEL);
@@ -819,12 +861,10 @@ public class Juego {
                     this.jugadores.get(turno).getPagoTasasEImpuestos() + Valor.PAGO_SALIR_CARCEL);
             this.banca.sumarGastos(Valor.PAGO_SALIR_CARCEL);
             consola.imprimirln("El bote de la banca ahora es " + this.banca.getGastos());
-        } else if (this.tirado) {
-            consola.imprimirln("Ya has tirado este turno!");
-        } else if (this.jugadores.get(turno).getFortuna() < Valor.PAGO_SALIR_CARCEL)
-            consola.imprimirln("No tienes fortuna suficiente. Necesitas " + Valor.PAGO_SALIR_CARCEL);
-
-    }
+        }catch (MonopolyException e){
+            consola.imprimirError(e.getMessage());
+        }
+    }    
 
     /*
      * Método que ejecuta todas las acciones realizadas con el comando 'comprar
@@ -866,33 +906,34 @@ public class Juego {
     // Método que ejecuta todas las acciones relacionadas con el comando 'salir
     // carcel'.
     private void salirCarcel() {
-
-        if (this.jugadores.get(turno).getEnCarcel() == true && this.tirado == false) {
-            char opcion;
-            do {
-                consola.imprimirln("Como quieres salir de la cárcel?");
-                consola.imprimirln("1) Lanzar dados (sacando dobles)");
-                consola.imprimirln("2) Pagando el impuesto " + Valor.PAGO_SALIR_CARCEL);
-                opcion = consola.leerChar("[" + jugadores.get(turno).getNombre() + "] ");
-                switch (opcion) {
-                    case '1':
-                        lanzarDadosCarcel();
-                        break;
-                    case '2':
-                        pagarCarcel();
-                        break;
-                }
-            } while (opcion != '1' && opcion != '2');
-        } else if (this.jugadores.get(turno).getEnCarcel() == false) {
-            consola.imprimirln("El jugador " + this.jugadores.get(turno).getNombre() + " no está en la cárcel.");
-        } else if (this.tirado == true) {
-            consola.imprimirln("Ya has tirado en este turno!");
+        try{
+            if (!this.jugadores.get(turno).getEnCarcel())
+                throw new CarcelException("El jugador " + jugadores.get(turno).getNombre() + " no está en la cárcel.");
+            if (this.tirado)
+                throw new AccionIncompatibleException("Ya has tirado en este turno.");
+            
+                char opcion;
+                do {
+                    consola.imprimirln("Como quieres salir de la cárcel?");
+                    consola.imprimirln("1) Lanzar dados (sacando dobles)");
+                    consola.imprimirln("2) Pagando el impuesto " + Valor.PAGO_SALIR_CARCEL);
+                    opcion = consola.leerChar("[" + jugadores.get(turno).getNombre() + "] ");
+                    switch (opcion) {
+                        case '1':
+                            lanzarDadosCarcel();
+                            break;
+                        case '2':
+                            pagarCarcel();
+                            break;
+                    }
+                } while (opcion != '1' && opcion != '2');
+        }catch(MonopolyException e){
+            consola.imprimirError(e.getMessage());
         }
     }
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
     private void listarVenta() {
-
         for (ArrayList<Casilla> ac : tablero.getPosiciones())
             for (Casilla c : ac) {
                 if ((c instanceof Propiedad) && ((Propiedad) c).getDuenho().esBanca()) {
@@ -900,9 +941,11 @@ public class Juego {
                      * Si es instancia de Propiedad es instancia de lo que hay dentro
                      * no? @marina si :)
                      */
-                    consola.imprimirln(((Propiedad) c).toString());
+                    consola.imprimir(((Propiedad) c).toString());
+                    consola.imprimir(", ");
                 }
             }
+            consola.imprimir("\n");
     }
 
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
@@ -940,22 +983,29 @@ public class Juego {
 
     // Método que muestra todos los elementos de un grupo dado el color
     private void listarEdificios(Grupo grupo) {
-        if (grupo == null) {
-            consola.imprimirln("Ese grupo no existe.");
-            return;
+        try{
+            if(grupo == null)
+                throw new NoExisteElementoException("El grupo no existe.");
+
+            consola.imprimirln(grupo.toString());
+        } catch(NoExisteElementoException neee){
+            consola.imprimirError(neee.getMessage());
         }
-        consola.imprimirln(grupo.toString());
 
     }
 
     private void mostrarEstadisticasJugador(String nombre) {
-        for (Jugador J : this.jugadores) {
-            if (J.getNombre().equals(nombre)) {
-                consola.imprimirln(J.estadisticasJugador());
-                return;
+        try{
+            for (Jugador J : this.jugadores) {
+                if (J.getNombre().equals(nombre)) {
+                    consola.imprimirln(J.estadisticasJugador());
+                    return;
+                }
             }
+            throw new NoExisteElementoException("El jugador " + nombre + " no existe.");
+        } catch(NoExisteElementoException neee){
+            consola.imprimirError(neee.getMessage());
         }
-        consola.imprimirln("No se ha encontrado este jugador.\n");
     }
 
     // FUNCIONES PARA MOSTRAR ESTADISTICAS
@@ -1081,58 +1131,59 @@ public class Juego {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
+        try{
+            if(!partida_empezada)
+                throw new EstadoPartidaException("No puedes acabar turno antes de que empiece la partida.");
+            if(!this.tirado)
+                throw new AccionIncompatibleException("No has tirado los dados en este turno.");
+            if(!this.solvente)
+                throw new NoSolventeException("No has saldado tus deudas, hipoteca tus propiedades o vende tus edificios.");  
+        
         // es_coche_y_no_puede_tirar es lo mismo que this.tirado (creo). No lo cambio
         // para no joder nada (mas)
-        if (partida_empezada && ((lanzamientos > 0 && this.tirado) || es_coche_y_no_puede_tirar) && this.solvente) {
+            if (partida_empezada && ((lanzamientos > 0 && this.tirado) || es_coche_y_no_puede_tirar) && this.solvente) {
 
-            /* Esto no se donde meterlo, en cada turno se tiene que poner a true */
-            movimientoAvanzadoSePuedeCambiar = true;
-            jugador_puede_comprar = true;
-            lanzamientos_dobles = 0;
-            casillasVisitadas.removeAll(casillasVisitadas); // se borran todas las casillas
+                /* Esto no se donde meterlo, en cada turno se tiene que poner a true */
+                movimientoAvanzadoSePuedeCambiar = true;
+                jugador_puede_comprar = true;
+                lanzamientos_dobles = 0;
+                casillasVisitadas.removeAll(casillasVisitadas); // se borran todas las casillas
 
-            this.lanzamientos = 0;
+                this.lanzamientos = 0;
 
-            int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
-            if (this.turno < numero_jugadores) {
-                this.turno += 1;
-            } else {
-                this.turno = 1; // Por la banca
+                int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
+                if (this.turno < numero_jugadores) {
+                    this.turno += 1;
+                } else {
+                    this.turno = 1; // Por la banca
+                }
+                consola.imprimirln("El jugador actual es: " + this.jugadores.get(turno).getNombre());
+
+                /*
+                * : esto se movio a avatar. Pero tiene que cambiarse el del coche si
+                * es el coche el que acaba de mover supongo. Va mal de momento. En el
+                * coche no se actualizan los valores al acabar el turno creo.
+                * Actualizacion: Deberia funcionar ya
+                */
+
+                if (avatares.get(turno) instanceof Coche) {
+                    Coche c = (Coche) avatares.get(turno);
+                    c.setContadorTiradasCoche(0);
+                    this.tirado = !c.getse_puede_tirar_en_el_siguiente_turno();
+                    c.setse_puede_tirar_en_el_siguiente_turno(c.getse_puede_tirar_en_el_siguiente_turno2());
+                    c.setse_puede_tirar_en_el_siguiente_turno2(true);
+                } else {
+                    this.tirado = false;
+                }
+                es_coche_y_no_puede_tirar = this.tirado;
             }
-            consola.imprimirln("El jugador actual es: " + this.jugadores.get(turno).getNombre());
-
-            /*
-             * : esto se movio a avatar. Pero tiene que cambiarse el del coche si
-             * es el coche el que acaba de mover supongo. Va mal de momento. En el
-             * coche no se actualizan los valores al acabar el turno creo.
-             * Actualizacion: Deberia funcionar ya
-             */
-
-            if (avatares.get(turno) instanceof Coche) {
-                Coche c = (Coche) avatares.get(turno);
-                c.setContadorTiradasCoche(0);
-                this.tirado = !c.getse_puede_tirar_en_el_siguiente_turno();
-                c.setse_puede_tirar_en_el_siguiente_turno(c.getse_puede_tirar_en_el_siguiente_turno2());
-                c.setse_puede_tirar_en_el_siguiente_turno2(true);
-
-            } else {
-                this.tirado = false;
-            }
-
-            es_coche_y_no_puede_tirar = this.tirado;
-
-        } else if (!partida_empezada) {
-            consola.imprimirln("La partida todavia no ha empezado. ");
-        } else if (es_coche_y_no_puede_tirar) {
-            consola.imprimirln("No puedes tirar en este turno");
-        } else if (!this.tirado) {
-            consola.imprimirln("No has lanzado los dados este turno");
-        } else if (!this.solvente) {
-            consola.imprimirln("No has saldado tus deudas, hipoteca tus propiedades y/o vende tus edificios.");
-        } else {
-            consola.imprimirln("No puedes acabar turno");
+        } catch(NoSolventeException nse){
+            consola.imprimirError(nse.getMessage());
+            jugadores.get(turno).toString();
+        } catch(MonopolyException e){
+            consola.imprimirError(e.getMessage());
         }
-    }
+}
 
     // Método que finaliza la partida (a la fuerza)
     public static void acabarPartida() {
