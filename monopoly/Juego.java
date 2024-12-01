@@ -271,26 +271,21 @@ public class Juego {
     }
 
     private void __analizarComandos_listar(String[] com) {
-
         if (com.length == 2) {
             switch (com[1]) {
                 case "enventa":
-
                     listarVenta();
                     break;
 
                 case "jugadores":
-
                     listarJugadores();
                     break;
 
                 case "avatares":
-
                     listarAvatares();
                     break;
 
                 case "edificios":
-
                     listarEdificios();
                     break;
 
@@ -302,7 +297,6 @@ public class Juego {
             if (com[1].equals("edificios"))
                 listarEdificios(this.tablero.getGruposMap().get(com[2]));
         }
-
     }
 
     /*
@@ -314,15 +308,12 @@ public class Juego {
 
         String[] com = comando.split(" ");
         switch (com[0]) {
-
             case "opciones":
             case "?":
-
                 __analizarComandos_opciones();
                 break;
 
             case "default":
-
                 __analizarComandos_default();
                 break;
 
@@ -348,12 +339,10 @@ public class Juego {
                 break;
 
             case "jugador":
-
                 descJugador();
                 break;
 
             case "listar":
-
                 __analizarComandos_listar(com);
                 break;
 
@@ -363,14 +352,12 @@ public class Juego {
                 break;
 
             case "lanzar":
-                if (com.length == 2 && com[1].equals("dados")) {
-                    if (jugadores.size() >= 3) { // iniciar la partida
-                        partida_empezada = true;
-                        lanzarDados();
-                        consola.imprimirln(this.tablero.toString());
-                    } else
-                        consola.imprimirln("No tienes suficientes jugadores creados! (Mínimo 2).");
-                }
+                if (jugadores.size() >= 3) { // iniciar la partida
+                    partida_empezada = true;
+                    lanzarDados();
+                    consola.imprimirln(this.tablero.toString());
+                } else
+                    consola.imprimirln("No tienes suficientes jugadores creados! (Mínimo 2).");
                 break;
 
             case "cambiar":
@@ -418,12 +405,14 @@ public class Juego {
                             break;
                     }
                 }
+                else consola.imprimirln("Comando incorrecto.");
                 break;
 
             case "comprar":
                 if (com.length == 2) {
                     comprar(com[1]);
                 }
+                else consola.imprimir("Comando incorrecto.");
                 break;
 
             case "estadisticas":
@@ -439,11 +428,15 @@ public class Juego {
                 if (com.length == 2) {
                     accionhipotecar(com[1]);
                 }
+                else consola.imprimirln("Comando incorrecto.");
                 break;
+                
             case "deshipotecar":
                 if (com.length == 2) {
                     acciondeshipotecar(com[1]);
                 }
+                else consola.imprimirln("Comando incorrecto.");
+                break;
 
             case "ver":
                 consola.imprimirln(this.tablero.toString());
@@ -462,18 +455,24 @@ public class Juego {
             case "edificar":
                 if (com.length == 2)
                     edificar(com[1]);
+                else consola.imprimirln("Comando incorrecto.");
                 break;
+
             case "vender":
                 if (com.length == 4) {
                     desedificar(com[2], com[1], com[3]);
                 }
+                else consola.imprimirln("Comando incorrecto.");
                 break;
+
             case "fortuna":
                 this.jugadores.get(turno).setFortuna(Float.parseFloat(com[1]));
                 break;
+
             case "trato":
                 trato(com);
                 break;
+                
             default:
                 consola.imprimirln("Opcion incorrecta. [? para ver las opciones]");
                 break;
@@ -1051,7 +1050,7 @@ public class Juego {
                     break;
             }
         } else if (this.jugadores.get(turno).getEnCarcel() == false) {
-            consola.imprimirln("El jugador " + this.jugadores.get(turno).getNombre() + " no puede en la cárcel.");
+            consola.imprimirln("El jugador " + this.jugadores.get(turno).getNombre() + " no está en la cárcel.");
         } else if (this.tirado == true) {
             consola.imprimirln("Ya has tirado en este turno!");
         }
@@ -1265,11 +1264,10 @@ public class Juego {
             int numero_jugadores = this.jugadores.size() - 1; // La banca no cuenta
             if (this.turno < numero_jugadores) {
                 this.turno += 1;
-                consola.imprimirln("El jugador actual es: " + this.jugadores.get(turno).getNombre());
             } else {
                 this.turno = 1; // Por la banca
-                consola.imprimirln("El jugador actual es: " + this.jugadores.get(turno).getNombre());
             }
+            consola.imprimirln("El jugador actual es: " + this.jugadores.get(turno).getNombre());
 
             /*
              * : esto se movio a avatar. Pero tiene que cambiarse el del coche si
@@ -1298,7 +1296,7 @@ public class Juego {
         } else if (!this.tirado) {
             consola.imprimirln("No has lanzado los dados este turno");
         } else if (!this.solvente) {
-            consola.imprimirln("No has saldado tus deudas, hipoteca tus propiedades.");
+            consola.imprimirln("No has saldado tus deudas, hipoteca tus propiedades y/o vende tus edificios.");
         } else {
             consola.imprimirln("No puedes acabar turno");
         }
@@ -1340,9 +1338,7 @@ public class Juego {
     }
 
     Jugador obtenerJugadorDadoNombre(String nombreJugador) {
-
         for (Jugador j : this.jugadores) {
-
             if (j.getNombre().equals(nombreJugador))
                 return j;
         }
