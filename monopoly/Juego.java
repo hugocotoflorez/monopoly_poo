@@ -259,35 +259,52 @@ public class Juego {
     }
 
     private void analizarComandosListar(String[] com) {
+
         try{
+
             if (com.length == 2) {
+
                 switch (com[1]) {
+
                     case "enventa":
+
                         listarVenta();
                         break;
     
                     case "jugadores":
+
                         listarJugadores();
                         break;
     
                     case "avatares":
+
                         listarAvatares();
                         break;
     
                     case "edificios":
+
                         listarEdificios();
+                        break;
+
+                    case "tratos":
+
+                        listarTratos();
                         break;
     
                     default:
                         throw new ComandoIncorrectoException();
                 }
             }
+
             if (com.length == 3) {
+
                 if (com[1].equals("edificios"))
                     listarEdificios(this.tablero.getGruposMap().get(com[2]));
+
                 else
                     throw new ComandoIncorrectoException();
             }
+            
             if (com.length == 1)
                 throw new ComandoIncorrectoException();
 
