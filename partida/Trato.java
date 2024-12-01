@@ -236,7 +236,7 @@ public class Trato {
         this.receptor.anhadirPropiedad(PropiedadJ1);
         this.receptor.eliminarPropiedad(PropiedadJ2);
 
-        Juego.consola.imprimirln("Se ha aceptado el siguiente trato con: " + this.proponedor.getNombre() + ": le doy "
+        Juego.consola.imprimirln("Se ha aceptado el siguiente trato con " + this.proponedor.getNombre() + ": le doy "
                 + this.PropiedadJ2.getNombre() + " a cambio de " + this.PropiedadJ1.getNombre());
 
     }
@@ -249,7 +249,7 @@ public class Trato {
         this.receptor.anhadirPropiedad(PropiedadJ1);
         this.receptor.sumarFortuna(-dineroJ2);
 
-        Juego.consola.imprimirln("Se ha aceptado el siguiente trato con: " + this.proponedor.getNombre() + ": le doy "
+        Juego.consola.imprimirln("Se ha aceptado el siguiente trato con " + this.proponedor.getNombre() + ": le doy "
                 + this.dineroJ2 + " a cambio de " + this.PropiedadJ1.getNombre());
 
     }
@@ -262,7 +262,7 @@ public class Trato {
         this.receptor.eliminarPropiedad(PropiedadJ2);
         this.receptor.sumarFortuna(dineroJ1);
 
-        Juego.consola.imprimirln("Se ha aceptado el siguiente trato con: " + this.proponedor.getNombre() + ": le doy "
+        Juego.consola.imprimirln("Se ha aceptado el siguiente trato con " + this.proponedor.getNombre() + ": le doy "
                 + this.PropiedadJ2.getNombre() + " a cambio de " + this.dineroJ1);
 
     }
@@ -293,7 +293,7 @@ public class Trato {
         this.receptor.eliminarPropiedad(PropiedadJ2);
         this.receptor.sumarFortuna(dineroJ1);
 
-        Juego.consola.imprimirln("Se ha aceptado el siguiente trato con: " + this.proponedor.getNombre() + ": le doy "
+        Juego.consola.imprimirln("Se ha aceptado el siguiente trato con " + this.proponedor.getNombre() + ": le doy "
                 + this.PropiedadJ2.getNombre() + " a cambio de " + this.PropiedadJ1.getNombre() + " y "
                 + this.dineroJ1);
 
