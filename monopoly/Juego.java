@@ -742,6 +742,8 @@ public class Juego {
 
                 Jugador actual = this.jugadores.get(turno); // Jugador actual
                 Casilla casillaactual = actual.getAvatar().getCasilla();
+
+                //Quitar propiedades
                 if ((!(casillaactual instanceof Propiedad)) || !actual.estaBancarrota()) { // Está en bancarrota por banca o se
                                                                                            // declaró voluntariamente
                     for (Propiedad c : actual.getPropiedades()) {
@@ -757,7 +759,6 @@ public class Juego {
                     consola.imprimirln("El jugador " + actual.getNombre()
                             + " se ha declarado en bancarrota. Sus propiedades pasan a estar de nuevo en venta al precio al que estaban y todos sus edificios serán demolidos.");
                 }
-        
                 if ((casillaactual instanceof Propiedad && !((Propiedad) casillaactual).getDuenho().esBanca())) {// Es por otro
                                                                                                                  // jugador
                     for (Propiedad c : actual.getPropiedades()) {
@@ -773,6 +774,14 @@ public class Juego {
                             + ((Propiedad) casillaactual).getDuenho().getNombre());
                 }
         
+                //Quitar tratos
+                consola.imprimirln("Se eliminarán los tratos pendientes que implican al jugador " + actual.getNombre());
+                Iterator<Trato> it = this.tratos.iterator();
+                while(it.hasNext()){
+                    Trato t = it.next();
+                    if(t.getProponedor().equals(actual) || t.getReceptor().equals(actual))
+                        it.remove();
+                }
                 this.jugadores.remove(turno);
                 this.avatares.remove(turno);
                 this.movimientoAvanzado.remove(turno);
@@ -788,8 +797,6 @@ public class Juego {
                     partida_finalizada = true;
                     return;
                 }
-        
-                //TODO bancarrota quitar tratos
                 
 
                 /* Si esto esta a true se puede acabar turno evitando todas las restricciones */
@@ -1183,7 +1190,6 @@ public class Juego {
         consola.imprimirln("Jugador en cabeza: " + this.buscarJugadorEnCabeza());
     }
 
-    //TODO listar tratos
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
         try{
@@ -1213,6 +1219,8 @@ public class Juego {
                     this.turno = 1; // Por la banca
                 }
                 consola.imprimirln("El jugador actual es: " + this.jugadores.get(turno).getNombre());
+                consola.imprimirln("Tratos pendientes de " + this.jugadores.get(turno).getNombre() + ":");
+                this.listarTratos();
 
                 /*
                 * : esto se movio a avatar. Pero tiene que cambiarse el del coche si
@@ -1336,9 +1344,6 @@ public class Juego {
         return true;
     }
 
-    //TODO no puedes proponer tratos con propiedades que ya estén propuestas en otros tratos
-    //TODO No puedes proponer tratos con valor negativo de dinero
-    //TODO no puedes proponer antes de empezar partida
     private void trato(String[] com) {
         try{
             Jugador proponedor = this.jugadores.get(turno);
@@ -1372,6 +1377,8 @@ public class Juego {
                         
                         Propiedad p1 = (Propiedad) c1;
                         float d2 = Float.parseFloat(com[4]);
+                        if(d2<0)
+                            throw new NumberFormatException();
 
                         Trato t = new Trato(proponedor, receptor, p1, d2);
                         this.tratos.add(t);
@@ -1383,6 +1390,8 @@ public class Juego {
                             throw new TipoPropiedadException("No puedes proponer " + c2.getNombre() + " en un trato porque no es una propiedad.");
 
                         float d1 = Float.parseFloat(com[3]);
+                        if(d1<0)
+                            throw new NumberFormatException();
                         Propiedad p2 = (Propiedad) c2;
 
                         Trato t = new Trato(proponedor, receptor, d1, p2);
@@ -1407,6 +1416,8 @@ public class Juego {
                         Propiedad p1 = (Propiedad) ca1;
                         Propiedad p2 = (Propiedad) ca2;
                         float d2 = Float.parseFloat(com[5]);
+                        if(d2<0)
+                            throw new NumberFormatException();
 
                         Trato t = new Trato(proponedor, receptor, p1, p2, d2);
                         this.tratos.add(t);
@@ -1426,6 +1437,8 @@ public class Juego {
                         Propiedad p1 = (Propiedad) ca1;
                         Propiedad p2 = (Propiedad) ca2;
                         float d1 = Float.parseFloat(com[4]);
+                        if(d1<0)
+                            throw new NumberFormatException();
 
                         Trato t = new Trato(proponedor, receptor, p1, d1, p2);
                         this.tratos.add(t);
