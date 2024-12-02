@@ -179,75 +179,87 @@ public class Juego {
          */
 
         consola.imprimirln(" " +
-                Valor.BGMENU + Valor.BOLD + "Opciones                                      " + Valor.RESET);
+                Valor.BGMENU + Valor.BOLD + "Opciones                                                    " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "crear jugador <nombre> <tipo_avatar>          " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "crear jugador <nombre> <tipo_avatar>                        " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "jugador - jugador con el turno                " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "jugador - jugador con el turno                              " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "listar enventa                                " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "listar enventa                                              " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "listar jugadores                              " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "listar jugadores                                            " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "listar avatares                               " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "listar avatares                                             " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "lanzar dados                                  " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "lanzar dados                                                " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "cambiar modo                                  " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "cambiar modo                                                " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "acabar - acaba el turno                       " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "acabar - acaba el turno                                     " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "salir - salir carcel)                         " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "salir - salir carcel)                                       " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "describir jugador  <nombre>                   " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "describir jugador  <nombre>                                 " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "describir avatar <letra                       " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "describir avatar <letra                                     " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "comprar <casilla>                             " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "comprar <casilla>                                           " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "bancarrota - acaba la partida para ese jugador" + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "bancarrota - acaba la partida para ese jugador              " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "ver - muestra el tablero                      " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "ver - muestra el tablero                                    " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "clear - limpia la pantalla                    " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "clear - limpia la pantalla                                  " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "estadisticas <Jugador>                        " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "estadisticas <Jugador>                                      " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "estadisticas                                  " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "estadisticas                                                " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "hipotecar <casilla>                           " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "hipotecar <casilla>                                         " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "deshipotecar <casilla>                        " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "deshipotecar <casilla>                                      " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "listar edificios                              " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "listar edificios                                            " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "listar edificios <grupo>                      " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "listar edificios <grupo>                                    " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "edificar <tipo>                               " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "edificar <tipo>                                             " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "vender <tipo> <solar> <cantidad>              " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "vender <tipo> <solar> <cantidad>                            " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "----------------------------------------------" + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "listar tratos                                               " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "opciones, ? -> Muestra las opciones           " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "trato <jugador> cambiar <propiedad> <propiedad>             " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "a -> acabar                                   " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "trato <jugador> cambiar <propiedad> <dinero>                " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "empezar partida                               " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "trato <jugador> cambiar <dinero> <propiedad>                " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "q, SALIR -> acaba la ejecucion del programa   " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "trato <jugador> cambiar <propiedad> <propiedad> y <dinero>  " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "c, clear -> limpia la pantalla                " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "trato <jugador> cambiar <propiedad> y <dinero> <propiedad>  " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "l x y -> lanzar dados, con resultado x e y    " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "------------------------------------------------------------" + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "default -> crea dos jugadores                 " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "opciones, ? -> Muestra las opciones                         " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "archivo file -> ejecuta comandos en file      " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "a -> acabar                                                 " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                Valor.BGMENU + "fortuna <valor>                               " + Valor.BGBLACK + " " + Valor.RESET);
+                Valor.BGMENU + "empezar partida                                             " + Valor.BGBLACK + " " + Valor.RESET);
         consola.imprimirln(" " +
-                " " + Valor.BGBLACK + "                                              " + Valor.RESET);
+                Valor.BGMENU + "q, SALIR -> acaba la ejecucion del programa                 " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(" " +
+                Valor.BGMENU + "c, clear -> limpia la pantalla                              " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(" " +
+                Valor.BGMENU + "l x y -> lanzar dados, con resultado x e y                  " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(" " +
+                Valor.BGMENU + "default -> crea dos jugadores                               " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(" " +
+                Valor.BGMENU + "archivo file -> ejecuta comandos en file                    " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(" " +
+                Valor.BGMENU + "fortuna <valor>                                             " + Valor.BGBLACK + " " + Valor.RESET);
+        consola.imprimirln(" " +
+                " " + Valor.BGBLACK + "                                                            " + Valor.RESET);
 
     }
 
@@ -487,17 +499,18 @@ public class Juego {
                     break;
     
                 case "trato":
-
+                    if(!partida_empezada)
+                        throw new EstadoPartidaException("La partida no está iniciada.");
+                    if(!comprobaciones_trato(com))
+                        throw new ComandoIncorrectoException();
                     trato(com);
                     break;
 
                 case "eliminar":
-
                     eliminar_trato(com[1]);
                     break;
     
                 case "aceptar":
-                
                     aceptar_trato(com[1]);
                     break;
 
@@ -1309,180 +1322,201 @@ public class Juego {
 
     }
 
+
+
+
+    //TRATOS ------------------------------------------------------------------------------------------------
+
+
+
+    
     private boolean comprobaciones_trato(String[] com) {
-
-        if (com.length < 5 || com.length > 7) {
-            Juego.consola.imprimirError("Uso incorrecto del comando trato. Verifica los argumentos."); // TODO
-                                                                                                       // excepciones
+        if (com.length != 5 || com.length != 6 || !com[2].equals("cambiar"))
             return false;
-        }
-
         return true;
-
     }
 
+    //TODO no puedes proponer tratos con propiedades que ya estén propuestas en otros tratos
+    //TODO No puedes proponer tratos con valor negativo de dinero
+    //TODO no puedes proponer antes de empezar partida
     private void trato(String[] com) {
-
-        if (comprobaciones_trato(com) == true) {
-
+        try{
             Jugador proponedor = this.jugadores.get(turno);
             Jugador receptor = obtenerJugadorDadoNombre(com[1]);
 
-            switch (com.length) {
+            if (receptor == null)
+                throw new NoExisteElementoException("El jugador " + com[1] + " no existe.");
 
-                case 5:
-
+            switch (com.length){
+                case 5: //tratos P-P, P-D, D-P
                     Casilla c1 = this.tablero.encontrar_casilla(com[3]);
                     Casilla c2 = this.tablero.encontrar_casilla(com[4]);
 
-                    if (c1 != null && c2 != null && c1 instanceof Propiedad && c2 instanceof Propiedad) {
+                    if(c1 != null && c2 != null){ //P-P
+                        if(!(c1 instanceof Propiedad))
+                            throw new TipoPropiedadException("No puedes proponer " + c1.getNombre() + " en un trato porque no es una propiedad.");
+                        if(!(c2 instanceof Propiedad))
+                            throw new TipoPropiedadException("No puedes proponer " + c2.getNombre() + " en un trato porque no es una propiedad.");
 
                         Propiedad p1 = (Propiedad) c1;
                         Propiedad p2 = (Propiedad) c2;
 
                         Trato t = new Trato(proponedor, receptor, p1, p2);
-
-                        if (t.esTratoValido()) {
-
-                            this.tratos.add(t);
-
-                        }
+                        this.tratos.add(t);
+                        consola.imprimir(t.toString());
                     }
 
-                    if (c1 != null && c2 == null && c1 instanceof Propiedad) {
-
+                    if (c1 != null && c2 == null){ //P-D
+                        if(!(c1 instanceof Propiedad))
+                            throw new TipoPropiedadException("No puedes proponer " + c1.getNombre() + " en un trato porque no es una propiedad.");
+                        
                         Propiedad p1 = (Propiedad) c1;
-                        Float dineroJ2 = Float.parseFloat(com[4]); // TODO marina
+                        float d2 = Float.parseFloat(com[4]);
 
-                        Trato t = new Trato(proponedor, receptor, p1, dineroJ2);
-
-                        if (t.esTratoValido()) {
-
-                            this.tratos.add(t);
-
-                        }
+                        Trato t = new Trato(proponedor, receptor, p1, d2);
+                        this.tratos.add(t);
+                        consola.imprimir(t.toString());
                     }
 
-                    if (c1 == null && c2 != null && c2 instanceof Propiedad) {
+                    if (c1 == null && c2 != null){ //D-P
+                        if(!(c2 instanceof Propiedad))
+                            throw new TipoPropiedadException("No puedes proponer " + c2.getNombre() + " en un trato porque no es una propiedad.");
 
-                        Float dineroJ1 = Float.parseFloat(com[3]); // TODO marina
+                        float d1 = Float.parseFloat(com[3]);
                         Propiedad p2 = (Propiedad) c2;
 
-                        Trato t = new Trato(proponedor, receptor, dineroJ1, p2);
-
-                        if (t.esTratoValido()) {
-
-                            this.tratos.add(t);
-
-                        }
-
+                        Trato t = new Trato(proponedor, receptor, d1, p2);
+                        this.tratos.add(t);
+                        consola.imprimir(t.toString());
                     }
 
+                    else
+                        throw new ComandoIncorrectoException();
                     break;
-
-                case 7:
-
+                
+                case 6: //tratos P-P+D, P+D-P
                     Casilla ca1 = this.tablero.encontrar_casilla(com[3]);
                     Casilla ca2 = this.tablero.encontrar_casilla(com[4]);
 
-                    if (ca1 != null & ca2 != null && com[4].equals("y") && ca1 instanceof Propiedad
-                            && ca2 instanceof Propiedad) {
+                    if (ca1 != null && ca2 != null){ //P-P+D
+                        if(!(ca1 instanceof Propiedad))
+                            throw new TipoPropiedadException("No puedes proponer " + ca1.getNombre() + " en un trato porque no es una propiedad.");
+                        if(!(ca2 instanceof Propiedad))
+                            throw new TipoPropiedadException("No puedes proponer " + ca2.getNombre() + " en un trato porque no es una propiedad.");
 
-                        Propiedad pr1 = (Propiedad) ca1;
-                        Propiedad pr2 = (Propiedad) ca2;
+                        Propiedad p1 = (Propiedad) ca1;
+                        Propiedad p2 = (Propiedad) ca2;
+                        float d2 = Float.parseFloat(com[5]);
 
-                        Float dineroJ1 = Float.parseFloat(com[5]); // TODO marina
-
-                        Trato t = new Trato(proponedor, receptor, pr1, dineroJ1, pr2);
-
-                        if (t.esTratoValido()) {
-
-                            tratos.add(t);
-
-                        }
+                        Trato t = new Trato(proponedor, receptor, p1, p2, d2);
+                        this.tratos.add(t);
+                        consola.imprimir(t.toString());
                     }
 
-                    if (ca1 != null && ca2 != null && com[5].equals("y")) {
+                    if(ca1 != null && ca2 == null){ //P+D-P
+                        ca2 = this.tablero.encontrar_casilla(com[5]);
+                        if (ca2 == null)
+                            throw new NoExisteElementoException("La casilla " + com[5] + " no existe.");
+                        
+                        if(!(ca1 instanceof Propiedad))
+                            throw new TipoPropiedadException("No puedes proponer " + ca1.getNombre() + " en un trato porque no es una propiedad.");
+                        if(!(ca2 instanceof Propiedad))
+                            throw new TipoPropiedadException("No puedes proponer " + ca2.getNombre() + " en un trato porque no es una propiedad.");
 
-                        Propiedad pr1 = (Propiedad) ca1;
-                        Propiedad pr2 = (Propiedad) ca2;
+                        Propiedad p1 = (Propiedad) ca1;
+                        Propiedad p2 = (Propiedad) ca2;
+                        float d1 = Float.parseFloat(com[4]);
 
-                        Float dineroJ2 = Float.parseFloat(com[6]); // TODO Marina
-
-                        Trato t = new Trato(proponedor, receptor, pr1, pr2, dineroJ2);
-
-                        if (t.esTratoValido()) {
-
-                            tratos.add(t);
-
-                        }
-
+                        Trato t = new Trato(proponedor, receptor, p1, d1, p2);
+                        this.tratos.add(t);
+                        consola.imprimir(t.toString());
                     }
-
+                    else
+                        throw new ComandoIncorrectoException();
                     break;
 
                 default:
-                    Juego.consola.imprimirError("Invocacion incorrecta!"); // TODO gestion errores
-                    break;
-
+                    throw new ComandoIncorrectoException();
             }
+        } catch(NumberFormatException nfe){
+            consola.imprimirError("Número/s mal introducido/s.");
+        } catch(MonopolyException e){
+            consola.imprimirError(e.getMessage());
         }
     }
 
     private void aceptar_trato(String ID) {
+        try{
+            Iterator<Trato> it = this.tratos.iterator();
+            while(it.hasNext()){
+                Trato t = it.next();
+                if(t.getID().equals(ID)){
+                    if (!this.jugadores.get(turno).equals(t.getReceptor()))
+                        throw new AccionIncompatibleException("No puedes aceptar un trato que no está dirigido a ti.");
 
-        Iterator<Trato> it = this.tratos.iterator();
+                    if(t.getPropiedad_p() != null){
+                        if(t.getPropiedad_p().getHipotecada()){
+                            char opcion = consola.leerChar("La propiedad " + t.getPropiedad_p().getNombre() + " está hipotecada, ¿seguro que desea proceder? (S/N): ");
+                            do{
+                                switch (opcion){
+                                    case 's':
+                                    case 'S':
+                                        break;
 
-        while (it.hasNext()) {
-
-            Trato t = it.next();
-
-            if (t.getID().equals(ID) && this.jugadores.get(turno).equals(t.getReceptor())) {
-
-                t.aceptar();
-                it.remove();
+                                    case 'n':
+                                    case 'N':
+                                        return;
+                                }
+                            }while (opcion != 'S' && opcion != 's' && opcion != 'n' && opcion != 'N');
+                        }
+                    }
+                    consola.imprimirln("Se va a aceptar el trato: ");
+                    consola.imprimir(t.toString());
+                    t.aceptar();
+                    it.remove();
+                    return;
+                }
             }
+            throw new NoExisteElementoException("El trato " + ID + " no existe.");
+
+        }catch(MonopolyException e){
+            consola.imprimirError(e.getMessage());
         }
     }
 
     private void eliminar_trato(String ID) {
-
-        Iterator<Trato> it = this.tratos.iterator();
-
-        while (it.hasNext()) {
-
-            Trato t = it.next();
-
-            if (t.getID().equals(ID) && this.jugadores.get(turno).equals(t.getReceptor())) {
-                it.remove();
+        try{
+            Iterator<Trato> it = this.tratos.iterator();
+            while(it.hasNext()){
+                Trato t = it.next();
+                if(t.getID().equals(ID)){
+                    if (!this.jugadores.get(turno).equals(t.getProponedor()))
+                        throw new AccionIncompatibleException("No puedes eliminar un trato que no has propuesto.");
+                    consola.imprimirln("Se va a eliminar el trato: ");
+                    consola.imprimir(t.toString());
+                    it.remove();
+                    return;
+                }
             }
+            throw new NoExisteElementoException("El trato " + ID + " no existe.");
+
+        }catch(MonopolyException e){
+            consola.imprimirError(e.getMessage());
         }
     }
 
     private void listarTratos() {
 
         boolean comprobacion = false;
-
-        if (this.tratos.size() == 0) {
-
-            this.consola.imprimirln("Todavia no hay tratos en esta partida!\n");
-            return;
-        }
-
         for (Trato t : tratos) {
-
             if (t.getReceptor().equals(this.jugadores.get(turno))) {
-
                 comprobacion = true;
-                Juego.consola.imprimir(t.toString());
-
+                consola.imprimir(t.toString());
             }
-
         }
-        if (comprobacion == false) {
 
-            Juego.consola
-                    .imprimir("No hay tratos disponibles para el jugador: " + this.jugadores.get(turno).getNombre());
+        if (comprobacion == false) {
+            consola.imprimirln("No hay tratos pendientes para el jugador: " + this.jugadores.get(turno).getNombre());
         }
     }
 
