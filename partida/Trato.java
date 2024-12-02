@@ -236,6 +236,9 @@ public class Trato {
         this.receptor.anhadirPropiedad(PropiedadJ1);
         this.receptor.eliminarPropiedad(PropiedadJ2);
 
+        this.PropiedadJ1.setDuenho(receptor);
+        this.PropiedadJ2.setDuenho(proponedor);
+
         Juego.consola.imprimirln("Se ha aceptado el siguiente trato con " + this.proponedor.getNombre() + ": le doy "
                 + this.PropiedadJ2.getNombre() + " a cambio de " + this.PropiedadJ1.getNombre());
 
@@ -249,6 +252,8 @@ public class Trato {
         this.receptor.anhadirPropiedad(PropiedadJ1);
         this.receptor.sumarFortuna(-dineroJ2);
 
+        this.PropiedadJ1.setDuenho(receptor);
+
         Juego.consola.imprimirln("Se ha aceptado el siguiente trato con " + this.proponedor.getNombre() + ": le doy "
                 + this.dineroJ2 + " a cambio de " + this.PropiedadJ1.getNombre());
 
@@ -261,6 +266,8 @@ public class Trato {
 
         this.receptor.eliminarPropiedad(PropiedadJ2);
         this.receptor.sumarFortuna(dineroJ1);
+
+        this.PropiedadJ2.setDuenho(proponedor);
 
         Juego.consola.imprimirln("Se ha aceptado el siguiente trato con " + this.proponedor.getNombre() + ": le doy "
                 + this.PropiedadJ2.getNombre() + " a cambio de " + this.dineroJ1);
@@ -277,6 +284,9 @@ public class Trato {
         this.receptor.eliminarPropiedad(PropiedadJ2);
         this.receptor.sumarFortuna(-dineroJ2);
 
+        this.PropiedadJ1.setDuenho(receptor);
+        this.PropiedadJ2.setDuenho(proponedor);
+
         Juego.consola.imprimirln("Se ha aceptado el siguiente trato con: " + this.proponedor.getNombre() + ": le doy "
                 + this.PropiedadJ2.getNombre() + " y " + this.dineroJ2 + " a cambio de "
                 + this.PropiedadJ1.getNombre());
@@ -292,6 +302,9 @@ public class Trato {
         this.receptor.anhadirPropiedad(PropiedadJ1);
         this.receptor.eliminarPropiedad(PropiedadJ2);
         this.receptor.sumarFortuna(dineroJ1);
+
+        this.PropiedadJ1.setDuenho(receptor);
+        this.PropiedadJ2.setDuenho(proponedor);
 
         Juego.consola.imprimirln("Se ha aceptado el siguiente trato con " + this.proponedor.getNombre() + ": le doy "
                 + this.PropiedadJ2.getNombre() + " a cambio de " + this.PropiedadJ1.getNombre() + " y "
