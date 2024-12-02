@@ -776,6 +776,9 @@ public class Juego {
                     return;
                 }
         
+                //TODO bancarrota quitar tratos
+                
+
                 /* Si esto esta a true se puede acabar turno evitando todas las restricciones */
                 es_coche_y_no_puede_tirar = true;
                 acabarTurno();
@@ -1167,6 +1170,7 @@ public class Juego {
         consola.imprimirln("Jugador en cabeza: " + this.buscarJugadorEnCabeza());
     }
 
+    //TODO listar tratos
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
         try{
