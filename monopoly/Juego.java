@@ -510,6 +510,8 @@ public class Juego {
                     break;
     
                 case "aceptar":
+                    if(com.length != 2)
+                        throw new ComandoIncorrectoException();
                     aceptar_trato(com[1]);
                     break;
 
@@ -785,6 +787,7 @@ public class Juego {
                 this.avatares.remove(turno);
                 this.movimientoAvanzado.remove(turno);
                 movimientoAvanzado.set(turno - 1, false);
+                this.tirado = true;
         
                 if (this.turno > 0)
                     --this.turno;
@@ -1485,7 +1488,7 @@ public class Juego {
                             }while (opcion != 'S' && opcion != 's' && opcion != 'n' && opcion != 'N');
                         }
                     }
-                    consola.imprimirln("Se va a aceptar el trato: ");
+                    consola.imprimirln("Se intenta aceptar el trato: ");
                     consola.imprimir(t.toString());
                     t.aceptar();
                     it.remove();
@@ -1507,7 +1510,7 @@ public class Juego {
                 if(t.getID().equals(ID)){
                     if (!this.jugadores.get(turno).equals(t.getProponedor()))
                         throw new AccionIncompatibleException("No puedes eliminar un trato que no has propuesto.");
-                    consola.imprimirln("Se va a eliminar el trato: ");
+                    consola.imprimirln("Se elimina el trato: ");
                     consola.imprimir(t.toString());
                     it.remove();
                     return;
@@ -1536,7 +1539,7 @@ public class Juego {
         }
 
         if (comprobacion == false) {
-            consola.imprimirln("No hay tratos pendientes para el jugador: " + this.jugadores.get(turno).getNombre());
+            consola.imprimirln("No hay tratos pendientes para " + this.jugadores.get(turno).getNombre());
         }
     }
 

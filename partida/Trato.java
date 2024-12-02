@@ -273,7 +273,7 @@ public class Trato {
 
         String ret = new String();
         ret += "{\n";
-        ret += ("\tid; " + this.ID + "\n");
+        ret += ("\tid: " + this.ID + "\n");
         ret += ("\tpropuesto por: " + this.proponedor.getNombre() + "\n");
 
         switch (tipo) {
