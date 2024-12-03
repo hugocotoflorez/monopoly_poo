@@ -1323,9 +1323,12 @@ public class Juego {
              * Si no es la pelota o no esta en movimiento avanzado llamar a edificar normal
              */
             Casilla c = tablero.encontrar_casilla(solar);
+            if (c == null)
+            throw new NoExisteElementoException("La casilla " + solar + "no existe");
+
             if (!(avatares.get(turno) instanceof Pelota) || !movimientoAvanzado.get(turno - 1)) {
+               
                 if (c != avatares.get(turno).getCasilla())
-                    /* No se que tipo ponerle a esta excecion */
                     throw new NoExisteElementoException("No puedes edificar en una casilla en la que no caiste");
 
                 edificar(tipo);
