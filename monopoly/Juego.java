@@ -529,7 +529,9 @@ public class Juego {
                         edificar(com[1]);
                     else if (com.length == 3)
                         edificar(com[1], com[2]);
-                    throw new ComandoIncorrectoException();
+                    else
+                        throw new ComandoIncorrectoException();
+                    break;
 
                 case "vender":
                     if (com.length == 4) {
@@ -547,19 +549,24 @@ public class Juego {
                 case "trato":
                     if (!partida_empezada)
                         throw new EstadoPartidaException("La partida no está iniciada.");
-                    if (!comprobaciones_trato(com))
+                    else if (!comprobaciones_trato(com))
                         throw new ComandoIncorrectoException();
-                    trato(com);
+                    else
+                        trato(com);
                     break;
 
                 case "eliminar":
-                    eliminar_trato(com[1]);
+                    if (com.length != 2)
+                        throw new ComandoIncorrectoException();
+                    else
+                        eliminar_trato(com[1]);
                     break;
 
                 case "aceptar":
                     if (com.length != 2)
                         throw new ComandoIncorrectoException();
-                    aceptar_trato(com[1]);
+                    else
+                        aceptar_trato(com[1]);
                     break;
 
                 default:
@@ -1316,7 +1323,7 @@ public class Juego {
              * Si no es la pelota o no esta en movimiento avanzado llamar a edificar normal
              */
             Casilla c = tablero.encontrar_casilla(solar);
-            if (!(avatares.get(turno) instanceof Pelota) || !movimientoAvanzado.get(turno-1)) {
+            if (!(avatares.get(turno) instanceof Pelota) || !movimientoAvanzado.get(turno - 1)) {
                 if (c != avatares.get(turno).getCasilla())
                     /* No se que tipo ponerle a esta excecion */
                     throw new NoExisteElementoException("No puedes edificar en una casilla en la que no caiste");
