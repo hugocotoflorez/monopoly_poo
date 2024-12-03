@@ -1242,7 +1242,6 @@ public class Juego {
                 movimientoAvanzadoSePuedeCambiar = true;
                 jugador_puede_comprar = true;
                 lanzamientos_dobles = 0;
-                casillasVisitadas.removeAll(casillasVisitadas); // se borran todas las casillas
 
                 this.lanzamientos = 0;
 

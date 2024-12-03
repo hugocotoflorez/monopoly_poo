@@ -53,6 +53,9 @@ public class Pelota extends Avatar {
          */
         int desplazamiento = valor1 + valor2;
 
+        /* Se borran todas las casillas visitadas anteriormente */
+        casillasVisitadas.removeAll(casillasVisitadas);
+
         if (desplazamiento > 4) {
             for (int i = 5; i <= desplazamiento + 1; i += 2) {
 
