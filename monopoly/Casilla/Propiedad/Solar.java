@@ -169,7 +169,7 @@ public class Solar extends Propiedad{
 
     private boolean puedeEdificar(Jugador solicitante){
         int numero_veces_caidas = this.getCaidasEnCasilla()[solicitante.getAvatar().getTurno()];
-        return ((this.getGrupo().esDuenhoGrupo(solicitante) || numero_veces_caidas > 2));
+        return ((this.getGrupo().esDuenhoGrupo(solicitante) && numero_veces_caidas > 2));
     }
 
     private boolean esCasaEdificable(){
