@@ -1347,12 +1347,15 @@ public class Juego {
         }
     }
 
-    // FUNCIONES PARA EDIFICAR
     private void edificar(String tipo) {
         edificar(tipo, this.jugadores.get(turno).getAvatar().getCasilla());
     }
 
     private void edificar(String tipo, Casilla c) {
+        /*
+         * Este metodo asume que la casilla es una casilla donde el jugador
+         * actual esta o rebotó siendo la pelota
+         */
         try {
             if (!partida_empezada)
                 throw new EstadoPartidaException("No puedes edificar antes de que empiece la partida.");

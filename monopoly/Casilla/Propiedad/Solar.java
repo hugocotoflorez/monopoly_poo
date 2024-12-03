@@ -48,7 +48,7 @@ public class Solar extends Propiedad{
     public void hipotecar(Jugador solicitante) throws DuenhoException, HipotecadaException, CarcelException, NumeroEdificiosException{
         if (this.edificios.size() != 0)
             throw new NumeroEdificiosException("Debes vender los edificios de " + this.getNombre() + " antes de hipotecarla.");
-        
+
         else super.hipotecar(solicitante);
     }
 
@@ -133,8 +133,8 @@ public class Solar extends Propiedad{
 
 
     //EDIFICIOS -------------------------------------
-    
-    
+
+
     public int obtenerNumeroCasas(){
         int ret = 0;
         for (Edificio e : this.edificios){
@@ -248,7 +248,7 @@ public class Solar extends Propiedad{
         }
     }
 
-    public void edificar(String tipo, Jugador solicitante) throws FortunaInsuficienteException, TipoIncorrectoException, CasaEdificableException, HotelEdificableException, 
+    public void edificar(String tipo, Jugador solicitante) throws FortunaInsuficienteException, TipoIncorrectoException, CasaEdificableException, HotelEdificableException,
         PiscinaEdificableException, PistaEdificableException, CasillaNoEdificableException, DuenhoException, HipotecadaException, CasaEdificableException{
         if(!this.puedeEdificar(solicitante))
             throw new CasillaNoEdificableException("No eres el dueño del grupo " + this.getGrupo().getID() + " y/o no has caído más de dos veces en " + this.getNombre());
@@ -256,8 +256,6 @@ public class Solar extends Propiedad{
             throw new DuenhoException("No puedes edificar en un solar que no te pertenece.");
         if(this.getHipotecada())
             throw new HipotecadaException(this.getNombre() + " está hipotecada, no puedes edificar en ella.");
-        if(!solicitante.getAvatar().getCasilla().equals(this))
-            throw new CasillaNoEdificableException("No puedes edificar en un solar desde otra casilla.");
 
             switch(tipo){
                 case "casa":
@@ -277,7 +275,7 @@ public class Solar extends Propiedad{
                         Hotel hotel = new Hotel(this);
                         pagar_edificio(solicitante, hotel);
                         Valor.NumeroHotelesConstruidos++;
-                        
+
                         //Quitar 4 casas
                         int quitadas = 0;
                         do{
@@ -291,7 +289,7 @@ public class Solar extends Propiedad{
                         } while (quitadas < 4);
                     }
                     break;
-                
+
                 case "piscina":
                     if(!this.esPiscinaEdificable())
                         throw new PiscinaEdificableException("No puedes edificar una piscina en " + this.getNombre() + " ahora mismo.");
@@ -301,7 +299,7 @@ public class Solar extends Propiedad{
                         Valor.NumeroPiscinasConstruidas++;
                     }
                     break;
-                
+
                 case "pista":
                     if(!this.esPistaDeporteEdificable())
                         throw new PiscinaEdificableException("No puedes edificar una pista de deportes en " + this.getNombre() + " ahora mismo.");
@@ -311,7 +309,7 @@ public class Solar extends Propiedad{
                         Valor.NumeroPistasConstruidos++;
                     }
                     break;
-                
+
                 default:
                     throw new TipoIncorrectoException("Tipo de edificio incorrecto. Tipos correctos: <casa>, <hotel>, <piscina>, <pista>.");
             }
@@ -364,7 +362,7 @@ public class Solar extends Propiedad{
 
         solicitante.sumarFortuna(fortuna_anhadida);
 
-        Juego.consola.imprimirln(solicitante.getNombre() + " vende " + n + " " + tipo + "s en" + this.getNombre() + " recibiendo " + fortuna_anhadida);    
+        Juego.consola.imprimirln(solicitante.getNombre() + " vende " + n + " " + tipo + "s en" + this.getNombre() + " recibiendo " + fortuna_anhadida);
         Juego.consola.imprimirln("La fortuna de " + solicitante.getNombre() + "pasa de " + (solicitante.getFortuna() - fortuna_anhadida + " a " + solicitante.getFortuna()));
     }
 
