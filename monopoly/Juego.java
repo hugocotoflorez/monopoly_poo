@@ -996,7 +996,7 @@ public class Juego {
                 jugador_puede_comprar = true;
 
             /* Para la mierda del coche */
-            else if (!jugador_puede_comprar && movimientoAvanzado.get(turno - 1))
+            if (!jugador_puede_comprar && movimientoAvanzado.get(turno - 1))
                 throw new AccionIncompatibleException("Ya has comprado en este turno.");
 
             else if (!(casilla instanceof Propiedad))
