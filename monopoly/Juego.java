@@ -8,26 +8,22 @@ import java.util.Map;
 import java.util.Set;
 
 import monopoly.Casilla.Propiedad.*;
-import monopoly.Edificio.Hotel;
 import monopoly.MonopolyException.MonopolyException;
 import monopoly.MonopolyException.AccionException.AccionIncompatibleException;
 import monopoly.MonopolyException.AccionException.CarcelException;
 import monopoly.MonopolyException.AccionException.EstadoPartidaException;
 import monopoly.MonopolyException.ComandoException.ComandoIncorrectoException;
-import monopoly.MonopolyException.AccionException.AccionIncompatibleException;
 import monopoly.MonopolyException.AccionException.FortunaInsuficienteException;
 import monopoly.MonopolyException.AccionException.NoSolventeException;
 import monopoly.MonopolyException.AccionException.NumeroJugadoresException;
 import monopoly.MonopolyException.ComandoException.NoExisteElementoException;
 import monopoly.MonopolyException.ComandoException.TipoIncorrectoException;
-import monopoly.MonopolyException.PropiedadException.ComprableException;
 import monopoly.MonopolyException.PropiedadException.TipoPropiedadException;
 import monopoly.MonopolyException.PropiedadException.EdificioException.CasaEdificableException;
 import monopoly.MonopolyException.PropiedadException.EdificioException.HotelEdificableException;
 import monopoly.MonopolyException.PropiedadException.EdificioException.NumeroEdificiosException;
 import monopoly.MonopolyException.PropiedadException.EdificioException.PiscinaEdificableException;
 import monopoly.MonopolyException.PropiedadException.EdificioException.PistaEdificableException;
-import monopoly.MonopolyException.PropiedadException.PropiedadException;
 import partida.*;
 import partida.Avatar.*;
 import partida.Carta.*;
@@ -1327,7 +1323,7 @@ public class Juego {
             throw new NoExisteElementoException("La casilla " + solar + "no existe");
 
             if (!(avatares.get(turno) instanceof Pelota) || !movimientoAvanzado.get(turno - 1)) {
-               
+
                 if (c != avatares.get(turno).getCasilla())
                     throw new NoExisteElementoException("No puedes edificar en una casilla en la que no caiste");
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import monopoly.Juego;
 import partida.*;
 import monopoly.Casilla.*;
-import monopoly.Casilla.Especial.Carcel;
 import monopoly.MonopolyException.AccionException.CarcelException;
 import monopoly.MonopolyException.AccionException.FortunaInsuficienteException;
 import monopoly.MonopolyException.PropiedadException.ComprableException;
@@ -93,10 +92,10 @@ public abstract class Propiedad extends Casilla {
     public void comprarCasilla(Jugador solicitante, Jugador banca, boolean movAv, ArrayList<Casilla> casVis) throws FortunaInsuficienteException, ComprableException, HipotecadaException, CarcelException{
         if (solicitante.getFortuna() < this.valor)
             throw new FortunaInsuficienteException(solicitante.getFortuna(), this.valor);
-        
+
         else if (solicitante.getAvatar() instanceof partida.Avatar.Pelota && movAv && !esComprable(casVis))
             throw new ComprableException("No has caído en la propiedad " + this.getNombre());
-        
+
         else if ( (!(solicitante.getAvatar() instanceof partida.Avatar.Pelota) || !movAv) && !this.esComprable(solicitante))
             throw new ComprableException("La propiedad " + this.getNombre() + " no se puede comprar.");
 
@@ -125,7 +124,7 @@ public abstract class Propiedad extends Casilla {
 
         else if (solicitante.getEnCarcel())
             throw new CarcelException("No puedes hipotecar desde la cárcel.");
-        
+
         else{
             solicitante.sumarFortuna(hipoteca);
             this.hipotecada = true;
@@ -144,10 +143,10 @@ public abstract class Propiedad extends Casilla {
 
         else if (solicitante.getEnCarcel())
             throw new CarcelException("No puedes deshipotecar desde la cárcel.");
-        
+
         else if (solicitante.getFortuna() < this.hipoteca*1.10f)
             throw new FortunaInsuficienteException(solicitante.getFortuna(), this.hipoteca*1.10f);
-        
+
         else{
             this.duenho.sumarFortuna(-hipoteca * 1.10f);
             this.hipotecada = false;

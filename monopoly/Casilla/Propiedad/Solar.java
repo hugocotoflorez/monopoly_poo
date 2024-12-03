@@ -1,7 +1,6 @@
 package monopoly.Casilla.Propiedad;
 
 import monopoly.Valor;
-import monopoly.Casilla.Especial.Carcel;
 import monopoly.Edificio.*;
 import monopoly.MonopolyException.AccionException.CarcelException;
 import monopoly.MonopolyException.AccionException.FortunaInsuficienteException;
