@@ -168,7 +168,7 @@ public class Solar extends Propiedad{
 
     private boolean puedeEdificar(Jugador solicitante){
         int numero_veces_caidas = this.getCaidasEnCasilla()[solicitante.getAvatar().getTurno()];
-        return ((this.getGrupo().esDuenhoGrupo(solicitante) && numero_veces_caidas > 2));
+        return ((this.getGrupo().esDuenhoGrupo(solicitante) || numero_veces_caidas > 2));
     }
 
     private boolean esCasaEdificable(){
@@ -327,6 +327,7 @@ public class Solar extends Propiedad{
             case "casa":
                 if (n > this.obtenerNumeroCasas())
                     throw new NumeroEdificiosException("No hay suficientes casas en " + this.getNombre() +". Sólo hay " + this.obtenerNumeroCasas());
+                break;
 
             case "hotel":
                 if (n > this.obtenerNumeroHoteles())
@@ -362,7 +363,7 @@ public class Solar extends Propiedad{
         solicitante.sumarFortuna(fortuna_anhadida);
 
         Juego.consola.imprimirln(solicitante.getNombre() + " vende " + n + " " + tipo + "s en" + this.getNombre() + " recibiendo " + fortuna_anhadida);
-        Juego.consola.imprimirln("La fortuna de " + solicitante.getNombre() + "pasa de " + (solicitante.getFortuna() - fortuna_anhadida + " a " + solicitante.getFortuna()));
+        Juego.consola.imprimirln("La fortuna de " + solicitante.getNombre() + " pasa de " + (solicitante.getFortuna() - fortuna_anhadida + " a " + solicitante.getFortuna()));
     }
 
     //Sobrecarga para demoler todos los edificios de una casilla a la vez cuando se cae en bancarrota
